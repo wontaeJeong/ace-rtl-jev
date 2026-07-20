@@ -6,10 +6,19 @@ SPDX-License-Identifier: Apache-2.0
 
 # ACE-RTL
 
-ACE-RTL is an iterative RTL generation and repair agent for the CVDP benchmark.
-It bundles the agent skill, reusable role components, CVDP integration scripts,
-and an external LLM path that defaults to the publicly available NVIDIA
-Inference API using the NVIDIA-supported Python client interface.
+[ACE-RTL](https://arxiv.org/pdf/2602.10218) is an agentic system for RTL code
+generation, verification, and iterative repair. It coordinates three core
+components, a Generator, a Reflector, and a Coordinator, through an agentic
+context evolution workflow that continuously refines the design based on tool
+feedback and prior attempts.
+
+The release includes the agent skills, reusable role components, benchmark
+integration scripts, and support for external LLM backends.
+[CVDP](https://arxiv.org/pdf/2506.14074) is included as a representative
+benchmark to demonstrate the effectiveness of ACE-RTL, rather than as the sole
+target of the framework. By default, the external LLM path uses the publicly
+available NVIDIA Inference API through an NVIDIA-supported Python client
+interface.
 
 The default hosted model is `nvidia/nemotron-3-ultra-550b-a55b` through
 `https://integrate.api.nvidia.com/v1`. API keys are read only from environment
@@ -108,9 +117,10 @@ The agent will read `skills/ace-rtl/SKILL.md`, inspect the selected CVDP rows,
 verify local harness tools, choose the native or Docker path, and preserve run
 artifacts under `outputs/`.
 
-## Direct CID016 Run
+## Command To Run
 
-For a direct non-agentic, no-commercial `cid016` run:
+For a direct non-agentic, no-commercial CVDP run, set `--cid` to the target
+category:
 
 ```bash
 export NVIDIA_API_KEY="<your NVIDIA Inference API key>"
@@ -154,3 +164,16 @@ setting up a new machine.
 
 Results are written under `outputs/`, including `run.log`, `summary.json`, and
 `results.md`.
+
+## Citation
+
+Please cite our paper if you find ACE-RTL useful:
+
+```bibtex
+@article{deng2026ace,
+  title={ACE-RTL: When Agentic Context Evolution Meets RTL-Specialized LLMs},
+  author={Deng, Chenhui and Yu, Zhongzhi and Liu, Guan-Ting and Pinckney, Nathaniel and Khailany, Brucek and Ren, Haoxing},
+  journal={NSF Workshop on Agents for Chip Design Automation (Agent4Chip)},
+  year={2026}
+}
+```
