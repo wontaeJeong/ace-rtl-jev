@@ -14,6 +14,14 @@ from pathlib import Path
 from typing import Dict, Optional
 
 
+HDL_UNIT_DECL_RE = re.compile(
+    r"(?im)^[ \t]*(?:\(\*[^\n]*\*\)[ \t]*)*"
+    r"(?:module|primitive|interface|package)(?:\s+automatic)?"
+    r"\s+[A-Za-z_][A-Za-z0-9_$]*\b"
+)
+HDL_UNIT_END_RE = re.compile(r"(?im)^[ \t]*(?:endmodule|endprimitive|endinterface|endpackage)\b")
+
+
 def load_text(path: Optional[str]) -> str:
     raw = Path(path).read_text(encoding="utf-8", errors="replace") if path else sys.stdin.read()
     try:
@@ -39,8 +47,19 @@ def load_text(path: Optional[str]) -> str:
     return raw
 
 
+def mask_sv_comments(text: str) -> str:
+    """Mask comments with spaces so regex match offsets still map to original text."""
+
+    def keep_offsets(match: re.Match[str]) -> str:
+        return re.sub(r"[^\n]", " ", match.group(0))
+
+    without_block_comments = re.sub(r"/\*.*?\*/", keep_offsets, text, flags=re.DOTALL)
+    return re.sub(r"//[^\n]*", keep_offsets, without_block_comments)
+
+
 def looks_like_hdl(text: str) -> bool:
-    return bool(re.search(r"\bmodule\s+\w+", text)) and bool(re.search(r"\bendmodule\b", text))
+    masked = mask_sv_comments(text)
+    return bool(HDL_UNIT_DECL_RE.search(masked)) and bool(HDL_UNIT_END_RE.search(masked))
 
 
 def strip_reasoning_preamble(text: str) -> str:
@@ -53,12 +72,13 @@ def strip_reasoning_preamble(text: str) -> str:
 def slice_hdl_units(text: str) -> str:
     """Return only the module...endmodule HDL region from an otherwise chatty response."""
     text = strip_reasoning_preamble(text)
-    matches = list(re.finditer(r"\b(module|primitive|interface|package)\b", text, flags=re.IGNORECASE))
-    endmodules = list(re.finditer(r"\bendmodule\b", text, flags=re.IGNORECASE))
-    if not matches or not endmodules:
+    masked = mask_sv_comments(text)
+    declarations = list(HDL_UNIT_DECL_RE.finditer(masked))
+    endings = list(HDL_UNIT_END_RE.finditer(masked))
+    if not declarations or not endings:
         return text.strip()
-    first_start = matches[0].start()
-    last_end = endmodules[-1].end()
+    first_start = declarations[0].start()
+    last_end = endings[-1].end()
     if first_start < last_end:
         return text[first_start:last_end].strip()
     return text.strip()

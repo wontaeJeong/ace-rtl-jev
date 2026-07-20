@@ -264,16 +264,34 @@ def required_native_tools_for_row(row: Dict[str, Any]) -> List[str]:
     text = row_harness_text(row)
     service_names = service_names_from_row(row)
     required: List[str] = []
+    needs_icarus = (
+        any(name.lower() in {"icarus", "iverilog"} for name in service_names)
+        or re.search(r"(?m)^\s*SIM\s*=\s*icarus\s*$", text) is not None
+        or re.search(r"get_runner\(\s*[\"']icarus[\"']\s*\)", text) is not None
+        or re.search(r"\b(?:iverilog|vvp)\b", text) is not None
+    )
+    needs_verilator = (
+        any(name.lower() == "verilator" for name in service_names)
+        or re.search(r"(?m)^\s*SIM\s*=\s*verilator\s*$", text) is not None
+        or re.search(r"get_runner\(\s*[\"']verilator[\"']\s*\)", text) is not None
+        or re.search(r"\bverilator\b", text) is not None
+    )
     needs_xcelium = (
         any(name.lower() in {"xrun", "xcelium"} for name in service_names)
         or re.search(r"(?m)^\s*SIM\s*=\s*xcelium\s*$", text) is not None
         or re.search(r"get_runner\(\s*[\"']xcelium[\"']\s*\)", text) is not None
         or re.search(r"\bxrun\b", text) is not None
     )
+    if needs_icarus:
+        required.extend(["iverilog", "vvp"])
+    if needs_verilator:
+        required.append("verilator")
     if needs_xcelium:
         required.append(os.environ.get("CVDP_NATIVE_XRUN_CMD", "xrun"))
     if needs_xcelium or re.search(r"\bimc\b", text):
         required.append(os.environ.get("CVDP_NATIVE_IMC_CMD", "imc"))
+    if re.search(r"\byosys\b", text):
+        required.append("yosys")
 
     unique: List[str] = []
     for tool in required:
@@ -494,5 +512,4 @@ def result_passed(result: Dict[str, Any]) -> bool:
     if result.get("errors", 1) != 0:
         return False
     return all(test.get("result", 1) == 0 for test in result.get("tests", []))
-
 

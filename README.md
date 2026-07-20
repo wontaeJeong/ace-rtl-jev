@@ -40,8 +40,17 @@ is not already present, installs the Python requirements, and downloads CVDP
 JSONL files from Hugging Face repo `nvidia/cvdp-benchmark-dataset`. Existing
 datasets are reused.
 
-Install native simulator tools with your system package manager if they are not
-already available. On Ubuntu/Debian this is typically:
+First check whether native simulator tools are already available in the shell
+that will run ACE-RTL:
+
+```bash
+command -v iverilog vvp verilator yosys make
+```
+
+If your site provides tools through modules, Conda/Mamba, or installation roots
+such as `IVERILOG_HOME`, load that environment first and rerun the check. Install
+native simulator tools only if they are still unavailable. On Ubuntu/Debian this
+is typically:
 
 ```bash
 sudo apt-get update
@@ -107,6 +116,11 @@ For a direct non-agentic, no-commercial `cid016` run:
 export NVIDIA_API_KEY="<your NVIDIA Inference API key>"
 export CVDP_NATIVE_HARNESS=1
 
+# The native runner uses open-source simulator tools from this shell.
+# Load your site/module/Conda environment first, or prepend a tool root.
+# The run will preflight required tools such as iverilog/vvp before evaluation.
+command -v iverilog vvp
+
 .cvdp-native/bin/python3 skills/ace-rtl/scripts/ace_cvdp_native_runner.py \
   --workspace "$PWD" \
   --cvdp-repo "$PWD/external/cvdp_benchmark" \
@@ -116,8 +130,24 @@ export CVDP_NATIVE_HARNESS=1
   --reflector-model nvidia/nemotron-3-ultra-550b-a55b \
   --coordinator-model nvidia/nemotron-3-ultra-550b-a55b \
   --attempts 5 \
+  --datapoint-workers 5 \
   --max-iterations 30
 ```
+
+If `command -v iverilog vvp` fails but the tools are installed under explicit
+roots, set those roots before launching the runner:
+
+```bash
+export IVERILOG_HOME=/path/to/iverilog
+export VERILATOR_HOME=/path/to/verilator
+export YOSYS_HOME=/path/to/yosys
+export PATH="$IVERILOG_HOME/bin:$VERILATOR_HOME/bin:$YOSYS_HOME/bin:$PATH"
+command -v iverilog vvp verilator yosys
+```
+
+ACE-RTL does not install simulator binaries during a run. It uses tools already
+discoverable from the environment and writes `native_tool_preflight.json` in the
+run directory showing which tools were required, found, or missing.
 
 Use `--attempts 1 --max-iterations 1 --limit 1` first for a shakedown if you are
 setting up a new machine.

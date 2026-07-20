@@ -42,8 +42,27 @@ matches the `imc` version reading coverage data.
 
 ## Install Simulation Backends
 
-Use one of these install paths when Docker is unavailable. `vvp` is installed by
-the `iverilog` package.
+Before installing anything, check whether the required open-source tools are
+already available:
+
+```bash
+command -v iverilog vvp verilator yosys make
+```
+
+If they are not on `PATH`, first load any documented module or Conda/Mamba
+environment your site provides. If tools are installed under explicit roots,
+prepend their `bin` directories and check again:
+
+```bash
+export IVERILOG_HOME=/path/to/iverilog
+export VERILATOR_HOME=/path/to/verilator
+export YOSYS_HOME=/path/to/yosys
+export PATH="$IVERILOG_HOME/bin:$VERILATOR_HOME/bin:$YOSYS_HOME/bin:$PATH"
+command -v iverilog vvp verilator yosys
+```
+
+Use one of these install paths only when Docker is unavailable and the tools are
+still absent. `vvp` is installed by the `iverilog` package.
 
 Ubuntu/Debian with sudo:
 

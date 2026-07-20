@@ -31,12 +31,28 @@ import yaml
 
 from .config import *
 
+HDL_UNIT_DECL_RE = re.compile(
+    r"(?im)^[ \t]*(?:\(\*[^\n]*\*\)[ \t]*)*"
+    r"(?:module|primitive|interface|package)(?:\s+automatic)?"
+    r"\s+[A-Za-z_][A-Za-z0-9_$]*\b"
+)
+HDL_UNIT_END_RE = re.compile(r"(?im)^[ \t]*(?:endmodule|endprimitive|endinterface|endpackage)\b")
+
+
 def strip_sv_comments(text: str) -> str:
     def keep_newlines(match: re.Match[str]) -> str:
         return "\n" * match.group(0).count("\n")
 
     without_block = re.sub(r"/\*.*?\*/", keep_newlines, text, flags=re.DOTALL)
     return re.sub(r"//.*", "", without_block)
+
+
+def mask_sv_comments(text: str) -> str:
+    def keep_offsets(match: re.Match[str]) -> str:
+        return re.sub(r"[^\n]", " ", match.group(0))
+
+    without_block = re.sub(r"/\*.*?\*/", keep_offsets, text, flags=re.DOTALL)
+    return re.sub(r"//[^\n]*", keep_offsets, without_block)
 
 
 def split_sv_decl_list(text: str) -> List[str]:
@@ -510,10 +526,11 @@ def strip_reasoning_from_generated_sv(code: str) -> Tuple[str, bool]:
     original = code
     cleaned = re.sub(r"(?is)<think\b[^>]*>.*?</think>\s*", "", code).strip()
     cleaned = re.sub(r"(?is)^.*?</think>\s*", "", cleaned).strip()
-    first_module = re.search(r"\bmodule\b", cleaned, flags=re.IGNORECASE)
+    masked = mask_sv_comments(cleaned)
+    first_module = HDL_UNIT_DECL_RE.search(masked)
     if first_module:
         last_endmodule = None
-        for match in re.finditer(r"\bendmodule\b", cleaned, flags=re.IGNORECASE):
+        for match in HDL_UNIT_END_RE.finditer(masked):
             last_endmodule = match
         if last_endmodule and first_module.start() < last_endmodule.end():
             cleaned = cleaned[first_module.start() : last_endmodule.end()].strip()
@@ -625,5 +642,3 @@ def read_generated_candidate_files(generated_files: Dict[str, str]) -> Dict[str,
         if path.exists():
             contents[name] = path.read_text(encoding="utf-8", errors="replace")
     return contents
-
-

@@ -20,6 +20,10 @@ coverage tool, or license unavailable for a CVDP native run.
 - Check the current shell first with `command -v <tool>` and the vendor's
   non-mutating version command, for example `xrun -version`, `imc -version`, or
   `verilator --version`.
+- For open-source tools, discover before installing: check `PATH`, then any
+  active module or Conda/Mamba environment, then common roots such as
+  `IVERILOG_HOME`, `VERILATOR_HOME`, and `YOSYS_HOME` with their `bin`
+  directories prepended to `PATH`.
 - Prefer documented site setup methods such as environment modules, vendor
   setup scripts, or administrator-provided shell fragments. Do not assume any
   organization-specific filesystem layout.
@@ -42,8 +46,8 @@ No-commercial CVDP rows commonly use:
 command -v python3 git make iverilog vvp verilator yosys
 ```
 
-Install these through the system package manager, Conda/Mamba, or another
-documented local package source.
+If any are missing after environment discovery, install them through the system
+package manager, Conda/Mamba, or another documented local package source.
 
 Commercial or coverage-oriented rows may require Cadence tools:
 
