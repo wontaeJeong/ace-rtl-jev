@@ -1,40 +1,66 @@
 # SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-"""NVIDIA Inference/custom LLM backend for ACE-RTL."""
-
-from __future__ import annotations
-
 import json
 import logging
+import multiprocessing as mp
 import os
 import re
+import shutil
 import subprocess
-import sys
+import tempfile
+import urllib.error
+import urllib.request
 from typing import Any, Dict, List, Optional
 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-DEFAULT_MODEL_ALIAS = "nvidia/nemotron-3-ultra-550b-a55b"
-DEFAULT_MODEL_ID = DEFAULT_MODEL_ALIAS
-DEFAULT_NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
+DEFAULT_MODEL_ALIAS = "nemotron3-ultra"
+DEFAULT_MODEL_ID = "nvidia/nvidia/nemotron-3-ultra"
+NVIDIA_BUILD_MODEL_ID = "nvidia/nemotron-3-ultra-550b-a55b"
+
+NVIDIA_INFERENCE_ALIASES = {
+    "nemotron3-ultra",
+    "nemotron-3-ultra",
+    "nemotron-ultra",
+    "ultra",
+    "nvidia/nemotron-3-ultra",
+    "nvidia/nemotron-3-ultra-550b-a55b",
+    "nvidia/nvidia/nemotron-3-ultra",
+}
+
+DEFAULT_NVIDIA_BASE_URL = "https://inference-api.nvidia.com/v1"
+DEFAULT_OPENAI_BASE_URL = "https://api.openai.com/v1"
 
 MODEL_CONTEXT_TOKENS = {
-    "nvidia/nemotron-3-ultra": 262144,
     "nemotron": 262144,
 }
 DEFAULT_CONTEXT_TOKENS = 128000
+
+MODEL_MAX_OUTPUT_TOKENS = {
+    "nemotron": 32768,
+}
 DEFAULT_MAX_OUTPUT_TOKENS = 32768
-DEFAULT_REASONING_BUDGET = 32768
+MAX_SOCKET_TIMEOUT = 300
 RESPONSE_TOKEN_RESERVE = 40000
-CHARS_PER_TOKEN = float(os.getenv("ACE_RTL_PROMPT_CHARS_PER_TOKEN", "0.75"))
 
 
 def resolve_model_name(model_name: str) -> str:
-    """Resolve an empty model name to the configured ACE-RTL default."""
-    return (model_name or os.environ.get("ACE_RTL_MODEL") or DEFAULT_MODEL_ALIAS).strip()
+    """Resolve public model aliases to provider model names."""
+    name = (model_name or DEFAULT_MODEL_ALIAS).strip()
+    if name.lower() in NVIDIA_INFERENCE_ALIASES:
+        base = nvidia_base_url().lower()
+        if "integrate.api.nvidia.com" in base or "build.nvidia.com" in base:
+            return NVIDIA_BUILD_MODEL_ID
+        return DEFAULT_MODEL_ID
+    return name
+
+
+def is_nvidia_inference_model(model_name: str) -> bool:
+    low = (model_name or "").lower()
+    return low.startswith("nvidia/") or "nemotron" in low
 
 
 def env_flag(name: str, default: bool) -> bool:
@@ -44,12 +70,12 @@ def env_flag(name: str, default: bool) -> bool:
     return value.strip().lower() not in {"0", "false", "no", "off", ""}
 
 
+def nvidia_reasoning_enabled() -> bool:
+    return env_flag("ACE_RTL_ENABLE_REASONING", True)
+
+
 def streaming_enabled() -> bool:
     return env_flag("ACE_RTL_STREAM", True)
-
-
-def reasoning_enabled() -> bool:
-    return env_flag("ACE_RTL_ENABLE_REASONING", True)
 
 
 def env_positive_int(name: str, default: int) -> int:
@@ -67,22 +93,30 @@ def nvidia_base_url() -> str:
     return (
         os.environ.get("NVIDIA_BASE_URL")
         or os.environ.get("NVIDIA_INFERENCE_BASE_URL")
-        or os.environ.get("ACE_RTL_BASE_URL")
         or DEFAULT_NVIDIA_BASE_URL
     ).rstrip("/")
 
 
+def openai_base_url() -> str:
+    return os.environ.get("OPENAI_BASE_URL", DEFAULT_OPENAI_BASE_URL).rstrip("/")
+
+
+def nvidia_endpoint_supports_reasoning_budget(endpoint: str) -> bool:
+    low = (endpoint or "").lower()
+    return "integrate.api.nvidia.com" in low or "build.nvidia.com" in low
+
+
 def nvidia_api_key() -> Optional[str]:
-    return os.environ.get("NVIDIA_API_KEY")
+    return (
+        os.environ.get("NVIDIA_API_KEY")
+        or os.environ.get("NVIDIA_NIM_API_KEY")
+        or os.environ.get("NVAPI_KEY")
+        or os.environ.get("NV_INFERENCE_API_KEY")
+    )
 
 
-def custom_script_path() -> Optional[str]:
-    value = os.environ.get("ACE_RTL_LLM_SCRIPT")
-    return value.strip() if value and value.strip() else None
-
-
-def custom_script_configured() -> bool:
-    return bool(custom_script_path())
+def openai_api_key() -> Optional[str]:
+    return os.environ.get("OPENAI_API_KEY")
 
 
 def get_model_context_tokens(model_name: str) -> int:
@@ -90,23 +124,24 @@ def get_model_context_tokens(model_name: str) -> int:
     for key, tokens in MODEL_CONTEXT_TOKENS.items():
         if key in low:
             return tokens
-    return env_positive_int("ACE_RTL_CONTEXT_TOKENS", DEFAULT_CONTEXT_TOKENS)
+    return DEFAULT_CONTEXT_TOKENS
 
 
 def get_model_max_output_tokens(model_name: str) -> int:
-    del model_name
-    fallback = env_positive_int("NEMOTRON_MAX_TOKENS", DEFAULT_MAX_OUTPUT_TOKENS)
-    return env_positive_int("ACE_RTL_MAX_TOKENS", fallback)
+    low = (model_name or "").lower()
+    if is_nvidia_inference_model(model_name) and os.environ.get("NEMOTRON_MAX_TOKENS"):
+        return env_positive_int("NEMOTRON_MAX_TOKENS", DEFAULT_MAX_OUTPUT_TOKENS)
+    for key, tokens in MODEL_MAX_OUTPUT_TOKENS.items():
+        if key in low:
+            return tokens
+    return DEFAULT_MAX_OUTPUT_TOKENS
 
 
-def get_reasoning_budget(max_tokens: int) -> int:
-    default_budget = min(DEFAULT_REASONING_BUDGET, max_tokens)
-    fallback = env_positive_int("NEMOTRON_REASONING_BUDGET", default_budget)
-    return env_positive_int("ACE_RTL_REASONING_BUDGET", fallback)
+CHARS_PER_TOKEN = float(os.getenv("ACE_RTL_PROMPT_CHARS_PER_TOKEN", "0.75"))
 
 
 def enforce_prompt_char_budget(prompt: str, model_name: str, logger_obj=None) -> str:
-    """Bound a prompt to the configured model context window with middle truncation."""
+    """Bound a prompt to the model context window with middle truncation."""
     context_tokens = get_model_context_tokens(model_name)
     input_token_budget = max(1000, context_tokens - RESPONSE_TOKEN_RESERVE)
     max_chars = int(input_token_budget * CHARS_PER_TOKEN)
@@ -165,239 +200,401 @@ def strip_visible_reasoning_tags(text: str) -> str:
     return cleaned
 
 
-def _obj_get(obj: Any, name: str, default: Any = None) -> Any:
-    if isinstance(obj, dict):
-        return obj.get(name, default)
-    return getattr(obj, name, default)
-
-
-def _model_dump(obj: Any) -> Dict[str, Any]:
-    if isinstance(obj, dict):
-        return obj
-    if hasattr(obj, "model_dump"):
-        return obj.model_dump()
-    if hasattr(obj, "dict"):
-        return obj.dict()
-    return {"raw": str(obj)}
-
-
-def validate_nvidia_api_key(api_key: Optional[str] = None) -> Dict[str, Any]:
-    key = api_key or nvidia_api_key()
-    if not key and not custom_script_configured():
-        return {"valid": False, "message": "NVIDIA_API_KEY is not set"}
-    return {"valid": True, "message": "LLM credentials or custom adapter are configured"}
-
-
-def check_model_availability(model_name: str, api_key: Optional[str] = None) -> Dict[str, Any]:
-    resolved = resolve_model_name(model_name)
-    key = api_key or nvidia_api_key()
-    if not key and not custom_script_configured():
-        return {
-            "available": False,
-            "model_id": resolved,
-            "message": "NVIDIA_API_KEY is not set",
-        }
-    return {"available": True, "model_id": resolved, "message": "Configured"}
-
-
-
-class LLMBackend:
-    """LLM backend for NVIDIA Inference API or a user-provided adapter script."""
-
-    def __init__(self, model: str = DEFAULT_MODEL_ALIAS, provider: str = "auto"):
-        self.model = resolve_model_name(model)
-        self.provider = self._resolve_provider(provider)
-        self.client = self._provider_client(self.provider)
-        logger.info("Initialized LLM backend provider=%s model=%s", self.provider, self.model)
-
-    @staticmethod
-    def _resolve_provider(provider: str) -> str:
-        if provider == "auto":
-            return "custom" if custom_script_configured() else "nvidia"
-        if provider not in {"nvidia", "custom"}:
-            raise ValueError(f"unsupported LLM provider: {provider}")
-        return provider
-
-    @staticmethod
-    def _provider_client(provider: str) -> Any:
-        if provider == "custom":
-            if not custom_script_configured():
-                raise ValueError("ACE_RTL_LLM_SCRIPT must be set for custom LLM provider")
-            return None
-        key = nvidia_api_key()
-        if not key:
-            raise ValueError("NVIDIA_API_KEY must be set for NVIDIA Inference API calls")
+def _urlopen_json_worker(endpoint: str, body: bytes, headers: Dict[str, str], socket_timeout: int, conn) -> None:
+    try:
+        req = urllib.request.Request(endpoint, data=body, headers=headers)
+        with urllib.request.urlopen(req, timeout=socket_timeout) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        conn.send({"ok": True, "payload": payload})
+    except urllib.error.HTTPError as e:
         try:
-            from openai import OpenAI
-        except ImportError as exc:
-            raise RuntimeError("Install the openai Python package to use NVIDIA Inference API") from exc
-        return OpenAI(base_url=nvidia_base_url(), api_key=key)
+            error_body = e.read().decode("utf-8", errors="replace")[:500]
+        except Exception:
+            error_body = ""
+        detail = error_body or e.reason or ""
+        conn.send({"ok": False, "error": f"HTTP {e.code}: {detail}"})
+    except Exception as e:
+        conn.send({"ok": False, "error": str(e)})
+    finally:
+        conn.close()
 
-    def _request_timeout(self) -> int:
-        return env_positive_int(
-            "ACE_RTL_LLM_TIMEOUT",
-            env_positive_int("NVIDIA_TIMEOUT", 1800),
-        )
 
-    def _extra_body(self, max_tokens: int) -> Dict[str, Any]:
-        if not reasoning_enabled():
-            return {"chat_template_kwargs": {"enable_thinking": False}}
-        return {
-            "chat_template_kwargs": {"enable_thinking": True},
-            "reasoning_budget": get_reasoning_budget(max_tokens),
-        }
+def _curl_quote(value: str) -> str:
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ") + '"'
 
-    def _complete_with_custom_script(
-        self,
-        messages: List[Dict[str, str]],
-        temperature: float,
-        top_p: float,
-        max_tokens: int,
-    ) -> Dict[str, Any]:
-        script = custom_script_path()
-        if not script:
-            raise ValueError("ACE_RTL_LLM_SCRIPT must be set for custom LLM provider")
-        cmd = [script]
-        if script.endswith(".py") and not os.access(script, os.X_OK):
-            cmd = [sys.executable, script]
-        request = {
-            "model": self.model,
-            "messages": messages,
-            "temperature": temperature,
-            "top_p": top_p,
-            "max_tokens": max_tokens,
-            "stream": streaming_enabled(),
-            "extra_body": self._extra_body(max_tokens),
-        }
+
+def _json_request_with_curl(endpoint: str, body: bytes, headers: Dict[str, str], timeout_seconds: int) -> Dict[str, Any]:
+    curl = shutil.which("curl")
+    if not curl:
+        raise RuntimeError("curl is not available")
+
+    body_path = None
+    try:
+        with tempfile.NamedTemporaryFile(prefix="ace_rtl_llm_body_", suffix=".json", delete=False) as body_file:
+            body_file.write(body)
+            body_path = body_file.name
+        os.chmod(body_path, 0o600)
+
+        config_lines = [
+            f"url = {_curl_quote(endpoint)}",
+            "request = POST",
+            f"data-binary = {_curl_quote('@' + body_path)}",
+        ]
+        for key, value in headers.items():
+            config_lines.append(f"header = {_curl_quote(f'{key}: {value}')}")
+        config = "\n".join(config_lines) + "\n"
+
         proc = subprocess.run(
-            cmd,
-            input=json.dumps(request),
+            [
+                curl,
+                "--silent",
+                "--show-error",
+                "--http1.1",
+                "--location",
+                "--fail-with-body",
+                "--max-time",
+                str(timeout_seconds),
+                "--connect-timeout",
+                str(min(30, timeout_seconds)),
+                "--config",
+                "-",
+            ],
+            input=config,
             text=True,
             capture_output=True,
-            timeout=self._request_timeout(),
+            timeout=timeout_seconds + 15,
         )
         if proc.returncode != 0:
-            detail = (proc.stderr or proc.stdout or "").strip()[:1200]
-            raise RuntimeError(f"custom LLM script exited {proc.returncode}: {detail}")
-        output = proc.stdout.strip()
-        if not output:
-            raise ValueError("custom LLM script returned empty output")
-        try:
-            payload = json.loads(output)
-        except json.JSONDecodeError:
-            content = output
-        else:
-            if isinstance(payload, dict) and payload.get("choices"):
-                return payload
-            if isinstance(payload, dict) and "content" in payload:
-                content = message_content_to_text(payload.get("content"))
-            else:
-                content = json.dumps(payload)
-        return {
-            "model": self.model,
-            "choices": [
-                {
-                    "index": 0,
-                    "message": {"role": "assistant", "content": content},
-                    "finish_reason": "stop",
-                }
-            ],
-            "custom": True,
-        }
+            detail = (proc.stdout or proc.stderr or "").strip()[:1000]
+            raise RuntimeError(f"curl exited {proc.returncode}: {detail}")
+        return json.loads(proc.stdout)
+    finally:
+        if body_path:
+            try:
+                os.unlink(body_path)
+            except FileNotFoundError:
+                pass
 
-    def _stream_nvidia_completion(
-        self,
-        messages: List[Dict[str, str]],
-        temperature: float,
-        top_p: float,
-        max_tokens: int,
-    ) -> Dict[str, Any]:
-        completion = self.client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            temperature=temperature,
-            top_p=top_p,
-            max_tokens=max_tokens,
-            extra_body=self._extra_body(max_tokens),
-            stream=True,
-            timeout=self._request_timeout(),
+
+def _curl_failure_should_retry_without_urllib(error: Exception) -> bool:
+    text = str(error).lower()
+    retry_indicators = (
+        "curl exited 22",
+        "curl exited 28",
+        "429",
+        "500",
+        "502",
+        "503",
+        "504",
+        "too many requests",
+        "bad gateway",
+        "service unavailable",
+        "gateway time-out",
+        "gateway timeout",
+        "operation timed out",
+    )
+    return any(indicator in text for indicator in retry_indicators)
+
+
+def urlopen_json_with_total_timeout(req, timeout_seconds: int) -> Dict[str, Any]:
+    """Read a JSON HTTP response with a hard wall-clock timeout."""
+    timeout_seconds = max(30, int(timeout_seconds))
+    socket_timeout = max(1, min(timeout_seconds, MAX_SOCKET_TIMEOUT))
+
+    endpoint = req.full_url
+    body = req.data or b""
+    headers = dict(req.header_items())
+
+    try:
+        return _json_request_with_curl(endpoint, body, headers, timeout_seconds)
+    except Exception as e:
+        if _curl_failure_should_retry_without_urllib(e):
+            raise RuntimeError(f"transient curl failure: {e}") from e
+        logger.warning("curl request path failed, falling back to urllib worker: %s", e)
+
+    parent_conn, child_conn = mp.Pipe(duplex=False)
+    proc = mp.Process(
+        target=_urlopen_json_worker,
+        args=(endpoint, body, headers, socket_timeout, child_conn),
+        daemon=True,
+    )
+    proc.start()
+    child_conn.close()
+    proc.join(timeout_seconds)
+
+    if proc.is_alive():
+        proc.terminate()
+        proc.join(5)
+        if proc.is_alive():
+            proc.kill()
+            proc.join(5)
+        parent_conn.close()
+        raise TimeoutError(f"HTTP request exceeded {timeout_seconds}s wall-clock timeout")
+
+    if not parent_conn.poll():
+        exitcode = proc.exitcode
+        parent_conn.close()
+        raise RuntimeError(f"HTTP request process exited without a response (exitcode={exitcode})")
+
+    result = parent_conn.recv()
+    parent_conn.close()
+    if result.get("ok"):
+        return result["payload"]
+    raise RuntimeError(result.get("error") or "HTTP request failed")
+
+
+def _parse_stream_data_line(line: str) -> Optional[Dict[str, Any]]:
+    line = line.strip()
+    if not line:
+        return None
+    if line.startswith("data:"):
+        line = line[len("data:") :].strip()
+    if not line or line == "[DONE]":
+        return None
+    return json.loads(line)
+
+
+def _stream_delta_text(delta: Dict[str, Any], key: str) -> str:
+    if key not in delta:
+        return ""
+    return message_content_to_text(delta.get(key))
+
+
+def stream_chat_completion_with_total_timeout(
+    endpoint: str,
+    body_payload: Dict[str, Any],
+    headers: Dict[str, str],
+    timeout_seconds: int,
+) -> Dict[str, Any]:
+    """Read a streaming OpenAI-compatible chat completion into a normal payload."""
+    curl = shutil.which("curl")
+    if not curl:
+        raise RuntimeError("curl is required for streaming chat completions")
+
+    timeout_seconds = max(30, int(timeout_seconds))
+    stream_headers = dict(headers)
+    stream_headers["Accept"] = "text/event-stream"
+    stream_body = dict(body_payload)
+    stream_body["stream"] = True
+    body = json.dumps(stream_body).encode("utf-8")
+
+    body_path = None
+    try:
+        with tempfile.NamedTemporaryFile(prefix="ace_rtl_llm_stream_", suffix=".json", delete=False) as body_file:
+            body_file.write(body)
+            body_path = body_file.name
+        os.chmod(body_path, 0o600)
+
+        config_lines = [
+            f"url = {_curl_quote(endpoint)}",
+            "request = POST",
+            f"data-binary = {_curl_quote('@' + body_path)}",
+        ]
+        for key, value in stream_headers.items():
+            config_lines.append(f"header = {_curl_quote(f'{key}: {value}')}")
+        config = "\n".join(config_lines) + "\n"
+
+        proc = subprocess.run(
+            [
+                curl,
+                "--silent",
+                "--show-error",
+                "--http1.1",
+                "--location",
+                "--fail-with-body",
+                "--no-buffer",
+                "--max-time",
+                str(timeout_seconds),
+                "--connect-timeout",
+                str(min(30, timeout_seconds)),
+                "--config",
+                "-",
+            ],
+            input=config,
+            text=True,
+            capture_output=True,
+            timeout=timeout_seconds + 15,
         )
+        if proc.returncode != 0:
+            detail = (proc.stdout or proc.stderr or "").strip()[:1200]
+            raise RuntimeError(f"curl exited {proc.returncode}: {detail}")
+
+        stripped = proc.stdout.strip()
+        if stripped.startswith("{"):
+            payload = json.loads(stripped)
+            if not payload.get("choices"):
+                raise ValueError("JSON response contained no choices")
+            return payload
+
         content_parts: List[str] = []
         reasoning_parts: List[str] = []
         finish_reason = None
-        response_model = self.model
+        usage = None
+        model = stream_body.get("model")
         response_id = None
+        created = None
 
-        for chunk in completion:
-            response_id = _obj_get(chunk, "id", response_id)
-            response_model = _obj_get(chunk, "model", response_model)
-            choices = _obj_get(chunk, "choices", []) or []
+        for raw_line in proc.stdout.splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith(":"):
+                continue
+            event = _parse_stream_data_line(line)
+            if not event:
+                continue
+            model = event.get("model", model)
+            response_id = event.get("id", response_id)
+            created = event.get("created", created)
+            usage = event.get("usage") or usage
+            choices = event.get("choices") or []
             if not choices:
                 continue
             choice = choices[0]
-            finish_reason = _obj_get(choice, "finish_reason", finish_reason)
-            delta = _obj_get(choice, "delta", {})
-            reasoning = _obj_get(delta, "reasoning_content")
-            content = _obj_get(delta, "content")
-            if reasoning:
-                reasoning_parts.append(str(reasoning))
-            if content is not None:
-                content_parts.append(str(content))
+            finish_reason = choice.get("finish_reason") or finish_reason
+            delta = choice.get("delta") or {}
+            message = choice.get("message") or {}
+            content_parts.append(_stream_delta_text(delta, "content"))
+            content_parts.append(_stream_delta_text(message, "content"))
+            reasoning_parts.append(_stream_delta_text(delta, "reasoning_content"))
+            reasoning_parts.append(_stream_delta_text(delta, "reasoning"))
+            reasoning_parts.append(_stream_delta_text(message, "reasoning_content"))
+            reasoning_parts.append(_stream_delta_text(message, "reasoning"))
 
         return {
             "id": response_id,
-            "model": response_model,
+            "created": created,
+            "model": model,
             "choices": [
                 {
                     "index": 0,
                     "message": {
                         "role": "assistant",
-                        "content": "".join(content_parts),
-                        "reasoning_content": "".join(reasoning_parts),
+                        "content": "".join(part for part in content_parts if part),
+                        "reasoning_content": "".join(part for part in reasoning_parts if part),
                     },
                     "finish_reason": finish_reason,
                 }
             ],
+            "usage": usage,
             "stream": True,
         }
+    finally:
+        if body_path:
+            try:
+                os.unlink(body_path)
+            except FileNotFoundError:
+                pass
 
-    def _nonstream_nvidia_completion(
+
+def validate_nv_inference_api_key(api_key: Optional[str] = None) -> Dict[str, Any]:
+    key = api_key or nvidia_api_key()
+    if not key:
+        return {"valid": False, "message": "NVIDIA_API_KEY/NVIDIA_NIM_API_KEY/NVAPI_KEY/NV_INFERENCE_API_KEY not set"}
+    return {"valid": True, "message": "NVIDIA API key is configured"}
+
+
+def check_model_availability(model_name: str, api_key: Optional[str] = None) -> Dict[str, Any]:
+    key = api_key or nvidia_api_key()
+    resolved = resolve_model_name(model_name)
+    if is_nvidia_inference_model(resolved) and not key:
+        return {
+            "available": False,
+            "model_id": resolved,
+            "message": "NVIDIA_API_KEY/NVIDIA_NIM_API_KEY/NVAPI_KEY/NV_INFERENCE_API_KEY not set",
+        }
+    return {"available": True, "model_id": resolved, "message": "Configured"}
+
+
+class LLMBackend:
+    """Open-source LLM backend for NVIDIA Inference Gateway or standard OpenAI API."""
+
+    def __init__(self, model: str = DEFAULT_MODEL_ALIAS, provider: str = "auto"):
+        self.model = resolve_model_name(model)
+        self.provider = self._resolve_provider(provider, self.model)
+        self.endpoint, self.headers = self._provider_config(self.provider)
+        logger.info("Initialized LLM backend provider=%s model=%s", self.provider, self.model)
+
+    @staticmethod
+    def _resolve_provider(provider: str, model: str) -> str:
+        if provider != "auto":
+            if provider not in {"nvidia", "openai"}:
+                raise ValueError(f"unsupported LLM provider: {provider}")
+            return provider
+        return "nvidia" if is_nvidia_inference_model(model) else "openai"
+
+    @staticmethod
+    def _provider_config(provider: str) -> tuple[str, Dict[str, str]]:
+        if provider == "nvidia":
+            key = nvidia_api_key()
+            if not key:
+                raise ValueError("NVIDIA_API_KEY, NVIDIA_NIM_API_KEY, NVAPI_KEY, or NV_INFERENCE_API_KEY must be set")
+            return (
+                f"{nvidia_base_url()}/chat/completions",
+                {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
+            )
+        if provider == "openai":
+            key = openai_api_key()
+            if not key:
+                raise ValueError("OPENAI_API_KEY must be set for OpenAI API calls")
+            return (
+                f"{openai_base_url()}/chat/completions",
+                {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
+            )
+        raise ValueError(f"unsupported LLM provider: {provider}")
+
+    def _request_timeout(self) -> int:
+        if self.provider == "nvidia":
+            return int(os.getenv("NEMOTRON_TIMEOUT", "1800"))
+        return int(os.getenv("OPENAI_TIMEOUT", os.getenv("NEMOTRON_TIMEOUT", "1800")))
+
+    def _request_body_from_messages(
         self,
         messages: List[Dict[str, str]],
         temperature: float,
-        top_p: float,
         max_tokens: int,
     ) -> Dict[str, Any]:
-        completion = self.client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            temperature=temperature,
-            top_p=top_p,
-            max_tokens=max_tokens,
-            extra_body=self._extra_body(max_tokens),
-            stream=False,
-            timeout=self._request_timeout(),
-        )
-        return _model_dump(completion)
+        body: Dict[str, Any] = {
+            "model": self.model,
+            "messages": messages,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+        if self.provider == "nvidia":
+            reasoning_on = nvidia_reasoning_enabled()
+            body["chat_template_kwargs"] = {
+                "enable_thinking": reasoning_on,
+                "force_nonempty_content": True,
+            }
+            if nvidia_endpoint_supports_reasoning_budget(self.endpoint):
+                body["reasoning_effort"] = "high" if reasoning_on else "none"
+                if reasoning_on:
+                    body["reasoning_budget"] = env_positive_int("NEMOTRON_REASONING_BUDGET", max_tokens)
+        return body
 
     def _complete_messages(
         self,
         messages: List[Dict[str, str]],
         temperature: float,
         max_tokens: Optional[int] = None,
-        top_p: Optional[float] = None,
     ) -> Dict[str, Any]:
         if max_tokens is None:
             max_tokens = get_model_max_output_tokens(self.model)
-        if top_p is None:
-            top_p = float(os.getenv("ACE_RTL_TOP_P", "0.95"))
 
-        if self.provider == "custom":
-            return self._complete_with_custom_script(messages, temperature, top_p, max_tokens)
+        body = self._request_body_from_messages(messages, temperature, max_tokens)
+        timeout = self._request_timeout()
         if streaming_enabled():
-            payload = self._stream_nvidia_completion(messages, temperature, top_p, max_tokens)
+            payload = stream_chat_completion_with_total_timeout(
+                self.endpoint,
+                body,
+                self.headers,
+                timeout,
+            )
         else:
-            payload = self._nonstream_nvidia_completion(messages, temperature, top_p, max_tokens)
+            req = urllib.request.Request(
+                self.endpoint,
+                data=json.dumps(body).encode("utf-8"),
+                headers=self.headers,
+            )
+            payload = urlopen_json_with_total_timeout(req, timeout)
 
         if not payload.get("choices"):
             raise ValueError("Response contained no choices")
@@ -449,7 +646,10 @@ class LLMBackend:
         max_tokens: Optional[int] = None,
     ) -> Dict[str, Any]:
         if temperature is None:
-            temperature = float(os.getenv("ACE_RTL_TEMPERATURE", "0.2"))
+            if is_nvidia_inference_model(self.model):
+                temperature = float(os.getenv("NEMOTRON_TEMPERATURE", "0.2"))
+            else:
+                temperature = float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
         if max_tokens is None:
             max_tokens = get_model_max_output_tokens(self.model)
         payload = self._complete_messages(messages, temperature, max_tokens)
@@ -473,9 +673,13 @@ class LLMBackend:
         max_tokens: Optional[int] = None,
     ) -> str:
         if temperature is None:
-            temperature = float(os.getenv("ACE_RTL_TEMPERATURE", "0.2"))
+            if is_nvidia_inference_model(self.model):
+                temperature = float(os.getenv("NEMOTRON_TEMPERATURE", "0.2"))
+            else:
+                temperature = float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
         prompt = enforce_prompt_char_budget(prompt, self.model, logger)
         return self._get_model_response(prompt, temperature, max_tokens=max_tokens)
 
 
+# Backward-compatible alias for older in-package call sites during migration.
 LLMInstance = LLMBackend

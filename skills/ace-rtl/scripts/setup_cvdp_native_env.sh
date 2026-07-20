@@ -20,9 +20,7 @@ if [ ! -x "$PYTHON_BIN" ]; then
 fi
 
 "$PYTHON_BIN" -m pip install -U pip
-"$PYTHON_BIN" -m pip install -r "$CVDP_REPO/requirements.txt"
-"$PYTHON_BIN" -m pip install -U huggingface_hub
-"$PYTHON_BIN" -m pip install cocotb pytest
+"$PYTHON_BIN" -m pip install -r "$REPO_ROOT/requirements.txt"
 "$PYTHON_BIN" "$REPO_ROOT/skills/ace-rtl/scripts/download_cvdp_datasets.py"
 
 echo "CVDP native setup is ready."

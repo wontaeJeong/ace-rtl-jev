@@ -18,8 +18,8 @@ from typing import Dict, List, Optional
 from ace_rtl_agent.llm_backend import (
     DEFAULT_MODEL_ALIAS,
     LLMBackend,
-    custom_script_configured,
     get_model_max_output_tokens,
+    is_nvidia_inference_model,
     resolve_model_name,
 )
 
@@ -32,10 +32,10 @@ def default_max_tokens(model: str) -> int:
     return get_model_max_output_tokens(model)
 
 
-def choose_provider(provider: str) -> str:
+def choose_provider(provider: str, model: str) -> str:
     if provider != "auto":
         return provider
-    return "custom" if custom_script_configured() else "nvidia"
+    return "nvidia" if is_nvidia_inference_model(model) else "openai"
 
 
 def load_messages(args: argparse.Namespace) -> List[Dict[str, str]]:
@@ -155,8 +155,8 @@ def call_with_retries(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Call an ACE-RTL role model")
     parser.add_argument("--component", required=True, choices=["generator", "reflector", "coordinator"])
-    parser.add_argument("--model", default=DEFAULT_MODEL_ALIAS, help="Model slug")
-    parser.add_argument("--provider", choices=["auto", "nvidia", "custom"], default="auto")
+    parser.add_argument("--model", default=DEFAULT_MODEL_ALIAS, help="Model alias or provider model id")
+    parser.add_argument("--provider", choices=["auto", "nvidia", "openai"], default="auto")
     parser.add_argument("--system")
     parser.add_argument("--prompt-file")
     parser.add_argument("--messages-file")
@@ -173,9 +173,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     model = resolve_model(args.model)
-    provider = choose_provider(args.provider)
-    os.environ.setdefault("ACE_RTL_LLM_TIMEOUT", str(args.timeout))
-    os.environ.setdefault("NVIDIA_TIMEOUT", str(args.timeout))
+    provider = choose_provider(args.provider, model)
+    if provider == "nvidia":
+        os.environ.setdefault("NEMOTRON_TIMEOUT", str(args.timeout))
+    else:
+        os.environ.setdefault("OPENAI_TIMEOUT", str(args.timeout))
     max_tokens = args.max_tokens or default_max_tokens(model)
     messages = load_messages(args)
     result = call_with_retries(

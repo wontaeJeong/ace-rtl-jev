@@ -28,12 +28,16 @@ variables and must never be committed to this repository. Users can also set
 ## Requirements
 
 - Python 3.11 recommended
+- Python packages listed in the committed `requirements.txt`
 - `git`, `make`, `curl`
 - CVDP simulation backends required by the selected rows, commonly `iverilog`,
   `vvp`, `verilator`, and `yosys`
 - Commercial EDA tools only for CVDP rows that explicitly require them, for
   example Cadence Xcelium/IMC coverage flows
 - A NVIDIA Inference API key in `NVIDIA_API_KEY`
+
+The top-level `requirements.txt` is the authoritative Python dependency
+manifest for ACE-RTL setup and dependency scanning.
 
 ## Setup
 
@@ -45,9 +49,9 @@ Run from this repository root:
 
 The setup helper creates `.cvdp-native` if needed, clones
 `https://github.com/NVlabs/cvdp_benchmark` into `external/cvdp_benchmark` if it
-is not already present, installs the Python requirements, and downloads CVDP
-JSONL files from Hugging Face repo `nvidia/cvdp-benchmark-dataset`. Existing
-datasets are reused.
+is not already present, installs the Python packages from the top-level
+`requirements.txt`, and downloads CVDP JSONL files from Hugging Face repo
+`nvidia/cvdp-benchmark-dataset`. Existing datasets are reused.
 
 First check whether native simulator tools are already available in the shell
 that will run ACE-RTL:
