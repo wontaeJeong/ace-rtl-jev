@@ -2,11 +2,6 @@
 name: ace-rtl
 description: Consolidated ACE-RTL skill for running an iterative generator-reflector-coordinator RTL agent on CVDP. Use for CVDP official repo setup with native or Docker environments, no-cheating benchmark runs, role-based external LLM routing, unique outputs logging, task-driven CVDP prompt guidance, and real pass-rate reporting.
 ---
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-SPDX-License-Identifier: Apache-2.0
--->
-
 
 # ACE-RTL
 

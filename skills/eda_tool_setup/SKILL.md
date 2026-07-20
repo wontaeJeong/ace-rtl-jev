@@ -2,11 +2,6 @@
 name: eda_tool_setup
 description: Use when CVDP or ACE-RTL native runs need simulator, synthesis, coverage, or license setup before classifying EDA-tool failures as INFRA_SETUP.
 ---
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-SPDX-License-Identifier: Apache-2.0
--->
-
 
 # EDA Tool Setup
 

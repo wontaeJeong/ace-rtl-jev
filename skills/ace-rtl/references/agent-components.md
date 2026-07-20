@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-SPDX-License-Identifier: Apache-2.0
--->
-
-
 # Agent Components
 
 Use these local components when running or extending ACE-RTL. Keep scripts

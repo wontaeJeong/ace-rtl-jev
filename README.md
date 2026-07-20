@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-SPDX-License-Identifier: Apache-2.0
--->
-
-
 # ACE-RTL
 
 [ACE-RTL](https://arxiv.org/pdf/2602.10218) is an agentic system for RTL code

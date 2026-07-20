@@ -1,8 +1,3 @@
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-SPDX-License-Identifier: Apache-2.0
--->
-
 # Dataset Setup
 
 Download the CVDP v1.1.0 JSONL files from Hugging Face into a repo-local dataset folder. Do this automatically when `CVDP_DATASET_ROOT` is unset.

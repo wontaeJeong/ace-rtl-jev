@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-SPDX-License-Identifier: Apache-2.0
--->
-
-
 # LLM Routing
 
 External LLM calls are disabled unless the user explicitly assigns a model to a
