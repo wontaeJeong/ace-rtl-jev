@@ -1,271 +1,148 @@
 # SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-"""
-ACE-RTL API Client - Interface for the custom ACE-RTL model API
-"""
+"""CVDP-compatible wrapper around the ACE-RTL LLM backend."""
 
-import json
-import requests
+from __future__ import annotations
+
+import os
 import time
-from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
+from typing import List, Optional
+
+from ..llm_backend import (
+    DEFAULT_MODEL_ALIAS,
+    LLMBackend,
+    get_model_max_output_tokens,
+    resolve_model_name,
+)
 
 
 @dataclass
 class AceRTLMessage:
-    """Message for ACE-RTL API"""
+    """Message for ACE-RTL role calls."""
+
     role: str
     content: str
 
 
 class AceRTLClient:
-    """
-    Client for interacting with the ACE-RTL custom model API.
+    """Compatibility client that exposes the CVDP model interface."""
 
-    This client handles API calls to the custom ACE-RTL model endpoint
-    with proper error handling and retry logic.
-    """
-
-    def __init__(self, api_url: str = "http://10.49.133.52:8000/v1/chat/completions",
-                 model_name: str = "ace_rtl-v1", logger=None,
-                 max_retries: int = 3, initial_backoff: float = 5.0,
-                 connect_timeout: int = 30, max_time: int = 300,
-                 temperature: float = 0.2):
-        """
-        Initialize ACE-RTL API client.
-
-        Args:
-            api_url: ACE-RTL API endpoint URL
-            model_name: Model name to use (default: "ace_rtl-v1")
-            logger: Logger instance
-            max_retries: Maximum number of retries for API calls
-            initial_backoff: Initial backoff time in seconds
-            connect_timeout: Connection timeout in seconds
-            max_time: Maximum request time in seconds
-            temperature: Default temperature for API calls (default: 0.2)
-        """
-        self.api_url = api_url
-        self.model_name = model_name
+    def __init__(
+        self,
+        api_url: Optional[str] = None,
+        model_name: str = DEFAULT_MODEL_ALIAS,
+        logger=None,
+        max_retries: int = 3,
+        initial_backoff: float = 5.0,
+        connect_timeout: int = 30,
+        max_time: int = 1800,
+        temperature: float = 0.2,
+    ):
+        if api_url:
+            os.environ.setdefault("NVIDIA_BASE_URL", api_url.rsplit("/chat/completions", 1)[0].rstrip("/"))
+        os.environ.setdefault("NEMOTRON_TIMEOUT", str(max(max_time, connect_timeout)))
+        self.model_name = resolve_model_name(model_name)
         self.logger = logger
         self.max_retries = max_retries
         self.initial_backoff = initial_backoff
-        self.connect_timeout = connect_timeout
-        self.max_time = max_time
         self.default_temperature = temperature
+        self.backend = LLMBackend(model=self.model_name)
 
         if self.logger:
-            self.logger.info(f"ACE-RTL client initialized: {api_url}, model: {model_name}, temperature: {temperature}")
+            self.logger.info(
+                "ACE-RTL compatibility client initialized: model=%s, temperature=%s",
+                self.model_name,
+                temperature,
+            )
 
-    def call_llm(self, prompt: str, max_tokens: int = 8192, temperature: float = None) -> Optional[str]:
-        """
-        Call the ACE-RTL model with a prompt.
-
-        Args:
-            prompt: Input prompt for the model
-            max_tokens: Maximum tokens to generate (default: 8192 for this compatibility client)
-            temperature: Temperature for generation (uses default_temperature if not specified)
-
-        Returns:
-            Generated response text or None if failed
-        """
-        if temperature is None:
-            temperature = self.default_temperature
+    def call_llm(self, prompt: str, max_tokens: int = 0, temperature: Optional[float] = None) -> Optional[str]:
+        """Call the configured ACE-RTL backend with a single user prompt."""
         messages = [AceRTLMessage(role="user", content=prompt)]
-        return self.call_llm_with_messages(messages, max_tokens, temperature)
+        return self.call_llm_with_messages(messages, max_tokens=max_tokens, temperature=temperature)
 
-    def call_llm_with_messages(self, messages: List[AceRTLMessage],
-                              max_tokens: int = 8192, temperature: float = None) -> Optional[str]:
-        """
-        Call the ACE-RTL model with a list of messages.
-
-        Args:
-            messages: List of messages for the conversation
-            max_tokens: Maximum tokens to generate
-            temperature: Temperature for generation (uses default_temperature if not specified)
-
-        Returns:
-            Generated response text or None if failed
-        """
+    def call_llm_with_messages(
+        self,
+        messages: List[AceRTLMessage],
+        max_tokens: int = 0,
+        temperature: Optional[float] = None,
+    ) -> Optional[str]:
+        """Call the configured ACE-RTL backend with chat messages."""
         if temperature is None:
             temperature = self.default_temperature
-        # Prepare the request payload
-        payload = {
-            "model": self.model_name,
-            "messages": [{"role": msg.role, "content": msg.content} for msg in messages],
-            "max_tokens": max_tokens,
-            "temperature": temperature
-        }
+        if max_tokens <= 0:
+            max_tokens = get_model_max_output_tokens(self.model_name)
 
-        headers = {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        }
-
-        # Retry loop with exponential backoff
+        payload = [{"role": msg.role, "content": msg.content} for msg in messages]
         backoff_time = self.initial_backoff
 
         for attempt in range(self.max_retries + 1):
             try:
                 if self.logger:
-                    self.logger.info(f"ACE-RTL API call attempt {attempt + 1}/{self.max_retries + 1}")
-
-                # Make the API request
-                response = requests.post(
-                    self.api_url,
-                    json=payload,
-                    headers=headers,
-                    timeout=(self.connect_timeout, self.max_time)
+                    self.logger.info("ACE-RTL backend call attempt %s/%s", attempt + 1, self.max_retries + 1)
+                result = self.backend.complete_messages(
+                    payload,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
                 )
-
-                # Check if request was successful
-                if response.status_code == 200:
-                    try:
-                        response_data = response.json()
-
-                        # Extract the generated content
-                        if "choices" in response_data and len(response_data["choices"]) > 0:
-                            content = response_data["choices"][0].get("message", {}).get("content", "")
-
-                            if self.logger:
-                                self.logger.info(f"ACE-RTL API call successful, response length: {len(content)} chars")
-
-                            return content
-                        else:
-                            if self.logger:
-                                self.logger.error("ACE-RTL API response missing choices or content")
-                            return None
-
-                    except json.JSONDecodeError as e:
-                        if self.logger:
-                            self.logger.error(f"Failed to parse ACE-RTL API response JSON: {e}")
-                        return None
-
-                else:
+                content = str(result.get("content", "")).strip()
+                if content:
                     if self.logger:
-                        self.logger.warning(f"ACE-RTL API call failed with status {response.status_code}: {response.text}")
-
-                    # If this is the last attempt, return None
-                    if attempt == self.max_retries:
-                        return None
-
-            except requests.exceptions.Timeout as e:
+                        self.logger.info("ACE-RTL backend call succeeded, response length: %s chars", len(content))
+                    return content
+                raise ValueError("empty response from ACE-RTL backend")
+            except Exception as exc:
                 if self.logger:
-                    self.logger.warning(f"ACE-RTL API call timeout (attempt {attempt + 1}): {e}")
-
-            except requests.exceptions.ConnectionError as e:
-                if self.logger:
-                    self.logger.warning(f"ACE-RTL API connection error (attempt {attempt + 1}): {e}")
-
-            except requests.exceptions.RequestException as e:
-                if self.logger:
-                    self.logger.warning(f"ACE-RTL API request error (attempt {attempt + 1}): {e}")
-
-            except Exception as e:
-                if self.logger:
-                    self.logger.error(f"Unexpected error in ACE-RTL API call (attempt {attempt + 1}): {e}")
-
-            # If this wasn't the last attempt, wait before retrying
-            if attempt < self.max_retries:
-                if self.logger:
-                    self.logger.info(f"Retrying ACE-RTL API call in {backoff_time:.1f} seconds...")
+                    self.logger.warning("ACE-RTL backend call failed on attempt %s: %s", attempt + 1, exc)
+                if attempt >= self.max_retries:
+                    return None
                 time.sleep(backoff_time)
-                backoff_time *= 2  # Exponential backoff
-
-        if self.logger:
-            self.logger.error("ACE-RTL API call failed after all retry attempts")
+                backoff_time = min(backoff_time * 2, 60.0)
         return None
 
-    def prompt(self, prompt: str, schema=None, prompt_log=None, files=None, timeout=None, category=None, task_id=None, temperature: float = None):
-        """
-        CVDP-compatible prompt method that matches LLMBackend interface.
+    def prompt(
+        self,
+        prompt: str,
+        schema=None,
+        prompt_log=None,
+        files=None,
+        timeout=None,
+        category=None,
+        task_id=None,
+        temperature: Optional[float] = None,
+    ):
+        """CVDP-compatible prompt method.
 
-        Args:
-            prompt: The prompt text
-            schema: Schema for structured output (ignored for ACE-RTL)
-            prompt_log: Log file path (ignored for ACE-RTL)
-            files: File attachments (ignored for ACE-RTL)
-            timeout: Request timeout (ignored, uses internal timeout)
-            category: Category ID (ignored for ACE-RTL)
-            task_id: Task ID (ignored for ACE-RTL)
-            temperature: Temperature for generation (uses default_temperature if not specified)
-
-        Returns:
-            Tuple of (response_text, success_boolean)
+        Returns the shape CVDP expects: a single-file direct-text dictionary or
+        raw response text for schema/multi-file prompts, plus a success flag.
         """
-        if temperature is None:
-            temperature = self.default_temperature
+        del category, task_id, timeout
+        if prompt_log:
+            try:
+                with open(prompt_log, "w", encoding="utf-8") as handle:
+                    handle.write(prompt)
+            except OSError as exc:
+                if self.logger:
+                    self.logger.warning("Could not write prompt log %s: %s", prompt_log, exc)
+
         try:
-            if self.logger:
-                self.logger.info(f"DEBUG: ACE-RTL prompt called with files={files}, schema={schema}, task_id={task_id}")
-                self.logger.info(f"DEBUG: Prompt length: {len(prompt)} chars")
-
-            # Format prompt for Qwen chat format (like previous successful ACE-RTL runs)
-            formatted_prompt = f"<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\n\n{prompt}<|im_end|>\n<|im_start|>assistant\n"
-
-            if self.logger:
-                self.logger.info(f"DEBUG: Formatted prompt length: {len(formatted_prompt)} chars")
-
-            raw_response = self.call_llm(formatted_prompt, max_tokens=8192, temperature=temperature)
-
-            if self.logger:
-                self.logger.info(f"DEBUG: Raw ACE-RTL response length: {len(raw_response) if raw_response else 0} chars")
-                if raw_response:
-                    self.logger.info(f"DEBUG: Response starts with: {raw_response[:100]}...")
-                    self.logger.info(f"DEBUG: Response ends with: ...{raw_response[-100:]}")
-
-            if raw_response and raw_response.strip():
-                # Return raw response and let CVDP handle ALL processing
-                # This matches exactly how LLM model works - it returns raw content
-                # and then CVDP calls parse_model_response on it
+            raw_response = self.call_llm(prompt, temperature=temperature)
+            if not raw_response:
                 if self.logger:
-                    self.logger.info(f"DEBUG: Returning raw ACE-RTL response ({len(raw_response)} chars) for CVDP to process")
-                    self.logger.info(f"DEBUG: Response starts with: {raw_response[:200]}...")
-                    self.logger.info(f"DEBUG: Response ends with: ...{raw_response[-200:]}")
-                    self.logger.info(f"DEBUG: Files parameter: {files}")
-                    self.logger.info(f"DEBUG: Schema parameter: {schema}")
-                    self.logger.info(f"DEBUG: no_schema would be: {files and len(files) == 1 and schema is None}")
-                    self.logger.info(f"DEBUG: files check: {files is not None}, len(files)==1: {len(files) == 1 if files else False}, schema is None: {schema is None}")
-
-                # Parse the response like LLM does - call parse_model_response internally
-                # This creates the proper {"direct_text": content} structure CVDP expects
-
-                # Simulate CVDP's parse_model_response logic for single file direct text mode
-                expected_single_file = files and len(files) == 1 and schema is None
-
-                if expected_single_file:
-                    # Single file direct text mode - create the structure CVDP expects
-                    parsed_output = {"direct_text": raw_response.strip()}
-                    if self.logger:
-                        self.logger.info(f"DEBUG: Created parsed output for single file mode: {len(raw_response)} chars")
-                        self.logger.info(f"DEBUG: Parsed output keys: {list(parsed_output.keys())}")
-                    return parsed_output, True
-                else:
-                    # Multi-file or schema mode - return raw for JSON parsing
-                    if self.logger:
-                        self.logger.info(f"DEBUG: Returning raw response for multi-file/schema mode")
-                    return raw_response.strip(), True
-            else:
-                if self.logger:
-                    self.logger.error(f"DEBUG: ACE-RTL returned empty or None response")
+                    self.logger.error("ACE-RTL backend returned an empty response")
                 return "", False
-        except Exception as e:
+
+            expected_single_file = files and len(files) == 1 and schema is None
+            if expected_single_file:
+                return {"direct_text": raw_response.strip()}, True
+            return raw_response.strip(), True
+        except Exception as exc:
             if self.logger:
-                self.logger.error(f"ACE-RTL prompt failed: {str(e)}")
+                self.logger.error("ACE-RTL prompt failed: %s", exc)
             return "", False
 
-
     def test_connection(self) -> bool:
-        """
-        Test connection to the ACE-RTL API.
-
-        Returns:
-            True if connection is successful, False otherwise
-        """
-        try:
-            response = self.call_llm("Hello, can you respond?", max_tokens=50, temperature=0.1)
-            return response is not None and len(response.strip()) > 0
-        except Exception as e:
-            if self.logger:
-                self.logger.error(f"ACE-RTL connection test failed: {e}")
-            return False
+        """Return True if a short backend call succeeds."""
+        response = self.call_llm("Hello, can you respond?", max_tokens=50, temperature=0.1)
+        return bool(response and response.strip())

@@ -10,6 +10,7 @@ import argparse
 import json
 import os
 import random
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -33,9 +34,46 @@ def default_max_tokens(model: str) -> int:
 
 
 def choose_provider(provider: str, model: str) -> str:
+    if os.environ.get("ACE_RTL_LLM_SCRIPT"):
+        return "nvidia"
     if provider != "auto":
         return provider
-    return "nvidia" if is_nvidia_inference_model(model) else "openai"
+    if not is_nvidia_inference_model(model):
+        raise ValueError("Only NVIDIA Inference API models are supported unless ACE_RTL_LLM_SCRIPT is set")
+    return "nvidia"
+
+
+def env_flag(name: str, default: bool) -> bool:
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() not in {"0", "false", "no", "off", ""}
+
+
+def env_positive_int_any(names: List[str], default: int) -> int:
+    for name in names:
+        value = os.environ.get(name)
+        if value is None:
+            continue
+        try:
+            parsed = int(value)
+        except ValueError:
+            continue
+        if parsed > 0:
+            return parsed
+    return default
+
+
+def env_float_any(names: List[str], default: float) -> float:
+    for name in names:
+        value = os.environ.get(name)
+        if value is None:
+            continue
+        try:
+            return float(value)
+        except ValueError:
+            continue
+    return default
 
 
 def load_messages(args: argparse.Namespace) -> List[Dict[str, str]]:
@@ -108,6 +146,92 @@ def context_error(error: Exception) -> bool:
     return any(token in text for token in ["context window", "contextwindow", "maximum context", "too many tokens"])
 
 
+def adapter_command(script_path: str) -> List[str]:
+    path = Path(script_path)
+    if path.suffix == ".py" or not os.access(path, os.X_OK):
+        return [sys.executable, str(path)]
+    return [str(path)]
+
+
+def extract_adapter_content(stdout: str) -> Dict[str, object]:
+    text = stdout.strip()
+    if not text:
+        raise ValueError("adapter returned an empty response")
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        return {"content": text, "raw": text, "finish_reason": None}
+
+    content: Optional[str] = None
+    finish_reason = None
+    if isinstance(payload, dict):
+        direct_content = payload.get("content")
+        if isinstance(direct_content, str):
+            content = direct_content
+        choices = payload.get("choices")
+        if content is None and isinstance(choices, list) and choices:
+            choice = choices[0] if isinstance(choices[0], dict) else {}
+            finish_reason = choice.get("finish_reason")
+            message = choice.get("message")
+            if isinstance(message, dict) and isinstance(message.get("content"), str):
+                content = message["content"]
+            elif isinstance(choice.get("text"), str):
+                content = choice["text"]
+    if content is None:
+        raise ValueError("adapter JSON must include content or choices[0].message.content")
+    return {"content": content, "raw": payload, "finish_reason": finish_reason}
+
+
+def call_adapter_script(
+    *,
+    script_path: str,
+    model: str,
+    messages: List[Dict[str, str]],
+    temperature: float,
+    max_tokens: int,
+    timeout: int,
+) -> Dict[str, object]:
+    request = {
+        "model": model,
+        "messages": messages,
+        "temperature": temperature,
+        "top_p": env_float_any(["NEMOTRON_TOP_P", "ACE_RTL_TOP_P"], 0.95),
+        "max_tokens": max_tokens,
+        "stream": env_flag("ACE_RTL_STREAM", True),
+        "extra_body": {
+            "chat_template_kwargs": {
+                "enable_thinking": env_flag("ACE_RTL_ENABLE_REASONING", True),
+                "force_nonempty_content": True,
+            },
+            "reasoning_budget": env_positive_int_any(
+                ["NEMOTRON_REASONING_BUDGET", "ACE_RTL_REASONING_BUDGET"],
+                max_tokens,
+            ),
+        },
+    }
+    proc = subprocess.run(
+        adapter_command(script_path),
+        input=json.dumps(request),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        timeout=timeout,
+    )
+    if proc.returncode != 0:
+        detail = proc.stderr.strip() or proc.stdout.strip()
+        raise RuntimeError(f"adapter script failed with exit code {proc.returncode}: {detail}")
+    result = extract_adapter_content(proc.stdout)
+    return {
+        "provider": "adapter",
+        "model": model,
+        "content": result["content"],
+        "finish_reason": result["finish_reason"],
+        "truncated": result["finish_reason"] == "length",
+        "raw": result["raw"],
+        "attempts": 1,
+    }
+
+
 def call_with_retries(
     *,
     provider: str,
@@ -119,7 +243,8 @@ def call_with_retries(
     initial_backoff: float,
     shrink_chars: int,
 ) -> Dict[str, object]:
-    backend = LLMBackend(model=model, provider=provider)
+    adapter_script = os.environ.get("ACE_RTL_LLM_SCRIPT")
+    backend = None if adapter_script else LLMBackend(model=model, provider=provider)
     working_messages = messages
     context_shrink_used = False
     backoff = initial_backoff
@@ -127,11 +252,22 @@ def call_with_retries(
 
     for attempt in range(max_retries + 1):
         try:
-            result = backend.complete_messages(
-                working_messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
+            if adapter_script:
+                result = call_adapter_script(
+                    script_path=adapter_script,
+                    model=model,
+                    messages=working_messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    timeout=env_positive_int_any(["NEMOTRON_TIMEOUT", "ACE_RTL_LLM_TIMEOUT"], 1800),
+                )
+            else:
+                assert backend is not None
+                result = backend.complete_messages(
+                    working_messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                )
             result["attempts"] = attempt + 1
             return result
         except Exception as exc:
@@ -156,14 +292,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Call an ACE-RTL role model")
     parser.add_argument("--component", required=True, choices=["generator", "reflector", "coordinator"])
     parser.add_argument("--model", default=DEFAULT_MODEL_ALIAS, help="Model alias or provider model id")
-    parser.add_argument("--provider", choices=["auto", "nvidia", "openai"], default="auto")
+    parser.add_argument("--provider", choices=["auto", "nvidia"], default="auto")
     parser.add_argument("--system")
     parser.add_argument("--prompt-file")
     parser.add_argument("--messages-file")
     parser.add_argument("--output", required=True)
-    parser.add_argument("--temperature", type=float, default=0.2)
+    parser.add_argument("--temperature", type=float, default=None)
     parser.add_argument("--max-tokens", type=int, default=0)
-    parser.add_argument("--timeout", type=int, default=1800)
+    parser.add_argument("--timeout", type=int, default=env_positive_int_any(["NEMOTRON_TIMEOUT", "ACE_RTL_LLM_TIMEOUT"], 1800))
     parser.add_argument("--max-retries", type=int, default=3)
     parser.add_argument("--initial-backoff", type=float, default=5.0)
     parser.add_argument("--context-retry-chars", type=int, default=120000)
@@ -176,15 +312,16 @@ def main() -> int:
     provider = choose_provider(args.provider, model)
     if provider == "nvidia":
         os.environ.setdefault("NEMOTRON_TIMEOUT", str(args.timeout))
-    else:
-        os.environ.setdefault("OPENAI_TIMEOUT", str(args.timeout))
     max_tokens = args.max_tokens or default_max_tokens(model)
+    temperature = args.temperature
+    if temperature is None:
+        temperature = env_float_any(["NEMOTRON_TEMPERATURE", "ACE_RTL_TEMPERATURE"], 0.2)
     messages = load_messages(args)
     result = call_with_retries(
         provider=provider,
         model=model,
         messages=messages,
-        temperature=args.temperature,
+        temperature=temperature,
         max_tokens=max_tokens,
         max_retries=args.max_retries,
         initial_backoff=args.initial_backoff,

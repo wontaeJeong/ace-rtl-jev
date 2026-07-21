@@ -18,8 +18,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 DEFAULT_MODEL_ALIAS = "nemotron3-ultra"
-DEFAULT_MODEL_ID = "nvidia/nvidia/nemotron-3-ultra"
 NVIDIA_BUILD_MODEL_ID = "nvidia/nemotron-3-ultra-550b-a55b"
+DEFAULT_MODEL_ID = NVIDIA_BUILD_MODEL_ID
 
 NVIDIA_INFERENCE_ALIASES = {
     "nemotron3-ultra",
@@ -31,8 +31,7 @@ NVIDIA_INFERENCE_ALIASES = {
     "nvidia/nvidia/nemotron-3-ultra",
 }
 
-DEFAULT_NVIDIA_BASE_URL = "https://inference-api.nvidia.com/v1"
-DEFAULT_OPENAI_BASE_URL = "https://api.openai.com/v1"
+DEFAULT_NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 
 MODEL_CONTEXT_TOKENS = {
     "nemotron": 262144,
@@ -78,27 +77,37 @@ def streaming_enabled() -> bool:
     return env_flag("ACE_RTL_STREAM", True)
 
 
-def env_positive_int(name: str, default: int) -> int:
-    value = os.environ.get(name)
-    if value is None:
-        return default
-    try:
-        parsed = int(value)
-    except ValueError:
-        return default
-    return parsed if parsed > 0 else default
+def env_positive_int_any(names: List[str], default: int) -> int:
+    for name in names:
+        value = os.environ.get(name)
+        if value is None:
+            continue
+        try:
+            parsed = int(value)
+        except ValueError:
+            continue
+        if parsed > 0:
+            return parsed
+    return default
+
+
+def env_float_any(names: List[str], default: float) -> float:
+    for name in names:
+        value = os.environ.get(name)
+        if value is None:
+            continue
+        try:
+            return float(value)
+        except ValueError:
+            continue
+    return default
 
 
 def nvidia_base_url() -> str:
     return (
         os.environ.get("NVIDIA_BASE_URL")
-        or os.environ.get("NVIDIA_INFERENCE_BASE_URL")
         or DEFAULT_NVIDIA_BASE_URL
     ).rstrip("/")
-
-
-def openai_base_url() -> str:
-    return os.environ.get("OPENAI_BASE_URL", DEFAULT_OPENAI_BASE_URL).rstrip("/")
 
 
 def nvidia_endpoint_supports_reasoning_budget(endpoint: str) -> bool:
@@ -107,16 +116,7 @@ def nvidia_endpoint_supports_reasoning_budget(endpoint: str) -> bool:
 
 
 def nvidia_api_key() -> Optional[str]:
-    return (
-        os.environ.get("NVIDIA_API_KEY")
-        or os.environ.get("NVIDIA_NIM_API_KEY")
-        or os.environ.get("NVAPI_KEY")
-        or os.environ.get("NV_INFERENCE_API_KEY")
-    )
-
-
-def openai_api_key() -> Optional[str]:
-    return os.environ.get("OPENAI_API_KEY")
+    return os.environ.get("NVIDIA_API_KEY")
 
 
 def get_model_context_tokens(model_name: str) -> int:
@@ -129,8 +129,13 @@ def get_model_context_tokens(model_name: str) -> int:
 
 def get_model_max_output_tokens(model_name: str) -> int:
     low = (model_name or "").lower()
-    if is_nvidia_inference_model(model_name) and os.environ.get("NEMOTRON_MAX_TOKENS"):
-        return env_positive_int("NEMOTRON_MAX_TOKENS", DEFAULT_MAX_OUTPUT_TOKENS)
+    if is_nvidia_inference_model(model_name):
+        configured = env_positive_int_any(
+            ["NEMOTRON_MAX_TOKENS", "ACE_RTL_MAX_TOKENS"],
+            0,
+        )
+        if configured:
+            return configured
     for key, tokens in MODEL_MAX_OUTPUT_TOKENS.items():
         if key in low:
             return tokens
@@ -366,7 +371,7 @@ def stream_chat_completion_with_total_timeout(
     headers: Dict[str, str],
     timeout_seconds: int,
 ) -> Dict[str, Any]:
-    """Read a streaming OpenAI-compatible chat completion into a normal payload."""
+    """Read a streaming chat completion into a normal payload."""
     curl = shutil.which("curl")
     if not curl:
         raise RuntimeError("curl is required for streaming chat completions")
@@ -488,7 +493,7 @@ def stream_chat_completion_with_total_timeout(
 def validate_nv_inference_api_key(api_key: Optional[str] = None) -> Dict[str, Any]:
     key = api_key or nvidia_api_key()
     if not key:
-        return {"valid": False, "message": "NVIDIA_API_KEY/NVIDIA_NIM_API_KEY/NVAPI_KEY/NV_INFERENCE_API_KEY not set"}
+        return {"valid": False, "message": "NVIDIA_API_KEY not set"}
     return {"valid": True, "message": "NVIDIA API key is configured"}
 
 
@@ -499,13 +504,13 @@ def check_model_availability(model_name: str, api_key: Optional[str] = None) -> 
         return {
             "available": False,
             "model_id": resolved,
-            "message": "NVIDIA_API_KEY/NVIDIA_NIM_API_KEY/NVAPI_KEY/NV_INFERENCE_API_KEY not set",
+            "message": "NVIDIA_API_KEY not set",
         }
     return {"available": True, "model_id": resolved, "message": "Configured"}
 
 
 class LLMBackend:
-    """Open-source LLM backend for NVIDIA Inference Gateway or standard OpenAI API."""
+    """Open-source LLM backend for the NVIDIA Inference API."""
 
     def __init__(self, model: str = DEFAULT_MODEL_ALIAS, provider: str = "auto"):
         self.model = resolve_model_name(model)
@@ -516,35 +521,30 @@ class LLMBackend:
     @staticmethod
     def _resolve_provider(provider: str, model: str) -> str:
         if provider != "auto":
-            if provider not in {"nvidia", "openai"}:
+            if provider != "nvidia":
                 raise ValueError(f"unsupported LLM provider: {provider}")
             return provider
-        return "nvidia" if is_nvidia_inference_model(model) else "openai"
+        if not is_nvidia_inference_model(model):
+            raise ValueError(
+                "Only NVIDIA Inference API models are supported by the built-in "
+                "backend. Use ACE_RTL_LLM_SCRIPT for other providers."
+            )
+        return "nvidia"
 
     @staticmethod
     def _provider_config(provider: str) -> tuple[str, Dict[str, str]]:
         if provider == "nvidia":
             key = nvidia_api_key()
             if not key:
-                raise ValueError("NVIDIA_API_KEY, NVIDIA_NIM_API_KEY, NVAPI_KEY, or NV_INFERENCE_API_KEY must be set")
+                raise ValueError("NVIDIA_API_KEY must be set")
             return (
                 f"{nvidia_base_url()}/chat/completions",
-                {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
-            )
-        if provider == "openai":
-            key = openai_api_key()
-            if not key:
-                raise ValueError("OPENAI_API_KEY must be set for OpenAI API calls")
-            return (
-                f"{openai_base_url()}/chat/completions",
                 {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
             )
         raise ValueError(f"unsupported LLM provider: {provider}")
 
     def _request_timeout(self) -> int:
-        if self.provider == "nvidia":
-            return int(os.getenv("NEMOTRON_TIMEOUT", "1800"))
-        return int(os.getenv("OPENAI_TIMEOUT", os.getenv("NEMOTRON_TIMEOUT", "1800")))
+        return env_positive_int_any(["NEMOTRON_TIMEOUT", "ACE_RTL_LLM_TIMEOUT"], 1800)
 
     def _request_body_from_messages(
         self,
@@ -556,6 +556,7 @@ class LLMBackend:
             "model": self.model,
             "messages": messages,
             "temperature": temperature,
+            "top_p": env_float_any(["NEMOTRON_TOP_P", "ACE_RTL_TOP_P"], 0.95),
             "max_tokens": max_tokens,
         }
         if self.provider == "nvidia":
@@ -567,7 +568,10 @@ class LLMBackend:
             if nvidia_endpoint_supports_reasoning_budget(self.endpoint):
                 body["reasoning_effort"] = "high" if reasoning_on else "none"
                 if reasoning_on:
-                    body["reasoning_budget"] = env_positive_int("NEMOTRON_REASONING_BUDGET", max_tokens)
+                    body["reasoning_budget"] = env_positive_int_any(
+                        ["NEMOTRON_REASONING_BUDGET", "ACE_RTL_REASONING_BUDGET"],
+                        max_tokens,
+                    )
         return body
 
     def _complete_messages(
@@ -646,10 +650,7 @@ class LLMBackend:
         max_tokens: Optional[int] = None,
     ) -> Dict[str, Any]:
         if temperature is None:
-            if is_nvidia_inference_model(self.model):
-                temperature = float(os.getenv("NEMOTRON_TEMPERATURE", "0.2"))
-            else:
-                temperature = float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
+            temperature = env_float_any(["NEMOTRON_TEMPERATURE", "ACE_RTL_TEMPERATURE"], 0.2)
         if max_tokens is None:
             max_tokens = get_model_max_output_tokens(self.model)
         payload = self._complete_messages(messages, temperature, max_tokens)
@@ -673,10 +674,7 @@ class LLMBackend:
         max_tokens: Optional[int] = None,
     ) -> str:
         if temperature is None:
-            if is_nvidia_inference_model(self.model):
-                temperature = float(os.getenv("NEMOTRON_TEMPERATURE", "0.2"))
-            else:
-                temperature = float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
+            temperature = env_float_any(["NEMOTRON_TEMPERATURE", "ACE_RTL_TEMPERATURE"], 0.2)
         prompt = enforce_prompt_char_budget(prompt, self.model, logger)
         return self._get_model_response(prompt, temperature, max_tokens=max_tokens)
 
