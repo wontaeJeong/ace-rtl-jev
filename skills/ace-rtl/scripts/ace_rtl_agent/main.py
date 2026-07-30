@@ -24,31 +24,31 @@ def create_parser() -> argparse.ArgumentParser:
         epilog="""
 Examples:
   # Process a single datapoint with systematic debugging (default)
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_fibonacci_series_0001
+  ./ace_rtl_agent.py --datapoint cvdp_example_fibonacci_series_0001
 
   # Run 3 parallel experiments for a datapoint (first to succeed wins)
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_fibonacci_series_0001 --parallel-experiments 3
+  ./ace_rtl_agent.py --datapoint cvdp_example_fibonacci_series_0001 --parallel-experiments 3
 
   # Process with traditional debugging only
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_fibonacci_series_0001 --no-systematic-debugging
+  ./ace_rtl_agent.py --datapoint cvdp_example_fibonacci_series_0001 --no-systematic-debugging
 
   # Process all datapoints from a JSONL file with debug output
   python -m ace_rtl_agent --jsonl /path/to/benchmark.jsonl --debug
 
   # Use a NVIDIA Inference model with systematic debugging
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_16qam_mapper_0001 --model nvidia/nemotron-3-ultra-550b-a55b --max-iterations 8
+  ./ace_rtl_agent.py --datapoint cvdp_example_16qam_mapper_0001 --model nvidia/nemotron-3-ultra-550b-a55b --max-iterations 8
 
   # Enable debug mode to see systematic debugging reasoning
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_fibonacci_series_0001 --debug --systematic-debugging
+  ./ace_rtl_agent.py --datapoint cvdp_example_fibonacci_series_0001 --debug --systematic-debugging
 
   # Customize API retry behavior for both CVDP initial generation AND systematic debugging
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_fibonacci_series_0001 --max-retries 5 --initial-backoff 10.0
+  ./ace_rtl_agent.py --datapoint cvdp_example_fibonacci_series_0001 --max-retries 5 --initial-backoff 10.0
 
   # High-reliability mode with extended retries for unreliable networks
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_fibonacci_series_0001 --max-retries 10 --initial-backoff 2.0 --debug
+  ./ace_rtl_agent.py --datapoint cvdp_example_fibonacci_series_0001 --max-retries 10 --initial-backoff 2.0 --debug
 
   # Run 5 parallel experiments with increased iterations
-  ./ace_rtl_agent.py --datapoint cvdp_copilot_fibonacci_series_0001 --parallel-experiments 5 --max-iterations 15
+  ./ace_rtl_agent.py --datapoint cvdp_example_fibonacci_series_0001 --parallel-experiments 5 --max-iterations 15
         """
     )
 
@@ -336,10 +336,10 @@ def print_single_result(result: Dict[str, Any]):
                 break
 
     if iteration_count is not None:
-        print(f"📊 Iteration Count to Pass: {iteration_count}")
+        print(f"Iteration Count to Pass: {iteration_count}")
     else:
         max_iterations = result.get('total_iterations', result.get('max_iterations', 30))
-        print(f"📊 Iteration Count (Max Reached): {max_iterations}")
+        print(f"Iteration Count (Max Reached): {max_iterations}")
 
     print(f"Total Iterations: {result.get('total_iterations', 0)}")
     print(f"Successful Iterations: {result.get('successful_iterations', 0)}")
@@ -358,7 +358,7 @@ def print_single_result(result: Dict[str, Any]):
         if strategies:
             print(f"Debug Strategies Used:")
             for strategy in strategies:
-                status = "✅ PASSED" if strategy['passed'] else "❌ FAILED"
+                status = "PASSED" if strategy['passed'] else "FAILED"
                 print(f"  Iteration {strategy['iteration']}: {strategy['strategy']} - {status}")
 
         summary = debug_info.get('debug_summary', {})

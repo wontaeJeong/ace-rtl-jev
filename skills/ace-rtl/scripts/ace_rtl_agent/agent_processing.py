@@ -55,7 +55,7 @@ class AgentProcessingMixin:
         num_experiments = self.config.num_parallel_experiments
         self.logger.info(f"Starting {num_experiments} parallel experiments for {datapoint_name}")
         print(f"\n{'='*60}")
-        print(f"🔬 PARALLEL EXECUTION: Running {num_experiments} experiments (multiprocessing)")
+        print(f"PARALLEL EXECUTION: Running {num_experiments} experiments (multiprocessing)")
         print(f"   Datapoint: {datapoint_name}")
         print(f"   Strategy: First successful experiment wins")
         print(f"   Isolation: Complete (separate processes)")
@@ -70,7 +70,7 @@ class AgentProcessingMixin:
                                    datapoint_name: str, success_event, result_queue):
             """Run a single experiment in a separate process."""
             try:
-                print(f"🔬 Experiment {exp_id}: Starting in process {os.getpid()}...")
+                print(f"Experiment {exp_id}: Starting in process {os.getpid()}...")
 
                 # Reconstruct config from dict (can't pickle dataclass directly across processes easily)
                 from .agent import AceRTLAgent
@@ -87,19 +87,19 @@ class AgentProcessingMixin:
                 if result.get('success', False):
                     if not success_event.is_set():
                         print(f"\n{'='*60}")
-                        print(f"🎉 Experiment {exp_id}: SUCCESS - Signaling other experiments to stop")
+                        print(f"Experiment {exp_id}: SUCCESS - Signaling other experiments to stop")
                         print(f"{'='*60}\n")
                         success_event.set()  # Signal other processes to stop
                         result_queue.put(('success', exp_id, result))
                     else:
-                        print(f"✅ Experiment {exp_id}: Also succeeded (but another won)")
+                        print(f"Experiment {exp_id}: Also succeeded (but another won)")
                         result_queue.put(('late_success', exp_id, result))
                 else:
-                    print(f"❌ Experiment {exp_id}: Failed after {result.get('total_iterations', 0)} iterations")
+                    print(f"Experiment {exp_id}: Failed after {result.get('total_iterations', 0)} iterations")
                     result_queue.put(('failure', exp_id, result))
 
             except Exception as e:
-                print(f"❌ Experiment {exp_id}: Exception - {str(e)}")
+                print(f"Experiment {exp_id}: Exception - {str(e)}")
                 result_queue.put(('error', exp_id, {
                     "success": False,
                     "error": str(e),
@@ -136,7 +136,7 @@ class AgentProcessingMixin:
                 # If we got a success and it's the first one, terminate others
                 if status == 'success' and successful_result is None:
                     successful_result = result
-                    print(f"\n🛑 Terminating other experiments after experiment {exp_id} succeeded...")
+                    print(f"\nTerminating other experiments after experiment {exp_id} succeeded...")
 
                     # Terminate all other running processes
                     for i, p in enumerate(processes):
@@ -247,8 +247,6 @@ class AgentProcessingMixin:
                 output_dir,  # Pass base output directory (with experiment subdirectory if parallel)
                 self.config.model_name
             )
-            if self.benchmark_mode == "cvdp":
-                self._configure_cvdp_core_adapter(benchmark_int, current_datapoint)
 
             # Iterative improvement loop (iteration log will be initialized after structure discovery)
             final_result = self._iterative_improvement_loop(datapoint_name, rtl_gen, feedback_an, dp_proc, benchmark_int, iteration_results, current_datapoint)
@@ -299,27 +297,6 @@ class AgentProcessingMixin:
                     benchmark_int._cleanup_unwanted_cvdp_files()
                 except Exception as e:
                     self.logger.warning(f"CVDP file cleanup failed for {datapoint_name}: {str(e)}")
-
-    def _configure_cvdp_core_adapter(self, benchmark_int, datapoint: Dict[str, Any]) -> None:
-        """Pass optional wrapper-level core-adapter metadata to CVDPIntegration."""
-        metadata = datapoint.get("metadata") if isinstance(datapoint, dict) else None
-        adapter = metadata.get("reduced_core_adapter") if isinstance(metadata, dict) else None
-        if not isinstance(adapter, dict):
-            for attr in ("reduced_core_adapter", "reduced_core_real_target_files"):
-                if hasattr(benchmark_int, attr):
-                    try:
-                        delattr(benchmark_int, attr)
-                    except AttributeError:
-                        pass
-            return
-
-        real_targets = list(adapter.get("real_target_files") or [])
-        setattr(benchmark_int, "reduced_core_adapter", adapter)
-        setattr(benchmark_int, "reduced_core_real_target_files", real_targets)
-        self.logger.info(
-            "Enabled reduced-core adapter "
-            f"{adapter.get('kind', 'unknown')} -> {real_targets}"
-        )
 
     def process_jsonl_file(self, jsonl_file: str) -> Dict[str, Any]:
         """
@@ -377,5 +354,4 @@ class AgentProcessingMixin:
             self.logger.warning(f"Global cleanup failed: {str(e)}")
 
         return results
-
 

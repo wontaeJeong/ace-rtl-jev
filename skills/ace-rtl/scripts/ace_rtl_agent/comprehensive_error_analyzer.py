@@ -72,47 +72,47 @@ class ComprehensiveErrorAnalyzer:
         Returns:
             Comprehensive analysis with all required information
         """
-        print(f"🔍 DEBUG: === Starting comprehensive error analysis for iteration {iteration} ===")
+        print(f"DEBUG: === Starting comprehensive error analysis for iteration {iteration} ===")
         try:
             self.logger.info(f"Performing comprehensive error analysis for iteration {iteration}")
 
             # Step 1: Extract primary failure (focus on ONE issue)
             primary_failure = self.primary_failure_extractor.extract_primary_failure(error_report)
             # Removed duplicate logging - primary_failure_extractor already logs the result
-            print(f"🔍 DEBUG: ComprehensiveErrorAnalyzer iteration {iteration} - primary_failure result: {primary_failure}")
+            print(f"DEBUG: ComprehensiveErrorAnalyzer iteration {iteration} - primary_failure result: {primary_failure}")
             if primary_failure:
-                print(f"🔍 DEBUG: primary_failure type: {type(primary_failure)}, expected: {primary_failure.expected_value}, actual: {primary_failure.actual_value}")
+                print(f"DEBUG: primary_failure type: {type(primary_failure)}, expected: {primary_failure.expected_value}, actual: {primary_failure.actual_value}")
             else:
-                print(f"🔍 DEBUG: primary_failure is None/False")
+                print(f"DEBUG: primary_failure is None/False")
 
             # Step 2: Identify passing and failing test cases
-            print(f"🔍 DEBUG: Step 2 - Categorizing test results")
+            print(f"DEBUG: Step 2 - Categorizing test results")
             passing_tests, failing_tests = self._categorize_test_results(error_report)
-            print(f"🔍 DEBUG: Found {len(passing_tests)} passing, {len(failing_tests)} failing tests")
+            print(f"DEBUG: Found {len(passing_tests)} passing, {len(failing_tests)} failing tests")
 
             # Step 3: Generate core reasoning about the specific failure
-            print(f"🔍 DEBUG: Step 3 - Generating core reasoning")
+            print(f"DEBUG: Step 3 - Generating core reasoning")
             try:
                 core_reasoning = self._generate_core_reasoning(
                     primary_failure, error_report, iteration, previous_analyses
                 )
-                print(f"🔍 DEBUG: Core reasoning generated successfully")
+                print(f"DEBUG: Core reasoning generated successfully")
             except Exception as e:
-                print(f"🔍 ERROR: Core reasoning generation failed: {e}")
+                print(f"ERROR: Core reasoning generation failed: {e}")
                 import traceback
                 traceback.print_exc()
                 # Fallback to basic reasoning
                 core_reasoning = f"Error during reasoning generation: {e}. Using fallback analysis."
 
             # Step 4: Intelligent decision about context checking
-            print(f"🔍 DEBUG: Step 4 - Context checking decisions")
+            print(f"DEBUG: Step 4 - Context checking decisions")
             try:
                 should_check_testbench, should_check_spec, context_reasoning = self._decide_context_checking(
                     primary_failure, error_report, iteration, previous_analyses
                 )
-                print(f"🔍 DEBUG: Context checking completed")
+                print(f"DEBUG: Context checking completed")
             except Exception as e:
-                print(f"🔍 ERROR: Context checking decisions failed: {e}")
+                print(f"ERROR: Context checking decisions failed: {e}")
                 import traceback
                 traceback.print_exc()
                 # Fallback to basic context checking
@@ -127,11 +127,11 @@ class ComprehensiveErrorAnalyzer:
 
             # Retrieve rules at first iteration OR when explicit restart signal is provided
             should_retrieve_rules = (iteration == 1 or is_restart)
-            print(f"🔍 DEBUG: Rule retrieval check - iteration={iteration}, is_restart={is_restart}, should_retrieve={should_retrieve_rules}")
+            print(f"DEBUG: Rule retrieval check - iteration={iteration}, is_restart={is_restart}, should_retrieve={should_retrieve_rules}")
             if should_retrieve_rules:
                 spec_to_use = specification if specification else self.cached_specification
                 if spec_to_use:
-                    print(f"🔍 DEBUG: Step 5 - {'First iteration' if iteration == 1 else ('Explicit restart' if is_restart else 'Fresh start')}, retrieving architectural guidance for RTL generation (using {'provided' if specification else 'cached'} spec)")
+                    print(f"DEBUG: Step 5 - {'First iteration' if iteration == 1 else ('Explicit restart' if is_restart else 'Fresh start')}, retrieving architectural guidance for RTL generation (using {'provided' if specification else 'cached'} spec)")
                     self.rtl_rule_advisor.retrieve_rules_from_specification(spec_to_use)
 
             # Always include architectural guidance once retrieved (persist across iterations until reset)
@@ -142,10 +142,10 @@ class ComprehensiveErrorAnalyzer:
                     guidance_context = "initial" if iteration == 1 else ("explicit restart" if is_restart else "fresh start")
                 else:
                     guidance_context = "persistent"
-                print(f"🔍 DEBUG: Providing {len(advice_list)} architectural guidance rules for {guidance_context} RTL generation")
+                print(f"DEBUG: Providing {len(advice_list)} architectural guidance rules for {guidance_context} RTL generation")
             elif should_retrieve_rules:
                 guidance_context = "initial" if iteration == 1 else ("explicit restart" if is_restart else "fresh start")
-                print(f"🔍 DEBUG: No architectural guidance retrieved for this {guidance_context} design")
+                print(f"DEBUG: No architectural guidance retrieved for this {guidance_context} design")
 
             result = ComprehensiveErrorAnalysis(
                 primary_failure=primary_failure,
@@ -158,16 +158,16 @@ class ComprehensiveErrorAnalyzer:
                 rtl_rule_advice=rtl_rule_advice
             )
 
-            print(f"🔍 DEBUG: === ComprehensiveErrorAnalysis completed successfully for iteration {iteration} ===")
+            print(f"DEBUG: === ComprehensiveErrorAnalysis completed successfully for iteration {iteration} ===")
             return result
 
         except Exception as e:
-            print(f"🔍 DEBUG: === EXCEPTION in comprehensive error analysis for iteration {iteration} ===")
-            print(f"🔍 DEBUG: Exception type: {type(e)}")
-            print(f"🔍 DEBUG: Exception message: {e}")
+            print(f"DEBUG: === EXCEPTION in comprehensive error analysis for iteration {iteration} ===")
+            print(f"DEBUG: Exception type: {type(e)}")
+            print(f"DEBUG: Exception message: {e}")
             import traceback
             traceback.print_exc()
-            print(f"🔍 DEBUG: === End exception details ===")
+            print(f"DEBUG: === End exception details ===")
             raise
 
     def _categorize_test_results(self, error_report: str) -> Tuple[List[TestCaseResult], List[TestCaseResult]]:
@@ -561,12 +561,12 @@ class ComprehensiveErrorAnalyzer:
             # Check if this is a non-test error
             if any(keyword in error_report.upper() for keyword in
                   ['COMPILATION', 'SYNTAX ERROR', 'DOCKER', 'BUILD', 'FATAL']):
-                self.logger.info("📊 Error Type: Build/Environment issue (no tests executed)")
+                self.logger.info("Error Type: Build/Environment issue (no tests executed)")
             else:
-                self.logger.info("📊 Error Type: Unknown issue (no tests detected)")
+                self.logger.info("Error Type: Unknown issue (no tests detected)")
         else:
             pass_rate = (len(passing_tests) / total_tests * 100) if total_tests > 0 else 0
-            self.logger.info(f"📊 Test Statistics: {total_tests} total | "
+            self.logger.info(f"Test Statistics: {total_tests} total | "
                            f"{len(passing_tests)} pass | {len(failing_tests)} fail | "
                            f"{pass_rate:.1f}% pass rate")
 
@@ -575,7 +575,7 @@ class ComprehensiveErrorAnalyzer:
                 sample_failures = failing_tests[:2]  # Show first 2 failures
                 for test in sample_failures:
                     short_details = (test.assertion_details[:60] + "...") if len(test.assertion_details) > 60 else test.assertion_details
-                    self.logger.info(f"  ❌ {test.test_name}: {short_details}")
+                    self.logger.info(f"  {test.test_name}: {short_details}")
                 if len(failing_tests) > 2:
                     self.logger.info(f"  ... and {len(failing_tests)-2} more failures")
 
@@ -588,7 +588,7 @@ class ComprehensiveErrorAnalyzer:
                 top_section = error_report[:half_limit]
                 bottom_section = error_report[-half_limit:]
                 truncated_report = f"{top_section}\n\n[... middle section truncated ...]\n\n{bottom_section}"
-                self.logger.info(f"📋 Long error report ({len(error_report)} chars) - analyzing top {half_limit} and bottom {half_limit} chars")
+                self.logger.info(f"Long error report ({len(error_report)} chars) - analyzing top {half_limit} and bottom {half_limit} chars")
             else:
                 truncated_report = error_report
 
@@ -648,7 +648,7 @@ Only include passing_tests and failing_tests if error_type is "testbench"."""
                                 TestCaseResult(test_data['test_name'], False, test_data.get('error_details', 'Test failed'))
                             )
 
-                        self.logger.info(f"📋 LLM Analysis: Found testbench with {len(result['passing_tests'])} pass, {len(result['failing_tests'])} fail")
+                        self.logger.info(f"LLM Analysis: Found testbench with {len(result['passing_tests'])} pass, {len(result['failing_tests'])} fail")
                     else:
                         # Non-testbench error - create error entry
                         error_type = analysis.get('error_type', 'unknown')
@@ -656,7 +656,7 @@ Only include passing_tests and failing_tests if error_type is "testbench"."""
                         result['failing_tests'].append(
                             TestCaseResult(f"{error_type}_error", False, error_msg)
                         )
-                        self.logger.info(f"📋 LLM Analysis: Detected {error_type} error - {error_msg[:100]}")
+                        self.logger.info(f"LLM Analysis: Detected {error_type} error - {error_msg[:100]}")
 
                     return result
 
@@ -711,29 +711,29 @@ Only include passing_tests and failing_tests if error_type is "testbench"."""
 
         # Check for patterns from previous iterations
         if previous_analyses:
-            print(f"🔍 DEBUG: Checking {len(previous_analyses)} previous analyses for repeated failures")
+            print(f"DEBUG: Checking {len(previous_analyses)} previous analyses for repeated failures")
             for i, a in enumerate(previous_analyses):
-                print(f"🔍 DEBUG: Previous analysis {i}: primary_failure = {a.get('primary_failure')}")
-                print(f"🔍 DEBUG: Previous analysis {i}: type = {type(a.get('primary_failure'))}")
+                print(f"DEBUG: Previous analysis {i}: primary_failure = {a.get('primary_failure')}")
+                print(f"DEBUG: Previous analysis {i}: type = {type(a.get('primary_failure'))}")
 
-            print(f"🔍 DEBUG: About to compare with current primary_failure.expected_value = {primary_failure.expected_value}")
+            print(f"DEBUG: About to compare with current primary_failure.expected_value = {primary_failure.expected_value}")
             repeated_failures = []
             for i, a in enumerate(previous_analyses):
                 try:
-                    print(f"🔍 DEBUG: Processing previous analysis {i}")
+                    print(f"DEBUG: Processing previous analysis {i}")
                     pf_dict = a.get('primary_failure', {})
-                    print(f"🔍 DEBUG: pf_dict = {pf_dict}, type = {type(pf_dict)}")
+                    print(f"DEBUG: pf_dict = {pf_dict}, type = {type(pf_dict)}")
                     if pf_dict is None:
-                        print(f"🔍 DEBUG: pf_dict is None, skipping")
+                        print(f"DEBUG: pf_dict is None, skipping")
                         continue
                     expected_val = pf_dict.get('expected_value')
-                    print(f"🔍 DEBUG: expected_val = {expected_val}")
+                    print(f"DEBUG: expected_val = {expected_val}")
                     if expected_val == primary_failure.expected_value:
                         repeated_failures.append(a)
-                        print(f"🔍 DEBUG: Found matching failure: {expected_val}")
+                        print(f"DEBUG: Found matching failure: {expected_val}")
                 except Exception as e:
-                    print(f"🔍 DEBUG: Exception in repeated failure check for analysis {i}: {e}")
-                    print(f"🔍 DEBUG: Exception type: {type(e)}")
+                    print(f"DEBUG: Exception in repeated failure check for analysis {i}: {e}")
+                    print(f"DEBUG: Exception type: {type(e)}")
                     import traceback
                     traceback.print_exc()
 
@@ -770,17 +770,17 @@ Only include passing_tests and failing_tests if error_type is "testbench"."""
 
         elif iteration >= 5 and previous_analyses and primary_failure:
             # Check if we're stuck on the same issue
-            print(f"🔍 DEBUG: _decide_context_checking - checking recent failures for iteration {iteration}")
+            print(f"DEBUG: _decide_context_checking - checking recent failures for iteration {iteration}")
             recent_failures = []
             for i, a in enumerate(previous_analyses[-3:]):
                 try:
-                    print(f"🔍 DEBUG: Recent analysis {i}: primary_failure = {a.get('primary_failure')}")
+                    print(f"DEBUG: Recent analysis {i}: primary_failure = {a.get('primary_failure')}")
                     pf_dict = a.get('primary_failure')
                     if pf_dict and pf_dict.get('expected_value') == primary_failure.expected_value:
                         recent_failures.append(a)
-                        print(f"🔍 DEBUG: Found recent matching failure")
+                        print(f"DEBUG: Found recent matching failure")
                 except Exception as e:
-                    print(f"🔍 DEBUG: Exception in recent failure check: {e}")
+                    print(f"DEBUG: Exception in recent failure check: {e}")
 
             if len(recent_failures) >= 2:
                 should_check_testbench = True
@@ -796,25 +796,25 @@ Only include passing_tests and failing_tests if error_type is "testbench"."""
 
         elif previous_analyses and len(previous_analyses) >= 3:
             # Check if we're seeing different failure types (suggests spec misunderstanding)
-            print(f"🔍 DEBUG: _decide_context_checking - checking failure types for spec understanding")
+            print(f"DEBUG: _decide_context_checking - checking failure types for spec understanding")
             failure_types = []
             for i, a in enumerate(previous_analyses[-3:]):
                 try:
-                    print(f"🔍 DEBUG: Failure type analysis {i}: primary_failure = {a.get('primary_failure')}")
+                    print(f"DEBUG: Failure type analysis {i}: primary_failure = {a.get('primary_failure')}")
                     pf_dict = a.get('primary_failure')
                     if pf_dict:
                         raw_assertion = pf_dict.get('raw_assertion', '')
                         failure_types.append(raw_assertion)
-                        print(f"🔍 DEBUG: Added failure type: {raw_assertion[:50]}...")
+                        print(f"DEBUG: Added failure type: {raw_assertion[:50]}...")
                     else:
                         failure_types.append('')
-                        print(f"🔍 DEBUG: Added empty failure type (pf_dict is None)")
+                        print(f"DEBUG: Added empty failure type (pf_dict is None)")
                 except Exception as e:
-                    print(f"🔍 DEBUG: Exception in failure type check: {e}")
+                    print(f"DEBUG: Exception in failure type check: {e}")
                     failure_types.append('')
 
             unique_failures = len(set(failure_types))
-            print(f"🔍 DEBUG: unique_failures count: {unique_failures}")
+            print(f"DEBUG: unique_failures count: {unique_failures}")
             if unique_failures >= 2:
                 should_check_spec = True
                 reasoning_parts.append("Multiple different failures - may have spec misunderstanding")

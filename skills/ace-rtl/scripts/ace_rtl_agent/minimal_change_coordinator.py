@@ -18,7 +18,7 @@ class MinimalChangeCoordinator:
     """
     Coordinates RTL debugging with focus on minimal, targeted changes.
 
-    This implements the key insights from successful Cursor debugging:
+    This implements key minimal-change debugging patterns:
     1. Focus on ONE assertion failure per iteration
     2. Use specification examples as ground truth
     3. Start simple, escalate complexity progressively

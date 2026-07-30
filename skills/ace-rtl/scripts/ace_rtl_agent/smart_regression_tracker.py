@@ -63,9 +63,9 @@ class SmartRegressionTracker:
 
             # Compare test counts
             if tests_passed > prev_result.tests_passed_count:
-                improvements.append(f"Tests improved: {prev_result.tests_passed_count} → {tests_passed} passing")
+                improvements.append(f"Tests improved: {prev_result.tests_passed_count} -> {tests_passed} passing")
             elif tests_passed < prev_result.tests_passed_count:
-                regressions.append(f"Tests regressed: {prev_result.tests_passed_count} → {tests_passed} passing")
+                regressions.append(f"Tests regressed: {prev_result.tests_passed_count} -> {tests_passed} passing")
 
             # Detect specific test changes
             prev_passing_tests = self._extract_test_names(prev_result.error_report, passed=True)
@@ -130,7 +130,7 @@ class SmartRegressionTracker:
         recent_history = self.iteration_history[-4:]  # Last 4 iterations
 
         for result in recent_history:
-            status = "✅ PASSED" if result.test_passed else "❌ FAILED"
+            status = "PASSED" if result.test_passed else "FAILED"
             context.append(f"### Iteration {result.iteration}: {status}")
             context.append(f"- **Test Results**: {result.tests_passed_count} passing, {result.tests_failed_count} failing")
 
@@ -148,7 +148,7 @@ class SmartRegressionTracker:
             if result.improvements_noted:
                 context.append(f"- **Improvements**: {'; '.join(result.improvements_noted[:2])}")
             if result.regressions_noted:
-                context.append(f"- **⚠️ Regressions**: {'; '.join(result.regressions_noted[:2])}")
+                context.append(f"- **Regressions**: {'; '.join(result.regressions_noted[:2])}")
 
             context.append("")
 
@@ -161,7 +161,7 @@ class SmartRegressionTracker:
         # Warn about repeated attempts
         repeated_attempts = self._detect_repeated_attempts()
         if repeated_attempts:
-            context.append("### ⚠️ REPEATED ATTEMPTS DETECTED:")
+            context.append("### REPEATED ATTEMPTS DETECTED:")
             for attempt in repeated_attempts[:3]:
                 context.append(f"- {attempt}")
             context.append("")
@@ -324,15 +324,15 @@ class SmartRegressionTracker:
         if len(recent_counts) >= 3:
             # Check if improving
             if recent_counts[-1] > recent_counts[0]:
-                return f"✅ **Improving**: Test passes increased from {recent_counts[0]} to {recent_counts[-1]} over recent iterations"
+                return f"**Improving**: Test passes increased from {recent_counts[0]} to {recent_counts[-1]} over recent iterations"
             elif recent_counts[-1] < recent_counts[0]:
-                return f"⚠️ **Declining**: Test passes decreased from {recent_counts[0]} to {recent_counts[-1]} - recent changes made things worse"
+                return f"**Declining**: Test passes decreased from {recent_counts[0]} to {recent_counts[-1]} - recent changes made things worse"
             else:
                 # Check if stuck
                 if len(set(recent_counts)) == 1:
-                    return f"⚠️ **Stuck**: Test passes remain at {recent_counts[0]} for {len(recent_counts)} iterations - need different approach"
+                    return f"**Stuck**: Test passes remain at {recent_counts[0]} for {len(recent_counts)} iterations - need different approach"
                 else:
-                    return f"➡️ **Fluctuating**: Test passes varying between {min(recent_counts)} and {max(recent_counts)} - unstable changes"
+                    return f"**Fluctuating**: Test passes varying between {min(recent_counts)} and {max(recent_counts)} - unstable changes"
 
         return "Monitoring progress..."
 
@@ -365,26 +365,26 @@ class SmartRegressionTracker:
 
         # If improving, continue current approach
         if stats['improvement'] > 0:
-            return "✅ Current approach is working - continue with incremental fixes to remaining issues"
+            return "Current approach is working - continue with incremental fixes to remaining issues"
 
         # If stuck for many iterations
         if stats['total_iterations'] >= 5 and stats['improvement'] == 0:
-            return "⚠️ No progress in 5+ iterations - consider:\n" \
+            return "No progress in 5+ iterations - consider:\n" \
                    "  1. Re-read specification for misunderstood requirements\n" \
                    "  2. Complete rewrite of problematic module\n" \
                    "  3. Different implementation approach (e.g., FSM vs combinational)"
 
         # If regressing
         if stats['improvement'] < 0:
-            return "⚠️ Recent changes made things worse - consider reverting to earlier iteration and trying different fix"
+            return "Recent changes made things worse - consider reverting to earlier iteration and trying different fix"
 
         # If some tests pass but others fail
         if stats['current_passing'] > 0 and stats['current_failing'] > 0:
-            return "➡️ Partial success - focus on fixing failing tests without breaking passing ones (check for edge cases)"
+            return "Partial success - focus on fixing failing tests without breaking passing ones (check for edge cases)"
 
         # If all tests fail
         if stats['current_passing'] == 0:
-            return "🔴 All tests failing - likely fundamental issue with:\n" \
+            return "All tests failing - likely fundamental issue with:\n" \
                    "  1. Module interface (input/output signals)\n" \
                    "  2. Basic logic implementation\n" \
                    "  3. Specification understanding"

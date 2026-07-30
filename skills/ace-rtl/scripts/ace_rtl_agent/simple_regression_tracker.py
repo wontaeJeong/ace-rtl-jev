@@ -61,7 +61,7 @@ class SimpleRegressionTracker:
         recent_history = self.iteration_history[-3:]
 
         for result in recent_history:
-            status = "✅ PASSED" if result.test_passed else "❌ FAILED"
+            status = "PASSED" if result.test_passed else "FAILED"
             context.append(f"**Iteration {result.iteration}**: {status}")
 
             # Show key parts of error report (let LLM interpret)
@@ -82,7 +82,7 @@ class SimpleRegressionTracker:
         # Simple regression detection
         regression_warning = self._detect_simple_regression()
         if regression_warning:
-            context.append("### ⚠️ POSSIBLE REGRESSION DETECTED:")
+            context.append("### POSSIBLE REGRESSION DETECTED:")
             context.append(regression_warning)
             context.append("")
 
@@ -97,7 +97,7 @@ class SimpleRegressionTracker:
         # Look for obvious success indicators
         success_indicators = [
             "completed successfully", "passed", "success",
-            "✅", "PASS", "OK", "succeeded"
+            "\u2705", "PASS", "OK", "succeeded"
         ]
 
         lines = error_report.split('\n')
@@ -115,7 +115,7 @@ class SimpleRegressionTracker:
         # Look for assertion errors or key failure patterns
         failure_patterns = [
             "AssertionError", "FAILED", "Error:", "failed",
-            "expected", "assert", "❌"
+            "expected", "assert", "\u274c"
         ]
 
         for line in lines:

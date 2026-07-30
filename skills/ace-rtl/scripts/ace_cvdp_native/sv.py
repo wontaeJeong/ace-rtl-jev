@@ -196,15 +196,15 @@ def lift_late_sv_procedural_declarations(code: str) -> Tuple[str, int]:
         return code, 0
 
     transformed_parts: List[str] = []
-    cursor = 0
+    scan_pos = 0
     total_lifted = 0
     for module_index, module_match in enumerate(matches, start=1):
-        transformed_parts.append(code[cursor : module_match.start()])
+        transformed_parts.append(code[scan_pos : module_match.start()])
         module_text = module_match.group(0)
         block_re = re.compile(r"\b(always_ff|always_comb|always_latch|always)\b", re.IGNORECASE)
 
         module_parts: List[str] = []
-        block_cursor = 0
+        block_scan_pos = 0
         lifted_decls: List[str] = []
         for block_index, block_match in enumerate(block_re.finditer(module_text), start=1):
             begin_match = re.search(r"\bbegin\b", module_text[block_match.end() :], flags=re.IGNORECASE)
@@ -214,7 +214,7 @@ def lift_late_sv_procedural_declarations(code: str) -> Tuple[str, int]:
             end_pos = find_matching_sv_block_end(module_text, begin_pos)
             if end_pos is None:
                 continue
-            module_parts.append(module_text[block_cursor:begin_pos])
+            module_parts.append(module_text[block_scan_pos:begin_pos])
             new_block, decls = lift_procedural_declarations_in_block(
                 module_text[begin_pos:end_pos],
                 module_index,
@@ -222,10 +222,10 @@ def lift_late_sv_procedural_declarations(code: str) -> Tuple[str, int]:
             )
             module_parts.append(new_block)
             lifted_decls.extend(decls)
-            block_cursor = end_pos
+            block_scan_pos = end_pos
 
         if lifted_decls:
-            module_parts.append(module_text[block_cursor:])
+            module_parts.append(module_text[block_scan_pos:])
             module_text = "".join(module_parts)
             unique_decls = list(dict.fromkeys(lifted_decls))
             insert_match = re.search(
@@ -246,9 +246,9 @@ def lift_late_sv_procedural_declarations(code: str) -> Tuple[str, int]:
             total_lifted += len(unique_decls)
 
         transformed_parts.append(module_text)
-        cursor = module_match.end()
+        scan_pos = module_match.end()
 
-    transformed_parts.append(code[cursor:])
+    transformed_parts.append(code[scan_pos:])
     return "".join(transformed_parts), total_lifted
 
 
@@ -352,9 +352,9 @@ def cast_enum_ternary_assignments(code: str) -> Tuple[str, int]:
 
     cast_count = 0
     parts: List[str] = []
-    cursor = 0
+    scan_pos = 0
     for module_match in matches:
-        parts.append(code[cursor : module_match.start()])
+        parts.append(code[scan_pos : module_match.start()])
         module_text = module_match.group(0)
         for var_name, enum_type in enum_typed_variables(module_text).items():
             assign_re = re.compile(
@@ -372,8 +372,8 @@ def cast_enum_ternary_assignments(code: str) -> Tuple[str, int]:
 
             module_text = assign_re.sub(replace, module_text)
         parts.append(module_text)
-        cursor = module_match.end()
-    parts.append(code[cursor:])
+        scan_pos = module_match.end()
+    parts.append(code[scan_pos:])
     return "".join(parts), cast_count
 
 
@@ -447,14 +447,14 @@ def expand_unpacked_array_assignments(code: str) -> Tuple[str, int]:
 
     expanded = 0
     parts: List[str] = []
-    cursor = 0
+    scan_pos = 0
     assignment_re = re.compile(
         r"(?m)^(?P<indent>[ \t]*)(?P<lhs>[A-Za-z_][A-Za-z0-9_$]*)\s*"
         r"(?P<op><=|=)\s*(?P<rhs>[A-Za-z_][A-Za-z0-9_$]*)\s*;\s*(?://.*)?$"
     )
 
     for module_match in matches:
-        parts.append(code[cursor : module_match.start()])
+        parts.append(code[scan_pos : module_match.start()])
         module_text = module_match.group(0)
         arrays = unpacked_array_declarations(module_text)
         if arrays:
@@ -488,8 +488,8 @@ def expand_unpacked_array_assignments(code: str) -> Tuple[str, int]:
 
             module_text = assignment_re.sub(replace, module_text)
         parts.append(module_text)
-        cursor = module_match.end()
-    parts.append(code[cursor:])
+        scan_pos = module_match.end()
+    parts.append(code[scan_pos:])
     return "".join(parts), expanded
 
 

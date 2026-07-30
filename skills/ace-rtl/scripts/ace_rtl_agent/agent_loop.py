@@ -146,7 +146,7 @@ class AgentLoopMixin:
 
                 if len(rtl_files) > 1:
                     # Step 1: Multi-file design detected
-                    self.logger.info(f"✓ Step 1: Detected multi-file design with {len(rtl_files)} files: {[f.name for f in rtl_files]}")
+                    self.logger.info(f"Step 1: Detected multi-file design with {len(rtl_files)} files: {[f.name for f in rtl_files]}")
 
                     # Step 2: Identify the generated file to repair. CVDP
                     # verification tasks list generated deliverables in
@@ -167,7 +167,7 @@ class AgentLoopMixin:
                         )
                         or self._identify_buggy_file_from_initial_prompt(rtl_files, spec)
                     )
-                    self.logger.info(f"✓ Step 2: Identified generated file to repair: {buggy_file_name}")
+                    self.logger.info(f"Step 2: Identified generated file to repair: {buggy_file_name}")
 
                     target_file_set = set(target_file_names)
                     if target_file_set:
@@ -182,15 +182,10 @@ class AgentLoopMixin:
                         'target_files': target_file_names,
                         'additional_target_files': [name for name in target_file_names if name != buggy_file_name],
                         'rtl_dir': code_dir,
-                        'reduced_core_adapter': (
-                            ((current_datapoint.get("metadata") or {}).get("reduced_core_adapter"))
-                            if isinstance(current_datapoint.get("metadata"), dict)
-                            else None
-                        ),
                     }
                     if target_file_names:
-                        self.logger.info(f"✓ CVDP declared generated target file(s): {target_file_names}")
-                    self.logger.info(f"✓ Context files (won't be modified): {multi_file_info['context_files']}")
+                        self.logger.info(f"CVDP declared generated target file(s): {target_file_names}")
+                    self.logger.info(f"Context files (won't be modified): {multi_file_info['context_files']}")
 
                     # Always load the selected generated file. The initial
                     # extractor may have picked the largest file, which is not
@@ -229,11 +224,6 @@ class AgentLoopMixin:
                         'target_files': target_file_names,
                         'additional_target_files': [name for name in target_file_names if name != buggy_file_name],
                         'rtl_dir': code_dir,
-                        'reduced_core_adapter': (
-                            ((current_datapoint.get("metadata") or {}).get("reduced_core_adapter"))
-                            if isinstance(current_datapoint.get("metadata"), dict)
-                            else None
-                        ),
                     }
                     buggy_file_path = code_dir / buggy_file_name
                     current_rtl = self._load_generated_target_bundle(
@@ -313,7 +303,7 @@ class AgentLoopMixin:
         best_per_signal = current_per_signal
         consecutive_reverts = 0  # Track how many times we revert in a row
 
-        # Set harness directory for testbench analysis (like Cursor would read all files)
+        # Set harness directory for testbench analysis.
         if hasattr(benchmark_int, 'harness_dir'):
             rtl_gen.set_harness_directory(benchmark_int.harness_dir)
 
@@ -332,7 +322,7 @@ class AgentLoopMixin:
                 # No need to check for success event within the process (complete isolation)
 
                 iteration_wall_start = time.time()
-                print(f"\n🔄 ITERATION {iteration + 1}/{self.config.max_iterations}")
+                print(f"\nITERATION {iteration + 1}/{self.config.max_iterations}")
                 self.logger.info(f"Iteration {iteration + 1} BEGIN at {time.strftime('%Y-%m-%d %H:%M:%S')}")
                 # Removed verbose iteration start logging
 
@@ -342,36 +332,36 @@ class AgentLoopMixin:
 
                 # Debug: Check why iteration might be skipped
                 if not current_rtl:
-                    print(f"⚠️  WARNING: No RTL code available for iteration {iteration + 1} - skipping")
+                    print(f"WARNING: No RTL code available for iteration {iteration + 1} - skipping")
                     goto_next_iteration = True
                 if not current_error_report:
-                    print(f"⚠️  WARNING: No error report available for iteration {iteration + 1} - skipping")
+                    print(f"WARNING: No error report available for iteration {iteration + 1} - skipping")
                     goto_next_iteration = True
                 if goto_next_iteration:
                     continue
 
                 # Debug: Show that we're proceeding to debugging work
-                print(f"🔧 Starting debugging work for iteration {iteration + 1}")
+                print(f"Starting debugging work for iteration {iteration + 1}")
 
                 # Check if we need a fresh start before this iteration
                 if iteration >= 5:  # Only check fresh start after several iterations
-                    print(f"🔍 Checking if fresh start needed for iteration {iteration + 1}")
+                    print(f"Checking if fresh start needed for iteration {iteration + 1}")
                     should_restart, restart_reason = rtl_gen.check_need_fresh_start(iteration + 1)
                     if should_restart:
-                        print(f"🔄 FRESH START triggered: {restart_reason}")
-                        print(f"🔧 Using Fresh Start Coordinator (generates new RTL from scratch)")
+                        print(f"FRESH START triggered: {restart_reason}")
+                        print(f"Using Fresh Start Coordinator (generates new RTL from scratch)")
 
                         # Reset rule advisor session for fresh start to enable rule retrieval
                         if hasattr(feedback_an, 'comprehensive_error_analyzer') and \
                            hasattr(feedback_an.comprehensive_error_analyzer, 'rtl_rule_advisor'):
                             feedback_an.comprehensive_error_analyzer.rtl_rule_advisor.reset_session()
-                            print(f"🔍 DEBUG: Reset rule advisor session for fresh start")
+                            print(f"DEBUG: Reset rule advisor session for fresh start")
                         # Also reset the analyzer used by the LLM-centric debugger
                         if hasattr(rtl_gen, 'llm_centric_debugger') and \
                            hasattr(rtl_gen.llm_centric_debugger, 'error_analyzer') and \
                            hasattr(rtl_gen.llm_centric_debugger.error_analyzer, 'rtl_rule_advisor'):
                             rtl_gen.llm_centric_debugger.error_analyzer.rtl_rule_advisor.reset_session()
-                            print(f"🔍 DEBUG: Reset LLMCentricDebugger rule advisor for fresh start")
+                            print(f"DEBUG: Reset LLMCentricDebugger rule advisor for fresh start")
 
                         # Removed verbose fresh start logging
 
@@ -384,11 +374,11 @@ class AgentLoopMixin:
                                 current_iteration=iteration + 1,
                             )
 
-                            print(f"✨ Generated fresh RTL code ({len(fresh_rtl)} chars)")
+                            print(f"Generated fresh RTL code ({len(fresh_rtl)} chars)")
                             # Removed verbose fresh RTL generation logging
 
                             # Test fresh RTL directly without debugging contamination
-                            print(f"🧪 Testing fresh RTL directly")
+                            print(f"Testing fresh RTL directly")
                             fresh_test_result = benchmark_int.test_rtl_code(datapoint_name, fresh_rtl)
                             fresh_mismatch_count = -1
                             fresh_per_signal = None
@@ -438,7 +428,7 @@ class AgentLoopMixin:
 
                             # If fresh RTL passes, we're done!
                             if fresh_test_result["passed"]:
-                                self.logger.info(f"🎉 SUCCESS: Fresh RTL passed tests in iteration {iteration + 1}")
+                                self.logger.info(f"SUCCESS: Fresh RTL passed tests in iteration {iteration + 1}")
                                 return fresh_iteration_result
 
                             # If fresh RTL fails, set up for debugging in next iteration
@@ -458,26 +448,26 @@ class AgentLoopMixin:
                             continue  # Skip the debugging for this iteration since we already tested
 
                         except Exception as e:
-                            self.logger.error(f"❌ Fresh start generation failed: {e}")
+                            self.logger.error(f"Fresh start generation failed: {e}")
                             # Continue with current approach if fresh start fails
 
                 # Debug: Show that we're entering retry loop
-                print(f"🔄 Entering retry loop for iteration {iteration + 1}")
+                print(f"Entering retry loop for iteration {iteration + 1}")
 
                 # Retry logic for this specific iteration
                 for attempt in range(self.config.iteration_retries + 1):  # +1 for initial attempt
                     if attempt > 0:
-                        print(f"🔄 Retrying iteration {iteration + 1}, attempt {attempt + 1}")
+                        print(f"Retrying iteration {iteration + 1}, attempt {attempt + 1}")
                         # Removed verbose retry logging
 
-                    print(f"🔧 Attempt {attempt + 1} for iteration {iteration + 1}")
+                    print(f"Attempt {attempt + 1} for iteration {iteration + 1}")
 
                     iteration_start_time = time.time()
                     # Enforce per-iteration wall-clock timeout before starting expensive steps (only if > 0)
                     if self.config.timeout_per_iteration > 0 and (time.time() - iteration_wall_start > self.config.timeout_per_iteration):
                         timeout_msg = (f"Iteration {iteration + 1} exceeded wall-clock timeout "
                                        f"({self.config.timeout_per_iteration}s). Skipping to next iteration.")
-                        print(f"⏱️  TIMEOUT: {timeout_msg}")
+                        print(f"TIMEOUT: {timeout_msg}")
                         self._log_iteration_result(datapoint_name, iteration + 1, False, timeout_msg, benchmark_int)
                         iteration_result = IterationResult(
                             iteration=iteration + 1,
@@ -494,10 +484,10 @@ class AgentLoopMixin:
 
                     try:
                         # Show component usage plan for this iteration
-                        print(f"📋 COMPONENTS TO USE:")
-                        print(f"   🔧 RTL Generator (orchestrates debugging)")
-                        print(f"   🧠 LLM-Centric Debugger → Comprehensive Error Analyzer → Regression Tracker")
-                        print(f"   💾 CVDP Integration (testing & code preservation)")
+                        print(f"COMPONENTS TO USE:")
+                        print(f"   RTL Generator (orchestrates debugging)")
+                        print(f"   LLM-Centric Debugger -> Comprehensive Error Analyzer -> Regression Tracker")
+                        print(f"   CVDP Integration (testing & code preservation)")
 
                         # Generate corrected RTL code using systematic debugging
                         llm_gen_start = time.time()
@@ -518,7 +508,7 @@ class AgentLoopMixin:
                         if self.config.timeout_per_iteration > 0 and (time.time() - iteration_wall_start > self.config.timeout_per_iteration):
                             timeout_msg = (f"Iteration {iteration + 1} exceeded wall-clock timeout "
                                            f"({self.config.timeout_per_iteration}s) before testing. Skipping.")
-                            print(f"⏱️  TIMEOUT: {timeout_msg}")
+                            print(f"TIMEOUT: {timeout_msg}")
                             self._log_iteration_result(datapoint_name, iteration + 1, False, timeout_msg, benchmark_int)
                             iteration_result = IterationResult(
                                 iteration=iteration + 1,
@@ -581,7 +571,7 @@ class AgentLoopMixin:
 
                         # Save intermediate results if configured
                         if self.config.save_intermediate:
-                            print(f"💾 Saving iteration result to preserve generated code")
+                            print(f"Saving iteration result to preserve generated code")
                             self._save_iteration_result_to_cvdp_structure(iteration_result, benchmark_int)
 
                         # Log iteration result
@@ -590,8 +580,8 @@ class AgentLoopMixin:
 
                         # Check if test passed
                         if test_result["passed"]:
-                            print(f"🎉 SUCCESS: RTL passed tests in iteration {iteration + 1}")
-                            print(f"✅ Code preserved for final result")
+                            print(f"SUCCESS: RTL passed tests in iteration {iteration + 1}")
+                            print(f"Code preserved for final result")
                             # Removed verbose success logging
                             self.logger.info(f"Iteration {iteration + 1} END (PASS)")
                             return iteration_result
@@ -603,9 +593,9 @@ class AgentLoopMixin:
                             # Look for assertion details in error report
                             assertion_details = self._extract_assertion_details(error_report)
                             if assertion_details:
-                                print(f"❌ ERROR: Iteration {iteration + 1} failed - {assertion_details}")
+                                print(f"ERROR: Iteration {iteration + 1} failed - {assertion_details}")
                             else:
-                                print(f"❌ ERROR: Iteration {iteration + 1} failed - {error_msg}")
+                                print(f"ERROR: Iteration {iteration + 1} failed - {error_msg}")
                             # Best-code preservation: revert to best if regression is significant
                             if iter_mismatch_count >= 0 and best_mismatch_count >= 0:
                                 if iter_mismatch_count < best_mismatch_count:
@@ -667,15 +657,15 @@ class AgentLoopMixin:
                             break  # Exit retry loop for this iteration
 
                     except Exception as e:
-                        print(f"❌ ERROR: Exception in iteration {iteration + 1}, attempt {attempt + 1}: {str(e)}")
+                        print(f"ERROR: Exception in iteration {iteration + 1}, attempt {attempt + 1}: {str(e)}")
 
                         # Check if this is a transient error worth retrying
                         if self._is_transient_iteration_error(e) and attempt < self.config.iteration_retries:
-                            print(f"🔄 Transient error - will retry")
+                            print(f"Transient error - will retry")
                             continue  # Retry this iteration
                         else:
                             # Non-transient error or max retries reached
-                            print(f"❌ ERROR: Iteration {iteration + 1} failed after {attempt + 1} attempts")
+                            print(f"ERROR: Iteration {iteration + 1} failed after {attempt + 1} attempts")
 
                             # Log failed iteration
                             self._log_iteration_result(datapoint_name, iteration + 1, False, f"Exception after {attempt + 1} attempts: {str(e)}", benchmark_int)
@@ -710,11 +700,9 @@ class AgentLoopMixin:
 
         # If we reach here, all iterations failed
         actual_iterations = len(iteration_results)
-        print(f"❌ FINAL FAILURE: Completed {actual_iterations}/{self.config.max_iterations} iterations without success")
+        print(f"FINAL FAILURE: Completed {actual_iterations}/{self.config.max_iterations} iterations without success")
         self.logger.error(f"FAILURE: Completed {actual_iterations}/{self.config.max_iterations} iterations without success")
         return iteration_results[-1] if iteration_results else IterationResult(
             iteration=0, rtl_code="", test_passed=False, error_message="No iterations completed",
             prompt_content=None, response_content=None
         )
-
-

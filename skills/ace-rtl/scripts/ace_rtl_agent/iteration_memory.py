@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Iteration Memory - Learns from previous failed attempts, like Cursor's memory system
+Iteration Memory - learns from previous failed attempts.
 """
 
 from typing import Dict, List, Optional, Any, Set
@@ -24,8 +24,7 @@ class IterationMemory:
     """
     Maintains memory of previous attempts to avoid repeating mistakes.
 
-    This is how Cursor avoids making the same error twice - it learns
-    from what didn't work and adjusts its approach.
+    It learns from what did not work and adjusts the next approach.
     """
 
     def __init__(self, logger):

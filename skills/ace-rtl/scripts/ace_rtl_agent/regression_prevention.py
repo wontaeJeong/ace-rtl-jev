@@ -149,7 +149,7 @@ class RegressionPreventionSystem:
         for phase, assertions in by_phase.items():
             requirements.append(f"### {phase.value.title().replace('_', ' ')} Requirements:")
             for assertion in assertions:
-                requirements.append(f"- ✅ {assertion.assertion_text}")
+                requirements.append(f"- {assertion.assertion_text}")
                 if assertion.expected_value:
                     requirements.append(f"  - Expected: {assertion.expected_value}")
                 if assertion.timing_context:
@@ -170,7 +170,7 @@ class RegressionPreventionSystem:
             r"reset succesfull",  # Common success message
             r"Testing completed succesfully",
             r"PASS.*",
-            r"✅.*",
+            r"\u2705.*",
         ]
 
         for pattern in success_patterns:
@@ -187,7 +187,7 @@ class RegressionPreventionSystem:
             r"AssertionError.*",
             r"assert.*failed",
             r"FAIL.*",
-            r"❌.*",
+            r"\u274c.*",
         ]
 
         for pattern in failure_patterns:

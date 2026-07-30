@@ -471,10 +471,3 @@ class CVDPReportsMixin:
                     return self._maybe_append_compiler_logs('\n'.join(error_info))
 
         return "No detailed error report available"
-
-    def _reduced_core_adapter(self) -> Optional[Dict[str, Any]]:
-        """Return active reduced-core adapter metadata, if any."""
-        adapter = getattr(self, "reduced_core_adapter", None)
-        return adapter if isinstance(adapter, dict) else None
-
-

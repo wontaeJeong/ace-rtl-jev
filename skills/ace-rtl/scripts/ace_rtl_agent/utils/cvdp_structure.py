@@ -30,9 +30,9 @@ class CVDPStructureMixin:
             for item in sorted(cvdp_prefix.rglob("*")):
                 if item.is_file():
                     size = item.stat().st_size
-                    self.logger.info(f"  📄 {item.relative_to(cvdp_prefix)} ({size} bytes)")
+                    self.logger.info(f"  {item.relative_to(cvdp_prefix)} ({size} bytes)")
                 elif item.is_dir():
-                    self.logger.info(f"  📁 {item.relative_to(cvdp_prefix)}/")
+                    self.logger.info(f"  {item.relative_to(cvdp_prefix)}/")
 
         # CVDP creates an extra subdirectory with pattern: cvdp_{component_name}
         # Find the component directory that matches the current datapoint
@@ -148,25 +148,6 @@ class CVDPStructureMixin:
         if not code_dir or not code_dir.exists():
             self.logger.warning("Generated code directory not found in natural CVDP structure")
             return ""
-
-        adapter = self._reduced_core_adapter()
-        if adapter:
-            virtual_target = Path(str(adapter.get("virtual_target", ""))).name
-            if virtual_target:
-                virtual_path = code_dir / virtual_target
-                if virtual_path.exists():
-                    try:
-                        rtl_code = virtual_path.read_text(encoding="utf-8", errors="replace")
-                    except OSError as e:
-                        self.logger.warning(f"Could not read reduced-core virtual core target {virtual_path}: {e}")
-                    else:
-                        self.expected_rtl_filename = virtual_path.name
-                        self.generated_code_file = virtual_path
-                        self.logger.info(
-                            "Extracted reduced-core generated code from "
-                            f"{virtual_path} ({len(rtl_code)} chars)"
-                        )
-                        return rtl_code
 
         declared_targets = self._declared_generated_code_targets(code_dir)
         existing_declared = [path for path in declared_targets if path.exists()]
@@ -557,5 +538,4 @@ class CVDPStructureMixin:
             + "\n".join(f"- {item}" for item in violations[:12])
             + "\nFix: restore the exact public interface/hierarchy names and generated-module parameter APIs before changing core functionality."
         )
-
 

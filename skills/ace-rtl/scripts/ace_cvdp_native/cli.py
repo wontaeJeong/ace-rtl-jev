@@ -9,6 +9,7 @@ import argparse
 import concurrent.futures
 import copy
 import hashlib
+import inspect
 import json
 import logging
 import multiprocessing
@@ -35,6 +36,47 @@ from .harness import *
 from .sv import *
 from .diagnostics import *
 from .llm import *
+
+
+def select_generation_processor_class(dataset_processor):
+    """Find the CVDP dataset processor used for LLM-driven generation."""
+    base_processor = getattr(dataset_processor, "DatasetProcessor", None)
+    agentic_processor = getattr(dataset_processor, "AgenticProcessor", None)
+    required_args = {"filename", "golden", "threads", "debug", "host", "prefix"}
+    preferred_args = {"network_name", "manage_network"}
+    candidates = []
+
+    for name in dir(dataset_processor):
+        value = getattr(dataset_processor, name)
+        if not isinstance(value, type):
+            continue
+        if value in {base_processor, agentic_processor}:
+            continue
+        if not name.endswith("Processor"):
+            continue
+
+        try:
+            signature = inspect.signature(value)
+        except (TypeError, ValueError):
+            try:
+                signature = inspect.signature(value.__init__)
+            except (TypeError, ValueError):
+                continue
+
+        params = signature.parameters
+        has_kwargs = any(param.kind == inspect.Parameter.VAR_KEYWORD for param in params.values())
+        if has_kwargs or required_args.issubset(params):
+            score = len(required_args.intersection(params)) + len(preferred_args.intersection(params)) * 2
+            if has_kwargs:
+                score += 1
+            candidates.append((score, name, value))
+
+    if not candidates:
+        raise AttributeError("No compatible CVDP generation processor class found")
+
+    candidates.sort(key=lambda item: (-item[0], item[1]))
+    return candidates[0][2]
+
 
 def run_attempt(
     *,
@@ -107,7 +149,8 @@ def run_attempt(
             previous_candidate=previous_candidates or None,
         )
 
-        processor = dataset_processor.CopilotProcessor(
+        processor_cls = select_generation_processor_class(dataset_processor)
+        processor = processor_cls(
             filename=str(row_jsonl),
             golden=False,
             threads=1,
@@ -881,5 +924,3 @@ def main() -> int:
     )
     print(f"completed run: {run_dir}")
     return 0
-
-

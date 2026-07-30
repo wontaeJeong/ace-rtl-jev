@@ -138,7 +138,7 @@ class TestSequenceAnalyzer:
         if analysis.common_pitfalls:
             guidance.append("### Common Implementation Pitfalls to Avoid:")
             for pitfall in analysis.common_pitfalls:
-                guidance.append(f"- ⚠️ {pitfall}")
+                guidance.append(f"- {pitfall}")
             guidance.append("")
 
         guidance.append("**IMPLEMENTATION GUIDANCE:**")
@@ -258,7 +258,7 @@ class TestSequenceAnalyzer:
 
             # Identify phase transitions
             if current_step.phase != next_step.phase:
-                transition = f"{current_step.phase.value} → {next_step.phase.value}"
+                transition = f"{current_step.phase.value} -> {next_step.phase.value}"
                 transitions.append(f"Transition at {next_step.timing}: {transition}")
 
         # Look for signal transitions mentioned in errors

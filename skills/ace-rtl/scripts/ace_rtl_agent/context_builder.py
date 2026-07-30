@@ -179,24 +179,24 @@ class ContextBuilder:
 
                         # Interpret what this means
                         if got == '0':
-                            interpretations.append(f"  → Output not driven or stuck at 0")
+                            interpretations.append(f"  -> Output not driven or stuck at 0")
                         elif expected.isdigit() and got.isdigit():
                             exp_val = int(expected)
                             got_val = int(got)
                             if got_val < exp_val:
-                                interpretations.append(f"  → Output is too small (computation incomplete?)")
+                                interpretations.append(f"  -> Output is too small (computation incomplete?)")
                             else:
-                                interpretations.append(f"  → Output is too large (wrong formula?)")
+                                interpretations.append(f"  -> Output is too large (wrong formula?)")
 
                 # Check for timing requirements
                 if 'cycle' in assertion.lower() or 'time' in assertion.lower():
                     interpretations.append(f"- Test has timing requirements: {assertion[:80]}")
-                    interpretations.append(f"  → Design must produce result within specified time/cycles")
+                    interpretations.append(f"  -> Design must produce result within specified time/cycles")
 
                 # Check for signal state requirements
                 if 'high' in assertion.lower() or 'low' in assertion.lower():
                     interpretations.append(f"- Test checks signal state: {assertion[:80]}")
-                    interpretations.append(f"  → Control signals (done, valid, etc.) must have correct values")
+                    interpretations.append(f"  -> Control signals (done, valid, etc.) must have correct values")
 
         # Look for test patterns in testbench code
         if testbench_code:
@@ -227,29 +227,29 @@ class ContextBuilder:
         # Common ambiguity: Output behavior before ready
         if 'output' in spec_lower and 'done' not in spec_lower:
             clarifications.append("**Output Initialization**: Specification doesn't explicitly state output value before computation completes")
-            clarifications.append("  → Best practice: Set output to 0 initially, update when result ready")
+            clarifications.append("  -> Best practice: Set output to 0 initially, update when result ready")
 
         # Common ambiguity: Signal timing
         if 'signal' in error_report.lower() and ('high' in error_report.lower() or 'pulse' in error_report.lower()):
             clarifications.append("**Signal Duration**: Tests may expect control signals to pulse (high for 1 cycle) vs hold")
-            clarifications.append("  → Check test assertions to see if signal should pulse or remain high")
+            clarifications.append("  -> Check test assertions to see if signal should pulse or remain high")
 
         # Common ambiguity: Reset behavior
         if 'reset' in spec_lower or 'rst' in rtl_code.lower():
             if 'active' not in spec_lower:
                 clarifications.append("**Reset Polarity**: Specification doesn't state if reset is active high or low")
-                clarifications.append("  → Check testbench to determine reset polarity")
+                clarifications.append("  -> Check testbench to determine reset polarity")
 
         # Common ambiguity: Input timing
         if 'input' in spec_lower and 'valid' not in spec_lower:
             clarifications.append("**Input Timing**: Specification may not state when inputs are valid")
-            clarifications.append("  → Assume inputs are valid on same clock edge as computation starts")
+            clarifications.append("  -> Assume inputs are valid on same clock edge as computation starts")
 
         # Check for undefined edge cases
         if any(word in spec_lower for word in ['compute', 'calculate', 'arithmetic']):
             if 'zero' not in spec_lower:
                 clarifications.append("**Edge Case**: Specification may not define behavior for zero inputs")
-                clarifications.append("  → Handle gracefully (typically: result = 0 or result = other input)")
+                clarifications.append("  -> Handle gracefully (typically: result = 0 or result = other input)")
 
         return "\n".join(clarifications) if clarifications else ""
 

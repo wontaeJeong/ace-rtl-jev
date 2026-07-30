@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Cursor-Style Coordinator - Orchestrates debugging like Cursor's internal reasoning engine
+Comprehensive Reasoning Coordinator - orchestrates structured RTL debugging.
 """
 
 import re
@@ -13,11 +13,11 @@ from .iteration_memory import IterationMemory, FailedAttempt
 from .code_analyzer import CodeAnalyzer
 from .utils.llm_client import LLMClient
 
-class CursorStyleCoordinator:
+class ComprehensiveReasoningCoordinator:
     """
-    Coordinates RTL debugging using Cursor's internal reasoning approach.
+    Coordinates RTL debugging using a comprehensive reasoning approach.
 
-    This is the missing orchestration layer that makes Cursor effective:
+    This orchestration layer combines:
     1. Builds deep context understanding
     2. Learns from previous attempts
     3. Analyzes code structure deeply
@@ -26,12 +26,12 @@ class CursorStyleCoordinator:
 
     def __init__(self, model_name: str, logger, api_key: Optional[str] = None,
                  max_retries: int = 3, initial_backoff: float = 5.0):
-        """Initialize Cursor-style coordinator with all necessary components."""
+        """Initialize the comprehensive reasoning coordinator."""
 
         self.model_name = model_name
         self.logger = logger
 
-        # Initialize all Cursor-like components
+        # Initialize all structured debugging components.
         self.context_builder = ContextBuilder(logger)
         self.iteration_memory = IterationMemory(logger)
         self.code_analyzer = CodeAnalyzer(logger)
@@ -45,14 +45,14 @@ class CursorStyleCoordinator:
             logger=logger
         )
 
-        self.logger.info("Initialized Cursor-style debugging coordinator")
+        self.logger.info("Initialized comprehensive reasoning coordinator")
 
     def debug_rtl_iteratively(self, specification: str, current_code: str,
                              error_report: str, iteration: int, harness_dir: Optional[Path] = None) -> Tuple[str, str, Dict[str, Any]]:
         """
-        Main entry point - debug RTL using Cursor's comprehensive approach.
+        Main entry point - debug RTL using a comprehensive reasoning approach.
 
-        This follows Cursor's internal flow:
+        This follows a structured debugging flow:
         1. Build complete context understanding
         2. Check what we've learned from previous attempts
         3. Analyze current code structure deeply
@@ -60,7 +60,7 @@ class CursorStyleCoordinator:
         5. Make targeted minimal change
         """
 
-        self.logger.info(f"Starting Cursor-style debugging for iteration {iteration}")
+        self.logger.info(f"Starting comprehensive reasoning for iteration {iteration}")
 
         # Step 1: Build comprehensive debugging context (including testbench analysis)
         debug_context = self.context_builder.build_debug_context(
@@ -87,7 +87,7 @@ class CursorStyleCoordinator:
 
         # Step 5: Prepare debug metadata
         debug_metadata = {
-            "strategy_used": "cursor_comprehensive_reasoning",
+            "strategy_used": "comprehensive_reasoning",
             "iteration": iteration,
             "context_analysis": {
                 "test_intent": debug_context.test_intent,
@@ -106,15 +106,15 @@ class CursorStyleCoordinator:
         prompt = self._create_comprehensive_prompt(debug_context, code_analysis, learning_insights, fix_suggestions, error_report)
 
         if success:
-            self.logger.info("Cursor-style reasoning produced a fix")
-            return corrected_rtl, prompt, "", debug_metadata  # Empty response for cursor style coordinator
+            self.logger.info("Comprehensive reasoning produced a fix")
+            return corrected_rtl, prompt, "", debug_metadata
         else:
-            self.logger.warning("Cursor-style reasoning failed to generate fix")
+            self.logger.warning("Comprehensive reasoning failed to generate fix")
             raise RuntimeError("Failed to generate corrected RTL code")
 
     def _generate_reasoned_fix(self, debug_context: DebugContext, code_analysis: Dict[str, Any],
                               learning_insights: Dict[str, Any], fix_suggestions: List[str], error_report: str) -> Tuple[str, str, bool]:
-        """Generate fix using comprehensive reasoning like Cursor."""
+        """Generate fix using comprehensive reasoning."""
 
         # Create comprehensive prompt
         prompt = self._create_comprehensive_prompt(debug_context, code_analysis, learning_insights, fix_suggestions, error_report)
@@ -142,7 +142,7 @@ class CursorStyleCoordinator:
                                    learning_insights: Dict[str, Any],
                                    fix_suggestions: List[str],
                                    error_report: str) -> str:
-        """Create comprehensive debugging prompt like Cursor's internal reasoning."""
+        """Create a comprehensive debugging prompt."""
 
         # Get memory context
         memory_context = self.iteration_memory.get_context_for_llm()

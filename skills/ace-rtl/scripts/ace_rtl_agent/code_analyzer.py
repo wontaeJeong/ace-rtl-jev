@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Code Analyzer - Deep understanding of RTL code structure and logic, like Cursor's code understanding
+Code Analyzer - deep understanding of RTL code structure and logic.
 """
 
 from typing import Dict, List, Optional, Any, Tuple
@@ -28,7 +28,7 @@ class LogicBlock:
 
 class CodeAnalyzer:
     """
-    Deep code analysis like Cursor does internally.
+    Deep RTL code analysis.
 
     Understands RTL code structure, data flow, timing relationships,
     and logic dependencies - essential for making targeted fixes.
@@ -39,7 +39,7 @@ class CodeAnalyzer:
 
     def analyze_rtl_code(self, rtl_code: str) -> Dict[str, Any]:
         """
-        Perform comprehensive RTL code analysis like Cursor does.
+        Perform comprehensive RTL code analysis.
 
         Returns deep understanding of code structure, timing, and logic flow.
         """

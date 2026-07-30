@@ -36,9 +36,9 @@ class ReasoningFramework:
 
 class ProgressiveDebuggingStrategy:
     """
-    Implements progressive debugging complexity like Cursor does.
+    Implements progressive debugging complexity.
 
-    Key insight: Cursor starts simple and only adds complexity when needed,
+    Key insight: start simple and only add complexity when needed,
     rather than using the same complex approach for every iteration.
     """
 
@@ -251,8 +251,8 @@ You MUST complete ALL steps before writing any code:
 
 **ONLY AFTER COMPLETING ALL STEPS**: Write the corrected code.
 **Fix Scope**: Use the appropriate level of change based on your root cause analysis:
-- Surface logic issues → Targeted fixes
-- Architectural/timing issues → Structural changes
+- Surface logic issues -> Targeted fixes
+- Architectural/timing issues -> Structural changes
 - Don't be constrained by "minimal" if bold changes are needed
 
 ```systemverilog

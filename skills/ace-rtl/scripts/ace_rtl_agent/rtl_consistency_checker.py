@@ -125,7 +125,7 @@ class RTLConsistencyChecker:
         low_priority = [issue for issue in issues if issue.severity == "LOW"]
 
         if high_priority:
-            suggestions.append("### 🚨 HIGH PRIORITY FIXES (Must fix before compilation):")
+            suggestions.append("### HIGH PRIORITY FIXES (Must fix before compilation):")
             for issue in high_priority:
                 suggestions.append(f"- **{issue.issue_type.value}**: {issue.description}")
                 suggestions.append(f"  - Fix: {issue.suggestion}")
@@ -134,14 +134,14 @@ class RTLConsistencyChecker:
                 suggestions.append("")
 
         if medium_priority:
-            suggestions.append("### ⚠️ MEDIUM PRIORITY FIXES (Recommended):")
+            suggestions.append("### MEDIUM PRIORITY FIXES (Recommended):")
             for issue in medium_priority:
                 suggestions.append(f"- **{issue.issue_type.value}**: {issue.description}")
                 suggestions.append(f"  - Fix: {issue.suggestion}")
                 suggestions.append("")
 
         if low_priority:
-            suggestions.append("### 💡 LOW PRIORITY FIXES (Style improvements):")
+            suggestions.append("### LOW PRIORITY FIXES (Style improvements):")
             for issue in low_priority:
                 suggestions.append(f"- **{issue.issue_type.value}**: {issue.description}")
                 suggestions.append(f"  - Fix: {issue.suggestion}")

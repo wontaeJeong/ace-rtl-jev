@@ -39,7 +39,7 @@ class RTLGenerator:
         Initialize the RTL Generator.
 
         Args:
-            model_name: Name of the LLM model to use (e.g., "nvidia/nemotron-3-ultra-550b-a55b", "anthropic/claude-sonnet-4")
+            model_name: Name of the LLM model to use (for example, "nvidia/nemotron-3-ultra-550b-a55b")
             logger: Logger instance
             api_key: Optional LLM API key (will use environment variable if not provided)
             max_retries: Maximum number of retries for API calls (default: 3)
@@ -214,7 +214,7 @@ class RTLGenerator:
 
         # Use LLM-centric debugger as primary approach (SIMPLER - relies on LLM reasoning)
         try:
-            print(f"🧠 Using LLM-Centric Debugger (primary approach)")
+            print(f"Using LLM-Centric Debugger (primary approach)")
             corrected_rtl, prompt, response, debug_metadata = self.llm_centric_debugger.debug_rtl_with_llm_reasoning(
                 specification=specification,
                 current_code=buggy_code,
@@ -227,7 +227,7 @@ class RTLGenerator:
                 per_signal_mismatches=per_signal_mismatches
             )
 
-            print(f"✅ LLM-centric debugging succeeded")
+            print(f"LLM-centric debugging succeeded")
             # Removed verbose success logging
             return corrected_rtl, prompt, response, debug_metadata
 
@@ -235,9 +235,9 @@ class RTLGenerator:
             self.logger.warning(f"LLM-centric debugging failed: {e}, falling back to enhanced debugging")
 
             # Fall back to minimal change approach
-            print(f"❌ ERROR: LLM-centric failed - {str(e)}")
+            print(f"ERROR: LLM-centric failed - {str(e)}")
             try:
-                print(f"🎯 Using Minimal Change Coordinator (fallback - focuses on primary failure)")
+                print(f"Using Minimal Change Coordinator (fallback - focuses on primary failure)")
                 corrected_rtl, prompt, _, debug_metadata = self.minimal_change_coordinator.debug_rtl_with_minimal_changes(
                     specification=specification,
                     current_code=buggy_code,
@@ -245,7 +245,7 @@ class RTLGenerator:
                     iteration=iteration
                 )
 
-                print(f"✅ Minimal change debugging succeeded")
+                print(f"Minimal change debugging succeeded")
                 # Removed verbose success logging
                 return corrected_rtl, prompt, "", debug_metadata  # Empty response for fallback methods
 
@@ -253,12 +253,12 @@ class RTLGenerator:
                 self.logger.warning(f"Minimal change approach also failed: {e2}, falling back to systematic debugging")
 
                 # Fall back to systematic debugging for complex cases
-                print(f"❌ ERROR: Minimal change failed - {str(e2)}")
+                print(f"ERROR: Minimal change failed - {str(e2)}")
                 if self.use_systematic_debugging and self.systematic_debugger:
-                    print(f"🔬 Using Systematic RTL Debugger (fallback - forensic analysis)")
+                    print(f"Using Systematic RTL Debugger (fallback - forensic analysis)")
                     return self._systematic_correction(specification, buggy_code, error_report, iteration)
                 else:
-                    print(f"🔧 Using Traditional Correction (final fallback)")
+                    print(f"Using Traditional Correction (final fallback)")
                     return self._traditional_correction(specification, buggy_code, error_report)
 
     def record_iteration_results(self, error_report: str, iteration: int,
@@ -470,7 +470,7 @@ class RTLGenerator:
             current_iteration=current_iteration,
         )
 
-# Old cursor_style_reasoning method removed - now handled by CursorStyleCoordinator
+# Old structured reasoning method removed - now handled by the coordinator.
 
     def _extract_rtl_code(self, response: str) -> str:
         """

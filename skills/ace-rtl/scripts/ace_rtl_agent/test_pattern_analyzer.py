@@ -196,11 +196,11 @@ class TestPatternAnalyzer:
 
                 # Pattern: Failing tests have larger/smaller values
                 if fail_min > pass_max:
-                    patterns.append(f"📊 INPUT PATTERN: Signal '{input_name}' - all failing tests have values > {pass_max} (pass max: {pass_max}, fail min: {fail_min})")
+                    patterns.append(f"INPUT PATTERN: Signal '{input_name}' - all failing tests have values > {pass_max} (pass max: {pass_max}, fail min: {fail_min})")
 
                 # Pattern: Significant difference in average
                 if abs(fail_avg - pass_avg) > (pass_avg * 0.3 if pass_avg else 1):
-                    patterns.append(f"📊 INPUT PATTERN: Signal '{input_name}' - failing tests avg={fail_avg:.1f} vs passing avg={pass_avg:.1f}")
+                    patterns.append(f"INPUT PATTERN: Signal '{input_name}' - failing tests avg={fail_avg:.1f} vs passing avg={pass_avg:.1f}")
 
                 # Pattern: Check for specific problematic values
                 fail_value_counts = defaultdict(int)
@@ -210,7 +210,7 @@ class TestPatternAnalyzer:
                 for value, count in fail_value_counts.items():
                     if count >= len(failing_values) * 0.5:  # More than 50% of failures
                         if value not in passing_values:
-                            patterns.append(f"📊 INPUT PATTERN: Signal '{input_name}' = {value} appears in {count}/{len(failing_values)} failures but 0/{len(passing_values)} passes")
+                            patterns.append(f"INPUT PATTERN: Signal '{input_name}' = {value} appears in {count}/{len(failing_values)} failures but 0/{len(passing_values)} passes")
 
         # Check for multi-signal patterns (relationships between inputs)
         if len(all_input_names) >= 2:
@@ -254,17 +254,17 @@ class TestPatternAnalyzer:
                 pass_when_less_eq = sum(1 for a, b in pass_pairs if a <= b)
 
                 if fail_when_greater >= len(fail_pairs) * 0.7 and pass_when_less_eq >= len(pass_pairs) * 0.7:
-                    return f"📊 RELATIONSHIP PATTERN: Tests tend to fail when {sig1} > {sig2}, pass when {sig1} <= {sig2}"
+                    return f"RELATIONSHIP PATTERN: Tests tend to fail when {sig1} > {sig2}, pass when {sig1} <= {sig2}"
 
                 if fail_when_less_eq >= len(fail_pairs) * 0.7 and pass_when_greater >= len(pass_pairs) * 0.7:
-                    return f"📊 RELATIONSHIP PATTERN: Tests tend to fail when {sig1} <= {sig2}, pass when {sig1} > {sig2}"
+                    return f"RELATIONSHIP PATTERN: Tests tend to fail when {sig1} <= {sig2}, pass when {sig1} > {sig2}"
 
                 # Check: Do failures occur when values are equal?
                 fail_when_equal = sum(1 for a, b in fail_pairs if a == b)
                 pass_when_equal = sum(1 for a, b in pass_pairs if a == b)
 
                 if fail_when_equal >= len(fail_pairs) * 0.5 and pass_when_equal == 0:
-                    return f"📊 RELATIONSHIP PATTERN: Tests fail when {sig1} == {sig2} (special case handling issue?)"
+                    return f"RELATIONSHIP PATTERN: Tests fail when {sig1} == {sig2} (special case handling issue?)"
 
         return None
 
@@ -292,25 +292,25 @@ class TestPatternAnalyzer:
         actual_values = [actual for _, actual in errors]
         if len(set(actual_values)) == 1:
             stuck_value = actual_values[0]
-            patterns.append(f"🔴 OUTPUT PATTERN: Output is stuck at value {stuck_value} for all failing tests (signal not driven correctly?)")
+            patterns.append(f"OUTPUT PATTERN: Output is stuck at value {stuck_value} for all failing tests (signal not driven correctly?)")
 
         # Pattern: Off by constant amount
         if all(isinstance(e, (int, float)) and isinstance(a, (int, float)) for e, a in errors):
             differences = [expected - actual for expected, actual in errors]
             if len(set(differences)) == 1:
                 diff = differences[0]
-                patterns.append(f"🔴 OUTPUT PATTERN: Output is consistently off by {diff} (expected - actual = {diff} for all tests)")
+                patterns.append(f"OUTPUT PATTERN: Output is consistently off by {diff} (expected - actual = {diff} for all tests)")
 
             # Pattern: Off by factor
             if all(e != 0 for e, a in errors):
                 ratios = [expected / actual if actual != 0 else float('inf') for expected, actual in errors]
                 if len(set(ratios)) == 1 and ratios[0] != float('inf'):
                     ratio = ratios[0]
-                    patterns.append(f"🔴 OUTPUT PATTERN: Output is consistently {ratio:.2f}x smaller than expected")
+                    patterns.append(f"OUTPUT PATTERN: Output is consistently {ratio:.2f}x smaller than expected")
 
         # Pattern: Output is always 0 or always max value
         if all(actual == 0 for _, actual in errors):
-            patterns.append(f"🔴 OUTPUT PATTERN: Output is always 0 (never driven/initialized?)")
+            patterns.append(f"OUTPUT PATTERN: Output is always 0 (never driven/initialized?)")
 
         return patterns
 
@@ -343,14 +343,14 @@ class TestPatternAnalyzer:
             avg_fail_time = sum(fail_times) / len(fail_times)
 
             if avg_fail_time < avg_pass_time * 0.5:
-                patterns.append(f"⏱️ TIMING PATTERN: Failures occur very early (avg {avg_fail_time:.1f}ns) vs passes (avg {avg_pass_time:.1f}ns) - initialization issue?")
+                patterns.append(f"TIMING PATTERN: Failures occur very early (avg {avg_fail_time:.1f}ns) vs passes (avg {avg_pass_time:.1f}ns) - initialization issue?")
             elif avg_fail_time > avg_pass_time * 2:
-                patterns.append(f"⏱️ TIMING PATTERN: Failures occur much later (avg {avg_fail_time:.1f}ns) vs passes (avg {avg_pass_time:.1f}ns) - timeout/convergence issue?")
+                patterns.append(f"TIMING PATTERN: Failures occur much later (avg {avg_fail_time:.1f}ns) vs passes (avg {avg_pass_time:.1f}ns) - timeout/convergence issue?")
 
         # Check if all failures at same time
         if fail_times and len(set(fail_times)) == 1:
             fail_time = fail_times[0]
-            patterns.append(f"⏱️ TIMING PATTERN: All failures occur at exactly {fail_time}ns - specific clock cycle issue")
+            patterns.append(f"TIMING PATTERN: All failures occur at exactly {fail_time}ns - specific clock cycle issue")
 
         return patterns
 
@@ -368,7 +368,7 @@ class TestPatternAnalyzer:
             last_tests_pass = sum(1 for t in all_tests[-len(all_tests)//3:] if t.passed)
 
             if first_tests_pass > last_tests_pass * 2:
-                patterns.append(f"🔄 SEQUENCE PATTERN: Earlier tests more likely to pass ({first_tests_pass}/{len(all_tests)//3}) than later tests ({last_tests_pass}/{len(all_tests)//3}) - state not resetting between tests?")
+                patterns.append(f"SEQUENCE PATTERN: Earlier tests more likely to pass ({first_tests_pass}/{len(all_tests)//3}) than later tests ({last_tests_pass}/{len(all_tests)//3}) - state not resetting between tests?")
 
         return patterns
 
@@ -381,41 +381,41 @@ class TestPatternAnalyzer:
 
         # Based on output patterns
         if any("stuck at value 0" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Output signal not assigned or not driven by logic (check always blocks, assignments)")
+            hypotheses.append("HYPOTHESIS: Output signal not assigned or not driven by logic (check always blocks, assignments)")
 
         if any("stuck at value" in p and "0" not in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Output holding initial/reset value (check if computation logic executes)")
+            hypotheses.append("HYPOTHESIS: Output holding initial/reset value (check if computation logic executes)")
 
         if any("off by" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Arithmetic operation incorrect (check operators: +, -, *, /, %, bit operations)")
+            hypotheses.append("HYPOTHESIS: Arithmetic operation incorrect (check operators: +, -, *, /, %, bit operations)")
 
         # Based on input patterns
         if any("all failing tests have values >" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Bit width issue - larger values overflow or aren't handled correctly")
+            hypotheses.append("HYPOTHESIS: Bit width issue - larger values overflow or aren't handled correctly")
 
         if any("when" in p and ">" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Comparison logic reversed or conditional branch taken incorrectly")
+            hypotheses.append("HYPOTHESIS: Comparison logic reversed or conditional branch taken incorrectly")
 
         if any("when" in p and "==" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Edge case not handled (equality condition needs special logic)")
+            hypotheses.append("HYPOTHESIS: Edge case not handled (equality condition needs special logic)")
 
         # Based on timing patterns
         if any("very early" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Reset or initialization issue (outputs checked before computation completes)")
+            hypotheses.append("HYPOTHESIS: Reset or initialization issue (outputs checked before computation completes)")
 
         if any("specific clock cycle" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: FSM stuck in wrong state or transition condition not met at critical clock cycle")
+            hypotheses.append("HYPOTHESIS: FSM stuck in wrong state or transition condition not met at critical clock cycle")
 
         # Based on sequence patterns
         if any("state not resetting" in p for p in patterns):
-            hypotheses.append("🔍 HYPOTHESIS: Module state persists between tests - missing reset logic or reset not asserted properly")
+            hypotheses.append("HYPOTHESIS: Module state persists between tests - missing reset logic or reset not asserted properly")
 
         # General hypothesis if no specific patterns found
         if not hypotheses and failing:
             if len(passing) == 0:
-                hypotheses.append("🔍 HYPOTHESIS: Fundamental logic error - all tests fail (check specification understanding, module interface)")
+                hypotheses.append("HYPOTHESIS: Fundamental logic error - all tests fail (check specification understanding, module interface)")
             else:
-                hypotheses.append("🔍 HYPOTHESIS: Partial implementation - some cases work but edge cases or specific conditions not handled")
+                hypotheses.append("HYPOTHESIS: Partial implementation - some cases work but edge cases or specific conditions not handled")
 
         return hypotheses
 

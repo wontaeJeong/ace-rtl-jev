@@ -22,7 +22,7 @@ class PrimaryFailureExtractor:
     """
     Extracts the PRIMARY assertion failure from error reports.
 
-    This implements Cursor's key insight: focus on ONE assertion failure
+    This implements the key debugging pattern: focus on ONE assertion failure
     at a time instead of trying to analyze multiple issues simultaneously.
     """
 
@@ -52,7 +52,7 @@ class PrimaryFailureExtractor:
         for pattern in compilation_error_patterns:
             match = re.search(pattern, error_report, re.IGNORECASE)
             if match:
-                print(f"🔍 DEBUG: Found compilation error pattern: {pattern}")
+                print(f"DEBUG: Found compilation error pattern: {pattern}")
                 return PrimaryFailure(
                     expected_value="Successful compilation",
                     actual_value="Compilation failed",
@@ -97,15 +97,15 @@ class PrimaryFailureExtractor:
                 )
 
                 self.logger.info(f"Primary failure: Expected {expected}, got {actual}")
-                print(f"🔍 DEBUG: PrimaryFailureExtractor SUCCESS - Expected {expected}, got {actual}")
+                print(f"DEBUG: PrimaryFailureExtractor SUCCESS - Expected {expected}, got {actual}")
                 return primary_failure
 
         # Fallback: Look for ANY AssertionError even without Expected/got pattern
-        print(f"🔍 DEBUG: PrimaryFailureExtractor - No Expected/got patterns matched, trying generic AssertionError fallback")
+        print(f"DEBUG: PrimaryFailureExtractor - No Expected/got patterns matched, trying generic AssertionError fallback")
         generic_assertion_match = re.search(r'AssertionError:\s*(.*?)(?=\n|$)', error_report, re.IGNORECASE)
         if generic_assertion_match:
             assertion_message = generic_assertion_match.group(1).strip()
-            print(f"🔍 DEBUG: Found generic AssertionError: {assertion_message}")
+            print(f"DEBUG: Found generic AssertionError: {assertion_message}")
 
             # Extract timing context if available
             timing_context = self._extract_timing_context(error_report, generic_assertion_match.start())
@@ -122,22 +122,22 @@ class PrimaryFailureExtractor:
             )
 
             self.logger.info(f"Primary failure (generic): {assertion_message}")
-            print(f"🔍 DEBUG: PrimaryFailureExtractor SUCCESS (generic) - {assertion_message}")
+            print(f"DEBUG: PrimaryFailureExtractor SUCCESS (generic) - {assertion_message}")
             return primary_failure
 
         # Final fallback: Use LLM to extract primary failure
-        print(f"🔍 DEBUG: PrimaryFailureExtractor - No AssertionError found, trying LLM fallback")
+        print(f"DEBUG: PrimaryFailureExtractor - No AssertionError found, trying LLM fallback")
         try:
             llm_failure = self._llm_extract_primary_failure(error_report)
             if llm_failure:
-                print(f"🔍 DEBUG: PrimaryFailureExtractor SUCCESS (LLM) - {llm_failure.raw_assertion}")
+                print(f"DEBUG: PrimaryFailureExtractor SUCCESS (LLM) - {llm_failure.raw_assertion}")
                 return llm_failure
         except Exception as e:
-            print(f"🔍 ERROR: LLM primary failure extraction failed: {e}")
+            print(f"ERROR: LLM primary failure extraction failed: {e}")
             self.logger.error(f"LLM primary failure extraction failed: {e}")
 
-        print(f"🔍 DEBUG: PrimaryFailureExtractor FAILED - All extraction methods exhausted")
-        print(f"🔍 DEBUG: Error report preview: {error_report[:200]}...")
+        print(f"DEBUG: PrimaryFailureExtractor FAILED - All extraction methods exhausted")
+        print(f"DEBUG: Error report preview: {error_report[:200]}...")
         return None
 
     def _extract_timing_context(self, error_report: str, failure_position: int) -> str:
@@ -200,7 +200,7 @@ class PrimaryFailureExtractor:
                 first_part = error_report[:half_limit]
                 last_part = error_report[-half_limit:]
                 truncated_report = f"{first_part}\n\n[... middle truncated ...]\n\n{last_part}"
-                print(f"🔍 DEBUG: LLM fallback - truncated report from {len(error_report)} to {len(truncated_report)} chars")
+                print(f"DEBUG: LLM fallback - truncated report from {len(error_report)} to {len(truncated_report)} chars")
             else:
                 truncated_report = error_report
 
@@ -233,7 +233,7 @@ Look for ANY type of failure: compilation errors, assertion failures, syntax err
             response = client.call_llm(prompt, max_tokens=500)
 
             if not response or not response.strip():
-                print(f"🔍 ERROR: LLM returned empty response for primary failure extraction")
+                print(f"ERROR: LLM returned empty response for primary failure extraction")
                 return None
 
             # Parse JSON response - robust extraction from anywhere in response
@@ -269,12 +269,12 @@ Look for ANY type of failure: compilation errors, assertion failures, syntax err
                         clean_response = response.strip()
 
                 result = json.loads(clean_response)
-                print(f"🔍 DEBUG: Successfully parsed LLM JSON response")
+                print(f"DEBUG: Successfully parsed LLM JSON response")
 
-                print(f"🔍 DEBUG: LLM analysis result: {result}")
+                print(f"DEBUG: LLM analysis result: {result}")
 
                 if not result.get('found_failure', False):
-                    print(f"🔍 DEBUG: LLM found no failure in error report")
+                    print(f"DEBUG: LLM found no failure in error report")
                     return None
 
                 # Create PrimaryFailure from LLM analysis
@@ -290,12 +290,12 @@ Look for ANY type of failure: compilation errors, assertion failures, syntax err
                 return primary_failure
 
             except json.JSONDecodeError as e:
-                print(f"🔍 ERROR: LLM returned invalid JSON for primary failure extraction: {e}")
-                print(f"🔍 ERROR: LLM response was: {response[:200]}...")
+                print(f"ERROR: LLM returned invalid JSON for primary failure extraction: {e}")
+                print(f"ERROR: LLM response was: {response[:200]}...")
                 return None
 
         except Exception as e:
-            print(f"🔍 ERROR: Exception in LLM primary failure extraction: {e}")
+            print(f"ERROR: Exception in LLM primary failure extraction: {e}")
             import traceback
             traceback.print_exc()
             return None

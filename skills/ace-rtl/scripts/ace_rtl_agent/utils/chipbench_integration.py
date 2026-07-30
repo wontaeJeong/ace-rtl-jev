@@ -86,7 +86,7 @@ class ChipBenchIntegration(VerilogEvalIntegration):
             self.logger.warning(f"Could not verify iverilog: {str(e)}")
 
         self.logger.info(
-            f"ChipBench environment validation completed — "
+            f"ChipBench environment validation completed - "
             f"{len(self._problem_dir_map)} problems across {len(VERILOG_GEN_DATASETS)} datasets"
         )
 
@@ -158,5 +158,5 @@ class ChipBenchIntegration(VerilogEvalIntegration):
                 self._problem_dir_map[stem] = dataset_dir
 
         self.logger.info(
-            f"Scanned ChipBench datasets — found {len(self._problem_dir_map)} problems"
+            f"Scanned ChipBench datasets - found {len(self._problem_dir_map)} problems"
         )

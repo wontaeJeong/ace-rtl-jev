@@ -22,7 +22,7 @@ class LLMCentricDebugger:
     - Provide minimal but critical information
     - Focus on ONE specific error at a time
     - Track what was tried and what worked
-    - Give clear, actionable guidance like Cursor
+    - Give clear, actionable guidance
     """
 
     def __init__(self, model_name: str, logger, api_key: Optional[str] = None,
@@ -111,7 +111,7 @@ class LLMCentricDebugger:
         6. Extract guidance for recording
         7. Return for testing
         """
-        print(f"   🎯 Using Focused Debugger (streamlined prompts with clear guidance)")
+        print(f"   Using Focused Debugger (streamlined prompts with clear guidance)")
 
         # Step 3: Load context files for multi-file datapoints
         context_code = None
@@ -126,7 +126,7 @@ class LLMCentricDebugger:
                     context_parts.append(f"// ========== FILE: {context_file} (helper module - do not modify) ==========\n{content}")
 
                 context_code = '\n\n'.join(context_parts)
-                print(f"   ✅ Loaded {len(multi_file_info['context_files'])} context files (helpers, won't be modified)")
+                print(f"   Loaded {len(multi_file_info['context_files'])} context files (helpers, won't be modified)")
             except Exception as e:
                 self.logger.warning(f"Could not load context files: {e}")
 
@@ -134,7 +134,6 @@ class LLMCentricDebugger:
             target_files = multi_file_info.get('target_files') or []
             primary_target = multi_file_info.get('buggy_file')
             additional_targets = multi_file_info.get('additional_target_files') or []
-            core_adapter = multi_file_info.get('reduced_core_adapter')
             if primary_target or target_files:
                 target_guidance = "\n\nCVDP GENERATED TARGET FILES:\n"
                 if primary_target:
@@ -143,31 +142,12 @@ class LLMCentricDebugger:
                     target_guidance += "- Declared generated RTL target file(s): " + ", ".join(
                         f"`{name}`" for name in target_files
                     ) + ".\n"
-                if isinstance(core_adapter, dict):
-                    real_targets = core_adapter.get("real_target_files") or []
-                    core_modules = core_adapter.get("core_modules") or []
-                    target_guidance += (
-                        "- reduced-core adapter mode is active: emit only the virtual core target under repair. "
-                        "Do not switch to the adapter-owned real wrapper files in your response.\n"
-                    )
-                    if core_modules:
-                        target_guidance += (
-                            "- Required core module(s) in the virtual target: "
-                            + ", ".join(f"`{name}`" for name in core_modules)
-                            + ".\n"
-                        )
-                    if real_targets:
-                        target_guidance += (
-                            "- Adapter-owned real CVDP files populated before every retest: "
-                            + ", ".join(f"`{Path(str(name)).name}`" for name in real_targets)
-                            + ". If simulator logs name these files, fix the corresponding virtual core logic; the adapter propagation is already verified.\n"
-                        )
-                elif additional_targets:
+                if additional_targets:
                     target_guidance += (
                         "- The other declared target file(s) are also generated deliverables, not immutable helpers. "
                         "For cross-file/interface fixes, return complete replacements for all declared target files so wrappers, cores, parameters, and instance APIs stay consistent.\n"
                     )
-                if len(target_files) > 1 and not isinstance(core_adapter, dict):
+                if len(target_files) > 1:
                     target_guidance += (
                         "- For multi-file generated RTL, emit one file section per declared target using this exact header before each file: "
                         "`// TARGET_FILE: <target filename or rtl/path.sv>`. "
@@ -243,9 +223,9 @@ class LLMCentricDebugger:
 
                 if included:
                     testbench_code = "\n".join(harness_parts)
-                    print(f"   ✅ CVDP harness context loaded: {included} files ({len(testbench_code)} chars)")
+                    print(f"   CVDP harness context loaded: {included} files ({len(testbench_code)} chars)")
                 else:
-                    print(f"   ⚠️ No CVDP harness context files found in {harness_path}")
+                    print(f"   No CVDP harness context files found in {harness_path}")
 
                 # For coverage debugging, the latest coverage
                 # summary is often more useful than another long simulator log.
@@ -262,15 +242,15 @@ class LLMCentricDebugger:
                             coverage_parts.append(content)
                     if coverage_parts:
                         testbench_code += "\n\n# === CVDP LATEST COVERAGE ARTIFACTS ===\n" + "\n".join(coverage_parts)
-                        print(f"   ✅ Added latest coverage artifacts ({sum(len(p) for p in coverage_parts)} chars)")
+                        print(f"   Added latest coverage artifacts ({sum(len(p) for p in coverage_parts)} chars)")
             except Exception as e:
                 self.logger.warning(f"Could not load harness context: {e}")
-                print(f"   ⚠️ Harness context loading failed: {e}")
+                print(f"   Harness context loading failed: {e}")
 
         # Use sanitized testbench context for VerilogEval/ChipBench when harness_dir is not available
         if testbench_code is None and testbench_context:
             testbench_code = testbench_context
-            print(f"   ✅ Using sanitized testbench context ({len(testbench_code)} chars)")
+            print(f"   Using sanitized testbench context ({len(testbench_code)} chars)")
 
         # Step 2: Create focused prompt (LLM Call 1 happens inside this)
         # Returns: prompt for LLM Call 2, focused_error, and fix_guidance from LLM Call 1
@@ -292,7 +272,7 @@ class LLMCentricDebugger:
             if not response:
                 raise ValueError("LLM returned empty response")
         except Exception as e:
-            print(f"   ❌ ERROR: LLM call failed: {e}")
+            print(f"   ERROR: LLM call failed: {e}")
             raise
 
         # Step 4: Extract corrected code
@@ -313,7 +293,7 @@ class LLMCentricDebugger:
                     self.logger.info(f"Added TARGET_FILE marker: {buggy_filename}")
 
         except Exception as e:
-            print(f"   ❌ ERROR: RTL code extraction failed: {e}")
+            print(f"   ERROR: RTL code extraction failed: {e}")
             raise ValueError(f"RTL extraction failed: {e}")
 
         # Metadata includes guidance from LLM Call 1
@@ -529,7 +509,7 @@ class LLMCentricDebugger:
         endmodule_count = len(re.findall(r'\bendmodule\b', code_no_comments, re.IGNORECASE))
         if len(module_declarations) != endmodule_count:
             # Warning but don't reject - let compiler catch syntax errors
-            self.logger.warning(f"⚠️ Module/endmodule mismatch ({len(module_declarations)} modules, {endmodule_count} endmodules) - accepting anyway")
+            self.logger.warning(f"Module/endmodule mismatch ({len(module_declarations)} modules, {endmodule_count} endmodules) - accepting anyway")
             # return False  # Comment out - be lenient
 
         # Check 3: Must have reasonable content (not just module/endmodule)

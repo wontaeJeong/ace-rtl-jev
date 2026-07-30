@@ -129,7 +129,7 @@ class SignalTracer:
                 if 0 <= line_num - 1 < len(lines):
                     trace_parts.append(f"  Line {line_num}: {lines[line_num - 1].strip()}")
         else:
-            trace_parts.append(f"\n⚠️ **WARNING**: '{signal_name}' is declared but never assigned!")
+            trace_parts.append(f"\n**WARNING**: '{signal_name}' is declared but never assigned!")
 
         # What it depends on
         if signal_info.depends_on:
@@ -141,7 +141,7 @@ class SignalTracer:
                 if dep in self.signals and self.signals[dep].signal_type not in ['input', 'parameter']:
                     dep_info = self.signals[dep]
                     if dep_info.assigned_in_lines:
-                        trace_parts.append(f"  → '{dep}' assigned at lines: {', '.join(map(str, dep_info.assigned_in_lines[:2]))}")
+                        trace_parts.append(f"  -> '{dep}' assigned at lines: {', '.join(map(str, dep_info.assigned_in_lines[:2]))}")
 
         # Control flow context
         if signal_info.in_always_block:
@@ -168,7 +168,7 @@ class SignalTracer:
         # Check 1: Outputs never assigned
         for sig_name, sig_info in self.signals.items():
             if sig_info.signal_type == 'output' and not sig_info.assigned_in_lines:
-                issues.append(f"🔴 CRITICAL: Output '{sig_name}' is never assigned (will read as 'x' or '0')")
+                issues.append(f"CRITICAL: Output '{sig_name}' is never assigned (will read as 'x' or '0')")
 
         # Check 2: Registers not initialized/reset
         for sig_name, sig_info in self.signals.items():
@@ -176,7 +176,7 @@ class SignalTracer:
                 # Check if reset logic exists
                 has_reset = self._check_reset_logic(sig_name, lines, sig_info.assigned_in_lines)
                 if not has_reset and sig_info.always_block_sensitivity and 'posedge' in sig_info.always_block_sensitivity:
-                    issues.append(f"⚠️ WARNING: Register '{sig_name}' in sequential logic but no reset detected")
+                    issues.append(f"WARNING: Register '{sig_name}' in sequential logic but no reset detected")
 
         # Check 3: State machine issues
         if self.state_machine_detected and self.state_signal:
@@ -400,12 +400,12 @@ class SignalTracer:
         issues = []
 
         if not self.states:
-            issues.append("⚠️ State machine detected but no states found (may be incomplete)")
+            issues.append("State machine detected but no states found (may be incomplete)")
 
         if self.state_signal and self.state_signal in self.signals:
             state_info = self.signals[self.state_signal]
             if not state_info.assigned_in_lines:
-                issues.append(f"🔴 CRITICAL: State signal '{self.state_signal}' never assigned (FSM won't work)")
+                issues.append(f"CRITICAL: State signal '{self.state_signal}' never assigned (FSM won't work)")
 
         return issues
 
@@ -433,7 +433,7 @@ class SignalTracer:
                     has_default = True
                 if 'endcase' in line_clean:
                     if not has_default:
-                        issues.append(f"⚠️ WARNING: case({case_signal}) statement without 'default' (may infer latches)")
+                        issues.append(f"WARNING: case({case_signal}) statement without 'default' (may infer latches)")
                     in_case = False
 
         return issues
@@ -445,7 +445,7 @@ class SignalTracer:
 
         # Check if it's assigned at all
         if not sig_info.assigned_in_lines:
-            issues.append(f"🔴 ROOT CAUSE: Signal '{signal_name}' is never assigned in the RTL")
+            issues.append(f"ROOT CAUSE: Signal '{signal_name}' is never assigned in the RTL")
             return issues
 
         # Check if dependencies exist
@@ -454,7 +454,7 @@ class SignalTracer:
                 if dep in self.signals:
                     dep_info = self.signals[dep]
                     if not dep_info.assigned_in_lines and dep_info.signal_type not in ['input', 'parameter']:
-                        issues.append(f"🔴 DEPENDENCY ISSUE: '{signal_name}' depends on '{dep}', but '{dep}' is never assigned")
+                        issues.append(f"DEPENDENCY ISSUE: '{signal_name}' depends on '{dep}', but '{dep}' is never assigned")
 
         # Check assignment context
         if sig_info.in_always_block and sig_info.always_block_sensitivity:
@@ -468,6 +468,6 @@ class SignalTracer:
 
                     if_count = context.lower().count('if ')
                     if if_count > 0:
-                        issues.append(f"💡 HINT: '{signal_name}' assigned inside conditional at line {line_num} - check if condition is met")
+                        issues.append(f"HINT: '{signal_name}' assigned inside conditional at line {line_num} - check if condition is met")
 
         return issues

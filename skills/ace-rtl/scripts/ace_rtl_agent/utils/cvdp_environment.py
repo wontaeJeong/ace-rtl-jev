@@ -4,6 +4,8 @@
 """CVDP integration implementation mixins."""
 
 import glob
+import importlib
+import inspect
 import json
 import os
 import re
@@ -177,12 +179,12 @@ class CVDPEnvironmentMixin:
         self.logger.warning("ACE-RTL CVDP custom model factory not found at %s", local_factory)
         return None
 
-    def _prepare_jsonl_for_copilot_wrapper(self, jsonl_file: str) -> str:
+    def _prepare_jsonl_for_native_generation_wrapper(self, jsonl_file: str) -> str:
         """
-        Return a JSONL path CVDP's non-Docker copilot flow can consume.
+        Return a JSONL path CVDP's non-Docker generation flow can consume.
 
-        Agentic datasets are patch-based.  When Docker is unavailable, use CVDP's own agentic-to-copilot
-        transformer for LLM-driven generation.  The transformed file exposes
+        Agentic datasets are patch-based. When Docker is unavailable, use CVDP's
+        own dataset transformer for LLM-driven generation. The transformed file exposes
         prompt/input context and output file names; it does not add golden
         patch text to the prompt sent to the LLM.
         """
@@ -198,16 +200,77 @@ class CVDPEnvironmentMixin:
         try:
             from src.data_transformer import DataTransformer
 
-            transformed = DataTransformer().transform_dataset_to_copilot(jsonl_file)
+            transformer = DataTransformer()
+            transform_methods = [
+                getattr(transformer, name)
+                for name in dir(transformer)
+                if (
+                    name.startswith("transform_dataset_to_")
+                    and not name.endswith("_agentic")
+                    and callable(getattr(transformer, name))
+                )
+            ]
+            if not transform_methods:
+                self.logger.warning("No CVDP agentic dataset transformer method found")
+                return jsonl_file
+            if len(transform_methods) > 1:
+                self.logger.debug(
+                    "Found multiple CVDP agentic dataset transformer methods; using the first discovered option"
+                )
+            transform_fn = transform_methods[0]
+            transformed = transform_fn(jsonl_file)
             if transformed:
                 self.logger.info(
-                    f"Using agentic-to-copilot transformed dataset for native CVDP run: {transformed}"
+                    f"Using transformed agentic dataset for native CVDP run: {transformed}"
                 )
                 return transformed
         except Exception as e:
-            self.logger.warning(f"Agentic-to-copilot dataset transformation failed: {e}")
+            self.logger.warning(f"Agentic dataset transformation failed: {e}")
 
         return jsonl_file
+
+    def _select_generation_benchmark_class(self, benchmark_module):
+        """Find the CVDP benchmark wrapper used for LLM-driven generation."""
+        agentic_benchmark = getattr(benchmark_module, "AgenticBenchmark", None)
+        required_args = {"filename", "golden", "debug", "host", "prefix"}
+        preferred_args = {"custom_factory_path", "manage_network"}
+        candidates = []
+
+        for name in dir(benchmark_module):
+            value = getattr(benchmark_module, name)
+            if not isinstance(value, type):
+                continue
+            if agentic_benchmark is not None and value is agentic_benchmark:
+                continue
+            if not name.endswith("Benchmark"):
+                continue
+
+            try:
+                signature = inspect.signature(value)
+            except (TypeError, ValueError):
+                try:
+                    signature = inspect.signature(value.__init__)
+                except (TypeError, ValueError):
+                    continue
+
+            params = signature.parameters
+            has_kwargs = any(param.kind == inspect.Parameter.VAR_KEYWORD for param in params.values())
+            if has_kwargs or required_args.issubset(params):
+                score = len(required_args.intersection(params)) + len(preferred_args.intersection(params)) * 2
+                if has_kwargs:
+                    score += 1
+                candidates.append((score, name, value))
+
+        if not candidates:
+            raise AttributeError("No compatible CVDP generation benchmark class found")
+
+        candidates.sort(key=lambda item: (-item[0], item[1]))
+        if len(candidates) > 1:
+            self.logger.debug(
+                "Found multiple compatible CVDP generation benchmark classes; using %s",
+                candidates[0][1],
+            )
+        return candidates[0][2]
 
     def _ensure_docker_networks(self):
         """Ensure required Docker networks exist for CVDP testing."""
@@ -307,15 +370,15 @@ class CVDPEnvironmentMixin:
             from src import network_util
             from src.config_manager import config
             from src.llm_lib.model_factory import load_custom_factory
-            from run_benchmark import CopilotBenchmark, AgenticBenchmark, detect_dataset_format
+            benchmark_module = importlib.import_module("run_benchmark")
 
             self.wrapper_module = wrapper
             self.network_util = network_util
             self.config = config
             self.model_factory = load_custom_factory()
-            self.CopilotBenchmark = CopilotBenchmark
-            self.AgenticBenchmark = AgenticBenchmark
-            self.detect_dataset_format = detect_dataset_format
+            self.GenerationBenchmark = self._select_generation_benchmark_class(benchmark_module)
+            self.AgenticBenchmark = benchmark_module.AgenticBenchmark
+            self.detect_dataset_format = benchmark_module.detect_dataset_format
 
             self.logger.info("Successfully imported CVDP components")
 
@@ -352,7 +415,7 @@ class CVDPEnvironmentMixin:
                 )
                 return
 
-            # Move existing directory to "_old" (e.g., cvdp_copilot_scrambler -> cvdp_copilot_scrambler_old)
+            # Move existing directory to "_old".
             old_dir = existing_base_dir.parent / f"{datapoint_base}_old"
 
             # If "_old" already exists, remove it first
@@ -386,7 +449,7 @@ class CVDPEnvironmentMixin:
 
         # Find JSONL file containing this datapoint
         jsonl_file = self._find_jsonl_for_datapoint(datapoint_name)
-        jsonl_file = self._prepare_jsonl_for_copilot_wrapper(jsonl_file)
+        jsonl_file = self._prepare_jsonl_for_native_generation_wrapper(jsonl_file)
 
         # Use absolute path to ensure CVDP creates structure in our desired location
         # CVDP creates: {prefix}/cid/{run_id}/{datapoint_name}/cvdp_{component_name}/
@@ -409,7 +472,7 @@ class CVDPEnvironmentMixin:
                 self.logger.info(f"Using CVDP custom model factory: {custom_factory_path}")
 
             # Create the benchmark wrapper with absolute prefix
-            self.wrapper = self.CopilotBenchmark(
+            self.wrapper = self.GenerationBenchmark(
                 filename=jsonl_file,
                 golden=False,  # LLM mode
                 debug=True,
@@ -434,5 +497,3 @@ class CVDPEnvironmentMixin:
             raise
         finally:
             os.chdir(original_dir)
-
-

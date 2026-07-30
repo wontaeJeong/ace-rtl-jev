@@ -773,7 +773,7 @@ class VerilogEvalIntegration:
                             # Detect misleading identical values from VCD timing artifacts
                             if expected_val != 'unknown' and actual_val != 'unknown' and expected_val == actual_val:
                                 lines.append("")
-                                lines.append("      ⚠ WARNING: Expected and actual values appear IDENTICAL at this VCD sample point.")
+                                lines.append("      WARNING: Expected and actual values appear IDENTICAL at this VCD sample point.")
                                 lines.append("      The mismatch likely occurred at a clock edge transition that the VCD did not capture.")
                                 lines.append("      This means your signal had the WRONG value briefly at the clock edge, then settled")
                                 lines.append("      to the correct value. Focus on combinational logic timing or registered output behavior.")
@@ -825,7 +825,7 @@ class VerilogEvalIntegration:
         patterns = self._analyze_failure_patterns(mismatch_details, vcd_data)
         if patterns:
             for pattern in patterns:
-                lines.append(f"  • {pattern}")
+                lines.append(f"  - {pattern}")
         else:
             lines.append("  No obvious patterns detected.")
 

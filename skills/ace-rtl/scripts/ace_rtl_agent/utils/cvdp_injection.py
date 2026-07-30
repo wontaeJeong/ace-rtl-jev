@@ -26,8 +26,6 @@ class CVDPInjectionMixin:
 
         self.generated_code_files = []
         self.generated_code_file_contents = {}
-        if self._inject_reduced_core_adapter(code_dir, rtl_code):
-            return
         if self._is_plain_rtl_generation_task() and self._inject_marked_target_sections(code_dir, rtl_code):
             return
         if self._inject_multifile_rtl_into_natural_structure(rtl_code):
@@ -245,10 +243,10 @@ class CVDPInjectionMixin:
 
         # Fallback to datapoint-based naming
         if hasattr(self, 'current_datapoint_name'):
-            # Handle cases like cvdp_copilot_binary_to_BCD_0010
+            # Handle CVDP datapoint names with a two-token dataset prefix.
             base_name = self.current_datapoint_name.split('_')
             if len(base_name) >= 3:
-                # Remove cvdp_copilot prefix and numeric suffix
+                # Remove dataset prefix and numeric suffix.
                 module_name = '_'.join(base_name[2:-1])  # e.g., "binary_to_BCD"
                 return f"{module_name.lower()}.sv"
 
@@ -765,5 +763,3 @@ class CVDPInjectionMixin:
         if error_penalty:
             details["error_penalty"] = error_penalty
         return details
-
-

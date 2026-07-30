@@ -58,17 +58,10 @@ class FocusedPromptingMixin:
             and not is_verification_task
         )
         spec_lower = specification.lower()
-        core_adapter_mode = (
-            "core adapter mode is active" in spec_lower
-            and "single virtual target" in spec_lower
-        )
         requires_target_file_sections = (
-            not core_adapter_mode
-            and (
-                "// target_file:" in spec_lower
-                or "return all generated target files" in spec_lower
-                or "return all target files" in spec_lower
-            )
+            "// target_file:" in spec_lower
+            or "return all generated target files" in spec_lower
+            or "return all target files" in spec_lower
         )
         prompt_error_report = self._prepare_error_report_for_prompt(error_report)
         if is_assertion_insertion_task:
@@ -149,16 +142,11 @@ class FocusedPromptingMixin:
 - Avoid broad algorithm rewrites unless the current structure cannot meet the requested metric. Prefer minimal behavior-preserving changes with clear reset/default handling.
 """
         if is_rtl_modification_task:
-            multi_file_rule = (
-                "- Core-adapter mode is active: return one complete virtual core file only; do not emit adapter-owned real wrapper files or multi-file `TARGET_FILE` sections."
-                if core_adapter_mode
-                else "- If the specification/contract lists multiple target files, provide one complete section per target headed by `// TARGET_FILE: <filename>`; keep wrappers and core modules mutually consistent."
-            )
             verification_runtime_rules = f"""
 - CVDP RTL implementation task: edit only the target RTL implementation. Do not generate a testbench, checker, assertions, markdown, or explanatory text.
 - Preserve the exact module name, parameters, ports, widths, reset polarity, clocking, and checked output timing.
 - If multiple generated RTL files/modules are required by the prompt or compile command, provide each required module exactly once using the natural module names.
-{multi_file_rule}
+- If the specification/contract lists multiple target files, provide one complete section per target headed by `// TARGET_FILE: <filename>`; keep wrappers and core modules mutually consistent.
 - Legal parameterized module headers and instance parameter overrides are allowed; do not use procedural/assignment delay controls such as `#5`, standalone `#(...)`, or `<= #1`.
 - Icarus Verilog rejects procedural declarations after executable statements. Declare temporary `logic`/`integer` variables at module scope or at the top of an `always`/`always_ff`/`always_comb` block before any assignment, `if`, or `case`.
 - Icarus warns on constant/indexed selects in `always_*` processes. Avoid direct packed-vector constant/indexed part-selects there; extract bytes/fields with continuous `assign` statements, wires, or helper combinational logic first.
@@ -257,7 +245,7 @@ class FocusedPromptingMixin:
                     rules = self.rtl_rule_advisor.get_retrieved_rules()
                     rtl_guidance = self.rtl_rule_advisor.format_advice_for_agent(rules, include_detailed=True)
                     self.rtl_rules_retrieved = True
-                    self.logger.info(f"✅ Retrieved {len(rules)} RTL coding rules for guidance")
+                    self.logger.info(f"Retrieved {len(rules)} RTL coding rules for guidance")
             except Exception as e:
                 self.logger.warning(f"RTL rule retrieval failed: {e}")
         elif self.rtl_rules_retrieved:
@@ -492,5 +480,4 @@ Provide ONLY the corrected code (no analysis or guidance needed - that's already
 """
 
         return prompt, focused_error, fix_guidance
-
 

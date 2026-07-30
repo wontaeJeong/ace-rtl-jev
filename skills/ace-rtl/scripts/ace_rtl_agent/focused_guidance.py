@@ -18,15 +18,18 @@ class FocusedGuidanceMixin:
         lowered = text.lower()
         if self._is_default_output_feedback_guess(lowered):
             return self._default_output_functional_guidance()
-        private_or_formula_markers = (
+        private_source_markers = (
             "reference model",
             "harness_library",
-            "xtimes",
-            "gf_x",
-            "0x0e",
-            "0x0b",
-            "0x0d",
-            "0x09",
+            "private reference",
+            "hidden reference",
+            "golden model",
+            "checker/reference",
+        )
+        private_source_patterns = (
+            r"\bprivate\s+(?:checker|reference|formula|model)\b",
+            r"\b(?:checker|reference)\s+(?:formula|implementation|internals?)\b",
+            r"\bfrom\s+the\s+(?:checker|reference|harness)\b",
         )
         prescriptive_markers = (
             "change the",
@@ -36,7 +39,10 @@ class FocusedGuidanceMixin:
             "assignment",
             "term",
         )
-        if any(marker in lowered for marker in private_or_formula_markers) and any(
+        references_private_source = any(marker in lowered for marker in private_source_markers) or any(
+            re.search(pattern, lowered) for pattern in private_source_patterns
+        )
+        if references_private_source and any(
             marker in lowered for marker in prescriptive_markers
         ):
             return (
@@ -334,7 +340,7 @@ OUTPUT FORMAT:
             priority_indices = set()
             for i, line in enumerate(middle_section):
                 if any(pattern in line for pattern in critical_patterns):
-                    # Just ±1 line context instead of ±2
+                    # Just +/-1 line context instead of +/-2
                     for j in range(max(0, i-1), min(len(middle_section), i+2)):
                         priority_indices.add(j)
 
@@ -365,8 +371,8 @@ OUTPUT FORMAT:
             tail = max(0, budget - head)
             truncated_report = truncated_report[:head] + marker + truncated_report[-tail:]
 
-        self.logger.info(f"Intelligent truncation: {total_lines} lines → {len(truncated_lines)} lines, "
-                        f"{len(error_report)} chars → {len(truncated_report)} chars")
+        self.logger.info(f"Intelligent truncation: {total_lines} lines -> {len(truncated_lines)} lines, "
+                        f"{len(error_report)} chars -> {len(truncated_report)} chars")
 
         return truncated_report
 
@@ -429,4 +435,3 @@ OUTPUT FORMAT:
             return passed, passed + failed
 
         return 0, 0
-

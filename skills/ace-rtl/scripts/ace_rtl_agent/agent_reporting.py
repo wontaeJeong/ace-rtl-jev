@@ -409,7 +409,7 @@ class AgentReportingMixin:
 
         Non-agentic CVDP rows declare generated files in output.context. Agentic
         rows declare generated/modified deliverables as patch paths. For native
-        Docker-free agentic runs we transform rows to copilot format for initial
+        Docker-free agentic runs we transform rows to generation format for initial
         generation, but the agent still loads the original row, so both sources
         must be understood here.
         """
@@ -605,7 +605,7 @@ class AgentReportingMixin:
                     f.write(f"Model: {self.config.model_name}\n")
                     f.write(f"Base Path: {cvdp_integration.base_path}\n")
                     f.write(f"=" * 50 + "\n")
-                self.logger.info(f"✅ Initialized iteration log: {log_file}")
+                self.logger.info(f"Initialized iteration log: {log_file}")
             except Exception as e:
                 self.logger.error(f"Failed to initialize iteration log: {str(e)}")
         else:
@@ -631,7 +631,7 @@ class AgentReportingMixin:
                 # Append to log file
                 with open(log_file, 'a') as f:
                     f.write(log_entry)
-                self.logger.info(f"📝 Logged iteration {iteration} to: {log_file}")
+                self.logger.info(f"Logged iteration {iteration} to: {log_file}")
             except Exception as e:
                 self.logger.warning(f"Failed to log iteration result: {str(e)}")
         else:
@@ -886,4 +886,3 @@ class AgentReportingMixin:
             self.cvdp_integration.cleanup_global_resources()
         except Exception as e:
             self.logger.warning(f"Agent cleanup failed: {str(e)}")
-

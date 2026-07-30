@@ -396,7 +396,7 @@ class DeepErrorAnalyzer:
                             repeated_count += 1
 
                 if repeated_count >= 2:
-                    reasoning_parts.append(f"- ⚠️ **REPEATED FAILURE**: This exact issue occurred in {repeated_count} previous iterations")
+                    reasoning_parts.append(f"- **REPEATED FAILURE**: This exact issue occurred in {repeated_count} previous iterations")
                     reasoning_parts.append(f"- Previous fixes did not address the root cause - need different approach")
 
             reasoning_parts.append(f"- This is iteration {iteration}, {len(previous_analyses)} previous attempts")

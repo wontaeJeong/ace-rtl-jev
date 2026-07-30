@@ -187,15 +187,15 @@ class CVDPSVGuardMixin:
             return code
 
         transformed_parts: List[str] = []
-        cursor = 0
+        scan_pos = 0
         total_lifted = 0
         for module_index, module_match in enumerate(matches, start=1):
-            transformed_parts.append(code[cursor:module_match.start()])
+            transformed_parts.append(code[scan_pos:module_match.start()])
             module_text = module_match.group(0)
             block_re = re.compile(r"\b(always_ff|always_comb|always_latch|always)\b", re.IGNORECASE)
 
             module_parts: List[str] = []
-            block_cursor = 0
+            block_scan_pos = 0
             lifted_decls: List[str] = []
             for block_index, block_match in enumerate(block_re.finditer(module_text), start=1):
                 begin_match = re.search(r"\bbegin\b", module_text[block_match.end():], flags=re.IGNORECASE)
@@ -205,7 +205,7 @@ class CVDPSVGuardMixin:
                 end_pos = self._find_matching_sv_block_end(module_text, begin_pos)
                 if end_pos is None:
                     continue
-                module_parts.append(module_text[block_cursor:begin_pos])
+                module_parts.append(module_text[block_scan_pos:begin_pos])
                 new_block, decls = self._lift_procedural_declarations_in_block(
                     module_text[begin_pos:end_pos],
                     module_index,
@@ -213,10 +213,10 @@ class CVDPSVGuardMixin:
                 )
                 module_parts.append(new_block)
                 lifted_decls.extend(decls)
-                block_cursor = end_pos
+                block_scan_pos = end_pos
 
             if lifted_decls:
-                module_parts.append(module_text[block_cursor:])
+                module_parts.append(module_text[block_scan_pos:])
                 module_text = "".join(module_parts)
                 unique_decls = list(dict.fromkeys(lifted_decls))
                 insert_match = re.search(
@@ -236,9 +236,9 @@ class CVDPSVGuardMixin:
                 total_lifted += len(unique_decls)
 
             transformed_parts.append(module_text)
-            cursor = module_match.end()
+            scan_pos = module_match.end()
 
-        transformed_parts.append(code[cursor:])
+        transformed_parts.append(code[scan_pos:])
         if total_lifted:
             self.logger.info(f"Lifted {total_lifted} procedural declaration(s) for CVDP native simulation")
         return "".join(transformed_parts)
@@ -363,10 +363,10 @@ class CVDPSVGuardMixin:
 
         cast_count = 0
         parts: List[str] = []
-        cursor = 0
+        scan_pos = 0
 
         for module_match in matches:
-            parts.append(code[cursor:module_match.start()])
+            parts.append(code[scan_pos:module_match.start()])
             module_text = module_match.group(0)
             enum_vars = self._enum_typed_variables(module_text)
             for var_name, enum_type in enum_vars.items():
@@ -385,9 +385,9 @@ class CVDPSVGuardMixin:
 
                 module_text = assign_re.sub(replace, module_text)
             parts.append(module_text)
-            cursor = module_match.end()
+            scan_pos = module_match.end()
 
-        parts.append(code[cursor:])
+        parts.append(code[scan_pos:])
         if cast_count:
             self.logger.info(f"Added {cast_count} enum ternary cast(s) for CVDP native simulation")
         return "".join(parts)
@@ -399,7 +399,7 @@ class CVDPSVGuardMixin:
         This is a structural RTL hygiene guard, not a functional oracle. In
         particular, assigning block-local temporary variables with nonblocking
         assignments inside always_ff commonly feeds stale/default values into
-        same-cycle pipeline updates. The HDBN runs repeatedly hit this pattern.
+        same-cycle pipeline updates.
         """
         if not code:
             return None
@@ -544,187 +544,11 @@ class CVDPSVGuardMixin:
                     + ". Increase the enum vector width or assign unique state values"
                 )
 
-        hdbn_decoder = self._module_text_from_candidate(clean, ["hdbn_decoder_core"])
-        hdbn_decoder_has_five_visible_pipe = False
-        if hdbn_decoder:
-            decoder_clean = self._strip_sv_comments(hdbn_decoder)
-            hdbn_decoder_has_five_visible_pipe = bool(
-                re.search(r"\blogic\s*\[\s*4\s*:\s*0\s*\]\s+data_pipe\b", decoder_clean)
-                and re.search(r"\bassign\s+data_out\s*=\s*data_pipe\s*\[\s*4\s*\]\s*;", decoder_clean)
-            )
-            has_six_stage_decoder_pipe = bool(
-                re.search(r"\blocalparam\s+(?:integer|int)?\s*(?:PIPE_DEPTH|DECODER_LATENCY)\s*=\s*6\b", decoder_clean)
-                or re.search(r"\blogic\s*\[\s*5\s*:\s*0\s*\]\s+data_pipe\b", decoder_clean)
-            )
-            registers_decoder_inputs = bool(
-                re.search(r"\b[A-Za-z_][A-Za-z0-9_$]*\s*<=\s*p_in\b", decoder_clean)
-                and re.search(r"\b[A-Za-z_][A-Za-z0-9_$]*\s*<=\s*n_in\b", decoder_clean)
-            )
-            normalizes_inputs_with_nba = bool(
-                re.search(r"\bp_norm\s*<=\s*\(?\s*p_in\b|\bp_norm\s*<=\s*\([^;]*p_in", decoder_clean)
-                or re.search(r"\bn_norm\s*<=\s*\(?\s*n_in\b|\bn_norm\s*<=\s*\([^;]*n_in", decoder_clean)
-            )
-            registers_old_pipe_tail_to_output = bool(
-                re.search(r"\bdata_out\s*<=\s*data_pipe\s*\[", decoder_clean)
-            )
-
-            if has_six_stage_decoder_pipe and registers_decoder_inputs:
-                violations.append(
-                    "hdbn_decoder_core registers `p_in/n_in` and also uses a six-stage decoded-data pipe; "
-                    "the public decoder-only test measures exactly six clock edges from driven `p_in/n_in` "
-                    "to `data_out`, so this structure usually adds a seventh cycle"
-                )
-            if normalizes_inputs_with_nba:
-                violations.append(
-                    "hdbn_decoder_core normalizes `p_in/n_in` into `p_norm/n_norm` with nonblocking `<=` "
-                    "inside a clocked block; same-block decode then sees the previous cycle's pulse. "
-                    "Normalize current inputs with blocking temporaries before computing `decoded_bit`"
-                )
-            if registers_old_pipe_tail_to_output:
-                violations.append(
-                    "hdbn_decoder_core assigns `data_out <= data_pipe[...]` from the old pipe tail while "
-                    "also shifting the decoded-data pipe in the same clocked block; this adds a hidden "
-                    "output cycle in the public latency path. Drive `data_out` directly from the pipe tail "
-                    "or compute the exact post-shift output value in the same clock"
-                )
-            if re.search(r"\blogic\s*\[\s*5\s*:\s*0\s*\]\s+data_pipe\b", decoder_clean) and re.search(
-                r"\bassign\s+data_out\s*=\s*data_pipe\s*\[\s*5\s*\]\s*;", decoder_clean
-            ):
-                violations.append(
-                    "hdbn_decoder_core uses a six-bit continuous decoded-data pipe (`data_pipe[5]`). "
-                    "The public cocotb decoder-only test reads immediately after `RisingEdge`, so this "
-                    "is observed one cycle late; use a five-bit continuous pipe (`logic [4:0] data_pipe; "
-                    "assign data_out = data_pipe[4];`)"
-                )
-
-        hdbn_modules = [
-            text for names in (["hdbn_encoder_core"], ["hdbn_decoder_core"], ["hdbn_encoder"], ["hdbn_decoder"])
-            for text in [self._module_text_from_candidate(clean, names)]
-            if text
-        ]
-        for module_text in hdbn_modules:
-            module_clean = self._strip_sv_comments(module_text)
-            module_header = re.search(r"\bmodule\s+([A-Za-z_][A-Za-z0-9_$]*)", module_clean)
-            module_name = module_header.group(1) if module_header else "HDBN module"
-            narrow_counters = sorted(set(re.findall(
-                r"(?m)^\s*logic\s+"
-                r"(zero_(?:run|cnt|count)|[A-Za-z_][A-Za-z0-9_$]*zero(?:_run|_cnt|_count))\s*;",
-                module_clean,
-            )))
-            compared_to_encoder_type = [
-                name for name in narrow_counters
-                if re.search(rf"\b{re.escape(name)}\s*(?:==|>=|>|<|<=)\s*(?:encoder_type|ZERO_LIMIT)\b", module_clean)
-            ]
-            if compared_to_encoder_type:
-                violations.append(
-                    f"{module_name} declares one-bit HDBN zero counter(s) "
-                    + ", ".join(f"`{name}`" for name in compared_to_encoder_type[:8])
-                    + "; these counters must count at least 0..encoder_type, otherwise HDB2/HDB3 "
-                    "substitution never triggers at encoder_type=2/3"
-                )
-
-            if re.search(r"\bzero_(?:run|cnt|count)\s*==\s*ZERO_LIMIT\s*\+\s*1\b", module_clean):
-                violations.append(
-                    f"{module_name} triggers HDBN zero substitution at `ZERO_LIMIT + 1`; the public "
-                    "contract requires a substitution pulse after exactly `encoder_type` previous "
-                    "no-pulse zeros, so the trigger threshold is `ZERO_LIMIT`"
-                )
-            if re.search(r"\bzero_(?:run|cnt|count)\s*==\s*ZERO_LIMIT\s*-\s*1\b", module_clean):
-                violations.append(
-                    f"{module_name} triggers HDBN zero substitution at `ZERO_LIMIT - 1`; that emits "
-                    "the substitution pulse one zero early. Use the public threshold `ZERO_LIMIT`"
-                )
-
-            if "encoder" in module_name.lower():
-                delay_param_names = set(re.findall(
-                    r"\blocalparam\s+(?:integer|int)?\s*([A-Za-z_][A-Za-z0-9_$]*)\s*=\s*"
-                    r"2\s*\*\s*encoder_type\s*-\s*1\b",
-                    module_clean,
-                ))
-                for delay_name in sorted(delay_param_names):
-                    old_tail_shift = bool(
-                        re.search(
-                            rf"\b(?:data_pipe|data_delay)\s*<=\s*\{{\s*(?:data_pipe|data_delay)\s*\[\s*{re.escape(delay_name)}\s*-\s*2\s*:\s*0\s*\]\s*,\s*data_in\s*\}}",
-                            module_clean,
-                        )
-                        and re.search(
-                            rf"\b[A-Za-z_][A-Za-z0-9_$]*(?:delayed|current)?_?bit\s*=\s*(?:data_pipe|data_delay)\s*\[\s*{re.escape(delay_name)}\s*-\s*1\s*\]",
-                            module_clean,
-                        )
-                    )
-                    if old_tail_shift and not hdbn_decoder_has_five_visible_pipe:
-                        violations.append(
-                            f"{module_name} uses old-tail nonblocking shift style with `{delay_name} = 2*encoder_type - 1`; "
-                            "pair this style with the public five-bit continuous decoder pipe, or compute "
-                            "the delayed bit from the post-shift vector to avoid an observed loopback latency mismatch"
-                        )
-
-                stale_delay_names = sorted(set(re.findall(
-                    r"\b([A-Za-z_][A-Za-z0-9_$]*(?:delayed|current)?_?bit)\s*<=\s*"
-                    r"(?:[A-Za-z_][A-Za-z0-9_$]*(?:data_pipe|data_delay)|(?:data_pipe|data_delay))\s*\[",
-                    module_clean,
-                )))
-                stale_delay_names = [
-                    name for name in stale_delay_names
-                    if re.search(rf"\bif\s*\(\s*{re.escape(name)}\s*\)", module_clean)
-                ]
-                if stale_delay_names:
-                    violations.append(
-                        f"{module_name} assigns delayed symbol temporary "
-                        + ", ".join(f"`{name}`" for name in stale_delay_names[:8])
-                        + " with nonblocking `<=` and uses it in the same clocked block; "
-                        "this adds a hidden encoder cycle. Compute the delayed symbol with "
-                        "blocking `=` from the current pipe tail before encoding"
-                    )
-
-            if "decoder" in module_name.lower():
-                polarity_terms = (
-                    r"(?:polarity_now|pulse_polarity|current_polarity|"
-                    r"polarity|p_now|n_now|p_active|n_active)"
-                )
-                last_polarity_terms = (
-                    r"(?:last_polarity|last_pulse_polarity|last_pulse_pol|"
-                    r"last_nonzero_polarity|prev_polarity|previous_polarity)"
-                )
-                has_polarity_discriminator = bool(
-                    re.search(rf"\b{polarity_terms}\b\s*(?:==|!=)\s*\b{last_polarity_terms}\b", module_clean)
-                    or re.search(rf"\b{last_polarity_terms}\b\s*(?:==|!=)\s*\b{polarity_terms}\b", module_clean)
-                    or re.search(r"\b(?:same_polarity|is_violation|violation_pulse|legal_violation)\b\s*=", module_clean)
-                )
-                zero_run_pulse_as_zero = False
-                for zero_block in re.finditer(
-                    r"\bif\s*\(\s*(?:zero_run|zero_cnt|zero_count)\s*==\s*(?:ZERO_LIMIT|encoder_type)\s*\)\s*begin(?P<body>.{0,700}?)\bend\b",
-                    module_clean,
-                    flags=re.DOTALL,
-                ):
-                    body = zero_block.group("body")
-                    if re.search(r"\b(?:decoded_bit|next_decoded|decoded)\s*(?:=|<=)\s*1'b0\b", body):
-                        zero_run_pulse_as_zero = True
-                        break
-                if (
-                    not zero_run_pulse_as_zero
-                    and re.search(
-                        r"\b(?:decoded_bit|next_decoded|decoded)\s*(?:=|<=)\s*"
-                        r"\(\s*(?:zero_run|zero_cnt|zero_count)\s*==\s*(?:ZERO_LIMIT|encoder_type)\s*\)\s*\?\s*1'b0\s*:\s*1'b1",
-                        module_clean,
-                    )
-                ):
-                    zero_run_pulse_as_zero = True
-                if zero_run_pulse_as_zero and not has_polarity_discriminator:
-                    violations.append(
-                        f"{module_name} decodes any single pulse after exactly `encoder_type` no-pulse symbols "
-                        "as zero without checking AMI/violation polarity. That misdecodes legal data sequences "
-                        "with `encoder_type` zeros followed by a real `1`; only a distinguishable HDBn "
-                        "substitution/violation marker should decode as zero"
-                    )
-
         if not violations:
             return None
 
         return (
             "CVDP_RTL_SEMANTIC_GUARD: generated RTL has simulator-visible clocked-block temporary assignment hazards.\n"
             + "\n".join(f"- {item}" for item in violations[:12])
-            + "\nFix: declare all procedural temporary variables at module scope or at the very top of the outer procedural block before any `if`, `case`, assignment, or loop; assign local temporaries in `always_ff` with blocking `=`, reserve nonblocking `<=` for persistent registers/signals declared at module scope, give enum states unique encodings, replace unbounded/escape-based loops with bounded counters or FSM states, make HDBN zero counters wide enough to count through `encoder_type`, and distinguish ordinary AMI data pulses from legal HDBn substitution/violation markers."
+            + "\nFix: declare all procedural temporary variables at module scope or at the very top of the outer procedural block before any `if`, `case`, assignment, or loop; assign local temporaries in `always_ff` with blocking `=`, reserve nonblocking `<=` for persistent registers/signals declared at module scope, give enum states unique encodings, and replace unbounded/escape-based loops with bounded counters or FSM states."
         )
-
-

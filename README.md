@@ -99,8 +99,8 @@ chat-completions-style `choices[0].message.content` payload.
 
 ## Run With A Coding Agent Recommended
 
-Use Codex, Claude Code, Cursor, or another coding agent from this repository
-root and ask it to use the ACE-RTL skill. Example prompt:
+Use a coding agent from this repository root and ask it to use the ACE-RTL
+skill. Example prompt:
 
 ```text
 Use ACE-RTL to run CVDP cid016 from

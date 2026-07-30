@@ -21,7 +21,7 @@ class SpecificationExampleParser:
     """
     Extracts concrete examples from specifications for use as ground truth.
 
-    This implements Cursor's approach of using specification examples as
+    This uses specification examples as
     concrete requirements rather than just documentation.
     """
 
@@ -110,7 +110,7 @@ class SpecificationExampleParser:
         # Generic patterns for signal assignments in specifications
         assignment_patterns = [
             r"(\w+)\s*=\s*(\w+|\d+)",           # "signal = 0"
-            r"(\w+)\s*←\s*(\w+|\d+)",           # "signal ← 0"
+            r"(\w+)\s*\u2190\s*(\w+|\d+)",      # "signal" followed by a left arrow and value
             r"(\w+)\s*:\s*(\w+|\d+)",           # "signal: 0"
             r"(\w+)\s+is\s+(\w+|\d+)",          # "signal is 0"
             r"(\w+)\s+becomes\s+(\w+|\d+)"      # "signal becomes 0"

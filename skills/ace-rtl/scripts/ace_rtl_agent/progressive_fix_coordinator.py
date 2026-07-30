@@ -100,7 +100,7 @@ class ProgressiveFixCoordinator:
 
         # Show what's currently working
         if self.applied_fixes:
-            strategy.append("### ✅ CURRENTLY WORKING (Must Maintain):")
+            strategy.append("### CURRENTLY WORKING (Must Maintain):")
             for fix_id, fix in self.applied_fixes.items():
                 strategy.append(f"- {fix.category.value}: {fix.description}")
                 strategy.append(f"  - Applied in iteration {fix.iteration_applied}")
@@ -109,13 +109,13 @@ class ProgressiveFixCoordinator:
 
         # Show what needs to be added
         if required_fixes:
-            strategy.append("### 🔧 NEW FIXES REQUIRED:")
+            strategy.append("### NEW FIXES REQUIRED:")
             for i, fix in enumerate(required_fixes[:3]):  # Limit to top 3
                 strategy.append(f"{i+1}. **{fix['category']}** (Priority {fix.get('priority', 'N/A')})")
                 strategy.append(f"   - Issue: {fix['description']}")
                 strategy.append(f"   - Strategy: {fix['strategy']}")
                 if fix.get('conflicts'):
-                    strategy.append(f"   - ⚠️ Conflicts: {fix['conflicts']}")
+                    strategy.append(f"   - Conflicts: {fix['conflicts']}")
                 strategy.append("")
 
         # Generate integration strategy
@@ -174,7 +174,7 @@ class ProgressiveFixCoordinator:
 
         instructions.append("### Current Code Structure:")
         for section, content in code_sections.items():
-            instructions.append(f"- {section}: {'✅ Present' if content else '❌ Missing'}")
+            instructions.append(f"- {section}: {'Present' if content else 'Missing'}")
         instructions.append("")
 
         # Generate merge instructions for each fix
@@ -328,7 +328,7 @@ class ProgressiveFixCoordinator:
     def _generate_integration_strategy(self, required_fixes: List[Dict[str, Any]],
                                      current_code: str) -> List[str]:
         """Generate strategy for integrating new fixes with existing code."""
-        strategy = ["### 🔄 INTEGRATION STRATEGY:"]
+        strategy = ["### INTEGRATION STRATEGY:"]
 
         if not required_fixes:
             strategy.append("- No new fixes required")
@@ -349,7 +349,7 @@ class ProgressiveFixCoordinator:
         for category, fixes in by_category.items():
             strategy.append(f"   - {category.value}: {len(fixes)} fix(es)")
             for fix in fixes:
-                strategy.append(f"     • {fix['description']}")
+                strategy.append(f"     - {fix['description']}")
 
         strategy.append("3. **Test integration at each step**")
         strategy.append("4. **Verify no regressions occur**")

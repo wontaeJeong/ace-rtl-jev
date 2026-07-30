@@ -199,13 +199,13 @@ class FreshStartCoordinator:
 
         early_restart_reason = self._early_restart_reason(iterations_since_restart)
         if early_restart_reason:
-            self.logger.info(f"🔄 Early fresh-start trigger: {early_restart_reason}")
+            self.logger.info(f"Early fresh-start trigger: {early_restart_reason}")
             return True, early_restart_reason
 
         # CONSERVATIVE: Only consider restart if 12+ consecutive failures
         if iterations_since_restart < 12:
             reason = f"Only {iterations_since_restart} iterations since last restart - minimum 12 required before considering restart"
-            self.logger.info(f"➡️ Auto-continue (conservative policy): {reason}")
+            self.logger.info(f"Auto-continue (conservative policy): {reason}")
             return False, reason
 
         # Build restart context
@@ -228,15 +228,15 @@ class FreshStartCoordinator:
 You are analyzing {iterations_since_restart} consecutive failed iterations. Be VERY CONSERVATIVE about restarting.
 
 **ONLY restart if ALL of the following are true**:
-1. ✅ At least 12 consecutive failures (we have {iterations_since_restart})
-2. ✅ ZERO progress made (no tests improving, same errors repeating)
-3. ✅ Multiple different fix approaches tried but all failed
-4. ✅ Clear evidence of fundamental design flaw (not just implementation bugs)
-5. ✅ Pretty sure continued debugging is HOPELESS
+1. At least 12 consecutive failures (we have {iterations_since_restart})
+2. ZERO progress made (no tests improving, same errors repeating)
+3. Multiple different fix approaches tried but all failed
+4. Clear evidence of fundamental design flaw (not just implementation bugs)
+5. Pretty sure continued debugging is HOPELESS
 
 **Look for signs of progress (if ANY exist, CONTINUE)**:
 - Different errors appearing (shows evolution)
-- Test count improving (even 0→1 is progress)
+- Test count improving (even 0->1 is progress)
 - Different implementation approaches tried (shows exploration)
 - Fix effectiveness improving (even partial fixes count)
 - Any indication the approach might work with more iterations
@@ -247,9 +247,9 @@ You are analyzing {iterations_since_restart} consecutive failed iterations. Be V
 - Is this a fundamental design flaw, or just needs more debugging?
 
 **DECISION RULE**:
-- If you see ANY progress or evolution → CONTINUE
-- If you're unsure → CONTINUE (be conservative!)
-- ONLY if you're VERY SURE it's hopeless → RESTART
+- If you see ANY progress or evolution -> CONTINUE
+- If you're unsure -> CONTINUE (be conservative!)
+- ONLY if you're VERY SURE it's hopeless -> RESTART
 
 **CRITICAL: You MUST end your response with exactly one of these:**
 - RESTART: [detailed reason why it's HOPELESS and needs fresh start]
@@ -272,10 +272,10 @@ You are analyzing {iterations_since_restart} consecutive failed iterations. Be V
                     reason = restart_match[1].strip()
                     # Clean up common formatting
                     reason = reason.replace("**", "").strip()
-                    self.logger.info(f"🔄 LLM recommends restart: {reason}")
+                    self.logger.info(f"LLM recommends restart: {reason}")
                     return True, reason
                 else:
-                    self.logger.info("🔄 LLM recommends restart (no detailed reason)")
+                    self.logger.info("LLM recommends restart (no detailed reason)")
                     return True, "LLM analysis recommends fresh start"
 
             elif "CONTINUE:" in response:
@@ -284,10 +284,10 @@ You are analyzing {iterations_since_restart} consecutive failed iterations. Be V
                 if len(continue_match) > 1:
                     reason = continue_match[1].strip()
                     reason = reason.replace("**", "").strip()
-                    self.logger.info(f"➡️ LLM recommends continue: {reason}")
+                    self.logger.info(f"LLM recommends continue: {reason}")
                     return False, reason
                 else:
-                    self.logger.info("➡️ LLM recommends continue (no detailed reason)")
+                    self.logger.info("LLM recommends continue (no detailed reason)")
                     return False, "LLM analysis recommends continuing current approach"
 
             else:
@@ -300,10 +300,10 @@ You are analyzing {iterations_since_restart} consecutive failed iterations. Be V
                 continue_score = sum(1 for word in continue_keywords if word in response_lower)
 
                 if restart_score > continue_score and restart_score > 0:
-                    self.logger.warning(f"⚠️ No explicit RESTART/CONTINUE, but detected restart intent (score: {restart_score} vs {continue_score})")
+                    self.logger.warning(f"No explicit RESTART/CONTINUE, but detected restart intent (score: {restart_score} vs {continue_score})")
                     return True, "Restart detected via heuristic analysis"
                 else:
-                    self.logger.warning(f"⚠️ No explicit RESTART/CONTINUE, defaulting to continue (score: {restart_score} vs {continue_score})")
+                    self.logger.warning(f"No explicit RESTART/CONTINUE, defaulting to continue (score: {restart_score} vs {continue_score})")
                     self.logger.debug(f"Response content: {response}")
                     return False, "LLM response unclear - defaulting to continue"
 
@@ -712,9 +712,9 @@ Identify general patterns and extract 2-4 concise, high-level lessons that could
 - Include all significant lessons learned - no artificial limits
 
 **Examples of Good Lessons**:
-• Follow specification interface requirements precisely
-• Pay attention to timing behavior and synchronization requirements
-• Prefer simple, clear implementations over complex architectures
+- Follow specification interface requirements precisely
+- Pay attention to timing behavior and synchronization requirements
+- Prefer simple, clear implementations over complex architectures
 
 **Your High-Level Lessons**:"""
 
@@ -723,7 +723,7 @@ Identify general patterns and extract 2-4 concise, high-level lessons that could
             if response and response.strip():
                 # Clean up the response and extract lesson points
                 lessons = self._clean_lesson_response(response)
-                self.logger.info(f"LLM extracted {len(lessons.split('•'))-1} high-level lessons from iteration history")
+                self.logger.info(f"LLM extracted {len(lessons.split('- '))-1} high-level lessons from iteration history")
                 return lessons
             else:
                 return ""
@@ -742,10 +742,12 @@ Identify general patterns and extract 2-4 concise, high-level lessons that could
         for line in lines:
             line = line.strip()
             # Look for bullet points or numbered items
-            if line.startswith('•') or line.startswith('-') or line.startswith('*'):
+            if line.startswith('\u2022'):
+                lesson_lines.append("- " + line[1:].lstrip())
+            elif line.startswith('-') or line.startswith('*'):
                 lesson_lines.append(line)
             elif line and len(lesson_lines) == 0:  # First substantial line if no bullets
-                lesson_lines.append(f"• {line}")
+                lesson_lines.append(f"- {line}")
 
         # Keep all lessons - no artificial truncation of important insights
 

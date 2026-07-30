@@ -154,7 +154,7 @@ class EnhancedRTLDebugger:
 
         # Regression warnings
         if regression_report.newly_failing_assertions:
-            context.append("## ⚠️ REGRESSION ALERT")
+            context.append("## REGRESSION ALERT")
             context.append(f"Severity: {regression_report.regression_severity}")
             context.append(f"Recommendation: {regression_report.recommendation}")
             context.append("")

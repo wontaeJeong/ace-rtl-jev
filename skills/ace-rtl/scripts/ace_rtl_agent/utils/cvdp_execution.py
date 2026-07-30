@@ -67,9 +67,6 @@ class CVDPExecutionMixin:
 
             # Extract RTL code and results from the natural CVDP structure
             rtl_code = self._extract_rtl_from_natural_structure()
-            adapted_initial = self._retest_initial_reduced_core_adapter(datapoint_name, rtl_code)
-            if adapted_initial is not None:
-                return adapted_initial
 
             error_report = self._extract_error_report_from_natural_structure(result)
             no_cheat_report = self._generated_code_no_cheat_violation_report(rtl_code)
@@ -96,71 +93,6 @@ class CVDPExecutionMixin:
             raise
         finally:
             os.chdir(original_dir)
-
-    def _retest_initial_reduced_core_adapter(self, datapoint_name: str, rtl_code: str) -> Optional[Dict[str, Any]]:
-        """
-        Expand reduced-core initial RTL before iteration 0 feedback.
-
-        CVDP's first run only sees the virtual target file for reduced-core
-        rows, so it can fail before adapter-created public modules exist. The
-        repair loop should start from the real adapter-expanded CVDP result.
-        """
-        if not self._reduced_core_adapter() or not rtl_code:
-            return None
-
-        no_cheat_report = self._generated_code_no_cheat_violation_report(rtl_code)
-        if no_cheat_report:
-            self.logger.warning(no_cheat_report.splitlines()[0])
-            return {
-                "passed": False,
-                "compilation_success": False,
-                "error_message": "Generated code violates CVDP no-cheat rules",
-                "error_report": no_cheat_report,
-                "rtl_code": rtl_code,
-                "execution_time": 0.0,
-                "details": {
-                    "mismatches": 2_000_000,
-                    "failure_stage": "cvdp_no_cheat_guard",
-                },
-            }
-
-        self.logger.info("Retesting initial CVDP generation after reduced-core adapter expansion")
-        os.environ['ACE_RTL_ITERATIVE_MODE'] = 'true'
-        os.environ['ACE_RTL_DEBUGGING_ACTIVE'] = 'true'
-        if not self._protected_rtl_injection_and_test(rtl_code, datapoint_name):
-            self.logger.warning("Initial reduced-core adapter retest failed to run; using original CVDP feedback")
-            return None
-
-        contract_report = getattr(self, "_last_contract_violation_report", None)
-        if contract_report:
-            return {
-                "passed": False,
-                "compilation_success": False,
-                "error_message": "Generated code violates public CVDP harness contract",
-                "error_report": contract_report,
-                "rtl_code": rtl_code,
-                "execution_time": 0.0,
-                "details": {
-                    "mismatches": 1_500_000,
-                    "failure_stage": "cvdp_contract_guard",
-                },
-            }
-
-        result = self._last_test_result
-        self._cleanup_unwanted_cvdp_files()
-        error_report = self._extract_error_report_from_natural_structure(result)
-        passed = self._determine_test_success(result, error_report)
-        compilation_success = self._determine_compilation_success(result)
-        details = self._build_progress_details(result, error_report)
-        return {
-            "passed": passed,
-            "compilation_success": compilation_success,
-            "error_message": None if passed else "Test failed - see error_report for details",
-            "error_report": error_report if not passed else None,
-            "rtl_code": rtl_code,
-            "execution_time": 0.0,
-            "details": details,
-        }
 
     def _setup_ace_rtl_model_for_cvdp(self, model_name: str):
         """Set up ACE-RTL model to be used by CVDP instead of LLM."""
@@ -268,5 +200,4 @@ class CVDPExecutionMixin:
             }
         finally:
             os.chdir(original_dir)
-
 

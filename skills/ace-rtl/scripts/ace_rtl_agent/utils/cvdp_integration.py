@@ -15,7 +15,6 @@ from .cvdp_environment import CVDPEnvironmentMixin
 from .cvdp_execution import CVDPExecutionMixin
 from .cvdp_injection import CVDPInjectionMixin
 from .cvdp_multifile import CVDPMultifileMixin
-from .cvdp_reduced_core import CVDPReducedCoreMixin
 from .cvdp_reports import CVDPReportsMixin
 from .cvdp_structure import CVDPStructureMixin
 from .cvdp_sv_guards import CVDPSVGuardMixin
@@ -29,7 +28,6 @@ class CVDPIntegration(
     CVDPSVGuardMixin,
     CVDPMultifileMixin,
     CVDPReportsMixin,
-    CVDPReducedCoreMixin,
     CVDPInjectionMixin,
     CVDPTestingMixin,
 ):
@@ -88,5 +86,4 @@ class CVDPIntegration(
             self.logger.info("CVDP native harness mode enabled; skipping Docker network setup")
         else:
             self._ensure_docker_networks()
-
 

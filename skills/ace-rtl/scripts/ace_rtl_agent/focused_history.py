@@ -65,7 +65,7 @@ class FocusedHistoryMixin:
         if llm_says_not_solved:
             # LLM explicitly confirms error still present
             self.error_solved = False
-            self.logger.info(f"❌ LLM confirms error NOT solved in iteration {iteration} - continuing to focus on it")
+            self.logger.info(f"LLM confirms error NOT solved in iteration {iteration} - continuing to focus on it")
         elif llm_says_solved and introduced_new_errors:
             if (
                 self._is_structural_or_build_error(focused_error)
@@ -78,20 +78,20 @@ class FocusedHistoryMixin:
                 # because the public contract must be restored before functional
                 # debugging is meaningful.
                 self.error_solved = True
-                self.logger.info(f"✅ Structural/build issue changed in iteration {iteration}; switching focus to the current failure")
+                self.logger.info(f"Structural/build issue changed in iteration {iteration}; switching focus to the current failure")
             else:
                 # Error "solved" but broke something else - don't mark as solved yet
                 self.error_solved = False
-                self.logger.info(f"⚠️ Current error appears solved but introduced NEW errors in iteration {iteration}")
+                self.logger.info(f"Current error appears solved but introduced NEW errors in iteration {iteration}")
                 self.logger.info(f"   Keeping focus on original error to find solution that doesn't break other functionality")
         elif llm_says_solved:
             # LLM confirms the specific error is gone and no new errors introduced
             self.error_solved = True
-            self.logger.info(f"✅ Current error SOLVED in iteration {iteration} - specific error resolved without breaking other functionality")
+            self.logger.info(f"Current error SOLVED in iteration {iteration} - specific error resolved without breaking other functionality")
         else:
             # Unclear - be conservative and keep focusing
             self.error_solved = False
-            self.logger.info(f"❓ Unclear if error solved in iteration {iteration} - continuing to focus on same error")
+            self.logger.info(f"Unclear if error solved in iteration {iteration} - continuing to focus on same error")
 
         self.logger.info(f"Recorded iteration {iteration}: {outcome} - {test_results}")
 
@@ -124,7 +124,7 @@ class FocusedHistoryMixin:
         has_new_error = any(indicator in effectiveness_lower for indicator in new_error_indicators)
 
         if has_new_error:
-            self.logger.info(f"   🔍 Detected new error introduction in fix effectiveness analysis")
+            self.logger.info(f"   Detected new error introduction in fix effectiveness analysis")
 
         return has_new_error
 
@@ -288,10 +288,10 @@ class FocusedHistoryMixin:
 
         for attempt in shown_attempts:
             outcome_emoji = {
-                "solved": "✅ SOLVED",
-                "improved": "📈 IMPROVED",
-                "no_change": "❌ NO CHANGE",
-                "regressed": "⚠️ REGRESSED"
+                "solved": "SOLVED",
+                "improved": "IMPROVED",
+                "no_change": "NO CHANGE",
+                "regressed": "REGRESSED"
             }.get(attempt.outcome, attempt.outcome.upper())
 
             mismatch_str = f" ({attempt.mismatch_count} mismatches)" if attempt.mismatch_count >= 0 else ""

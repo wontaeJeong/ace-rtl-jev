@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Testbench Analyzer - Reads and understands testbench files like Cursor does
+Testbench Analyzer - reads and understands testbench files.
 """
 
 import re
@@ -31,9 +31,9 @@ class TestbenchInsight:
 
 class TestbenchAnalyzer:
     """
-    Analyzes testbench files to understand test intent - just like Cursor does.
+    Analyzes testbench files to understand test intent.
 
-    This is the missing piece: understanding what the test is TRYING to do,
+    This provides context about what the test is trying to do,
     not just parsing error reports after it fails.
     """
 
@@ -204,7 +204,7 @@ class TestbenchAnalyzer:
         if "overflow" in content.lower():
             sequence_parts.append("Overflow detection")
 
-        return " → ".join(sequence_parts) if sequence_parts else "Sequence unclear"
+        return " -> ".join(sequence_parts) if sequence_parts else "Sequence unclear"
 
     def _analyze_reset_behavior(self, content: str) -> str:
         """Analyze how reset is supposed to work."""

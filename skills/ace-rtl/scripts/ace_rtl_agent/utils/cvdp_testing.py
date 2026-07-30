@@ -552,7 +552,7 @@ class CVDPTestingMixin:
                     if unwanted_file.exists():
                         try:
                             unwanted_file.unlink()
-                            self.logger.info(f"🗑️  Removed unwanted file: {unwanted_file}")
+                            self.logger.info(f"Removed unwanted file: {unwanted_file}")
                         except Exception as e:
                             self.logger.warning(f"Failed to remove {unwanted_file}: {str(e)}")
 
@@ -562,14 +562,14 @@ class CVDPTestingMixin:
                 for json_file in prefix_path.rglob("raw_result.json"):
                     try:
                         json_file.unlink()
-                        self.logger.info(f"🗑️  Removed stray raw_result.json: {json_file}")
+                        self.logger.info(f"Removed stray raw_result.json: {json_file}")
                     except Exception as e:
                         self.logger.warning(f"Failed to remove stray {json_file}: {str(e)}")
 
                 for json_file in prefix_path.rglob("report.json"):
                     try:
                         json_file.unlink()
-                        self.logger.info(f"🗑️  Removed stray report.json: {json_file}")
+                        self.logger.info(f"Removed stray report.json: {json_file}")
                     except Exception as e:
                         self.logger.warning(f"Failed to remove stray {json_file}: {str(e)}")
         except Exception as e:
