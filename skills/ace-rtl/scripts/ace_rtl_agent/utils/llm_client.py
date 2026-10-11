@@ -153,6 +153,8 @@ class LLMClient:
         deadline=None,
         role=None,
     ) -> Optional[str]:
+        allowance=getattr(self,'max_output_tokens',None)
+        if allowance is not None:max_tokens=min(max_tokens,allowance) if max_tokens is not None else allowance
         last_error = None
         backoff_time = self.initial_backoff
         working_prompt = enforce_prompt_char_budget(prompt, self.model, self.logger)

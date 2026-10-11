@@ -2,7 +2,7 @@
 from __future__ import annotations
 import json
 import math
-from .state_builder import assert_public, public_evidence, serialize_best, public_contract, public_candidate
+from .state_builder import assert_public, public_evidence, serialize_best, public_contract, public_candidate, public_observation
 
 
 def estimate_tokens(value):
@@ -26,7 +26,7 @@ def select_context(contract, observation, bundle, *, evidence=(), history=(), be
         return item.kind in required_kinds or (item.observation_id == observation.observation_id
                and item.kind in {'diagnostic', 'emitted_log', 'error'})
     required = [e.to_dict() for e in items if mandatory(e)]
-    result = {'contract': public_contract(contract), 'observation': observation.to_dict(),
+    result = {'contract': public_contract(contract), 'observation': public_observation(observation),
                'candidate': public_candidate(bundle), 'best': serialize_best(best),
               'evidence': required, 'history': [], 'token_accounting': 'estimated',
               'estimator': 'utf8-bytes/3; not a provider tokenizer',

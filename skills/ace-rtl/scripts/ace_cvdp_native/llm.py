@@ -485,7 +485,8 @@ def call_reflector(
             'diagnostics':sanitize_model_diagnostics(error_report),'focus':action.to_dict()},ensure_ascii=False)
         raw = run_role_call(workspace=workspace,component='reflector',model=focused_debugger.model_name,
             system='Analyze only this public evidence. Return JSON with analysis and guidance strings. Do not generate RTL or assert benchmark success.',
-            prompt=prompt,out_json=iteration_dir/'reflector.deep.response.json',timeout=env_int('ACE_RTL_LLM_TIMEOUT',60))
+            prompt=prompt,out_json=iteration_dir/'reflector.deep.response.json',timeout=env_int('ACE_RTL_LLM_TIMEOUT',60),
+            max_tokens=getattr(getattr(focused_debugger,'llm_client',None),'max_output_tokens',None))
         try:
             analysis = json.loads(raw)
             if not isinstance(analysis,dict) or not all(isinstance(analysis.get(k),str) for k in ('analysis','guidance')):

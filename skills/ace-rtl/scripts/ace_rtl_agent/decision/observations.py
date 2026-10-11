@@ -25,7 +25,11 @@ def build_task_contract(row: dict, cid: str = '') -> TaskContract:
     return TaskContract(str(row.get('id', cid)), cid, category, kind,
                         canonical_hash({'prompt': spec, 'context': context, 'initial_targets':initial}), targets,
                         context, tuple(services), tuple(row.get('allowed_tools') or ()),
-                        specification=spec,initial_targets=initial)
+                        specification=spec,initial_targets=initial,
+                        functional_services=tuple(row.get('functional_services') or [s for s in services if 'sanity' in str(s).lower()]),
+                        optimization_objectives=dict(row.get('optimization_objectives') or {
+                           key:direction for key,direction in (('area','min'),('power','min'),('delay','min'),('frequency','max'))
+                           if kind=='rtl_optimization' and re.search(r'\b'+key+r'\b',spec,re.I)}))
 
 
 def validate_result(result, required_services=(), tested_hash=None):
@@ -44,6 +48,8 @@ def validate_result(result, required_services=(), tested_hash=None):
         return issues + ['missing_authoritative_tests']
     if result.get('authoritative_parse_error') or result.get('evaluation_validity') in {'invalid', 'incomplete'}:
         issues.append('corrupt_authoritative_result')
+    if result.get('timeout'):
+        issues.append('evaluation_timeout')
     if result.get('execution_status', 'completed') not in {'completed', 'complete', 'finished'}:
         issues.append('incomplete_execution')
     if tested_hash and result.get('tested_hash', tested_hash) != tested_hash:
@@ -64,6 +70,8 @@ def validate_result(result, required_services=(), tested_hash=None):
         else:
             failures += code != 0
         status = test.get('execution_status', test.get('status', 'completed'))
+        if (status in {'failed','FAIL'} and code==0) or (status in {'passed','PASS'} and type(code) is int and code!=0):
+            issues.append('contradictory_service_status')
         if status not in {'completed', 'complete', 'finished', 'passed', 'failed', 'PASS', 'FAIL'}:
             issues.append('incomplete_service')
         if test.get('authoritative_parse_error'):
@@ -132,7 +140,8 @@ def observe(result, contract, bundle, *, attempt, iteration, version, episode_id
     result = result if isinstance(result, dict) else {}
     stage = execution_stage(result)
     validity = 'invalid' if issues else 'valid'
-    if stage in ('EVALUATOR_TIMEOUT','INFRA_SETUP'):
+    authoritative_pass=not issues and result.get('errors')==0
+    if stage in ('EVALUATOR_TIMEOUT','INFRA_SETUP') and not authoritative_pass:
         validity='incomplete'
     if not issues and result.get('errors') == 0:
         stage = 'PASS'
@@ -219,4 +228,42 @@ def effect(before, after, action, bundle):
                                        action.action_id if action else None]),
                         before.observation_id if before else None, after.observation_id,
                         action.action_id if action else None, bundle.changed_files, focus,
-                        new, regressions, delta, comparable, outcome)
+                         new, regressions, delta, comparable, outcome)
+
+
+def choose_best_snapshot(best, bundle, observation, contract):
+    """Objective comparison against the archive, never against the last attempt."""
+    if observation.evaluation_validity!='valid':return best
+    optimization=contract.task_kind=='rtl_optimization'
+    if optimization:
+        functional=observation.evaluator_status=='PASS' or bool(contract.functional_services and
+                         set(contract.functional_services)<=set(observation.passed_checks))
+        if not functional:return best
+    if best is None:return (bundle,observation)
+    previous=best[1]
+    if not optimization and observation.evaluator_status=='PASS' and previous.evaluator_status!='PASS':
+        return (bundle,observation)
+    if not observation.metric_comparability_key or observation.metric_comparability_key!=previous.metric_comparability_key:
+        return best
+    directions=contract.optimization_objectives if optimization else {'failed_count':'min','mismatch_count':'min'}
+    deltas=[]
+    for key,direction in directions.items():
+        old,new=previous.metrics.get(key),observation.metrics.get(key)
+        if type(old) not in (int,float) or type(new) not in (int,float):
+            if optimization:return best
+            continue
+        if direction not in ('min','max'):return best
+        deltas.append((new-old)*(1 if direction=='min' else -1))
+    return (bundle,observation) if deltas and all(d<=0 for d in deltas) and any(d<0 for d in deltas) else best
+
+
+def apply_semantic_effect(transition, decision, after):
+    """Consume typed semantic proposals without upgrading execution facts to PASS."""
+    from dataclasses import replace
+    judgments={k:decision.answers[k] for k in ('focus_status','new_failure_is_regression') if k in decision.answers}
+    proposed=judgments.get('focus_status',{}).get('choice')
+    status=transition.focus_status
+    source=transition.focus_status_source
+    if status=='unknown' and proposed=='persists' and after.evaluation_validity=='valid' and after.failed_checks:
+        status='persists';source='semantic_proposal'
+    return replace(transition,focus_status=status,focus_status_source=source,semantic_judgment=judgments)

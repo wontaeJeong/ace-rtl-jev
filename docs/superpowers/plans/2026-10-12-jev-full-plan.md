@@ -30,36 +30,36 @@
 - [x] Run focused tests, then full suite; commit with integrated work.
 
 ### 2. D observation and runtime (independent owners)
-- [ ] Test F07–12, service validity, execution stage, baseline/bundle/test comparability and public metadata classification.
-- [ ] Implement `observations.build_task_contract(row,cid)`, `observe(result,contract,bundle,...)`, `effect(before,after,action)`.
-- [ ] Test winner partial/crash/concurrent publication, evidence-preserving cleanup, deadline and retry behavior.
-- [ ] Implement `processes` compatible atomic claim; common ledger/deadline/cache/backend accounting without changing native integration files.
-- [ ] Verify focused tests plus suite. Retain RED/GREEN evidence.
+- [x] Test F07–12, service validity, execution stage, baseline/bundle/test comparability and public metadata classification.
+- [x] Implement `observations.build_task_contract(row,cid)`, `observe(result,contract,bundle,...)`, `effect(before,after,action)`.
+- [x] Test winner partial/crash/concurrent publication, evidence-preserving cleanup, deadline and retry behavior.
+- [x] Implement `processes` compatible atomic claim; common ledger/deadline/cache/backend accounting without changing native integration files.
+- [x] Verify focused tests plus suite. Retain RED/GREEN evidence.
 
 ### 3. J transport and policy (independent owners)
-- [ ] Test mixed choice/noul/score schema, NaN, bad option/legend, errors and unknown usage.
-- [ ] Implement `SystemOneClient.from_env().decide(state,questions,...)`, versioned questions and capabilities.
-- [ ] Test selected-candidate fit, stale/no-op/loop checks, serious risks, masked effects, mandatory contrary evidence and forbidden material.
-- [ ] Implement `DecisionPolicy.decide(observation,contract,bundle,...)`, eligible registry and context selection with explicit fallbacks.
-- [ ] Verify transport/policy tests plus suite. No external calls from workers.
+- [x] Test mixed choice/noul/score schema, NaN, bad option/legend, errors and unknown usage.
+- [x] Implement `SystemOneClient.from_env().decide(state,questions,...)`, versioned questions and capabilities.
+- [x] Test selected-candidate fit, stale/no-op/loop checks, serious risks, masked effects, mandatory contrary evidence and forbidden material.
+- [x] Implement `DecisionPolicy.decide(observation,contract,bundle,...)`, eligible registry and context selection with explicit fallbacks.
+- [x] Verify transport/policy tests plus suite. No external calls from workers.
 
 ### 4. Native integration (integration owner)
-- [ ] Test mocked real processor flow with terminal PASS/final failure optional calls zero; baseline saved, second target reflector visibility and typed actions applied.
-- [ ] Integrate types, observation/effect, decision mode, episode/archive, public context and bundle provenance in cli.py/llm.py.
-- [ ] Apply hard terminal/deadline/cancellation gate before optional calls; verify native and legacy adapter compatibility.
-- [ ] Run full suite; inspect staged diff for secrets/private inputs.
+- [x] Test mocked real processor flow with terminal PASS/final failure optional calls zero; baseline saved, second target reflector visibility and typed actions applied.
+- [x] Integrate types, observation/effect, decision mode, episode/archive, public context and bundle provenance in cli.py/llm.py.
+- [x] Apply hard terminal/deadline/cancellation gate before optional calls; verify native and legacy adapter compatibility (local contracts, not full legacy E2E).
+- [x] Run full suite; inspect staged diff for secrets/private inputs.
 
 ### 5. X optional extensions (extension owner, then integration)
-- [ ] Test disabled defaults, semantic beam diversity, minimum scheduling, alias/risk routing, provenance-bound memory, group-split learned fixture and question robustness.
-- [ ] Implement real bounded extension algorithms/offline tooling; wire enabled features at native action/checkpoint boundaries.
-- [ ] Isolate optional learning from core imports; report real-data training unavailable when applicable.
-- [ ] Run focused/full tests and mark each X's integration and experiment status separately.
+- [x] Test disabled defaults, semantic beam diversity, minimum scheduling, alias/risk routing, provenance-bound memory, group-split learned fixture and question robustness.
+- [x] Implement real bounded extension algorithms/offline tooling; wire enabled features at native action/checkpoint boundaries.
+- [x] Isolate optional learning from core imports; report real-data training unavailable when applicable.
+- [x] Run focused/full tests and mark each X's integration and experiment status separately.
 
 ### 6. Bounded real verification / report (integration owner)
-- [ ] Establish local CVDP/EDA/environment without modifying existing setup.
-- [ ] Freeze task/models/policy/questions/budget: one attempt, at most 2 iterations, one worker; contract smoke and A/B/C cohort.
-- [ ] Capture authoritative evaluation and complete cost/unknown events; no guessed improvement.
-- [ ] Document blockers/evidence/exact rerun commands and D/J/X/F completion matrix.
+- [x] Establish local CVDP/EDA/environment without modifying existing setup.
+- [x] Freeze task/models/policy/questions/budget: one attempt, at most 2 iterations, one worker; contract smoke and A/B/C cohort.
+- [x] Capture authoritative evaluation and complete cost/unknown events; no guessed improvement.
+- [x] Document blockers/evidence/exact rerun commands and D/J/X/F completion matrix.
 - [ ] Review, verify, commit/push/create PR on writable remote. Never merge without approval.
 
 Progress checkboxes are updated only with observed evidence; a helper existing without native wiring is not complete.

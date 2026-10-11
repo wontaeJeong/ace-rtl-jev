@@ -47,7 +47,8 @@ def training_row_from_records(family, before, action, after, effect, features, *
             'effect_action_id': effect.action_id, 'effect_before_observation_id': effect.before_observation_id,
             'evaluation_validity': after.evaluation_validity, 'next_evaluator_status': after.evaluator_status,
             'features': dict(features), 'feature_phase': 'decision', 'outcome': effect.outcome,
-            'effect_comparable': effect.comparable, 'confirmed_regressions': list(effect.confirmed_regressions),
+             'effect_comparable': effect.comparable, 'confirmed_regressions': list(effect.confirmed_regressions),
+             'metric_delta':dict(effect.metric_delta),
             'actual_cost': actual_cost, 'actual_seconds': actual_seconds}
 
 
@@ -93,8 +94,16 @@ def build_examples(rows, *, label_target='pass', max_rows=10000):
         if label_target != 'pass' and row.get('effect_comparable') is not True:
             rejected.append({'index': index, 'reason': 'incomparable_effect_label'})
             continue
-        label = (status == 'PASS' if label_target == 'pass' else
-                 bool(row.get('confirmed_regressions')) if label_target == 'regression' else outcome == 'improved')
+        if label_target=='improvement':
+            delta=row.get('metric_delta',{})
+            directions=row.get('objective_directions',{'failed_count':'min','mismatch_count':'min'})
+            changes=[value*(1 if directions[key]=='min' else -1) for key,value in delta.items()
+                     if key in directions and directions[key] in ('min','max') and type(value) in (int,float)]
+            if not changes:
+                rejected.append({'index':index,'reason':'improvement_label_unavailable'});continue
+            label=all(v<=0 for v in changes) and any(v<0 for v in changes)
+        else:
+            label=status=='PASS' if label_target=='pass' else bool(row.get('confirmed_regressions'))
         examples.append(Example(row['family'], row['task_id'], row['action_id'],
                                 MappingProxyType(clean), label, outcome, cost, seconds, label_target))
     return tuple(examples), tuple(rejected)

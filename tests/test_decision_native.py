@@ -204,14 +204,15 @@ def test_runtime_error_candidates_are_distinct_not_prose_counts():
 
 
 @pytest.mark.parametrize('mode,choice', [('jev_core','fresh_start'),('shadow','fresh_start'),
-                                        ('jev_core','repair_with_template'),('jev_extended','reflect_focused')])
+                                        ('jev_core','repair_with_template'),('jev_extended','reflect_focused'),
+                                        ('jev_core','rollback_best'),('jev_core','retry_evaluator')])
 def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypatch, mode, choice):
     import threading,types
     from argparse import Namespace
     from ace_cvdp_native import cli
     from ace_rtl_agent.decision import systemone_client
     generated=[];requests=[]
-    iterations=3 if mode=='jev_extended' else 2
+    iterations=3 if mode=='jev_extended' or choice=='rollback_best' else 2
     if mode=='jev_extended':monkeypatch.setenv('ACE_RTL_ENABLE_BEAM','true')
     class Model:
         def __init__(self, **kw):
@@ -221,6 +222,7 @@ def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypat
                 path.write_text('module a; endmodule\n'+str(len(generated)))
                 self.generated_files[name]=str(path)
     class Processor:
+        runs=0
         def __init__(self,**kw):pass
         def process_json(self):pass
         def prepare(self,issue,model):
@@ -228,13 +230,25 @@ def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypat
                 target=tmp_path/'harness'/name;target.parent.mkdir(parents=True,exist_ok=True)
                 target.write_text(Path(path).read_text())
             return issue,{},types.SimpleNamespace(issue_path=str(tmp_path/'harness'))
-        def run(self,**kw):return {'errors':int(len(generated)<iterations),'tests':[{'service':'1','result':int(len(generated)<iterations),
+        def run(self,**kw):
+            Processor.runs+=1
+            result={'errors':int(len(generated)<iterations),'tests':[{'service':'1','result':int(len(generated)<iterations),
                                     'execution':.1,'error_msg':'syntax error rtl/a.sv' if len(generated)<iterations else None}]}
+            if choice=='rollback_best':
+                result.update(metrics={'failed_count':1 if len(generated)==1 else 4},seed=1,testset='same',parameterization='same',
+                              harness_version='1',tool_version='1',config_version='1')
+            if choice=='retry_evaluator':
+                result['tests'][0].update(stage='INFRA_SETUP',retryable_execution_failure=Processor.runs==1,fatal_infra=Processor.runs>1)
+            return result
     class Debugger:
         def __init__(self,*a,**kw):self.fix_history=[]
-        def record_observation(self,*a,**kw):pass
+        def record_observation(self,observation,*a,**kw):
+            self.fix_history.append(types.SimpleNamespace(episode_id=observation.episode_id,iteration=observation.iteration,outcome='no_change',
+                to_dict=lambda:{'observation_id':observation.observation_id,'episode_id':observation.episode_id,'iteration':observation.iteration}))
         def clear_history(self):self.fix_history=[]
-        def create_focused_prompt(self,**kw):return 'full prompt','error','repair guidance'
+        def create_focused_prompt(self,**kw):
+            if choice=='retry_evaluator':raise AssertionError('fatal retry must not invoke optional analysis')
+            return 'full prompt','error','repair guidance'
     class Coordinator:
         def __init__(self,*a,**kw):pass
         def add_iteration_result(self,**kw):pass
@@ -243,12 +257,13 @@ def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypat
     class Client:
         def decide(self,state,questions,**kw):
             requests.append(state)
+            assert state['history'], 'native typed history must reach decision input'
             answers={}
             for key,q in questions.items():
                 if q['type']=='noul':answers[key]={'type':'noul','noul':0.0 if key.startswith('risk_') else 1.0}
                 elif q['type']=='score':answers[key]={'type':'score','score':2.0}
                 else:
-                    selected=choice if key=='next_action' else next(iter(q['criteria']))
+                    selected=(('reflect_focused' if len(requests)==1 else 'rollback_best') if choice=='rollback_best' else choice) if key=='next_action' else next(iter(q['criteria']))
                     answers[key]={'type':'choice','choice':selected,'confidence':1.0,'probabilities':{k:float(k==selected) for k in q['criteria']}}
                     if mode=='jev_extended' and key=='next_action':
                         answers[key]['probabilities']={k:(.55 if k=='reflect_focused' else .45 if k=='fresh_start' else 0.0) for k in q['criteria']}
@@ -265,12 +280,21 @@ def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypat
          'output':{'context':{'rtl/a.sv':'','rtl/b.sv':''}},'harness':{'services':{'1':{}}}}
     result=cli.run_attempt(workspace=tmp_path,cvdp_repo=tmp_path,row=row,row_jsonl=tmp_path/'row.jsonl',
               attempt_root=tmp_path/'dp/attempt_1',attempt_index=1,args=args,stop_event=threading.Event())
+    if choice=='retry_evaluator':
+        assert result['status']=='infra_error' and len(generated)==1 and Processor.runs==2
+        return
     assert result['status']=='passed'
-    assert len(requests)==1 and len(generated)==iterations
+    assert len(requests)==(2 if choice=='rollback_best' else 1) and len(generated)==iterations
     assert bool(generated[1]['previous_candidate']) == bool(mode=='shadow' or choice!='fresh_start')
     assert generated[1]['task_contract'].task_kind=='rtl_implementation'
     if choice=='repair_with_template':assert 'reported syntax' in generated[1]['reflection']
     assert result['history'][1]['effect']['action_id'] is not None
+    if choice=='rollback_best':
+        action=json.loads((tmp_path/'dp/attempt_1/iter_02/action.json').read_text())
+        assert result['history'][2]['effect']['before_observation_id']==action['observation_id']
+        assert generated[2]['previous_candidate']['rtl/a.sv'].endswith('1')
+        active=json.loads((tmp_path/'dp/attempt_1/iter_02/rollback_observation.json').read_text())
+        assert active['inferences']['measurement_reused'] is True
     if mode=='jev_extended':
         assert generated[2]['previous_candidate'] is None
         branches=list((tmp_path/'dp/attempt_1/branches').glob('*/branch.json'))
@@ -342,3 +366,46 @@ def test_parent_cancellation_preserves_unknown_effect_and_prior_action(tmp_path)
     assert after['version']==4 and after['evaluation_validity']=='unknown'
     assert effect['action_id']=='pending-action' and effect['before_observation_id']=='before'
     assert effect['outcome']=='cancelled'
+
+
+def test_parent_cancellation_uses_latest_activated_state_version(tmp_path):
+    from ace_cvdp_native.cli import persist_cancelled_effect
+    root=tmp_path/'t/attempt_1';iteration=root/'iter_01';iteration.mkdir(parents=True)
+    (iteration/'observation.json').write_text(json.dumps({'observation_id':'old','version':1,'task_id':'t','episode_id':'e','iteration':1}))
+    (root/'active_state.json').write_text(json.dumps({'observation':{'observation_id':'active','version':2,'task_id':'t','episode_id':'e','iteration':1},
+           'action':{'action_id':'pending','observation_id':'active'}}))
+    persist_cancelled_effect(root,'user_cancel')
+    assert json.loads((root/'cancellation_observation.json').read_text())['version']==3
+    assert json.loads((root/'cancellation_effect.json').read_text())['before_observation_id']=='active'
+
+
+def test_adaptive_admission_slot_is_released_after_worker_crash(tmp_path,monkeypatch):
+    import queue,threading,types
+    from argparse import Namespace
+    from ace_cvdp_native import cli
+    monkeypatch.setenv('ACE_RTL_ENABLE_ADAPTIVE_SCHEDULING','true')
+    monkeypatch.setenv('ACE_RTL_TASK_WALL_SECONDS','.15')
+    class Queue(queue.Queue):
+        def close(self):pass
+        def join_thread(self):pass
+    class Process:
+        pid=None
+        exitcode=1
+        def __init__(self,**kw):self.kw=kw['args'][2];self.q=kw['args'][0];self.sent=False;self.alive=True
+        def start(self):self.q.put({'checkpoint_attempt':self.kw['attempt_index'],'iteration':1})
+        def is_alive(self):
+            if not self.alive:return False
+            if self.kw['admission_event'].is_set():
+                if self.kw['attempt_index']==1:self.alive=False;return False
+                if not self.sent:
+                    self.sent=True;self.q.put({'attempt':2,'status':'failed','history':[]})
+                return True
+            return True
+        def join(self,**kw):pass
+        def kill(self):self.alive=False
+    monkeypatch.setattr(cli.multiprocessing,'get_context',lambda _:types.SimpleNamespace(Event=threading.Event,Queue=Queue,Process=Process))
+    def stop(**kw):kw['process'].alive=False;return {'attempt':kw['attempt_root'].name.endswith('2')+1,'status':'cancelled'}
+    monkeypatch.setattr(cli,'stop_attempt_process',stop)
+    args=Namespace(attempts=2,decision_mode='jev_extended')
+    result=cli.run_datapoint(workspace=tmp_path,cvdp_repo=tmp_path,row={'id':'t','categories':['cid002','easy']},run_dir=tmp_path,args=args)
+    assert next(a for a in result['attempts'] if a['attempt']==2)['status']=='failed'

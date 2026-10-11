@@ -20,6 +20,15 @@ def route_roles(settings, decision, *, failures, default_model):
             'reason':route.reason,'alias':route.alias,'evaluator_required':True}
 
 
+def apply_reflector_route(debugger, route):
+    if not route.get('reflector_model'):return
+    debugger.model_name=route['reflector_model']
+    if getattr(debugger,'llm_client',None):
+        debugger.llm_client.model=route['reflector_model']
+        debugger.llm_client.client.model=route['reflector_model']
+        debugger.llm_client.max_output_tokens=route['max_output_tokens']
+
+
 def load_learned_policy(path, *, question_version, policy_version, model_version):
     artifact=json.loads(Path(path).read_text())
     if artifact.get('production_ready') is not True or artifact.get('validation',{}).get('held_out_valid_evaluations',0)<1:
@@ -43,7 +52,7 @@ def curate_episode_lesson(observation, action, evidence, *, family, generator_ve
     """Emit bounded candidate lessons; evaluation memory is never updated online."""
     from ace_rtl_agent.decision.extensions import Lesson,curate_lessons
     from ace_rtl_agent.decision.types import canonical_hash
-    from ace_rtl_agent.decision.state_builder import public_evidence
+    from ace_rtl_agent.decision.state_builder import public_evidence,public_observation
     clean=public_evidence(evidence,observation)
     if not action or not clean:
         return {'lesson':None,'reason':'insufficient_action_or_public_evidence','active_memory_updated':False}
@@ -54,7 +63,7 @@ def curate_episode_lesson(observation, action, evidence, *, family, generator_ve
             generator_version=generator_version,evaluator_version=evaluator_version)
     envelope=None
     if client:
-        envelope=client.decide({'purpose':'lesson_curation','lesson':asdict(lesson),'observation':observation.to_dict(),
+        envelope=client.decide({'purpose':'lesson_curation','lesson':asdict(lesson),'observation':public_observation(observation),
                     'evidence':[e.to_dict() for e in clean]},
             {'supported':{'type':'noul','instructions':'Is state.lesson supported by the supplied state.observation and public state.evidence? Do not infer a cause or solution.'},
              'applicable':{'type':'noul','instructions':'Does state.lesson apply under its explicit same-task-contract preconditions, without claiming a general verified rule?'}},timeout=timeout)

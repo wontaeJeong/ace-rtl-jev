@@ -71,6 +71,8 @@ class TaskContract(Serializable):
     specification: str = ''
     schema_version: str = SCHEMA_VERSION
     initial_targets: Mapping[str, str] = field(default_factory=dict)
+    functional_services: tuple[str, ...] = ()
+    optimization_objectives: Mapping[str, str] = field(default_factory=dict)
 
 
 
@@ -192,3 +194,5 @@ class EffectRecord(Serializable):
     metric_delta: Mapping[str, float | int] = field(default_factory=dict)
     comparable: bool = False
     outcome: str = 'unknown'
+    semantic_judgment: Mapping[str, Any] = field(default_factory=dict)
+    focus_status_source: str = 'deterministic'

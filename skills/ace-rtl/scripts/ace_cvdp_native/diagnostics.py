@@ -11,6 +11,7 @@ import copy
 import hashlib
 import json
 import logging
+import math
 import multiprocessing
 import os
 import queue
@@ -439,6 +440,10 @@ def make_preflight_result(issues: List[str], actions: List[str]) -> Dict[str, An
     }
 
 
+def _diagnostic_duration(value):
+    return round(value,3) if type(value) in (int,float) and math.isfinite(value) and value>=0 else None
+
+
 def summarize_result(result: Dict[str, Any]) -> str:
     tests = result.get("tests") or []
     log_paths = [test.get("log") for test in tests if isinstance(test, dict)]
@@ -461,7 +466,7 @@ def summarize_result(result: Dict[str, Any]) -> str:
                 "stage": test.get("stage"),
                 "result": test.get("result"),
                 "error_msg": test.get("error_msg"),
-                "execution": round(float(test.get("execution") or 0.0), 3),
+                "execution": _diagnostic_duration(test.get('execution')),
                 "log_basename": Path(test["log"]).name if test.get("log") else None,
             }
             for test in tests

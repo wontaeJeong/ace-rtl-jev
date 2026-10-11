@@ -376,7 +376,7 @@ def run_attempt(
     from dataclasses import replace
     from ace_rtl_agent.decision.settings import DecisionSettings
     from ace_rtl_agent.decision.types import CandidateBundle, ProposedAction, Evidence, canonical_hash
-    from ace_rtl_agent.decision.observations import build_task_contract, observe, effect
+    from ace_rtl_agent.decision.observations import build_task_contract, observe, effect,choose_best_snapshot,apply_semantic_effect
     from ace_rtl_agent.decision.ledger import EventLedger
     from ace_rtl_agent.decision.cache import EvaluationCache
     settings = DecisionSettings.from_env(getattr(args, 'decision_mode', None))
@@ -502,6 +502,12 @@ def run_attempt(
             value['campaign']=campaign().snapshot(Path(raw))
         return value
 
+    def activate(observation,bundle,committed_action=None,reused=False):
+        from ace_rtl_agent.decision.ledger import durable_json
+        durable_json(attempt_root/'active_state.json',{'observation':observation.to_dict(),
+            'action':committed_action.to_dict() if committed_action else None,
+            'candidate_hash':bundle.tested_hash,'budget':budget_snapshot(),'measurement_reused':reused})
+
     def finish(status, **fields):
         if status in ('cancelled','stopped_after_sibling_pass','budget_exhausted'):
             persist_cancelled_effect(attempt_root,fields.get('cancellation_reason') or status)
@@ -571,14 +577,10 @@ def run_attempt(
                     action=action,evidence=pending['evidence'],best=best)
             ledger.append('branch_dispatched',branch_id=pending['branch_id'],action_id=action.action_id,
                           parent_observation_id=before.observation_id,precommitted=True,budget_refunded=False)
-        from .extensions import route_roles
+        from .extensions import route_roles,apply_reflector_route
         route = route_roles(settings,decision,failures=len([h for h in history if not h.get('passed')]),
                             default_model=args.generator_model)
-        if route.get('reflector_model'):
-            debugger.model_name = route['reflector_model']
-            if getattr(debugger,'llm_client',None):
-                debugger.llm_client.model_name = route['reflector_model']
-                debugger.llm_client.client.model = route['reflector_model']
+        apply_reflector_route(debugger,route)
         model = AceIterationModel(workspace=workspace,iteration_dir=iteration_dir,cid=args.cid,
              generator_model=route['generator_model'],llm_timeout=max(1,min(args.llm_timeout,int(deadline-time.monotonic()))),
              reflection=reflection,coordinator=coordinator_text,previous_candidate=previous_candidates or None,
@@ -656,6 +658,7 @@ def run_attempt(
                                     focus_error_id=action.error_id if action else None)
         write_json(iteration_dir/'observation.json',observation.to_dict())
         write_json(iteration_dir/'effect.json',transition.to_dict())
+        activate(observation,bundle,action)
         passed = observation.evaluation_validity == 'valid' and observation.evaluator_status == 'PASS'
         (iteration_dir/'evaluator_error_report.txt').write_text(error_report,encoding='utf-8')
         history.append({'iteration':iteration,'passed':passed,'result':result,'summary':summary,
@@ -671,9 +674,7 @@ def run_attempt(
                    evaluation_path=str(iteration_dir/'real_evaluator_result.json'))
             write_json(path,data)
         write_json(attempt_root/'candidate_archive.json',[{'bundle':b.to_dict(),'observation':o.to_dict()} for b,o in archive])
-        if observation.evaluation_validity == 'valid':
-            if best is None or (transition.comparable and transition.metric_delta.get('failed_count',0)<0):
-                best = (bundle,observation)
+        best=choose_best_snapshot(best,bundle,observation,contract)
         print(f'{contract.task_id} attempt {attempt_index} iteration {iteration}: {"PASS" if passed else "FAIL"} ({observation.evaluator_status})')
         # The deterministic effect and audit are saved before every terminal return.
         if passed:
@@ -717,9 +718,13 @@ def run_attempt(
         evidence = [Evidence('current-failure','emitted_evaluator','emitted_log',text=error_report,
                      candidate_id=bundle.candidate_id,observation_id=observation.observation_id)]
         if policy:
-            decision = policy.decide(observation,contract,bundle,before=before,history=tuple(history),
+            decision = policy.decide(observation,contract,bundle,before=before,history=tuple(debugger.fix_history),
                           evidence=evidence,best=best,budget_remaining=max(0,deadline-time.monotonic()),cancelled=stop_event.is_set())
             write_json(iteration_dir/'decision.json',decision.to_dict())
+            transition=apply_semantic_effect(transition,decision,observation)
+            write_json(iteration_dir/'effect.json',transition.to_dict())
+            history[-1]['effect']=transition.to_dict()
+            debugger.current_effect=transition
             if decision.fallback_reason == 'explicit_termination':
                 return finish('decision_budget_exhausted',cancellation_reason='budget_exhausted')
             if settings.mode != 'shadow':
@@ -802,6 +807,7 @@ def run_attempt(
         write_json(iteration_dir/'action.json',chosen.to_dict())
         ledger.append('action_committed',action_id=chosen.action_id,action_kind=chosen.action_kind,
                       observation_id=chosen.observation_id,version=chosen.observation_version)
+        activate(observation,bundle,chosen)
         previous_candidates = dict(files)
         parent_bundle = bundle
         before = observation
@@ -825,8 +831,9 @@ def run_attempt(
                 ledger.append('diagnostic_completed',action_id=chosen.action_id,evidence_id=additional.evidence_id,
                                new_measurement=False)
                 debugger.current_observation = observation
+                activate(observation,bundle,chosen,reused=True)
                 before = observation
-                next_decision = policy.decide(observation,contract,bundle,before=before,history=tuple(history),
+                next_decision = policy.decide(observation,contract,bundle,before=before,history=tuple(debugger.fix_history),
                                evidence=evidence,best=best,budget_remaining=deadline-time.monotonic())
                 decision=next_decision
                 write_json(iteration_dir/f'decision-{state_version}.json',next_decision.to_dict())
@@ -838,6 +845,7 @@ def run_attempt(
                 write_json(iteration_dir/'action.json',chosen.to_dict())
                 ledger.append('action_committed',action_id=chosen.action_id,action_kind=chosen.action_kind,
                               observation_id=observation.observation_id,version=state_version)
+                activate(observation,bundle,chosen,reused=True)
             except ValueError as exc:
                 write_json(iteration_dir/'diagnostic_rejected.json',{'reason':str(exc)})
                 return finish('decision_rejected',abstention_reason='diagnostic_unavailable_or_repeated')
@@ -855,7 +863,7 @@ def run_attempt(
             write_json(retry_path,retried)
             state_version += 1
             after=observe(retried,contract,bundle,attempt=attempt_index,iteration=iteration,
-                          version=state_version,episode_id=f'episode-{episode}')
+                          version=state_version,episode_id=f'episode-{episode}',budget_snapshot=budget_snapshot())
             retry_effect=effect(observation,after,chosen,bundle)
             write_json(iteration_dir/'retry_observation.json',after.to_dict())
             write_json(iteration_dir/'retry_effect.json',retry_effect.to_dict())
@@ -863,6 +871,7 @@ def run_attempt(
             history.append({'iteration':iteration,'evaluation_retry':True,'passed':after.evaluator_status=='PASS',
                             'result':retried,'observation':after.to_dict(),'effect':retry_effect.to_dict()})
             ledger.append('evaluation_completed',candidate_hash=bundle.tested_hash,retry_index=1,observation_id=after.observation_id)
+            activate(after,bundle,chosen)
             if after.evaluator_status=='PASS' and after.evaluation_validity=='valid':
                 claimed=try_claim_first_pass(dp_root=attempt_root.parent,task_id=contract.task_id,attempt_index=attempt_index,
                     iteration=iteration,candidate_path=Path(model.generated_files[target_file]),evaluation_path=retry_path,
@@ -870,12 +879,23 @@ def run_attempt(
                 if claimed:stop_event.set()
                 return finish('passed' if claimed else 'stopped_after_sibling_pass',passed_iteration=iteration,
                               time_to_first_verified_pass=time.monotonic()-started)
+            if stop_event.is_set():return cancellation()
+            if time.monotonic()>=deadline:return finish('budget_exhausted',cancellation_reason='budget_exhausted')
+            if after.evaluator_status=='INFRA_SETUP' or any(s.get('fatal_infra') for s in after.services.values()):
+                write_json(attempt_root.parent/'infra_halt.json',{'cause':'infra_halt','attempt':attempt_index})
+                stop_event.set()
+                return finish('infra_error',failed_iteration=iteration,cancellation_reason='infra_halt')
+            if after.evaluation_validity!='valid':
+                return finish('evaluator_timeout' if after.evaluator_status=='EVALUATOR_TIMEOUT' else 'invalid_evaluation')
             observation=after
             before=after
             error_report=build_evaluator_error_report(retried,summarize_result(retried))
             chosen=replace(chosen,action_id=canonical_hash([chosen.action_id,'repair-after-retry']),
                            action_kind='reflect_focused',observation_id=after.observation_id,observation_version=after.version)
             action=chosen
+            os.environ['ACE_RTL_PARENT_ACTION']=chosen.action_id
+            write_json(iteration_dir/'action.json',chosen.to_dict())
+            activate(after,bundle,chosen)
         if chosen.action_kind == 'fresh_start' and restarts < settings.max_restarts:
             restarts += 1
             episode += 1
@@ -894,15 +914,39 @@ def run_attempt(
                          'active_version':observation.version+1,'budget_remaining':deadline-time.monotonic()})
             state_version += 1
             archived=best[1]
-            observation=replace(archived,observation_id=canonical_hash([archived.observation_id,'rollback',state_version]),version=state_version)
+            rollback_action=chosen
+            old_observation=observation
+            parent_bundle=CandidateBundle.create(best[0].files,episode_id=f'episode-{episode}',parent=bundle,
+                       raw_files=best[0].raw_files,normalization_actions=best[0].normalization_actions)
+            parent_bundle=replace(parent_bundle,normalized_hash=best[0].normalized_hash,normalized_files=best[0].normalized_files)
+            observation=replace(archived,observation_id=canonical_hash([archived.observation_id,'rollback',state_version]),
+                      version=state_version,episode_id=f'episode-{episode}',budget_snapshot=budget_snapshot(),
+                      inferences={**archived.inferences,'measurement_reused':True,'archived_observation_id':archived.observation_id})
             before=observation
             debugger.current_observation=observation
             error_report=next((build_evaluator_error_report(h['result'],h.get('summary',summarize_result(h['result'])))
                               for h in history if h.get('observation',{}).get('observation_id')==archived.observation_id),error_report)
             evidence=[Evidence('rollback-failure','archived_emitted_evaluator','diagnostic',text=error_report,
                                candidate_id=parent_bundle.candidate_id,observation_id=observation.observation_id)]
-            ledger.append('rollback_activated',action_id=chosen.action_id,archived_observation_id=archived.observation_id,
+            rollback_effect=replace(effect(old_observation,observation,rollback_action,parent_bundle),outcome='state_activated')
+            write_json(iteration_dir/'rollback_observation.json',observation.to_dict())
+            write_json(iteration_dir/'rollback_effect.json',rollback_effect.to_dict())
+            write_json(iteration_dir/'rollback_action.json',rollback_action.to_dict())
+            restored_focus=next(iter(observation.errors or observation.failed_checks),None)
+            debugger.current_focused_error=restored_focus
+            chosen=ProposedAction(canonical_hash([rollback_action.action_id,'repair',state_version]),observation.observation_id,
+                   'reflect_focused',contract.mutable_targets,error_id=restored_focus,
+                   preconditions={'selected_evidence_ids':['rollback-failure'],'contract_hash':canonical_hash(contract.to_dict()),
+                                  'observation_hash':canonical_hash(observation.to_dict()),'archived_observation_id':archived.observation_id},
+                   observation_version=state_version,tested_hash=parent_bundle.tested_hash)
+            action=chosen
+            os.environ['ACE_RTL_PARENT_ACTION']=chosen.action_id
+            write_json(iteration_dir/'action.json',chosen.to_dict())
+            activate(observation,parent_bundle,chosen,reused=True)
+            ledger.append('rollback_activated',action_id=rollback_action.action_id,archived_observation_id=archived.observation_id,
                           active_version=state_version,budget_rewound=False,new_measurement=False)
+            ledger.append('action_committed',action_id=chosen.action_id,action_kind=chosen.action_kind,
+                          observation_id=chosen.observation_id,version=state_version,source='deterministic_after_rollback')
         if chosen.action_kind == 'repair_with_template':
             from ace_rtl_agent.decision.strategies import STRATEGIES
             recipe = STRATEGIES.get(chosen.strategy_id)
@@ -911,6 +955,9 @@ def run_attempt(
         harness_context = build_reflector_harness_context(None,target_file,mutable_targets=target_files,
                                                            public_context=contract.immutable_context)
         os.environ['ACE_RTL_ROLE']='reflector'
+        reflection_route=route_roles(settings,decision,failures=len([h for h in history if not h.get('passed')]),default_model=args.reflector_model)
+        apply_reflector_route(debugger,reflection_route)
+        write_json(iteration_dir/'reflector_route.json',reflection_route)
         if decision and decision.fallback_reason and settings.mode!='shadow':
             os.environ['ACE_EXPERIMENT_FALLBACK']='1'
             os.environ['ACE_EXPERIMENT_FALLBACK_REASON']=decision.fallback_reason
@@ -976,6 +1023,13 @@ def persist_cancelled_effect(attempt_root: Path, reason: str) -> None:
                     if destination=='before':before=data
                     else:pending=data
             except (OSError,ValueError):pass
+    try:
+        active=json.loads((attempt_root/'active_state.json').read_text())
+        current=active.get('observation')
+        if isinstance(current,dict) and current.get('version',0)>=before.get('version',0):
+            before=current
+            pending=active.get('action') or {}
+    except (OSError,ValueError):pass
     version=int(before.get('version',0))+1
     task_id=str(before.get('task_id',attempt_root.parent.name))
     identity=canonical_hash([task_id,attempt_root.name,'cancelled',version,reason])
@@ -1220,6 +1274,9 @@ def run_datapoint(
             for attempt, process in list(processes.items()):
                 if attempt in reported_attempts or process.is_alive():
                     continue
+                active_checkpoints.discard(attempt)
+                checkpoints.pop(str(attempt),None)
+                admit_checkpoints()
                 process.join(timeout=0)
                 if attempt not in reported_attempts:
                     if passed_attempt is not None and attempt == passed_attempt:

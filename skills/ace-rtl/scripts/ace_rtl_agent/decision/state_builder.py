@@ -86,9 +86,9 @@ def build_state(observation, contract, bundle, *, before=None, history=(), evide
     if canonical_hash(dict(bundle.files)) != bundle.tested_hash:
         raise ValueError('candidate content must match evaluated hash')
     state = {
-        'observation': observation.to_dict(), 'contract': public_contract(contract),
+        'observation': public_observation(observation), 'contract': public_contract(contract),
         'candidate': public_candidate(bundle),
-        'before': before.to_dict() if before else None,
+        'before': public_observation(before) if before else None,
         'history': [h.to_dict() for h in history[-8:] if hasattr(h, 'to_dict')],
         'best': serialize_best(best),
         'budget_remaining': budget_remaining,
@@ -115,13 +115,34 @@ def public_candidate(bundle):
     return payload
 
 
+def public_observation(observation):
+    """Only execution facts reach models; raw error bodies stay in evaluator files."""
+    payload=observation.to_dict()
+    allowed={'service','service_id','name','result','status','execution_status','stage','timeout',
+             'fatal_infra','retryable_execution_failure','seed','testset','parameterization',
+             'harness_version','tool_version','config_version'}
+    services={}
+    for name,service in observation.services.items():
+        if not isinstance(service,Mapping):continue
+        values={k:v for k,v in service.items() if k in allowed}
+        for key in ('checks','tests'):
+            if isinstance(service.get(key),(list,tuple)):
+                values[key]=[{k:v for k,v in check.items() if k in allowed|{'id','test_id','required'}}
+                             for check in service[key] if isinstance(check,Mapping)]
+        services[name]=values
+    payload['services']=services
+    payload['inferences']={k:v for k,v in observation.inferences.items() if k in
+          {'stage_source','cancellation_reason','evaluation_completed','measurement_reused','archived_observation_id'}}
+    return payload
+
+
 def serialize_best(best):
     """Verified native archive is a (CandidateBundle, Observation) pair."""
     if isinstance(best, tuple) and len(best) == 2:
         candidate, observation = best
         if candidate.tested_hash != observation.tested_hash or observation.evaluation_validity != 'valid':
             raise ValueError('best archive must have matching valid evaluator provenance')
-        return {'candidate': public_candidate(candidate), 'observation': observation.to_dict()}
+        return {'candidate': public_candidate(candidate), 'observation': public_observation(observation)}
     return best.to_dict() if hasattr(best, 'to_dict') else dict(best) if isinstance(best, Mapping) else None
 
 

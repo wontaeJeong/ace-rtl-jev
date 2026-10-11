@@ -144,7 +144,10 @@ class DecisionPolicy:
         if before and focus_id and not (observed_focus or execution_mask or explicitly_skipped):
             questions['focus_status'] = {'type': 'choice', 'instructions':
                 'Evaluate state.focused_error using state.before and state.observation executed/passed/failed/skipped checks and public evidence. Absence from a log does not prove resolution.',
-                'criteria': {k: k for k in ('persists', 'observed_resolved', 'masked', 'not_executed', 'unknown')}}
+                 'criteria': {k: k for k in ('persists', 'observed_resolved', 'masked', 'not_executed', 'unknown')}}
+        if before and before.metric_comparability_key and before.metric_comparability_key==state['observation']['metric_comparability_key']:
+            questions['new_failure_is_regression']={'type':'noul','instructions':
+                 'Does the new failure in state.observation represent a regression against the comparable executed checks in state.before? Newly reached checks are not automatically regressions.'}
         from .questions import build_context_questions
         candidates = state.get('context_candidates', {})
         if candidates:

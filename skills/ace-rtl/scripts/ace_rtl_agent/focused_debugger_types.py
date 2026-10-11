@@ -28,7 +28,7 @@ class FixAttempt:
     confirmed_regressions: tuple[str, ...] = ()
     newly_reached_failures: tuple[str, ...] = ()
     metrics: Any = None
+    action_kind: str | None = None
 
     def to_dict(self):
         return asdict(self)
-

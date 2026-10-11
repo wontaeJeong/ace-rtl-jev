@@ -69,6 +69,7 @@ class FocusedHistoryMixin:
             observation_id=observation.observation_id if observation else None,
             before_observation_id=before.observation_id if before else None,
             action_id=action.action_id if action else None,
+            action_kind=action.action_kind if action else None,
             effect_id=effect.effect_id if effect else None,
             episode_id=observation.episode_id if observation else '',
             focus_status=effect.focus_status if effect else 'unknown',
