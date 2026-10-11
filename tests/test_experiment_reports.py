@@ -73,3 +73,10 @@ def test_updated_jev_config_does_not_change_primary_matched_conditions():
     base['manifest']['environment']['configuration']['jev_model']='old-unused-model'
     jev['manifest']['environment']['configuration']['jev_model']='new-approved-model'
     assert report().compare(base,jev)['token_savings_percent']==pytest.approx(100/3)
+
+
+def test_real_service_timeout_is_not_hidden_as_functional_failure():
+    data=batch('baseline',150,30)
+    data['results'][1]['result']={'passed':False,'attempts':[{'history':[{'primary_failure':{'stage':'CANDIDATE_FUNCTIONAL'},'result':{'tests':[{'result':124,'error_msg':'native harness timeout after 300s'}]}}]}]}
+    assert report().batch_metrics(data)['status_counts']=={'success':1,'timeout':1}
+    assert '| `b` | timeout |' in report().render_markdown(data,None)

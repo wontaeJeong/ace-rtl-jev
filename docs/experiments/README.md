@@ -33,6 +33,15 @@ Every batch creates `experiments/runs/<mode>-<timestamp>-<pid>/`, with manifest,
 
 Status distinguishes `success`, `failure`, `timeout`, `environment_error`, `execution_error`. The original native runner may exit 0 even with failed RTL: only real evaluator pass is success. Inflight requests killed by timeout retain unknown usage. No estimate is mislabeled as reported/billed usage.
 
+For autonomous monitoring, launch the watcher with the actual batch directory and batch runner PID:
+
+```bash
+.cvdp-native/bin/python scripts/watch_experiment.py \
+  --batch experiments/runs/<batch> --parent-pid <runner-pid> --interval 30
+```
+
+It persists snapshots and stops when the final summary is written or the runner exits. It can reap only parentless `vvp` whose command path is strictly inside this batch's native directories and whose corresponding evaluator iteration/case has finished. A similarly named directory or active iteration is never a cleanup target. Original raw timeout labels remain in the source evidence; report JSON/CSV/Markdown separately normalize real service timeout outcomes.
+
 ## Report
 
 ```bash

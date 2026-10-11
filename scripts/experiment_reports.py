@@ -9,13 +9,28 @@ from collections import Counter
 from pathlib import Path
 
 
+def case_status(case: dict) -> str:
+    # Preserve original raw JSON; normalize only the reporting view using real
+    # service return codes. Upstream sometimes labels service timeouts functional.
+    status=case['status']
+    if status in ('success','environment_error','execution_error','timeout'):
+        return status
+    result=case.get('result') or {}
+    for attempt in result.get('attempts', []):
+        for iteration in attempt.get('history', []):
+            for service in (iteration.get('result') or {}).get('tests', []):
+                if service.get('result')==124 or 'native harness timeout' in str(service.get('error_msg','')).lower():
+                    return 'timeout'
+    return status
+
+
 def batch_metrics(batch: dict) -> dict:
     manifest, results = batch['manifest'], batch['results']
     ids = [r['id'] for r in results]
     complete = (manifest.get('state') == 'completed' and len(ids) == len(set(ids))
                 and sorted(ids) == sorted(manifest['case_ids']))
     n = len(results)
-    status = Counter(r['status'] for r in results)
+    status = Counter(case_status(r) for r in results)
     provider_metrics = {}
     for provider in ('primary', 'jev'):
         values = [r['metrics'][provider] for r in results]
@@ -107,7 +122,7 @@ def render_markdown(baseline: dict, improved: dict | None) -> str:
     bi={r['id']:r for r in baseline['results']};ji={r['id']:r for r in improved['results']} if improved else {}
     for case_id in baseline['manifest']['case_ids']:
         x,y=bi.get(case_id),ji.get(case_id)
-        lines.append(f'| `{case_id}` | {x["status"] if x else "Not evaluated"} | {y["status"] if y else "Not run"} | {fmt(x["elapsed_seconds"] if x else None)} | {fmt(y["elapsed_seconds"] if y else None)} |')
+        lines.append(f'| `{case_id}` | {case_status(x) if x else "Not evaluated"} | {case_status(y) if y else "Not run"} | {fmt(x["elapsed_seconds"] if x else None)} | {fmt(y["elapsed_seconds"] if y else None)} |')
     lines += ['', '## Limitations', '', 'One bounded non-agentic no-commercial native cohort, not all CVDP workflows or original default budgets. Commercial rows are explicitly excluded by actual tool requirements. API stochasticity and remote latency remain uncontrolled; single-run differences are descriptive, not statistically established effects. Repetitions/ablation must be reported only when actually executed. See environment and opportunities documents for provenance, integrity rules and remaining work.', '']
     return '\n'.join(lines)
 
@@ -137,7 +152,7 @@ def main() -> None:
             if batch:
                 for case in batch['results']:
                     metrics=case['metrics']
-                    writer.writerow({'mode':batch['manifest']['mode'],'id':case['id'],'status':case['status'],'elapsed_seconds':case['elapsed_seconds'],
+                    writer.writerow({'mode':batch['manifest']['mode'],'id':case['id'],'status':case_status(case),'elapsed_seconds':case['elapsed_seconds'],
                                      **{k:sum(metrics[p][k] for p in ('primary','jev')) for k in fields[4:]}})
     print(f'Reports saved: {args.output}')
 

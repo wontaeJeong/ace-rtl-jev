@@ -47,6 +47,10 @@ First smoke reached the real evaluator but returned `INFRA_SETUP: pytest: comman
 
 Native work directories embed private benchmark harness source and are Git-ignored. Original raw working artifacts remain available locally; published per-case JSON retains genuine evaluator outcomes and measured API event data without copying scorer implementations into the change.
 
+During the broad baseline, four parentless `vvp` processes from already finished cases were found consuming CPU. These were individually verified against batch artifact paths and reaped; evidence is `experiments/preflight/baseline-orphan-cleanup.json`. Root cause: original process discovery uses Linux `/proc`, unavailable on macOS, and the timeout branch can skip group termination after the service shell has already exited. Current baseline runner code is frozen; an external watcher now reaps only parentless `vvp` with a completed-case or completed-iteration evaluator artifact. It never terminates a still-running evaluator or another batch. Monitoring/cleanup events are stored alongside this run.
+
+Original diagnostic labels also sometimes map real service exit 124 / `native harness timeout after 300s` to functional failure. Reports normalize these using real service evidence without rewriting original results. Earlier interim raw counts may therefore have included timeouts under failure. The current baseline timing has environmental interference and cannot establish a clean speedup claim. Before matched timing claims, run a clean baseline and improved cohort with the same corrected portable cleanup implementation; preserve the original full run as feasibility/original-flow evidence.
+
 ## Measurement protocol
 
 One attempt, at most five iterations, four concurrent cases, request timeout 60 s, original LLM subprocess timeout 90 s, each evaluator 300 s, each whole case 1800 s. Smoke uses one case/one iteration/one worker. This reduced budget is an explicit controlled experiment, not the original default five attempts × 30 iterations.
