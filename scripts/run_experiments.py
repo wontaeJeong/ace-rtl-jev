@@ -213,7 +213,7 @@ def run_batch(args: argparse.Namespace) -> Path:
     write_event(manifest, batch / 'manifest.json')
     write_event({'manifest':manifest, 'results':sorted(results,key=lambda r:r['id'])}, batch / 'summary.json')
     with (batch / 'cases.csv').open('w') as f:
-        writer=csv.DictWriter(f,fieldnames=['id','category','status','elapsed_seconds']);writer.writeheader()
+        writer=csv.DictWriter(f,fieldnames=['id','category','status','elapsed_seconds'],lineterminator='\n');writer.writeheader()
         writer.writerows({k:r[k] for k in writer.fieldnames} for r in sorted(results,key=lambda r:r['id']))
     print(f'BATCH_DIR={batch}', flush=True)
     return batch

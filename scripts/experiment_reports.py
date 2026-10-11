@@ -150,7 +150,7 @@ def main() -> None:
     (args.output/'metrics.json').write_text(json.dumps(payload,indent=2))
     with (args.output/'cases.csv').open('w') as f:
         fields=['mode','id','status','elapsed_seconds','reported_total_tokens','estimated_total_tokens','unknown_usage_calls']
-        writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader()
+        writer=csv.DictWriter(f,fieldnames=fields,lineterminator='\n');writer.writeheader()
         for batch in (baseline,improved):
             if batch:
                 for case in batch['results']:

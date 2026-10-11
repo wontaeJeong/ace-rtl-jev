@@ -80,3 +80,12 @@ def test_real_service_timeout_is_not_hidden_as_functional_failure():
     data['results'][1]['result']={'passed':False,'attempts':[{'history':[{'primary_failure':{'stage':'CANDIDATE_FUNCTIONAL'},'result':{'tests':[{'result':124,'error_msg':'native harness timeout after 300s'}]}}]}]}
     assert report().batch_metrics(data)['status_counts']=={'success':1,'timeout':1}
     assert '| `b` | timeout |' in report().render_markdown(data,None)
+
+
+def test_generated_csv_uses_portable_lf_line_endings(tmp_path,monkeypatch):
+    import json
+    source=tmp_path/'batch';source.mkdir();output=tmp_path/'report'
+    (source/'summary.json').write_text(json.dumps(batch('baseline',150,30)))
+    monkeypatch.setattr(sys,'argv',['report','--baseline',str(source),'--output',str(output)])
+    report().main()
+    assert b'\r' not in (output/'cases.csv').read_bytes()

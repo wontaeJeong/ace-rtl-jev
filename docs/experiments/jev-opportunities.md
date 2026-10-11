@@ -1,6 +1,6 @@
 # JEV-like opportunity audit
 
-Status: **source/API analysis only**. Full baseline is still running. No optimization hook has been applied; implementation is gated on baseline completion. The choices below are proposed, not measured benefits.
+Status: original full 292-case baseline is complete with recovered genuine evaluator evidence; clean paired baseline is running. Independent `scripts/systemone_adapter.py` is implemented and tested against both HTTP fixtures and the real updated endpoint. **No optimization hook has been applied to RTL-agent execution yet.** The choices below are proposed interventions, not measured benefits.
 
 ## Confirmed SystemOne capabilities
 
@@ -9,6 +9,8 @@ Official source: Ollama `docs/capabilities/decision.mdx` and `decision/types.go`
 Request: `model`, string/object `state`, named `questions`. A `choice` question has `instructions` and 2–26 named `criteria` with descriptions. Response: named `answers` with `type=choice`, selected `choice`, option probabilities and confidence [0,1]. Usage is **input_tokens/output_tokens**, not primary API's prompt/completion fields. Live fixture is in `experiments/preflight/systemone-warmup.json`. Do not assume free-form reasoning, tool execution, arbitrary generated RTL, streaming, Chat Completions, persistent model-cache control or deterministic seed support for this endpoint.
 
 Implementation should support only the validated `choice` shape initially. Validate label membership, probability map completeness and finite [0,1] values, distribution sum within tolerance, finite confidence, usage nonnegative integers and all requested named answers. Confidence threshold and timeout should be explicit policies. Validation/model failures must delegate to the original primary LLM path; count both JEV attempt and primary fallback costs. Do not mark a candidate pass based on any model decision.
+
+The independent adapter now validates that the selected label has maximal probability and that the option map is complete, rejects booleans/NaN/out-of-range confidence/probabilities and invalid sums, records JEV input/output tokens separately, preserves provider-reported cost without inventing currency units, and sanitizes errors. `JEV_REQUEST_TIMEOUT` defaults to 15 seconds. A real adapter inference returned the confirmed compile choice, 325 input / 32 output tokens and cost 0.00001365. Evidence: `experiments/preflight/jev-adapter-probe/`. These are connection/schema tests, not optimized CVDP results or evidence of token savings.
 
 ## Complete original path audit
 

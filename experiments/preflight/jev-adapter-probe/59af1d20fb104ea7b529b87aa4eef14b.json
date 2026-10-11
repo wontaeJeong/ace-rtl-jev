@@ -1,0 +1,38 @@
+{
+  "call_id": "59af1d20fb104ea7b529b87aa4eef14b",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": null,
+  "mode": "jev",
+  "phase": "preflight",
+  "questions": [
+    "failure_class"
+  ],
+  "started_at": "2026-10-11T10:42:38.278193+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 325,
+    "completion_tokens": 32,
+    "total_tokens": 357,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 1.365e-05
+  },
+  "usage_unknown": false,
+  "request_sha256": "6d2c87d7c595c0b17b231c6c9d1389822ad3f9220d529a3c8e8eb395e4bd977f",
+  "prompt_chars": 317,
+  "fallback": false,
+  "answers": {
+    "failure_class": {
+      "type": "choice",
+      "choice": "compile",
+      "probabilities": {
+        "compile": 1,
+        "functional": 0
+      },
+      "confidence": 1
+    }
+  },
+  "latency_seconds": 0.7649592910893261
+}

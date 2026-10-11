@@ -58,4 +58,4 @@ Report generation emits Markdown, metrics JSON and per-case CSV. Missing/incompl
 
 ## Current gate
 
-SystemOne real schema/warmup was verified. Optimization code and improved-mode CLI are intentionally **not yet implemented** while the full baseline is running. Do not interpret the proposed opportunity design, report template or passing mock HTTP tests as completed optimized E2E evidence. This document will be extended with tested improved commands after the baseline gate.
+Original full baseline evaluator results are preserved in `reports/original-baseline/`: 240/292 success. The parent-runner finalization gap was recovered from actual native output; incomplete time/usage are marked unavailable. Clean eight-worker baseline is underway after common lifecycle/timing fixes. The independent SystemOne adapter has passing schema/HTTP tests and a real inference probe, but the agent optimization hook and improved-mode CLI are **not yet enabled**. Do not interpret a proposed design, report template or adapter test as completed optimized E2E evidence. This document will be extended with tested improved commands after the clean baseline gate.
