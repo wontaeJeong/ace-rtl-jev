@@ -35,3 +35,13 @@ def test_contracts_freeze_nested_maps_and_do_not_alias_caller_input():
     with pytest.raises(TypeError):
         observation.services['sanity']['result']=1
     assert observation.to_dict()['services']['sanity']['result'] == 0
+
+
+def test_immutable_contracts_survive_real_multiprocessing_pickle_transport():
+    import pickle
+    from ace_rtl_agent.decision.types import Observation
+    observation=Observation('o',1,'t',1,'e',1,'hash',services={'direct':{'result':1}})
+    received=pickle.loads(pickle.dumps({'history':[{'observation':observation.to_dict()}]}))
+    assert received['history'][0]['observation']['services']['direct']['result']==1
+    restored=pickle.loads(pickle.dumps(observation))
+    with pytest.raises(TypeError):restored.services['direct']['result']=0

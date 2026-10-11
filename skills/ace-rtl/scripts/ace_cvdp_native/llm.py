@@ -166,6 +166,11 @@ class AceIterationModel:
             output_contract = (
                 f"Return the complete {response_label} only. Do not include JSON or commentary."
             )
+            if task_kind in ('rtl','rtl_implementation') and Path(target_file).suffix in ('.sv','.v'):
+                public_initial = self.task_contract.initial_targets.get(target_file,'') if self.task_contract else ''
+                header = re.search(r'\bmodule\s+([A-Za-z_][\w$]*)\s*(?:#\s*\(|\()',public_initial or prompt)
+                module_name = header.group(1) if header else Path(target_file).stem
+                output_contract += f' Preserve the public module name `{module_name}`; use this name for the declared RTL target.'
         full_prompt = f"""\
 {prompt}
 

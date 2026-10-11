@@ -437,7 +437,14 @@ class SystemOneClient:
                         and reported_model != self.model):
                     raise ValueError
                 answers = validate_answers(payload, questions, capabilities=self.capabilities)
-            except (ValueError, TypeError, KeyError, OverflowError):
+            except (ValueError, TypeError, KeyError, OverflowError) as exc:
+                # Our validators emit fixed, sanitized reasons, never provider bodies.
+                safe_reasons={'SystemOne response question keys do not match','SystemOne response question type does not match',
+                    'Invalid SystemOne noul probability','Invalid SystemOne noul confidence','Inconsistent SystemOne noul distribution',
+                    'Invalid SystemOne probability distribution','Invalid SystemOne confidence','Invalid SystemOne selected choice',
+                    'SystemOne score legend does not match rubric','Invalid SystemOne expected score','Invalid SystemOne usage',
+                    'Invalid SystemOne token usage','Invalid SystemOne reported cost','Invalid SystemOne currency'}
+                event['validation_issue']=str(exc) if str(exc) in safe_reasons else 'invalid_json_model_or_usage_schema'
                 raise SystemOneSchemaError() from None
             # TypeSafe may return an alias in live schema examples. Only a concrete
             # versioned ID counts as cache-safe; neither request pinning nor an

@@ -33,6 +33,11 @@ class FrozenDict(dict):
         raise TypeError('contract maps are immutable')
     __setitem__ = __delitem__ = clear = pop = popitem = setdefault = update = __ior__ = _immutable
 
+    def __reduce__(self):
+        # Spawn/Queue transport must reconstruct through the copying constructor,
+        # not pickle's incremental __setitem__ protocol.
+        return (type(self),(dict(self),))
+
 
 def _freeze(value):
     if isinstance(value, dict):

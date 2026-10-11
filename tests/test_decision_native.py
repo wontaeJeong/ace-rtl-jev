@@ -62,6 +62,19 @@ def test_generator_rejects_undeclared_and_escaping_targets_before_writing(tmp_pa
         model.prompt('unsafe', files=['../private.sv'])
 
 
+def test_generator_names_single_rtl_module_from_public_manifest(tmp_path,monkeypatch):
+    from ace_cvdp_native import llm
+    prompts=[]
+    def response(**kwargs):
+        prompts.append(kwargs['prompt'])
+        kwargs['out_json'].write_text(json.dumps({'content':'module public_top;\nendmodule\n'}))
+    monkeypatch.setattr(llm,'run_role_call',response)
+    model=llm.AceIterationModel(workspace=tmp_path,iteration_dir=tmp_path/'iter',cid='cid002',
+             generator_model='configured',llm_timeout=5,reflection='',coordinator='',previous_candidate=None)
+    model.prompt('Implement an RTL module.',files=['rtl/public_top.sv'])
+    assert 'module name `public_top`' in prompts[0]
+
+
 def test_reflector_returns_structured_guidance_without_full_generator_prompt(tmp_path):
     from ace_cvdp_native.llm import call_reflector
     from ace_rtl_agent.decision.types import TaskContract
