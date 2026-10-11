@@ -55,3 +55,18 @@ def test_timeout_cleanup_terminates_spawned_descendants():
     finally:
         if proc.poll() is None: proc.kill();proc.wait()
         proc.stdout.close()
+
+
+def test_native_service_exit_124_classifies_as_timeout():
+    summary={'results':[{'id':'a','passed':False,'attempts':[{'status':'failed','history':[{'primary_failure':{'stage':'CANDIDATE_FUNCTIONAL'},'result':{'tests':[{'result':124}]}}]}]}]}
+    assert runner().classify_result(summary,0)=='timeout'
+
+
+def test_case_timing_is_persisted_before_and_after_work(tmp_path):
+    started=runner().mark_case_started(tmp_path)
+    first=json.loads((tmp_path/'execution.json').read_text())
+    assert first['state']=='running' and first['started_at']
+    elapsed=runner().mark_case_finished(tmp_path,started,0)
+    final=json.loads((tmp_path/'execution.json').read_text())
+    assert elapsed>0 and final['elapsed_seconds']==elapsed
+    assert final['state']=='finished' and final['returncode']==0

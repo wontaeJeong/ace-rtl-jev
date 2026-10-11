@@ -1,0 +1,25 @@
+{
+  "call_id": "5082d7e83fcd4ae6a38b88bb21a01af1",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_findfasterclock_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:20:41.418888+00:00",
+  "request_sha256": "6d0856260438ae4fddef0f74b82a1b9298cbdf5456415b24c6395a512b348edf",
+  "prompt_chars": 10820,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2433,
+    "completion_tokens": 1759,
+    "total_tokens": 4192,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 867
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3377,
+  "latency_seconds": 14.303681708173826
+}

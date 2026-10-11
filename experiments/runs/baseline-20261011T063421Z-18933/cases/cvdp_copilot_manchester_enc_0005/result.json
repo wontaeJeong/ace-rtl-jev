@@ -1,0 +1,188 @@
+{
+  "id": "cvdp_copilot_manchester_enc_0005",
+  "category": "cid016",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 1013.4800254169386,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 9,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 52936,
+      "reported_completion_tokens": 9363,
+      "reported_total_tokens": 62299,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 104.85114916809835,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_04/candidate/rtl/manchester_encoder.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "b968dd7406ad0ecc",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_01/candidate/rtl/manchester_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/manchester_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_01/candidate/rtl/manchester_encoder.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.0170910358429,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_manchester_enc/reports/5.txt",
+                  "pid": 55693,
+                  "result": 124,
+                  "terminated_pids": [
+                    55693
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.017,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "ad31a7ee85777e75",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_02/candidate/rtl/manchester_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/manchester_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_02/candidate/rtl/manchester_encoder.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.0588719844818,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_02/cvdp_work/cvdp_copilot_manchester_enc/reports/5.txt",
+                  "pid": 57546,
+                  "result": 124,
+                  "terminated_pids": [
+                    57546
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.059,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": false,
+            "candidate_hash": "ad31a7ee85777e75",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_03/candidate/rtl/manchester_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/manchester_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_03/candidate/rtl/manchester_encoder.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.09405398368835,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_03/cvdp_work/cvdp_copilot_manchester_enc/reports/5.txt",
+                  "pid": 59357,
+                  "result": 124,
+                  "terminated_pids": [
+                    59357
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.094,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "b1a760c425d9824f",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_04/candidate/rtl/manchester_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/manchester_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_04/candidate/rtl/manchester_encoder.sv"
+            },
+            "iteration": 4,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.8025720119476318,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_manchester_enc_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T074549Z/datapoints/cvdp_copilot_manchester_enc_0005/attempt_1/iter_04/cvdp_work/cvdp_copilot_manchester_enc/reports/5.txt",
+                  "pid": 60995,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.803,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 4,
+        "status": "passed"
+      }
+    ],
+    "category": "cid016",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_manchester_enc_0005",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

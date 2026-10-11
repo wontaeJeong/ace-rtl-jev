@@ -1,0 +1,12 @@
+{
+  "checked_at_utc": "2026-10-11T08:58:08.346626+00:00",
+  "parent_alive": true,
+  "completed": 291,
+  "planned": 292,
+  "status_counts": {
+    "success": 240,
+    "failure": 51
+  },
+  "final_summary_exists": false,
+  "orphan_cleanup_events": 20
+}

@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import sys
+import subprocess
 from pathlib import Path
 
 SCRIPTS = Path(__file__).resolve().parents[1] / 'skills/ace-rtl/scripts'
@@ -42,3 +43,17 @@ def test_native_harness_preserves_virtualenv_python_and_tools(tmp_path):
     env = compose_env({}, None, tmp_path)
     assert env['PATH'].split(':')[0] == str(Path(sys.prefix) / 'bin')
     assert env['PYGPI_PYTHON_BIN'] == str(Path(sys.executable).absolute())
+
+
+def test_portable_process_discovery_finds_owned_children_not_similar_paths(tmp_path):
+    import os
+    from ace_cvdp_native.processes import descendant_pids, pids_matching_path, proc_matches_path
+    root=tmp_path/'owned';root.mkdir()
+    owned=subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)',str(root/'simulation.vvp')])
+    other=subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)',str(tmp_path/'owned-other'/'simulation.vvp')])
+    try:
+        assert owned.pid in descendant_pids(os.getpid())
+        assert owned.pid in pids_matching_path(root)
+        assert proc_matches_path(other.pid,root) is False
+    finally:
+        for p in (owned,other):p.terminate();p.wait()

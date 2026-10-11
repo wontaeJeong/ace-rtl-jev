@@ -1,0 +1,25 @@
+{
+  "call_id": "2eda541b4a1f4e71bb53f3111a776b84",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_digital_stopwatch_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:18:44.288518+00:00",
+  "request_sha256": "a89cc09db1b98a3108ff9b8475169318a2e00f510356616bdabca7d81559d4ff",
+  "prompt_chars": 58560,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 19163,
+    "completion_tokens": 1265,
+    "total_tokens": 20428,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 956
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1378,
+  "latency_seconds": 13.911798374960199
+}

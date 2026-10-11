@@ -1,0 +1,25 @@
+{
+  "call_id": "1afeff9626164c1ea7c48dd6c90125f1",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_axil_precision_counter_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T06:47:56.974461+00:00",
+  "request_sha256": "0dc173f004e5c5aaf55c61001f8a79f17bc1104222521d2889a5011161281448",
+  "prompt_chars": 67385,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 15389,
+    "completion_tokens": 2302,
+    "total_tokens": 17691,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1845
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2019,
+  "latency_seconds": 21.436144415987656
+}

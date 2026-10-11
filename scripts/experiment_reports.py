@@ -46,6 +46,8 @@ def batch_metrics(batch: dict) -> dict:
     token_complete = complete and all(r['metrics']['total_tokens_complete'] for r in results)
     calls = sum(v['calls'] for v in provider_metrics.values())
     latency = sum(v['latency_seconds'] for v in provider_metrics.values())
+    durations=[r.get('elapsed_seconds') for r in results]
+    timing_complete=all(isinstance(d,(int,float)) for d in durations)
     return {'complete':complete, 'case_count':n, 'planned_case_count':len(manifest['case_ids']),
             'success_count':status['success'], 'success_rate':status['success']/n if complete and n else None,
             'status_counts':dict(status), 'failure_error_count':n-status['success'],
@@ -53,8 +55,9 @@ def batch_metrics(batch: dict) -> dict:
             'total_tokens':reported+estimated if token_complete else None,
             'average_tokens':(reported+estimated)/n if token_complete and n else None,
             'batch_wall_seconds':manifest.get('elapsed_seconds') if complete else None,
-            'sum_case_seconds':sum(r['elapsed_seconds'] for r in results),
-            'average_case_seconds':sum(r['elapsed_seconds'] for r in results)/n if n else None,
+            'sum_case_seconds':sum(durations) if timing_complete else None,
+            'average_case_seconds':sum(durations)/n if timing_complete and n else None,
+            'unknown_case_runtime_count':sum(d is None for d in durations),
             'average_call_latency_seconds':latency/calls if calls and all(r['metrics'][p].get('latency_complete', False) for r in results for p in ('primary','jev')) else None,
             **provider_metrics}
 

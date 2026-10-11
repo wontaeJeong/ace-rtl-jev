@@ -1,0 +1,25 @@
+{
+  "call_id": "964edecc533a4622b344c8af9de5cdc0",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_morse_code_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:59:10.613893+00:00",
+  "request_sha256": "418553209a8dd27e38f16c73483a76740dd280e4364cae9a676d3cf9558cd3ff",
+  "prompt_chars": 8563,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2216,
+    "completion_tokens": 1346,
+    "total_tokens": 3562,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 136
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3201,
+  "latency_seconds": 10.059769707964733
+}

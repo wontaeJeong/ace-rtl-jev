@@ -1,0 +1,25 @@
+{
+  "call_id": "05e023061c6a4c52b25fc157c41d30cd",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_reed_solomon_encoder_and_decoder_0005",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T08:15:05.396426+00:00",
+  "request_sha256": "51538cb11bfeafe2efe5995e2e925e6b473968c4b82be83cbdadce05ac9bb4de",
+  "prompt_chars": 102617,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 28181,
+    "completion_tokens": 3292,
+    "total_tokens": 31473,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 2661
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2249,
+  "latency_seconds": 27.441147750010714
+}

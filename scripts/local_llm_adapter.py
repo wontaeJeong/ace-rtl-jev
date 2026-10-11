@@ -84,6 +84,10 @@ def complete(request: dict) -> dict:
             raise RuntimeError(f'HTTP {response.status_code}: primary inference request failed (body withheld)')
         try:
             payload = response.json()
+            if isinstance(payload, dict):
+                supplied_usage=usage_metrics(payload.get('usage'), prompt, '')
+                if supplied_usage['source']=='reported':
+                    record.update(usage=supplied_usage, usage_unknown=False)
             choice = payload['choices'][0]
             content = choice['message']['content']
         except (ValueError, KeyError, IndexError, TypeError):

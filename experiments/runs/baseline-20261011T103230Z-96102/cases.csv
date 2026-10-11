@@ -1,0 +1,9 @@
+id,category,status,elapsed_seconds
+cvdp_copilot_16qam_mapper_0001,cid003,success,27.92112904204987
+cvdp_copilot_16qam_mapper_0006,cid003,success,57.51897195796482
+cvdp_copilot_32_bit_Brent_Kung_PP_adder_0001,cid016,success,20.27332470798865
+cvdp_copilot_64b66b_decoder_0001,cid002,success,8.538992334157228
+cvdp_copilot_64b66b_decoder_0011,cid002,failure,33.98706195806153
+cvdp_copilot_64b66b_encoder_0001,cid003,success,7.020718790823594
+cvdp_copilot_64b66b_encoder_0005,cid016,success,9.343501500086859
+cvdp_copilot_64b66b_encoder_0009,cid004,failure,60.42563962494023

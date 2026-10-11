@@ -1,0 +1,25 @@
+{
+  "call_id": "0c0ad6b676114215b7ed9a41605a726e",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_word_reducer_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T08:40:24.856795+00:00",
+  "request_sha256": "76dbe4247022aad1ee78f2d573d878ec4b21e67f934e5e8084dea35a0e4c9b88",
+  "prompt_chars": 10187,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2321,
+    "completion_tokens": 1117,
+    "total_tokens": 3438,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 503
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2291,
+  "latency_seconds": 10.956725666997954
+}

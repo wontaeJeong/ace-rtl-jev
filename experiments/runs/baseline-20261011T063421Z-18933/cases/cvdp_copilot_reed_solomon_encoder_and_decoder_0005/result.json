@@ -1,0 +1,212 @@
+{
+  "id": "cvdp_copilot_reed_solomon_encoder_and_decoder_0005",
+  "category": "cid002",
+  "mode": "baseline",
+  "status": "failure",
+  "returncode": 0,
+  "elapsed_seconds": 225.71483099996112,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 14,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 261096,
+      "reported_completion_tokens": 24386,
+      "reported_total_tokens": 285482,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 215.02859087614343,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "1e25eb867c5285f6",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_01/candidate/rtl/reed_solomon_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/reed_solomon_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_01/candidate/rtl/reed_solomon_encoder.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 1.6839070320129395,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/reports/5.txt",
+                  "pid": 64047,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 1.684,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "d130571b236138f4",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_02/candidate/rtl/reed_solomon_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/reed_solomon_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_02/candidate/rtl/reed_solomon_encoder.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 1.8132288455963135,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_02/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/reports/5.txt",
+                  "pid": 64507,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 1.813,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "cdc1b7c4574c80ca",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_03/candidate/rtl/reed_solomon_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/reed_solomon_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_03/candidate/rtl/reed_solomon_encoder.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 1.7090916633605957,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_03/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/reports/5.txt",
+                  "pid": 64964,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 1.709,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "f4df8ff1a6be73f1",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_04/candidate/rtl/reed_solomon_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/reed_solomon_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_04/candidate/rtl/reed_solomon_encoder.sv"
+            },
+            "iteration": 4,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 1.7359490394592285,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_04/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/reports/5.txt",
+                  "pid": 65460,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 1.736,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "c499c39ed3aab0cb",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_05/candidate/rtl/reed_solomon_encoder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_05/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/reed_solomon_encoder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_05/candidate/rtl/reed_solomon_encoder.sv"
+            },
+            "iteration": 5,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 1.731816053390503,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T081238Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_05/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/reports/5.txt",
+                  "pid": 65742,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 1.732,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "status": "failed"
+      }
+    ],
+    "category": "cid002",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_reed_solomon_encoder_and_decoder_0005",
+    "passed": false,
+    "passed_attempt": null,
+    "stopped_after_first_pass": 0
+  }
+}

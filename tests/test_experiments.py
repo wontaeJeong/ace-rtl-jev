@@ -83,3 +83,22 @@ def test_http_error_never_echoes_server_body(tmp_path, monkeypatch):
         assert record['usage_unknown'] is True
     finally:
         server.shutdown();server.server_close();thread.join()
+
+
+def test_empty_completion_keeps_reported_billed_tokens(tmp_path, monkeypatch):
+    class Handler(BaseHTTPRequestHandler):
+        def log_message(self,*args):pass
+        def do_POST(self):
+            self.rfile.read(int(self.headers['Content-Length']))
+            payload={'choices':[{'message':{'content':''},'finish_reason':'length'}],
+                     'usage':{'prompt_tokens':3,'completion_tokens':8,'total_tokens':11}}
+            self.send_response(200);self.end_headers();self.wfile.write(json.dumps(payload).encode())
+    server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
+    thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+    for key,value in {'LLM_BASE_URL':f'http://127.0.0.1:{server.server_port}/v1','LLM_API_KEY':'test-secret','LLM_MODEL':'test-model','ACE_EXPERIMENT_TELEMETRY':str(tmp_path)}.items():monkeypatch.setenv(key,value)
+    try:
+        with pytest.raises(RuntimeError,match='NON_RETRYABLE'):module().complete({'messages':[{'role':'user','content':'hi'}],'max_tokens':20})
+        event=json.loads(next(tmp_path.glob('*.json')).read_text())
+        assert event['usage']['total_tokens']==11
+        assert event['usage_unknown'] is False
+    finally:server.shutdown();server.server_close();thread.join()

@@ -1,0 +1,51 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_elevator_control_0026 ===
+2026-10-11 16:15:19,563 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 16:15:19,714 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:15:19,714 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:15:19,714 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:15:19,714 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:15:19,715 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:15:19,715 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:15:19,715 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z/datapoints/cvdp_copilot_elevator_control_0026/attempt_1/iter_01/cvdp_work/cvdp_copilot_elevator_control_0026
+Requesting valid response to model...
+2026-10-11 16:16:15,118 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z/datapoints/cvdp_copilot_elevator_control_0026/attempt_1/iter_01/cvdp_work/cvdp_copilot_elevator_control/harness/26
+Running native service: direct
+cvdp_copilot_elevator_control_0026 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:16:15,931 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:16:15,933 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:16:15,934 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:16:18,748 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:16:18,748 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 22
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 16:16:18,749 WARNING ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Prompt (95155 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:16:18,749 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:16:18,749 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:16:34,910 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:16:34,910 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Received LLM response, length: 1422
+2026-10-11 16:16:34,911 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Focusing on new error: - **Error Message**: Seven-segment tens-place output mismatc...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z/datapoints/cvdp_copilot_elevator_control_0026/attempt_1/iter_02/cvdp_work/cvdp_copilot_elevator_control_0026
+Requesting valid response to model...
+2026-10-11 16:17:12,029 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z/datapoints/cvdp_copilot_elevator_control_0026/attempt_1/iter_02/cvdp_work/cvdp_copilot_elevator_control/harness/26
+Running native service: direct
+2026-10-11 16:17:12,961 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 16:17:12,961 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Recorded iteration 2: no_change - 4/25 tests passed
+cvdp_copilot_elevator_control_0026 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:17:12,962 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:17:12,964 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Continuing to focus on same error: - **Error Message**: Seven-segment tens-place output mismatc...
+2026-10-11 16:17:12,966 WARNING ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Prompt (96265 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:17:12,966 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:17:12,966 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:17:29,066 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:17:29,066 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Received LLM response, length: 1381
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z/datapoints/cvdp_copilot_elevator_control_0026/attempt_1/iter_03/cvdp_work/cvdp_copilot_elevator_control_0026
+Requesting valid response to model...
+2026-10-11 16:17:57,360 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z/datapoints/cvdp_copilot_elevator_control_0026/attempt_1/iter_03/cvdp_work/cvdp_copilot_elevator_control/harness/26
+Running native service: direct
+2026-10-11 16:17:58,716 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 16:17:58,716 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0026.attempt1: Recorded iteration 3: solved - 9/9 tests passed
+cvdp_copilot_elevator_control_0026 attempt 1 iteration 3: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_elevator_control_0026/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071519Z

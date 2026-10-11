@@ -477,7 +477,9 @@ def install_native_harness_patch() -> None:
                         kill_candidates.append(proc.pid)
                     kill_candidates.extend(pids_matching_path(issue))
                     killed_pids.extend(terminate_pids(kill_candidates, grace_seconds=1.0))
-                    if proc and proc.poll() is None:
+                    # The shell may already have exited after SIGTERM while its
+                    # simulator children remain in the original session/group.
+                    if proc:
                         try:
                             os.killpg(proc.pid, signal.SIGKILL)
                         except ProcessLookupError:

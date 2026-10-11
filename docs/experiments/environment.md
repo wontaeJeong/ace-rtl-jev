@@ -51,6 +51,16 @@ During the broad baseline, four parentless `vvp` processes from already finished
 
 Original diagnostic labels also sometimes map real service exit 124 / `native harness timeout after 300s` to functional failure. Reports normalize these using real service evidence without rewriting original results. Earlier interim raw counts may therefore have included timeouts under failure. The current baseline timing has environmental interference and cannot establish a clean speedup claim. Before matched timing claims, run a clean baseline and improved cohort with the same corrected portable cleanup implementation; preserve the original full run as feasibility/original-flow evidence.
 
+## Original broad baseline outcome and recovery
+
+All **292** selected cases have genuine final CVDP evaluator results: **240 success, 46 failure, 6 timeout**, success rate **82.1918%**. Reported primary tokens: **16,470,984**. **26 calls have unavailable usage**, so this number is only the known reported subtotal, not a complete billed-token total.
+
+The parent batch runner disappeared before publishing its final summary; the reason is unknown because its ephemeral harness shell log was no longer available. Its final child native evaluator had already produced a genuine final result for `cvdp_copilot_sync_serial_communication_0001`. `recover_experiment.py` recovered that result without new inference or invented outcomes. Original parent manifest is retained as `manifest.before-recovery.json`. Batch wall time and the final case's whole-run timer are explicitly **unavailable**, not reconstructed as if measured. API call latency/token events and real evaluator outcomes remain available. See `reports/original-baseline/`.
+
+Portable process discovery now uses the already-declared psutil dependency rather than Linux-only `/proc`; path matches reject adjacent similarly named task paths. Timeout process-group cleanup no longer depends on the service shell still being alive. New runs persist `execution.json` before and after each case. Empty successful HTTP completions retain provider-reported billed tokens even when the content is rejected.
+
+Eight-worker real CVDP shakedown after these common fixes completed all eight cases: six passed and two candidate failures, with no setup/runner errors. These smoke outcomes do not establish a performance gain or replace the full cohort. Final clean baseline/improved comparison will use **eight workers for both** and otherwise unchanged 1 attempt × 5 iterations, API 60 s, LLM subprocess 90 s, evaluator 300 s, case 1800 s conditions. Durable parent driver logs are retained locally rather than depending only on harness-managed ephemeral stdout.
+
 ## Measurement protocol
 
 One attempt, at most five iterations, four concurrent cases, request timeout 60 s, original LLM subprocess timeout 90 s, each evaluator 300 s, each whole case 1800 s. Smoke uses one case/one iteration/one worker. This reduced budget is an explicit controlled experiment, not the original default five attempts × 30 iterations.

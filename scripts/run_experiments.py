@@ -52,7 +52,8 @@ def classify_result(summary: dict | None, returncode: int | None) -> str:
     if summary.get('preflight_failed') or any(a.get('status') == 'infra_error' or (a.get('primary_failure') or {}).get('stage') == 'INFRA_SETUP' for a in attempts):
         return 'environment_error'
     stages = [h.get('primary_failure', {}).get('stage', '') for a in attempts for h in a.get('history', [])]
-    if any('TIMEOUT' in s for s in stages):
+    service_timeouts=any(t.get('result')==124 for a in attempts for h in a.get('history',[]) for t in (h.get('result') or {}).get('tests',[]))
+    if service_timeouts or any('TIMEOUT' in s for s in stages):
         return 'timeout'
     if returncode != 0 or any(a.get('status') == 'error' for a in attempts):
         return 'execution_error'
@@ -140,24 +141,41 @@ def run_case(case: dict, batch: Path, args: argparse.Namespace) -> dict:
            '--max-iterations', str(args.iterations), '--datapoint-workers', '1',
            '--llm-timeout', str(args.llm_timeout), '--evaluator-timeout', str(args.evaluator_timeout),
            '--generator-model', model, '--reflector-model', model, '--coordinator-model', model]
-    start = time.perf_counter()
+    start = mark_case_started(case_dir)
     with (case_dir / 'process.log').open('w') as log:
         proc = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT, env=env, cwd=ROOT, start_new_session=True)
         try:
             code = proc.wait(timeout=args.case_timeout)
         except subprocess.TimeoutExpired:
             terminate_tree(proc);code = None
+    elapsed=mark_case_finished(case_dir,start,code)
     summaries = list((case_dir / 'native').glob('*/summary.json'))
     summary = json.loads(summaries[0].read_text()) if len(summaries) == 1 else None
     calls = [json.loads(p.read_text()) for p in (case_dir / 'calls').glob('*.json')]
     record = {'id':case['id'], 'category':case['category'], 'mode':args.mode,
               'status':classify_result(summary, code), 'returncode':code,
-              'elapsed_seconds':time.perf_counter()-start, 'metrics':aggregate_calls(calls),
+              'elapsed_seconds':elapsed, 'metrics':aggregate_calls(calls),
               'native_summary':str(summaries[0].relative_to(batch)) if summaries else None,
               'result':summary['results'][0] if summary else None}
     write_event(record, case_dir / 'result.json')
     print(f"{case['id']}: {record['status']} ({record['elapsed_seconds']:.1f}s)", flush=True)
     return record
+
+
+def mark_case_started(case_dir: Path) -> float:
+    started=time.perf_counter()
+    write_event({'state':'running','started_at':datetime.now(timezone.utc).isoformat(),
+                 'pid':os.getpid(),'monotonic_started':started},case_dir/'execution.json')
+    return started
+
+
+def mark_case_finished(case_dir: Path, started: float, returncode: int | None) -> float:
+    elapsed=time.perf_counter()-started
+    record=json.loads((case_dir/'execution.json').read_text())
+    record.update(state='finished',finished_at=datetime.now(timezone.utc).isoformat(),
+                  elapsed_seconds=elapsed,returncode=returncode)
+    write_event(record,case_dir/'execution.json')
+    return elapsed
 
 
 def run_batch(args: argparse.Namespace) -> Path:
@@ -174,7 +192,7 @@ def run_batch(args: argparse.Namespace) -> Path:
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     batch = ROOT / 'experiments/runs' / f'{args.mode}-{stamp}-{os.getpid()}'
     batch.mkdir(parents=True, exist_ok=False)
-    manifest = {'mode':args.mode, 'started_at':datetime.now(timezone.utc).isoformat(),
+    manifest = {'mode':args.mode, 'pid':os.getpid(), 'started_at':datetime.now(timezone.utc).isoformat(),
                 'case_ids':[c['id'] for c in cases], 'cases_planned':len(cases),
                 'conditions':{k:getattr(args,k) for k in ('attempts','iterations','workers','llm_timeout','evaluator_timeout','case_timeout')},
                 'environment':{k:v for k,v in report.items() if k != 'cases'}, 'state':'running'}

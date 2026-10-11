@@ -1,0 +1,25 @@
+{
+  "call_id": "ae2b6d6d8d7a4a7486a0b938fa7978d3",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_Carry_Lookahead_Adder_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T06:35:26.182783+00:00",
+  "request_sha256": "b8dfdf9882594991102cad7b5c0e01cdc6c8cb88ebe64a262f52cade140103b0",
+  "prompt_chars": 5956,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1405,
+    "completion_tokens": 204,
+    "total_tokens": 1609,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 105
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 292,
+  "latency_seconds": 2.6181880419608206
+}
