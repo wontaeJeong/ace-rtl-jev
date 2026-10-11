@@ -1,0 +1,25 @@
+{
+  "call_id": "89e1176cdc5349bbbe80664adfb0f141",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_sound_generator_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T08:30:46.201201+00:00",
+  "request_sha256": "5d8e25bd1ebbbb7c9cbd17e9e0aade3c0d0f00b51900f86ffebea2b21651e421",
+  "prompt_chars": 10717,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2178,
+    "completion_tokens": 3511,
+    "total_tokens": 5689,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 2510
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2934,
+  "latency_seconds": 31.629995917202905
+}

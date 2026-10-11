@@ -1,0 +1,118 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_binary_search_tree_sorting_0001 ===
+2026-10-11 15:53:12,196 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 15:53:12,393 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:53:12,393 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:53:12,394 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:53:12,394 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:53:12,394 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:53:12,394 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:53:12,395 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_binary_search_tree_sorting_0001
+Requesting valid response to model...
+2026-10-11 15:53:56,838 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_binary_search_tree_sorting/harness/1
+Running native service: tb
+cvdp_copilot_binary_search_tree_sorting_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:53:59,900 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:53:59,905 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1237 lines -> 601 lines, 149416 chars -> 90000 chars
+2026-10-11 15:53:59,905 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 149416 chars -> 90000 chars
+2026-10-11 15:53:59,905 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:53:59,906 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:54:02,534 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:54:02,534 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 22
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 15:54:02,536 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (115892 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:54:02,536 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:54:02,536 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:54:27,103 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:54:27,103 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 1921
+2026-10-11 15:54:27,105 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Focusing on new error: **Error Message**: The sorter’s measured latency is greater ...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_binary_search_tree_sorting_0001
+Requesting valid response to model...
+2026-10-11 15:55:09,966 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_binary_search_tree_sorting/harness/1
+Running native service: tb
+2026-10-11 15:55:13,198 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1112 lines -> 592 lines, 132768 chars -> 90000 chars
+2026-10-11 15:55:13,198 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 132768 chars -> 90000 chars
+2026-10-11 15:55:13,198 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (114409 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:55:13,198 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:55:13,198 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:55:18,853 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:55:18,853 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 459
+2026-10-11 15:55:18,854 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Current error SOLVED in iteration 2 - specific error resolved without breaking other functionality
+2026-10-11 15:55:18,854 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Recorded iteration 2: no_change - 67/116 tests passed
+cvdp_copilot_binary_search_tree_sorting_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:55:18,854 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:55:18,859 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1112 lines -> 592 lines, 132768 chars -> 90000 chars
+2026-10-11 15:55:18,859 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 132768 chars -> 90000 chars
+2026-10-11 15:55:18,860 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (115916 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:55:18,860 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:55:18,860 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:55:46,396 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:55:46,397 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 1960
+2026-10-11 15:55:46,398 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Focusing on new error: - **Error Message**: The sorter’s latency does not match the...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_binary_search_tree_sorting_0001
+Requesting valid response to model...
+2026-10-11 15:56:33,250 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_binary_search_tree_sorting/harness/1
+Running native service: tb
+2026-10-11 15:56:35,822 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1136 lines -> 597 lines, 135024 chars -> 90000 chars
+2026-10-11 15:56:35,822 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 135024 chars -> 90000 chars
+2026-10-11 15:56:35,822 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (114884 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:56:35,822 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:56:35,822 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:56:39,824 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:56:39,824 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 595
+2026-10-11 15:56:39,824 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 15:56:39,824 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Current error appears solved but introduced NEW errors in iteration 3
+2026-10-11 15:56:39,824 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 15:56:39,825 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Recorded iteration 3: improved - 79/128 tests passed
+cvdp_copilot_binary_search_tree_sorting_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:56:39,825 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:56:39,830 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1136 lines -> 597 lines, 135024 chars -> 90000 chars
+2026-10-11 15:56:39,830 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 135024 chars -> 90000 chars
+2026-10-11 15:56:39,830 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Continuing to focus on same error: - **Error Message**: The sorter’s latency does not match the...
+2026-10-11 15:56:39,832 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (117614 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:56:39,832 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:56:39,832 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:57:23,946 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:57:23,946 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 1531
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_binary_search_tree_sorting_0001
+Requesting valid response to model...
+2026-10-11 15:58:02,572 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_binary_search_tree_sorting/harness/1
+Running native service: tb
+2026-10-11 15:58:05,886 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1237 lines -> 601 lines, 149401 chars -> 90000 chars
+2026-10-11 15:58:05,886 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 149401 chars -> 90000 chars
+2026-10-11 15:58:05,886 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (116133 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:58:05,886 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:58:05,886 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:58:14,316 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:58:14,316 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 686
+2026-10-11 15:58:14,316 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 15:58:14,316 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Recorded iteration 4: regressed - 36/97 tests passed
+cvdp_copilot_binary_search_tree_sorting_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:58:14,317 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:58:14,322 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1237 lines -> 601 lines, 149401 chars -> 90000 chars
+2026-10-11 15:58:14,322 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 149401 chars -> 90000 chars
+2026-10-11 15:58:14,322 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Continuing to focus on same error: - **Error Message**: The sorter’s latency does not match the...
+2026-10-11 15:58:14,324 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (118171 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:58:14,324 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:58:14,324 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:58:45,593 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:58:45,593 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 1543
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_binary_search_tree_sorting_0001
+Requesting valid response to model...
+2026-10-11 15:59:15,107 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z/datapoints/cvdp_copilot_binary_search_tree_sorting_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_binary_search_tree_sorting/harness/1
+Running native service: tb
+2026-10-11 15:59:18,242 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Intelligent truncation: 1136 lines -> 597 lines, 135025 chars -> 90000 chars
+2026-10-11 15:59:18,242 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prepared compact error report for prompt: 135025 chars -> 90000 chars
+2026-10-11 15:59:18,242 WARNING ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Prompt (116755 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 15:59:18,242 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:59:18,242 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:59:24,474 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:59:24,474 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Received LLM response, length: 562
+2026-10-11 15:59:24,475 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 15:59:24,475 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Recorded iteration 5: improved - 79/128 tests passed
+cvdp_copilot_binary_search_tree_sorting_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:59:24,476 INFO ace_cvdp_native_runner.cvdp_copilot_binary_search_tree_sorting_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_binary_search_tree_sorting_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T065311Z

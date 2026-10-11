@@ -1,0 +1,89 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_skid_buffer_0001 ===
+2026-10-11 17:26:28,978 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 17:26:29,132 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:26:29,132 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:26:29,133 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:26:29,133 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:26:29,133 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:26:29,133 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:26:29,133 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_skid_buffer_0001
+Requesting valid response to model...
+2026-10-11 17:26:51,022 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_skid_buffer/harness/1
+Running native service: direct
+cvdp_copilot_skid_buffer_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:26:51,376 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:26:51,378 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:26:51,378 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:26:54,155 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:26:54,156 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 398
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 17:26:54,156 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 17:26:54,156 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:26:54,156 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:27:06,957 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:27:06,957 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Received LLM response, length: 1516
+2026-10-11 17:27:06,958 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Focusing on new error: - **Error Message:** Cocotb raises `AttributeError: pipeline...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_skid_buffer_0001
+Requesting valid response to model...
+2026-10-11 17:27:18,152 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_skid_buffer/harness/1
+Running native service: direct
+2026-10-11 17:27:18,466 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:27:18,466 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:27:22,213 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:27:22,213 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Received LLM response, length: 364
+2026-10-11 17:27:22,214 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 17:27:22,214 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 17:27:22,214 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 17:27:22,214 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Recorded iteration 2: no_change - 0/6 tests passed
+cvdp_copilot_skid_buffer_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:27:22,214 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:27:22,215 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb raises `AttributeError: pipeline...
+2026-10-11 17:27:22,216 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:27:22,216 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:27:35,219 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:27:35,219 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Received LLM response, length: 1384
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_skid_buffer_0001
+Requesting valid response to model...
+2026-10-11 17:27:44,085 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_skid_buffer/harness/1
+Running native service: direct
+2026-10-11 17:27:44,450 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:27:44,451 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:27:48,121 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:27:48,121 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Received LLM response, length: 394
+2026-10-11 17:27:48,121 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 17:27:48,121 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Current error appears solved but introduced NEW errors in iteration 3
+2026-10-11 17:27:48,121 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 17:27:48,121 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Recorded iteration 3: no_change - 0/6 tests passed
+cvdp_copilot_skid_buffer_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:27:48,122 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:27:48,123 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb raises `AttributeError: pipeline...
+2026-10-11 17:27:48,123 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:27:48,123 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:28:01,023 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:28:01,023 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Received LLM response, length: 1391
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_skid_buffer_0001
+Requesting valid response to model...
+2026-10-11 17:28:32,087 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_skid_buffer/harness/1
+Running native service: direct
+2026-10-11 17:28:32,463 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 17:28:32,463 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Recorded iteration 4: no_change - 0/6 tests passed
+cvdp_copilot_skid_buffer_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:28:32,463 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:28:32,464 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb raises `AttributeError: pipeline...
+2026-10-11 17:28:32,464 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:28:32,464 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:28:39,936 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:28:39,936 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Received LLM response, length: 1352
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_skid_buffer_0001
+Requesting valid response to model...
+2026-10-11 17:29:05,167 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z/datapoints/cvdp_copilot_skid_buffer_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_skid_buffer/harness/1
+Running native service: direct
+2026-10-11 17:29:05,604 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Unclear if error solved in iteration 5 - continuing to focus on same error
+2026-10-11 17:29:05,604 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Recorded iteration 5: no_change - 0/6 tests passed
+cvdp_copilot_skid_buffer_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:29:05,604 INFO ace_cvdp_native_runner.cvdp_copilot_skid_buffer_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_skid_buffer_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T082628Z

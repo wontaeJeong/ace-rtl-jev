@@ -1,0 +1,86 @@
+{
+  "id": "cvdp_copilot_64b66b_encoder_0005",
+  "category": "cid016",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 9.343501500086859,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 1,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 1931,
+      "reported_completion_tokens": 519,
+      "reported_total_tokens": 2450,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 7.649779416853562,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_64b66b_encoder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103233Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103230Z-96102/cases/cvdp_copilot_64b66b_encoder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103233Z/datapoints/cvdp_copilot_64b66b_encoder_0005/attempt_1/iter_01/candidate/rtl/encoder_64b66b.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "f3177ae06b38d151",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103230Z-96102/cases/cvdp_copilot_64b66b_encoder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103233Z/datapoints/cvdp_copilot_64b66b_encoder_0005/attempt_1/iter_01/candidate/rtl/encoder_64b66b.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103230Z-96102/cases/cvdp_copilot_64b66b_encoder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103233Z/datapoints/cvdp_copilot_64b66b_encoder_0005/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/encoder_64b66b.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103230Z-96102/cases/cvdp_copilot_64b66b_encoder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103233Z/datapoints/cvdp_copilot_64b66b_encoder_0005/attempt_1/iter_01/candidate/rtl/encoder_64b66b.sv"
+            },
+            "iteration": 1,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.37404513359069824,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103230Z-96102/cases/cvdp_copilot_64b66b_encoder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103233Z/datapoints/cvdp_copilot_64b66b_encoder_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_64b66b_encoder/reports/5.txt",
+                  "pid": 96229,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.374,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 1,
+        "status": "passed"
+      }
+    ],
+    "category": "cid016",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_64b66b_encoder_0005",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

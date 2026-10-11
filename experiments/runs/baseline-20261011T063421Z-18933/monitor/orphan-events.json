@@ -1,0 +1,144 @@
+{
+  "events": [
+    {
+      "at_utc": "2026-10-11T07:18:52.849557+00:00",
+      "pid": 43455,
+      "case": "cvdp_copilot_digital_stopwatch_0001",
+      "cpu_seconds": 314.629326976,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:24:23.558187+00:00",
+      "pid": 46286,
+      "case": "cvdp_copilot_digital_stopwatch_0001",
+      "cpu_seconds": 308.56882048,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:29:54.259806+00:00",
+      "pid": 48088,
+      "case": "cvdp_copilot_digital_stopwatch_0001",
+      "cpu_seconds": 301.58141478399995,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:35:54.987066+00:00",
+      "pid": 49880,
+      "case": "cvdp_copilot_digital_stopwatch_0001",
+      "cpu_seconds": 323.54141312,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:47:56.774920+00:00",
+      "pid": 54176,
+      "case": "cvdp_copilot_ir_receiver_0001",
+      "cpu_seconds": 310.384192,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:51:27.313205+00:00",
+      "pid": 55698,
+      "case": "cvdp_copilot_manchester_enc_0005",
+      "cpu_seconds": 319.952457216,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:53:57.741644+00:00",
+      "pid": 56399,
+      "case": "cvdp_copilot_ir_receiver_0001",
+      "cpu_seconds": 311.19636992,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:56:58.228891+00:00",
+      "pid": 57560,
+      "case": "cvdp_copilot_manchester_enc_0005",
+      "cpu_seconds": 323.583148928,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T07:59:58.676633+00:00",
+      "pid": 58541,
+      "case": "cvdp_copilot_ir_receiver_0001",
+      "cpu_seconds": 312.7028224,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:02:29.115439+00:00",
+      "pid": 59362,
+      "case": "cvdp_copilot_manchester_enc_0005",
+      "cpu_seconds": 326.936685952,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:05:59.700199+00:00",
+      "pid": 60486,
+      "case": "cvdp_copilot_ir_receiver_0001",
+      "cpu_seconds": 318.18130764800003,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:09:30.329661+00:00",
+      "pid": 61577,
+      "case": "cvdp_copilot_perf_counters_0001",
+      "cpu_seconds": 302.534305792,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:12:00.730151+00:00",
+      "pid": 62064,
+      "case": "cvdp_copilot_ir_receiver_0001",
+      "cpu_seconds": 322.26989158400005,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:15:01.253397+00:00",
+      "pid": 62658,
+      "case": "cvdp_copilot_perf_counters_0001",
+      "cpu_seconds": 304.783181824,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:20:32.153446+00:00",
+      "pid": 65144,
+      "case": "cvdp_copilot_perf_counters_0001",
+      "cpu_seconds": 312.989177856,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:26:03.156616+00:00",
+      "pid": 67290,
+      "case": "cvdp_copilot_perf_counters_0001",
+      "cpu_seconds": 318.03378688,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:31:34.036321+00:00",
+      "pid": 69528,
+      "case": "cvdp_copilot_perf_counters_0001",
+      "cpu_seconds": 328.616783872,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:41:35.728971+00:00",
+      "pid": 74216,
+      "case": "cvdp_copilot_sync_serial_communication_0001",
+      "cpu_seconds": 328.782228608,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:47:36.494732+00:00",
+      "pid": 76518,
+      "case": "cvdp_copilot_sync_serial_communication_0001",
+      "cpu_seconds": 328.996143104,
+      "action": "terminate_completed_evaluator_orphan"
+    },
+    {
+      "at_utc": "2026-10-11T08:53:37.496725+00:00",
+      "pid": 77635,
+      "case": "cvdp_copilot_sync_serial_communication_0001",
+      "cpu_seconds": 324.616353792,
+      "action": "terminate_completed_evaluator_orphan"
+    }
+  ]
+}

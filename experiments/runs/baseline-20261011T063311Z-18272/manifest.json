@@ -1,0 +1,45 @@
+{
+  "mode": "baseline",
+  "started_at": "2026-10-11T06:33:11.653411+00:00",
+  "case_ids": [
+    "cvdp_copilot_16qam_mapper_0001"
+  ],
+  "cases_planned": 1,
+  "conditions": {
+    "attempts": 1,
+    "iterations": 1,
+    "workers": 1,
+    "llm_timeout": 90,
+    "evaluator_timeout": 300,
+    "case_timeout": 1800
+  },
+  "environment": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.11.14 (main, Feb 12 2026, 00:41:29) [Clang 21.1.4 ]",
+    "ace_commit": "94754d796350d42502c9a32639a20d86f50e9678",
+    "cvdp_commit": "8e894cf74414ab1eaea1e2b4e80a02f123df07b6",
+    "dataset_sha256": "cbcd81295561ebb16e4d857e096f4d9908d042c33aff3b58abf236e868411857",
+    "dataset_rows": 302,
+    "eligible_rows": 292,
+    "tools": {
+      "git": "/opt/homebrew/bin/git",
+      "iverilog": "/opt/homebrew/bin/iverilog",
+      "make": "/usr/bin/make",
+      "verilator": "/opt/homebrew/bin/verilator",
+      "vvp": "/opt/homebrew/bin/vvp",
+      "yosys": "/opt/homebrew/bin/yosys"
+    },
+    "configuration": {
+      "primary_model": "gpt-6-luna",
+      "jev_model": "tev1:4b-q4_K_M",
+      "jev_auth_mode": "none",
+      "token_parameter": "max_completion_tokens",
+      "sampling_mode": "default",
+      "request_timeout": "60"
+    },
+    "ok": true
+  },
+  "state": "completed",
+  "elapsed_seconds": 22.912536916090176,
+  "completed_at": "2026-10-11T06:33:36.251611+00:00"
+}

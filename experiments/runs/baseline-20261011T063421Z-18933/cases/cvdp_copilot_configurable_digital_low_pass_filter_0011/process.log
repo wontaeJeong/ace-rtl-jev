@@ -1,0 +1,117 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_configurable_digital_low_pass_filter_0011 ===
+2026-10-11 16:08:56,769 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 16:08:56,981 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:08:56,981 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:08:56,982 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:08:56,982 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:08:56,983 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:08:56,983 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:08:56,983 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_01/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter_0011
+Requesting valid response to model...
+2026-10-11 16:09:20,276 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_01/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter/harness/11
+Running native service: direct
+cvdp_copilot_configurable_digital_low_pass_filter_0011 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:09:33,068 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:09:33,082 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 3216 lines -> 608 lines, 394074 chars -> 90000 chars
+2026-10-11 16:09:33,082 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394074 chars -> 90000 chars
+2026-10-11 16:09:33,082 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:09:33,083 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:09:36,391 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:09:36,391 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 16:09:36,392 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (101743 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:09:36,392 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:09:36,392 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:09:50,061 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:09:50,062 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 1823
+2026-10-11 16:09:50,064 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Focusing on new error: - **Error Message**: Cocotb cannot find `w_out` on the DUT: ...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_02/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter_0011
+Requesting valid response to model...
+2026-10-11 16:10:01,298 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_02/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter/harness/11
+Running native service: direct
+2026-10-11 16:10:13,336 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 2795 lines -> 611 lines, 394073 chars -> 90000 chars
+2026-10-11 16:10:13,336 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394073 chars -> 90000 chars
+2026-10-11 16:10:13,337 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (98099 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:10:13,337 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:10:13,337 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:10:19,779 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:10:19,780 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 466
+2026-10-11 16:10:19,780 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Current error SOLVED in iteration 2 - specific error resolved without breaking other functionality
+2026-10-11 16:10:19,780 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Recorded iteration 2: no_change - 21/125 tests passed
+cvdp_copilot_configurable_digital_low_pass_filter_0011 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:10:19,781 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:10:19,795 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 2795 lines -> 611 lines, 394073 chars -> 90000 chars
+2026-10-11 16:10:19,796 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394073 chars -> 90000 chars
+2026-10-11 16:10:19,796 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (101924 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:10:19,796 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:10:19,796 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:10:53,227 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:10:53,227 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 1901
+2026-10-11 16:10:53,228 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Focusing on new error: - **Error Message:** Cocotb assertions fail because the DUT’...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_03/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter_0011
+Requesting valid response to model...
+2026-10-11 16:11:12,161 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_03/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter/harness/11
+Running native service: direct
+2026-10-11 16:11:24,420 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 2795 lines -> 611 lines, 394074 chars -> 90000 chars
+2026-10-11 16:11:24,420 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394074 chars -> 90000 chars
+2026-10-11 16:11:24,420 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (98457 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:11:24,420 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:11:24,420 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:11:29,670 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:11:29,670 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 496
+2026-10-11 16:11:29,670 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 16:11:29,670 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Recorded iteration 3: no_change - 21/125 tests passed
+cvdp_copilot_configurable_digital_low_pass_filter_0011 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:11:29,672 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:11:29,683 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 2795 lines -> 611 lines, 394074 chars -> 90000 chars
+2026-10-11 16:11:29,683 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394074 chars -> 90000 chars
+2026-10-11 16:11:29,683 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb assertions fail because the DUT’...
+2026-10-11 16:11:29,684 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (103040 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:11:29,684 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:11:29,684 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:12:07,442 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:12:07,443 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 1638
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_04/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter_0011
+Requesting valid response to model...
+2026-10-11 16:12:23,943 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_04/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter/harness/11
+Running native service: direct
+2026-10-11 16:12:32,510 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 2796 lines -> 611 lines, 394071 chars -> 90000 chars
+2026-10-11 16:12:32,510 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394071 chars -> 90000 chars
+2026-10-11 16:12:32,510 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (99111 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:12:32,510 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:12:32,510 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:12:36,251 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:12:36,252 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 614
+2026-10-11 16:12:36,252 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 16:12:36,252 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 16:12:36,252 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Recorded iteration 4: no_change - 21/125 tests passed
+cvdp_copilot_configurable_digital_low_pass_filter_0011 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:12:36,253 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:12:36,263 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 2796 lines -> 611 lines, 394071 chars -> 90000 chars
+2026-10-11 16:12:36,263 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394071 chars -> 90000 chars
+2026-10-11 16:12:36,263 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb assertions fail because the DUT’...
+2026-10-11 16:12:36,264 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (103476 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:12:36,264 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:12:36,264 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:13:03,908 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:13:03,908 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 1562
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_05/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter_0011
+Requesting valid response to model...
+2026-10-11 16:13:31,232 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z/datapoints/cvdp_copilot_configurable_digital_low_pass_filter_0011/attempt_1/iter_05/cvdp_work/cvdp_copilot_configurable_digital_low_pass_filter/harness/11
+Running native service: direct
+2026-10-11 16:13:44,917 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Intelligent truncation: 2795 lines -> 611 lines, 394074 chars -> 90000 chars
+2026-10-11 16:13:44,925 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prepared compact error report for prompt: 394074 chars -> 90000 chars
+2026-10-11 16:13:44,936 WARNING ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Prompt (99333 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:13:44,936 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:13:44,936 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:13:47,488 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:13:47,488 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Received LLM response, length: 466
+2026-10-11 16:13:47,492 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 16:13:47,492 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Recorded iteration 5: no_change - 21/125 tests passed
+cvdp_copilot_configurable_digital_low_pass_filter_0011 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:13:47,504 INFO ace_cvdp_native_runner.cvdp_copilot_configurable_digital_low_pass_filter_0011.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_configurable_digital_low_pass_filter_0011/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070856Z

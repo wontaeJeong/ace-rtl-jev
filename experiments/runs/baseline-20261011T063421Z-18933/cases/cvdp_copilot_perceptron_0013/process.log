@@ -1,0 +1,88 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_perceptron_0013 ===
+2026-10-11 17:03:53,369 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 17:03:53,596 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:03:53,596 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:03:53,598 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:03:53,598 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:03:53,598 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:03:53,598 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:03:53,599 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_01/cvdp_work/cvdp_copilot_perceptron_0013
+Requesting valid response to model...
+2026-10-11 17:04:34,685 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_01/cvdp_work/cvdp_copilot_perceptron/harness/13
+Running native service: direct
+cvdp_copilot_perceptron_0013 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:04:35,058 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:04:35,062 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:04:35,062 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:04:58,392 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:04:58,392 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 1630
+2026-10-11 17:04:58,393 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Focusing on new error: - **Error Message**: The test expected `percep_w1` to be `1`...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_02/cvdp_work/cvdp_copilot_perceptron_0013
+Requesting valid response to model...
+2026-10-11 17:05:31,018 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_02/cvdp_work/cvdp_copilot_perceptron/harness/13
+Running native service: direct
+2026-10-11 17:05:31,385 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:05:31,385 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:05:35,884 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:05:35,885 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 494
+2026-10-11 17:05:35,885 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 17:05:35,885 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 17:05:35,885 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Recorded iteration 2: no_change - 0/6 tests passed
+cvdp_copilot_perceptron_0013 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:05:35,885 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:05:35,888 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Continuing to focus on same error: - **Error Message**: The test expected `percep_w1` to be `1`...
+2026-10-11 17:05:35,890 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:05:35,890 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:05:55,442 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:05:55,442 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 1237
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_03/cvdp_work/cvdp_copilot_perceptron_0013
+Requesting valid response to model...
+2026-10-11 17:06:18,530 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_03/cvdp_work/cvdp_copilot_perceptron/harness/13
+Running native service: direct
+2026-10-11 17:06:18,940 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:06:18,940 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:06:22,425 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:06:22,425 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 452
+2026-10-11 17:06:22,426 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 17:06:22,426 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Recorded iteration 3: no_change - 0/6 tests passed
+cvdp_copilot_perceptron_0013 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:06:22,426 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:06:22,429 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Continuing to focus on same error: - **Error Message**: The test expected `percep_w1` to be `1`...
+2026-10-11 17:06:22,430 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:06:22,430 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:06:38,635 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:06:38,635 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 1243
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_04/cvdp_work/cvdp_copilot_perceptron_0013
+Requesting valid response to model...
+2026-10-11 17:07:05,532 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_04/cvdp_work/cvdp_copilot_perceptron/harness/13
+Running native service: direct
+2026-10-11 17:07:05,934 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:07:05,935 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:07:11,319 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:07:11,319 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 480
+2026-10-11 17:07:11,320 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 17:07:11,320 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Recorded iteration 4: no_change - 0/6 tests passed
+cvdp_copilot_perceptron_0013 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:07:11,320 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:07:11,323 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Continuing to focus on same error: - **Error Message**: The test expected `percep_w1` to be `1`...
+2026-10-11 17:07:11,325 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:07:11,325 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:07:28,109 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:07:28,109 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 1594
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_05/cvdp_work/cvdp_copilot_perceptron_0013
+Requesting valid response to model...
+2026-10-11 17:07:59,001 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z/datapoints/cvdp_copilot_perceptron_0013/attempt_1/iter_05/cvdp_work/cvdp_copilot_perceptron/harness/13
+Running native service: direct
+2026-10-11 17:07:59,435 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:07:59,435 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:08:03,062 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:08:03,062 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Received LLM response, length: 473
+2026-10-11 17:08:03,062 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Unclear if error solved in iteration 5 - continuing to focus on same error
+2026-10-11 17:08:03,062 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Recorded iteration 5: no_change - 0/6 tests passed
+cvdp_copilot_perceptron_0013 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:08:03,063 INFO ace_cvdp_native_runner.cvdp_copilot_perceptron_0013.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perceptron_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080353Z

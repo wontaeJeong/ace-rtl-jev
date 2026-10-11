@@ -1,0 +1,53 @@
+{
+  "mode": "baseline",
+  "pid": 96102,
+  "started_at": "2026-10-11T10:32:30.968919+00:00",
+  "case_ids": [
+    "cvdp_copilot_16qam_mapper_0001",
+    "cvdp_copilot_16qam_mapper_0006",
+    "cvdp_copilot_32_bit_Brent_Kung_PP_adder_0001",
+    "cvdp_copilot_64b66b_decoder_0001",
+    "cvdp_copilot_64b66b_decoder_0011",
+    "cvdp_copilot_64b66b_encoder_0001",
+    "cvdp_copilot_64b66b_encoder_0005",
+    "cvdp_copilot_64b66b_encoder_0009"
+  ],
+  "cases_planned": 8,
+  "conditions": {
+    "attempts": 1,
+    "iterations": 1,
+    "workers": 8,
+    "llm_timeout": 90,
+    "evaluator_timeout": 300,
+    "case_timeout": 1800
+  },
+  "environment": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.11.14 (main, Feb 12 2026, 00:41:29) [Clang 21.1.4 ]",
+    "ace_commit": "8ff19e9b586f9f5575f5e53f0055386c6b19648d",
+    "cvdp_commit": "8e894cf74414ab1eaea1e2b4e80a02f123df07b6",
+    "dataset_sha256": "cbcd81295561ebb16e4d857e096f4d9908d042c33aff3b58abf236e868411857",
+    "dataset_rows": 302,
+    "eligible_rows": 292,
+    "tools": {
+      "git": "/opt/homebrew/bin/git",
+      "iverilog": "/opt/homebrew/bin/iverilog",
+      "make": "/usr/bin/make",
+      "verilator": "/opt/homebrew/bin/verilator",
+      "vvp": "/opt/homebrew/bin/vvp",
+      "yosys": "/opt/homebrew/bin/yosys"
+    },
+    "configuration": {
+      "primary_model": "gpt-6-luna",
+      "jev_model": "typesafe/jev-1.13",
+      "jev_auth_mode": "bearer",
+      "token_parameter": "max_completion_tokens",
+      "sampling_mode": "default",
+      "request_timeout": "60"
+    },
+    "ok": true
+  },
+  "state": "completed",
+  "elapsed_seconds": 60.434363125124946,
+  "completed_at": "2026-10-11T10:33:33.392418+00:00"
+}

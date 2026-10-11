@@ -1,0 +1,25 @@
+{
+  "call_id": "7d29ef6f2bb647b292aeb92e99e3aa4b",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_fibonacci_series_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:18:24.617703+00:00",
+  "request_sha256": "754cf1d088ada3ccb63debbed6b2baf26bbe4f088545325b1b3c7c3116e7b81d",
+  "prompt_chars": 7224,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1595,
+    "completion_tokens": 84,
+    "total_tokens": 1679,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 67
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 26,
+  "latency_seconds": 2.1854309579357505
+}

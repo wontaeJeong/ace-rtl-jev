@@ -14,7 +14,8 @@ from pathlib import Path
 EXPECTED_FILES = [
     "cvdp_v1.1.0_agentic_code_generation_commercial.jsonl",
     "cvdp_v1.1.0_agentic_code_generation_no_commercial.jsonl",
-    "cvdp_v1.1.0_agentic_heavy_code_generation.jsonl",
+    "cvdp_v1.1.0_agentic_heavy_code_generation_commercial.jsonl",
+    "cvdp_v1.1.0_agentic_heavy_code_generation_no_commercial.jsonl",
     "cvdp_v1.1.0_nonagentic_code_comprehension.jsonl",
     "cvdp_v1.1.0_nonagentic_code_generation_commercial.jsonl",
     "cvdp_v1.1.0_nonagentic_code_generation_no_commercial.jsonl",

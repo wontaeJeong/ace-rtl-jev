@@ -1,0 +1,45 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071102Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_data_bus_controller_0001 ===
+2026-10-11 16:11:02,389 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 16:11:02,570 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:11:02,570 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:11:02,571 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:11:02,571 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:11:02,571 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:11:02,571 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:11:02,571 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071102Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller_0001
+Requesting valid response to model...
+2026-10-11 16:11:21,977 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071102Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1
+Running native service: 01-new-tb
+cvdp_copilot_data_bus_controller_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:11:22,446 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:11:22,447 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:11:22,447 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:11:26,564 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:11:26,564 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 291
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 16:11:26,564 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 16:11:26,565 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:11:26,565 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:11:38,414 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:11:38,414 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Received LLM response, length: 1778
+2026-10-11 16:11:38,415 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Focusing on new error: - **Error Message**: Cocotb cannot find `s_ready` on `data_b...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071102Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_data_bus_controller_0001
+Requesting valid response to model...
+2026-10-11 16:11:47,970 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071102Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_data_bus_controller/harness/1
+Running native service: 01-new-tb
+2026-10-11 16:11:48,385 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Intelligent truncation: 1571 lines -> 509 lines, 139122 chars -> 44221 chars
+2026-10-11 16:11:48,385 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Prepared compact error report for prompt: 139122 chars -> 44221 chars
+2026-10-11 16:11:48,385 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:11:48,385 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:11:50,466 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:11:50,466 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Received LLM response, length: 389
+2026-10-11 16:11:50,466 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 16:11:50,466 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 16:11:50,466 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 16:11:50,466 INFO ace_cvdp_native_runner.cvdp_copilot_data_bus_controller_0001.attempt1: Recorded iteration 2: solved - 3/3 tests passed
+cvdp_copilot_data_bus_controller_0001 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T071102Z

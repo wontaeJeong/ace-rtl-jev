@@ -1,0 +1,110 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_image_rotate_0001 ===
+2026-10-11 16:34:40,441 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 16:34:40,669 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:34:40,669 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:34:40,670 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:34:40,670 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:34:40,670 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:34:40,670 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:34:40,670 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_image_rotate_0001
+Requesting valid response to model...
+2026-10-11 16:34:58,221 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_image_rotate/harness/1
+Running native service: auto
+cvdp_copilot_image_rotate_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:35:00,151 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:35:00,152 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:35:00,152 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:35:01,774 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:35:01,775 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 16:35:01,775 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (86961 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:35:01,775 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:35:01,775 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:35:54,520 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:35:54,520 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 1812
+2026-10-11 16:35:54,521 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Focusing on new error: - **Error Message:** Cocotb reports that `image_out` does no...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_image_rotate_0001
+Requesting valid response to model...
+2026-10-11 16:36:16,460 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_image_rotate/harness/1
+Running native service: auto
+2026-10-11 16:36:18,292 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Intelligent truncation: 821 lines -> 458 lines, 94347 chars -> 77890 chars
+2026-10-11 16:36:18,292 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prepared compact error report for prompt: 94347 chars -> 77890 chars
+2026-10-11 16:36:18,292 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (86533 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:36:18,292 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:36:18,292 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:36:22,757 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:36:22,757 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 420
+2026-10-11 16:36:22,757 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 16:36:22,757 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Recorded iteration 2: no_change - 10/51 tests passed
+cvdp_copilot_image_rotate_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:36:22,758 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:36:22,760 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Intelligent truncation: 821 lines -> 458 lines, 94347 chars -> 77890 chars
+2026-10-11 16:36:22,760 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prepared compact error report for prompt: 94347 chars -> 77890 chars
+2026-10-11 16:36:22,760 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb reports that `image_out` does no...
+2026-10-11 16:36:22,760 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (86864 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:36:22,760 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:36:22,760 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:36:49,412 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:36:49,412 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 1503
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_image_rotate_0001
+Requesting valid response to model...
+2026-10-11 16:37:10,537 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_image_rotate/harness/1
+Running native service: auto
+2026-10-11 16:37:12,357 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (88616 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:37:12,357 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:37:12,357 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:37:16,129 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:37:16,129 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 535
+2026-10-11 16:37:16,129 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 16:37:16,129 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Recorded iteration 3: improved - 33/66 tests passed
+cvdp_copilot_image_rotate_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:37:16,130 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:37:16,131 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb reports that `image_out` does no...
+2026-10-11 16:37:16,131 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (88857 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:37:16,131 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:37:16,131 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:37:43,643 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:37:43,643 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 1296
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_image_rotate_0001
+Requesting valid response to model...
+2026-10-11 16:37:53,261 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_image_rotate/harness/1
+Running native service: auto
+2026-10-11 16:37:55,167 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Intelligent truncation: 821 lines -> 463 lines, 93383 chars -> 77388 chars
+2026-10-11 16:37:55,167 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prepared compact error report for prompt: 93383 chars -> 77388 chars
+2026-10-11 16:37:55,167 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (85870 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:37:55,167 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:37:55,167 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:37:58,402 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:37:58,403 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 426
+2026-10-11 16:37:58,403 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 16:37:58,403 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Recorded iteration 4: regressed - 10/51 tests passed
+cvdp_copilot_image_rotate_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:37:58,403 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:37:58,405 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Intelligent truncation: 821 lines -> 463 lines, 93383 chars -> 77388 chars
+2026-10-11 16:37:58,405 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prepared compact error report for prompt: 93383 chars -> 77388 chars
+2026-10-11 16:37:58,405 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Continuing to focus on same error: - **Error Message:** Cocotb reports that `image_out` does no...
+2026-10-11 16:37:58,406 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (86363 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:37:58,406 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:37:58,406 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:38:19,875 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:38:19,875 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 1449
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_image_rotate_0001
+Requesting valid response to model...
+2026-10-11 16:38:27,748 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z/datapoints/cvdp_copilot_image_rotate_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_image_rotate/harness/1
+Running native service: auto
+2026-10-11 16:38:29,571 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Intelligent truncation: 835 lines -> 462 lines, 98051 chars -> 80882 chars
+2026-10-11 16:38:29,572 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prepared compact error report for prompt: 98051 chars -> 80882 chars
+2026-10-11 16:38:29,572 WARNING ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Prompt (89419 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 16:38:29,572 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:38:29,572 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:38:39,899 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:38:39,899 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Received LLM response, length: 466
+2026-10-11 16:38:39,899 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 16:38:39,900 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Recorded iteration 5: improved - 24/65 tests passed
+cvdp_copilot_image_rotate_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 16:38:39,900 INFO ace_cvdp_native_runner.cvdp_copilot_image_rotate_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_image_rotate_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T073440Z

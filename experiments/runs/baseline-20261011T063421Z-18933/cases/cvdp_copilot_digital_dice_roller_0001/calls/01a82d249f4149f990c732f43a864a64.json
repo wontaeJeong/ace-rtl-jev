@@ -1,0 +1,25 @@
+{
+  "call_id": "01a82d249f4149f990c732f43a864a64",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_digital_dice_roller_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:12:33.152094+00:00",
+  "request_sha256": "40b488f67fe090d4a441e0e7c65308fcf15185c7212d97e5d332264eec193965",
+  "prompt_chars": 33134,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 8459,
+    "completion_tokens": 788,
+    "total_tokens": 9247,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 429
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1427,
+  "latency_seconds": 7.736444249982014
+}

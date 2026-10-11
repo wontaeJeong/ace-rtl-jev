@@ -1,0 +1,17 @@
+{
+  "call_id": "ce21cb1e18644c4eb8185e7e3a5a95f6",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_huffman_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:32:41.634443+00:00",
+  "request_sha256": "e9b67cc2d82772601eecdf76e637045e2b4ff0f73a7b22da2a65edb050c657f6",
+  "prompt_chars": 8974,
+  "status": "error",
+  "usage": null,
+  "usage_unknown": true,
+  "fallback": false,
+  "error_type": "RuntimeError",
+  "latency_seconds": 60.02136404206976
+}

@@ -1,0 +1,222 @@
+{
+  "id": "cvdp_copilot_perf_counters_0001",
+  "category": "cid003",
+  "mode": "baseline",
+  "status": "failure",
+  "returncode": 0,
+  "elapsed_seconds": 1608.6999814580195,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 12,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 33179,
+      "reported_completion_tokens": 9096,
+      "reported_total_tokens": 42275,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 96.507492961362,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "f500c887d31aae8e",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_01/candidate/rtl/cvdp_copilot_perf_counters.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_perf_counters.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_01/candidate/rtl/cvdp_copilot_perf_counters.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.10456705093384,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_perf_counters/reports/1.txt",
+                  "pid": 61572,
+                  "result": 124,
+                  "terminated_pids": [
+                    61572
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.105,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "0cc994624fada9fb",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_02/candidate/rtl/cvdp_copilot_perf_counters.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_perf_counters.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_02/candidate/rtl/cvdp_copilot_perf_counters.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.04671597480774,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_perf_counters/reports/1.txt",
+                  "pid": 62653,
+                  "result": 124,
+                  "terminated_pids": [
+                    62653
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.047,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "0bc2cda51d64ed6f",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_03/candidate/rtl/cvdp_copilot_perf_counters.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_perf_counters.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_03/candidate/rtl/cvdp_copilot_perf_counters.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.0444178581238,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_perf_counters/reports/1.txt",
+                  "pid": 65139,
+                  "result": 124,
+                  "terminated_pids": [
+                    65139
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.044,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": false,
+            "candidate_hash": "0bc2cda51d64ed6f",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_04/candidate/rtl/cvdp_copilot_perf_counters.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_perf_counters.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_04/candidate/rtl/cvdp_copilot_perf_counters.sv"
+            },
+            "iteration": 4,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.01942896842957,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_perf_counters/reports/1.txt",
+                  "pid": 67285,
+                  "result": 124,
+                  "terminated_pids": [
+                    67285
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.019,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": false,
+            "candidate_hash": "0bc2cda51d64ed6f",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_05/candidate/rtl/cvdp_copilot_perf_counters.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_05/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_perf_counters.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_05/candidate/rtl/cvdp_copilot_perf_counters.sv"
+            },
+            "iteration": 5,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.03682112693787,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_perf_counters_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T080416Z/datapoints/cvdp_copilot_perf_counters_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_perf_counters/reports/1.txt",
+                  "pid": 69523,
+                  "result": 124,
+                  "terminated_pids": [
+                    69523
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.037,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "status": "failed"
+      }
+    ],
+    "category": "cid003",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_perf_counters_0001",
+    "passed": false,
+    "passed_attempt": null,
+    "stopped_after_first_pass": 0
+  }
+}
