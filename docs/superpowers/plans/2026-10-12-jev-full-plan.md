@@ -60,6 +60,6 @@
 - [x] Freeze task/models/policy/questions/budget: one attempt, at most 2 iterations, one worker; contract smoke and A/B/C cohort.
 - [x] Capture authoritative evaluation and complete cost/unknown events; no guessed improvement.
 - [x] Document blockers/evidence/exact rerun commands and D/J/X/F completion matrix.
-- [ ] Review, verify, commit/push/create PR on writable remote. Never merge without approval.
+- [x] Review, verify, commit/push/create PR on writable remote. Never merge without approval. PR: https://github.com/wontaeJeong/ace-rtl-jev/pull/4
 
 Progress checkboxes are updated only with observed evidence; a helper existing without native wiring is not complete.

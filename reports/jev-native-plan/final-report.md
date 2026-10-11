@@ -4,9 +4,13 @@
 
 Typed native D/J integration and opt-in X algorithms are implemented and covered by local contracts/integration fixtures. Default remains **`baseline_fixed`**. Real verification establishes evaluator-based PASS; this small campaign does **not** establish JEV superiority.
 
+PR: https://github.com/wontaeJeong/ace-rtl-jev/pull/4. Final local verification: **286 tests passed**, compile/diff checks clean; nine Important review reproductions and active integration omissions fixed in a single test-covered pass. No automatic merge or second fresh-review approval is claimed.
+
 ## Fixed A/B/C task: bus-arbiter
 
 One task, one attempt, two iterations, one worker; same prepared primary model/adapter, dataset and CVDP/tool environment. X off. Warmup excluded. Requested model aliases are fixed; sampling seed and concrete resolved weight revisions are not guaranteed.
+
+Comparison runtime source: `ab609ce`; signed-adder smoke source: `b16f512`. Later review fixes revalidated existing evaluator/claim artifacts rather than relabelling those as newly measured simulator runs.
 
 | Arm | Outcome | Wall seconds | Primary HTTP calls | Primary tokens | JEV HTTP calls | JEV tokens |
 |---|---|---:|---:|---:|---:|---:|
