@@ -1,0 +1,2 @@
+mode,id,status,elapsed_seconds,reported_total_tokens,estimated_total_tokens,unknown_usage_calls
+baseline,cvdp_copilot_16qam_mapper_0001,success,22.91068866592832,3818,0,0

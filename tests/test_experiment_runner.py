@@ -1,6 +1,7 @@
 import importlib
 import json
 import sys
+import subprocess
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
@@ -40,3 +41,17 @@ def test_aggregate_unknown_usage_does_not_become_zero_cost():
     assert result['primary']['reported_total_tokens'] == 5
     assert result['primary']['unknown_usage_calls'] == 1
     assert result['total_tokens_complete'] is False
+
+
+def test_timeout_cleanup_terminates_spawned_descendants():
+    import psutil
+    code = 'import subprocess,sys,time; p=subprocess.Popen([sys.executable,"-c","import time; time.sleep(60)"]); print(p.pid,flush=True); time.sleep(60)'
+    proc=subprocess.Popen([sys.executable,'-c',code],stdout=subprocess.PIPE,text=True,start_new_session=True)
+    child_pid=int(proc.stdout.readline())
+    try:
+        runner().terminate_tree(proc)
+        assert proc.poll() is not None
+        assert not psutil.pid_exists(child_pid) or psutil.Process(child_pid).status()==psutil.STATUS_ZOMBIE
+    finally:
+        if proc.poll() is None: proc.kill();proc.wait()
+        proc.stdout.close()
