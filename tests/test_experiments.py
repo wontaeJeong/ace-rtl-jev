@@ -102,3 +102,8 @@ def test_empty_completion_keeps_reported_billed_tokens(tmp_path, monkeypatch):
         assert event['usage']['total_tokens']==11
         assert event['usage_unknown'] is False
     finally:server.shutdown();server.server_close();thread.join()
+
+
+def test_inconsistent_reported_total_is_not_refunded_as_actual_usage():
+    metrics=module().usage_metrics({'prompt_tokens':100,'completion_tokens':100,'total_tokens':0},'abcdefgh','abcd')
+    assert metrics['source']=='estimated_chars_div_4'

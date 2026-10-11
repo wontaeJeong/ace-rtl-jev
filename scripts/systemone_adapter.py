@@ -13,11 +13,13 @@ import time
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import requests
 
 from experiment_config import positive_number, require_jev
 from local_llm_adapter import usage_metrics, write_event
+from inference_budget import reserve, settle
 
 
 class DecisionError(RuntimeError):
@@ -71,6 +73,7 @@ def decide(state: str | dict, questions: dict) -> dict:
             raise ValueError('Only validated choice questions with 2–26 described options are supported')
     body={'model':config['JEV_MODEL'],'state':state,'questions':questions}
     encoded=json.dumps(body,ensure_ascii=False)
+    ticket=reserve('jev',encoded,128*len(questions))
     call_id=uuid.uuid4().hex
     directory=os.environ.get('ACE_EXPERIMENT_TELEMETRY')
     path=Path(directory)/f'{call_id}.json' if directory else None
@@ -78,7 +81,8 @@ def decide(state: str | dict, questions: dict) -> dict:
            'case_id':os.environ.get('ACE_EXPERIMENT_CASE_ID'),'mode':os.environ.get('ACE_EXPERIMENT_MODE','jev'),
            'phase':os.environ.get('ACE_EXPERIMENT_PHASE','evaluation'),'questions':list(questions),
            'started_at':datetime.now(timezone.utc).isoformat(),'status':'inflight','usage':None,'usage_unknown':True,
-           'request_sha256':hashlib.sha256(encoded.encode()).hexdigest(),'prompt_chars':len(encoded),'fallback':False}
+           'request_sha256':hashlib.sha256(encoded.encode()).hexdigest(),'prompt_chars':len(encoded),'fallback':False,
+           'budget_ticket':ticket['id'],'kind':os.environ.get('ACE_EXPERIMENT_CALL_KIND','decision')}
     write_event(event,path);started=time.perf_counter()
     headers={'Authorization':'Bearer '+config['JEV_API_KEY']} if config['JEV_AUTH_MODE']=='bearer' else {}
     try:
@@ -90,10 +94,12 @@ def decide(state: str | dict, questions: dict) -> dict:
             payload=response.json()
             if isinstance(payload,dict):
                 supplied=decision_usage(payload.get('usage'),encoded,'')
+                if urlsplit(config['JEV_ENDPOINT_URL']).hostname=='openrouter.ai' or os.environ.get('JEV_COST_CURRENCY')=='USD':supplied['cost_currency']='USD'
                 if supplied['source']=='reported':event.update(usage=supplied,usage_unknown=False)
             answers=validate_answers(payload,questions)
         except (ValueError,TypeError,KeyError):raise DecisionError('JEV invalid response schema') from None
         usage=decision_usage(payload.get('usage'),encoded,json.dumps(answers))
+        if urlsplit(config['JEV_ENDPOINT_URL']).hostname=='openrouter.ai' or os.environ.get('JEV_COST_CURRENCY')=='USD':usage['cost_currency']='USD'
         event.update(status='ok',usage=usage,usage_unknown=False,answers=answers)
         return {'answers':answers,'usage':usage,'call_id':call_id,'event_file':str(path) if path else None}
     except DecisionError as exc:
@@ -102,3 +108,4 @@ def decide(state: str | dict, questions: dict) -> dict:
     finally:
         event['latency_seconds']=time.perf_counter()-started
         write_event(event,path)
+        settle(ticket,event.get('usage'))

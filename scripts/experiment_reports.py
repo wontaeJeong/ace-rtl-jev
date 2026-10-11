@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+from html import escape
 from collections import Counter
 from pathlib import Path
 
@@ -137,6 +138,26 @@ def load_batch(path: Path) -> dict:
     return {'manifest':manifest,'results':json.loads(partial.read_text())['results'] if partial.exists() else []}
 
 
+def render_html(baseline: dict, improved: dict | None) -> str:
+    bm=batch_metrics(baseline);jm=batch_metrics(improved) if improved else None
+    def fmt(value):
+        if value is None:return 'Unavailable'
+        return f'{value:,.3f}' if isinstance(value,float) else f'{value:,}' if isinstance(value,int) else escape(str(value))
+    def get(metrics,key):return metrics.get(key) if metrics else None
+    fields=[('Cases','case_count'),('Passed','success_count'),('Success rate','success_rate'),
+            ('Known reported tokens','reported_total_tokens'),('Complete total tokens','total_tokens'),
+            ('Batch wall seconds','batch_wall_seconds'),('Mean case seconds','average_case_seconds'),
+            ('Mean API latency seconds','average_call_latency_seconds'),('Failed/error cases','failure_error_count')]
+    rows=''.join('<tr><th>'+label+'</th><td>'+fmt(bm[key])+'</td><td>'+(fmt(get(jm,key)) if jm else 'Not run')+'</td></tr>' for label,key in fields)
+    other={r['id']:r for r in improved['results']} if improved else {}
+    cases=''.join('<tr><td>'+escape(r['id'])+'</td><td>'+escape(case_status(r))+'</td><td>'+escape(case_status(other[r['id']]) if r['id'] in other else 'Not run')+'</td><td>'+fmt(r.get('elapsed_seconds'))+'</td><td>'+fmt(other[r['id']].get('elapsed_seconds') if r['id'] in other else None)+'</td></tr>' for r in baseline['results'])
+    note='No improved E2E data. No optimization or savings claim.' if not improved else 'Matched measured case data only. Small-cohort stochastic outcomes do not establish general improvements.'
+    if baseline['manifest'].get('subset_projection'):note+=' Historical subset projection: original concurrent batch time is not reused; no controlled batch-wall speedup claim.'
+    return '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACE-RTL measured report</title>
+<style>body{font:15px system-ui,sans-serif;background:#f3f6fb;color:#17243c;margin:0}main{max-width:1200px;margin:auto;padding:40px 24px}h1{font-size:30px}h2{font-size:20px;margin-top:32px}.tag{color:#2459bc;font-weight:700}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}.card,section{background:white;border:1px solid #dfe6f1;border-radius:12px;padding:20px}.card b{display:block;font-size:25px;margin-top:8px}.notice{background:#fff6dc;border-left:4px solid #b78500;padding:16px;margin:22px 0}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #e6ebf3;padding:11px;vertical-align:top}th{color:#435675}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}.scroll{overflow:auto}footer{color:#52647f;margin-top:26px}</style></head><body><main>
+<div class="tag">REAL EVALUATOR EVIDENCE · NO INFERRED SUCCESSES</div><h1>ACE-RTL 측정 리포트</h1><div class="cards">'''+''.join('<div class="card">'+label+'<b>'+fmt(bm[key])+'</b></div>' for label,key in [('Baseline cases','case_count'),('Baseline passed','success_count'),('Known tokens','reported_total_tokens'),('Batch wall seconds','batch_wall_seconds')])+'''</div><div class="notice">'''+escape(note)+''' Token estimates, unknown billing and primary currency prices are not treated as zero. Warmup is separate in performance statistics but included in spending controls.</div><section><h2>Baseline / JEV-like</h2><table><thead><tr><th>Metric</th><th>Baseline</th><th>JEV-like</th></tr></thead><tbody>'''+rows+'''</tbody></table></section><section><h2>Case outcomes</h2><div class="scroll"><table><thead><tr><th>Case</th><th>Baseline</th><th>JEV-like</th><th>Baseline s</th><th>JEV s</th></tr></thead><tbody>'''+cases+'''</tbody></table></div></section><details><summary>Full methodology, provider accounting and limitations</summary><pre>'''+escape(render_markdown(baseline,improved))+'''</pre></details><footer>Self-contained HTML; no external assets or model inference used to render this report.</footer></main></body></html>'''
+
+
 def main() -> None:
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--baseline',type=Path,required=True)
@@ -146,6 +167,7 @@ def main() -> None:
     improved=load_batch(args.improved) if args.improved else None
     args.output.mkdir(parents=True,exist_ok=True)
     (args.output/'comparison.md').write_text(render_markdown(baseline,improved))
+    (args.output/'comparison.html').write_text(render_html(baseline,improved),encoding='utf-8')
     payload={'baseline':batch_metrics(baseline),'jev':batch_metrics(improved) if improved else None,'changes':compare(baseline,improved)}
     (args.output/'metrics.json').write_text(json.dumps(payload,indent=2))
     with (args.output/'cases.csv').open('w') as f:

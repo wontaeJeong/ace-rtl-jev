@@ -1,0 +1,10 @@
+{
+  "status_code": 200,
+  "inference_request": false,
+  "model": "gpt-6-luna",
+  "matches": [
+    {
+      "id": "gpt-6-luna"
+    }
+  ]
+}

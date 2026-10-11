@@ -15,11 +15,13 @@ from pathlib import Path
 import requests
 
 from experiment_config import load_config, positive_number, require_primary
+from inference_budget import reserve, settle
 
 
 def usage_metrics(usage: dict | None, prompt: str, completion: str) -> dict:
     fields = ('prompt_tokens', 'completion_tokens', 'total_tokens')
-    if isinstance(usage, dict) and all(isinstance(usage.get(k), int) and not isinstance(usage[k], bool) and usage[k] >= 0 for k in fields):
+    if (isinstance(usage, dict) and all(isinstance(usage.get(k), int) and not isinstance(usage[k], bool) and usage[k] >= 0 for k in fields)
+            and usage['total_tokens']==usage['prompt_tokens']+usage['completion_tokens']):
         return {**{k: usage[k] for k in fields}, 'source': 'reported',
                 'cached_tokens': (usage.get('prompt_tokens_details') or {}).get('cached_tokens'),
                 'reasoning_tokens': (usage.get('completion_tokens_details') or {}).get('reasoning_tokens')}
@@ -58,6 +60,7 @@ def complete(request: dict) -> dict:
         raise ValueError('LLM_SAMPLING_MODE must be explicit or default')
     # NVIDIA-specific extra_body fields are intentionally not sent to another provider.
     prompt = json.dumps(messages, ensure_ascii=False)
+    ticket=reserve('primary',prompt,token_limit)
     call_id = uuid.uuid4().hex
     directory = os.environ.get('ACE_EXPERIMENT_TELEMETRY')
     path = Path(directory) / f'{call_id}.json' if directory else None
@@ -68,7 +71,9 @@ def complete(request: dict) -> dict:
               'started_at': datetime.now(timezone.utc).isoformat(),
               'request_sha256': hashlib.sha256(prompt.encode()).hexdigest(),
               'prompt_chars': len(prompt), 'status': 'inflight', 'usage': None,
-              'usage_unknown': True, 'fallback': os.environ.get('ACE_EXPERIMENT_FALLBACK') == '1'}
+              'usage_unknown': True, 'fallback': os.environ.get('ACE_EXPERIMENT_FALLBACK') == '1',
+              'fallback_reason':os.environ.get('ACE_EXPERIMENT_FALLBACK_REASON'), 'budget_ticket':ticket['id'],
+              'kind':os.environ.get('ACE_EXPERIMENT_CALL_KIND','primary_reasoning')}
     write_event(record, path)
     started = time.perf_counter()
     try:
@@ -112,6 +117,7 @@ def complete(request: dict) -> dict:
     finally:
         record['latency_seconds'] = time.perf_counter() - started
         write_event(record, path)
+        settle(ticket,record.get('usage'))
 
 
 def main() -> int:
