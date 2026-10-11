@@ -1,0 +1,25 @@
+{
+  "call_id": "b681f180d21647ce8e10e245e46062c2",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_galois_encryption_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:06:42.776156+00:00",
+  "request_sha256": "f1982f16712ff045f76477caa594e0b5acd60657573bd209166473f3790e86e1",
+  "prompt_chars": 23547,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 6334,
+    "completion_tokens": 240,
+    "total_tokens": 6574,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 120
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 408,
+  "latency_seconds": 3.413584583904594
+}

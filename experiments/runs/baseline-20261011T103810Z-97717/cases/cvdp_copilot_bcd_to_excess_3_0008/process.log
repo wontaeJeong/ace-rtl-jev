@@ -1,0 +1,18 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_bcd_to_excess_3_0008/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105022Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_bcd_to_excess_3_0008 ===
+2026-10-11 19:50:22,346 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:50:22,492 INFO ace_cvdp_native_runner.cvdp_copilot_bcd_to_excess_3_0008.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:50:22,492 INFO ace_cvdp_native_runner.cvdp_copilot_bcd_to_excess_3_0008.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:50:22,493 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:50:22,493 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:50:22,493 INFO ace_cvdp_native_runner.cvdp_copilot_bcd_to_excess_3_0008.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:50:22,493 INFO ace_cvdp_native_runner.cvdp_copilot_bcd_to_excess_3_0008.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:50:22,493 INFO ace_cvdp_native_runner.cvdp_copilot_bcd_to_excess_3_0008.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_bcd_to_excess_3_0008/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105022Z/datapoints/cvdp_copilot_bcd_to_excess_3_0008/attempt_1/iter_01/cvdp_work/cvdp_copilot_bcd_to_excess_3_0008
+Requesting valid response to model...
+2026-10-11 19:50:28,369 INFO ace_cvdp_native_runner.cvdp_copilot_bcd_to_excess_3_0008.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_bcd_to_excess_3_0008/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105022Z/datapoints/cvdp_copilot_bcd_to_excess_3_0008/attempt_1/iter_01/cvdp_work/cvdp_copilot_bcd_to_excess_3/harness/8
+Running native service: 08-new-tb
+cvdp_copilot_bcd_to_excess_3_0008 attempt 1 iteration 1: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_bcd_to_excess_3_0008/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105022Z

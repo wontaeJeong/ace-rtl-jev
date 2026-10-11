@@ -1,0 +1,25 @@
+{
+  "call_id": "82cd92ecfa684e60aa03601baf4e9cbb",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_clock_jitter_detection_module_0003",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:56:09.546335+00:00",
+  "request_sha256": "6f70fb4e1e1e79dfac7f0d05d8d35bcdae987c3177dbb8497eed51c8b608c90c",
+  "prompt_chars": 91698,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 23625,
+    "completion_tokens": 2276,
+    "total_tokens": 25901,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1853
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1717,
+  "latency_seconds": 16.080059832893312
+}

@@ -1,0 +1,25 @@
+{
+  "call_id": "5742124f3d224a58af9d3ace5dd1c91f",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_image_stego_0004",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:15:58.838848+00:00",
+  "request_sha256": "574f9ce61485adfac4b3a27162389750ba8ca9b4696c87d1b8f2bc5b646595ff",
+  "prompt_chars": 7767,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1806,
+    "completion_tokens": 1015,
+    "total_tokens": 2821,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 681
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 836,
+  "latency_seconds": 9.134962792042643
+}

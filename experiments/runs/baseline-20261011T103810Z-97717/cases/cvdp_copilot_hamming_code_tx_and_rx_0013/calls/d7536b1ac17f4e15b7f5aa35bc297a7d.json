@@ -1,0 +1,25 @@
+{
+  "call_id": "d7536b1ac17f4e15b7f5aa35bc297a7d",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_hamming_code_tx_and_rx_0013",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:11:49.904563+00:00",
+  "request_sha256": "abba2978c7113aa87df36871dec10b15a2568da96186ad7bb60aa6cdd11a5d4d",
+  "prompt_chars": 9193,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2144,
+    "completion_tokens": 42,
+    "total_tokens": 2186,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 25
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 26,
+  "latency_seconds": 1.2064687500242144
+}

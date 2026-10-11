@@ -1,0 +1,25 @@
+{
+  "call_id": "0ea3f6c27dc7487282844d88cd74101b",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_sequencial_binary_to_one_hot_decoder_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:33:54.545612+00:00",
+  "request_sha256": "1acfc8bea6c537f50926090488bf9af6c7ab7975023f85f300c97e51737c9565",
+  "prompt_chars": 28986,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 7342,
+    "completion_tokens": 291,
+    "total_tokens": 7633,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 133
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 510,
+  "latency_seconds": 3.5768894171342254
+}

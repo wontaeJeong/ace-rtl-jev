@@ -1,0 +1,96 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_fifo_to_axis_0001 ===
+2026-10-11 20:03:11,675 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:03:11,873 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:03:11,873 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:03:11,874 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:03:11,874 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:03:11,875 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:03:11,875 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:03:11,875 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_fifo_to_axis_0001
+Requesting valid response to model...
+2026-10-11 20:03:36,186 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_fifo_to_axis/harness/1
+Running native service: direct
+cvdp_copilot_fifo_to_axis_0001 attempt 1 iteration 1: FAIL (CANDIDATE_COMPILE)
+2026-10-11 20:03:36,567 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:03:36,570 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:03:36,570 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:03:38,376 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:03:38,376 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 20:03:38,377 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:03:38,377 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:03:48,221 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:03:48,221 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 1545
+2026-10-11 20:03:48,223 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Focusing on new error: - **Error Message:** Icarus Verilog crashed during compilati...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_fifo_to_axis_0001
+Requesting valid response to model...
+2026-10-11 20:03:56,047 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_fifo_to_axis/harness/1
+Running native service: direct
+2026-10-11 20:03:56,561 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:03:56,561 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:04:00,200 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:04:00,200 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 446
+2026-10-11 20:04:00,201 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Current error SOLVED in iteration 2 - specific error resolved without breaking other functionality
+2026-10-11 20:04:00,201 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Recorded iteration 2: no_change - 0/6 tests passed
+cvdp_copilot_fifo_to_axis_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:04:00,201 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:04:00,204 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:04:00,204 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:04:13,072 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:04:13,072 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 1849
+2026-10-11 20:04:13,073 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Focusing on new error: - **Error Message**: Cocotb failed to convert `o_axi_data` t...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_fifo_to_axis_0001
+Requesting valid response to model...
+2026-10-11 20:04:36,440 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_fifo_to_axis/harness/1
+Running native service: direct
+2026-10-11 20:04:36,986 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:04:36,986 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:04:45,361 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:04:45,361 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 513
+2026-10-11 20:04:45,361 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:04:45,361 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 20:04:45,361 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Recorded iteration 3: no_change - 0/6 tests passed
+cvdp_copilot_fifo_to_axis_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:04:45,362 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:04:45,363 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Continuing to focus on same error: - **Error Message**: Cocotb failed to convert `o_axi_data` t...
+2026-10-11 20:04:45,363 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:04:45,363 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:05:14,410 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:05:14,410 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 1629
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_fifo_to_axis_0001
+Requesting valid response to model...
+2026-10-11 20:05:32,428 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_fifo_to_axis/harness/1
+Running native service: direct
+2026-10-11 20:05:32,882 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:05:32,882 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:05:38,199 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:05:38,199 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 460
+2026-10-11 20:05:38,199 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:05:38,200 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 20:05:38,200 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Recorded iteration 4: no_change - 0/6 tests passed
+cvdp_copilot_fifo_to_axis_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:05:38,200 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:05:38,202 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Continuing to focus on same error: - **Error Message**: Cocotb failed to convert `o_axi_data` t...
+2026-10-11 20:05:38,203 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:05:38,203 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:06:00,534 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:06:00,534 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 1539
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_fifo_to_axis_0001
+Requesting valid response to model...
+2026-10-11 20:06:26,992 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z/datapoints/cvdp_copilot_fifo_to_axis_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_fifo_to_axis/harness/1
+Running native service: direct
+2026-10-11 20:06:27,379 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:06:27,379 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:06:32,670 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:06:32,670 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Received LLM response, length: 541
+2026-10-11 20:06:32,671 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:06:32,671 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Current error appears solved but introduced NEW errors in iteration 5
+2026-10-11 20:06:32,671 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 20:06:32,671 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Recorded iteration 5: no_change - 0/6 tests passed
+cvdp_copilot_fifo_to_axis_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:06:32,671 INFO ace_cvdp_native_runner.cvdp_copilot_fifo_to_axis_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fifo_to_axis_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110311Z

@@ -1,0 +1,86 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_montgomery_0002 ===
+2026-10-11 20:21:19,549 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:21:19,743 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:21:19,743 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:21:19,744 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:21:19,744 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:21:19,744 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:21:19,744 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:21:19,744 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_01/cvdp_work/cvdp_copilot_montgomery_0002
+Requesting valid response to model...
+2026-10-11 20:21:57,970 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_01/cvdp_work/cvdp_copilot_montgomery/harness/2
+Running native service: 01-new-tb
+cvdp_copilot_montgomery_0002 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:21:58,373 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:21:58,375 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:21:58,375 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:22:02,385 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:22:02,386 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 375
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 20:22:02,386 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 20:22:02,387 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:22:02,387 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:22:47,296 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:22:47,297 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Received LLM response, length: 1630
+2026-10-11 20:22:47,297 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Focusing on new error: - **Error Message**: Functional mismatch — `dut_output` is `...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_02/cvdp_work/cvdp_copilot_montgomery_0002
+Requesting valid response to model...
+2026-10-11 20:23:22,384 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_02/cvdp_work/cvdp_copilot_montgomery/harness/2
+Running native service: 01-new-tb
+2026-10-11 20:23:22,789 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:23:22,789 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:23:26,241 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:23:26,241 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Received LLM response, length: 435
+2026-10-11 20:23:26,242 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:23:26,242 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 20:23:26,242 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Recorded iteration 2: no_change - 0/5 tests passed
+cvdp_copilot_montgomery_0002 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:23:26,242 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:23:26,243 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Continuing to focus on same error: - **Error Message**: Functional mismatch — `dut_output` is `...
+2026-10-11 20:23:26,244 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:23:26,244 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:23:50,717 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:23:50,717 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Received LLM response, length: 1621
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_03/cvdp_work/cvdp_copilot_montgomery_0002
+Requesting valid response to model...
+2026-10-11 20:24:31,424 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_03/cvdp_work/cvdp_copilot_montgomery/harness/2
+Running native service: 01-new-tb
+2026-10-11 20:24:31,885 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 20:24:31,885 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Recorded iteration 3: no_change - 0/5 tests passed
+cvdp_copilot_montgomery_0002 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:24:31,885 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:24:31,886 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Continuing to focus on same error: - **Error Message**: Functional mismatch — `dut_output` is `...
+2026-10-11 20:24:31,887 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:24:31,887 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:25:02,505 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:25:02,505 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Received LLM response, length: 1481
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_04/cvdp_work/cvdp_copilot_montgomery_0002
+Requesting valid response to model...
+2026-10-11 20:25:39,435 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_04/cvdp_work/cvdp_copilot_montgomery/harness/2
+Running native service: 01-new-tb
+2026-10-11 20:25:39,905 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 20:25:39,905 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Recorded iteration 4: no_change - 0/5 tests passed
+cvdp_copilot_montgomery_0002 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:25:39,905 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:25:39,906 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Continuing to focus on same error: - **Error Message**: Functional mismatch — `dut_output` is `...
+2026-10-11 20:25:39,906 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:25:39,906 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:26:23,921 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:26:23,921 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Received LLM response, length: 1756
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_05/cvdp_work/cvdp_copilot_montgomery_0002
+Requesting valid response to model...
+2026-10-11 20:26:52,424 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z/datapoints/cvdp_copilot_montgomery_0002/attempt_1/iter_05/cvdp_work/cvdp_copilot_montgomery/harness/2
+Running native service: 01-new-tb
+2026-10-11 20:26:52,939 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:26:52,939 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:26:57,916 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:26:57,916 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Received LLM response, length: 485
+2026-10-11 20:26:57,916 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Current error SOLVED in iteration 5 - specific error resolved without breaking other functionality
+2026-10-11 20:26:57,916 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Recorded iteration 5: no_change - 0/5 tests passed
+cvdp_copilot_montgomery_0002 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:26:57,917 INFO ace_cvdp_native_runner.cvdp_copilot_montgomery_0002.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_montgomery_0002/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112119Z

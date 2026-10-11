@@ -1,0 +1,25 @@
+{
+  "call_id": "7d725f70eadd402baae8ad2295af7a69",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_nbit_swizzling_0020",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:22:23.790416+00:00",
+  "request_sha256": "d72951887079032fe31490170fe2c4aa6e59d22d98cc35ff0c0d0e7f94451a08",
+  "prompt_chars": 8916,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2171,
+    "completion_tokens": 4401,
+    "total_tokens": 6572,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 3405
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3044,
+  "latency_seconds": 35.30823437520303
+}

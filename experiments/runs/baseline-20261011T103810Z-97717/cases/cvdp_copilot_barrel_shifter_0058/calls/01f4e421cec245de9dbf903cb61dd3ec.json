@@ -1,0 +1,25 @@
+{
+  "call_id": "01f4e421cec245de9dbf903cb61dd3ec",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_barrel_shifter_0058",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:49:38.271942+00:00",
+  "request_sha256": "482560d96c9224a23a438f82f6bf9b7ca6d5844d9b1f6b393ff02da1fb8416e8",
+  "prompt_chars": 12307,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 3048,
+    "completion_tokens": 3700,
+    "total_tokens": 6748,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 2726
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3836,
+  "latency_seconds": 37.650026708841324
+}

@@ -1,0 +1,112 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_serial_in_parallel_out_0014 ===
+2026-10-11 20:34:09,699 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:34:09,847 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:34:09,847 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:34:09,848 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:34:09,848 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:34:09,848 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:34:09,848 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:34:09,848 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_01/cvdp_work/cvdp_copilot_serial_in_parallel_out_0014
+Requesting valid response to model...
+2026-10-11 20:34:40,981 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_01/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/14
+Running native service: 14-new-tb
+cvdp_copilot_serial_in_parallel_out_0014 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:34:44,243 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:34:44,249 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2644 lines -> 652 lines, 306051 chars -> 90000 chars
+2026-10-11 20:34:44,249 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 306051 chars -> 90000 chars
+2026-10-11 20:34:44,250 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (112089 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:34:44,250 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:34:44,250 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:34:57,135 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:34:57,135 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 1545
+2026-10-11 20:34:57,137 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Focusing on new error: - **Error Message**: `AttributeError: sipo_top contains no c...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_02/cvdp_work/cvdp_copilot_serial_in_parallel_out_0014
+Requesting valid response to model...
+2026-10-11 20:35:10,499 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_02/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/14
+Running native service: 14-new-tb
+2026-10-11 20:35:14,284 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2662 lines -> 755 lines, 302472 chars -> 90000 chars
+2026-10-11 20:35:14,284 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 302472 chars -> 90000 chars
+2026-10-11 20:35:14,284 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (105851 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:35:14,284 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:35:14,284 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:35:16,609 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:35:16,609 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 375
+2026-10-11 20:35:16,609 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Current error SOLVED in iteration 2 - specific error resolved without breaking other functionality
+2026-10-11 20:35:16,609 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Recorded iteration 2: no_change - 0/127 tests passed
+cvdp_copilot_serial_in_parallel_out_0014 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:35:16,610 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:35:16,615 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2662 lines -> 755 lines, 302472 chars -> 90000 chars
+2026-10-11 20:35:16,615 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 302472 chars -> 90000 chars
+2026-10-11 20:35:16,616 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (112079 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:35:16,616 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:35:16,616 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:35:46,075 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:35:46,075 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 2077
+2026-10-11 20:35:46,076 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Focusing on new error: - **Error Message**: CRC assertion fails in `test_sipo.py` a...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_03/cvdp_work/cvdp_copilot_serial_in_parallel_out_0014
+Requesting valid response to model...
+2026-10-11 20:36:11,693 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_03/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/14
+Running native service: 14-new-tb
+2026-10-11 20:36:14,965 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2662 lines -> 755 lines, 302445 chars -> 90000 chars
+2026-10-11 20:36:14,965 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 302445 chars -> 90000 chars
+2026-10-11 20:36:14,965 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (106126 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:36:14,965 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:36:14,965 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:36:17,344 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:36:17,344 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 389
+2026-10-11 20:36:17,345 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 20:36:17,345 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Recorded iteration 3: no_change - 0/127 tests passed
+cvdp_copilot_serial_in_parallel_out_0014 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:36:17,345 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:36:17,351 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2662 lines -> 755 lines, 302445 chars -> 90000 chars
+2026-10-11 20:36:17,351 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 302445 chars -> 90000 chars
+2026-10-11 20:36:17,351 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Continuing to focus on same error: - **Error Message**: CRC assertion fails in `test_sipo.py` a...
+2026-10-11 20:36:17,352 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (113130 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:36:17,353 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:36:17,353 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:36:47,488 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:36:47,488 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 1520
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_04/cvdp_work/cvdp_copilot_serial_in_parallel_out_0014
+Requesting valid response to model...
+2026-10-11 20:37:02,996 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_04/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/14
+Running native service: 14-new-tb
+2026-10-11 20:37:06,981 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2662 lines -> 755 lines, 302477 chars -> 90000 chars
+2026-10-11 20:37:06,981 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 302477 chars -> 90000 chars
+2026-10-11 20:37:06,981 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (106136 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:37:06,981 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:37:06,981 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:37:10,502 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:37:10,502 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 496
+2026-10-11 20:37:10,502 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:37:10,502 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 20:37:10,502 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Recorded iteration 4: no_change - 0/127 tests passed
+cvdp_copilot_serial_in_parallel_out_0014 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:37:10,503 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:37:10,509 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2662 lines -> 755 lines, 302477 chars -> 90000 chars
+2026-10-11 20:37:10,509 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 302477 chars -> 90000 chars
+2026-10-11 20:37:10,509 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Continuing to focus on same error: - **Error Message**: CRC assertion fails in `test_sipo.py` a...
+2026-10-11 20:37:10,510 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (113135 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:37:10,510 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:37:10,510 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:37:37,418 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:37:37,419 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 1510
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_05/cvdp_work/cvdp_copilot_serial_in_parallel_out_0014
+Requesting valid response to model...
+2026-10-11 20:38:07,315 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z/datapoints/cvdp_copilot_serial_in_parallel_out_0014/attempt_1/iter_05/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/14
+Running native service: 14-new-tb
+2026-10-11 20:38:11,224 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Intelligent truncation: 2709 lines -> 768 lines, 307392 chars -> 90000 chars
+2026-10-11 20:38:11,224 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prepared compact error report for prompt: 307392 chars -> 90000 chars
+2026-10-11 20:38:11,224 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Prompt (106188 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:38:11,224 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:38:11,224 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:38:14,793 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:38:14,794 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Received LLM response, length: 431
+2026-10-11 20:38:14,794 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 20:38:14,794 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Recorded iteration 5: no_change - 0/127 tests passed
+cvdp_copilot_serial_in_parallel_out_0014 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:38:14,795 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0014.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0014/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113409Z

@@ -1,0 +1,86 @@
+{
+  "id": "cvdp_copilot_Carry_Lookahead_Adder_0005",
+  "category": "cid016",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 57.07923208293505,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 1,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 3922,
+      "reported_completion_tokens": 5574,
+      "reported_total_tokens": 9496,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 56.00947575015016,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103843Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103843Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_01/candidate/rtl/pipelined_adder_32bit.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "61871463fcb7124b",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103843Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_01/candidate/rtl/pipelined_adder_32bit.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103843Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/pipelined_adder_32bit.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103843Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_01/candidate/rtl/pipelined_adder_32bit.sv"
+            },
+            "iteration": 1,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.395672082901001,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103843Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_Carry_Lookahead_Adder/reports/5.txt",
+                  "pid": 98878,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.396,\n      \"log_basename\": \"5.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 1,
+        "status": "passed"
+      }
+    ],
+    "category": "cid016",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_Carry_Lookahead_Adder_0005",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

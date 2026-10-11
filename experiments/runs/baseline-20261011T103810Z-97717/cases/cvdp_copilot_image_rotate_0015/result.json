@@ -1,0 +1,94 @@
+{
+  "id": "cvdp_copilot_image_rotate_0015",
+  "category": "cid007",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 32.28500104090199,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 1,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 2101,
+      "reported_completion_tokens": 3336,
+      "reported_total_tokens": 5437,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 27.998387875035405,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_image_rotate_0015/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111525Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_image_rotate_0015/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111525Z/datapoints/cvdp_copilot_image_rotate_0015/attempt_1/iter_01/candidate/rtl/image_rotate.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "d5c01707cb571ea9",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_image_rotate_0015/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111525Z/datapoints/cvdp_copilot_image_rotate_0015/attempt_1/iter_01/candidate/rtl/image_rotate.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_image_rotate_0015/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111525Z/datapoints/cvdp_copilot_image_rotate_0015/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/image_rotate.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_image_rotate_0015/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111525Z/datapoints/cvdp_copilot_image_rotate_0015/attempt_1/iter_01/candidate/rtl/image_rotate.sv"
+            },
+            "iteration": 1,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid007",
+              "difficulty": "easy",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 2.0283639430999756,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_image_rotate_0015/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111525Z/datapoints/cvdp_copilot_image_rotate_0015/attempt_1/iter_01/cvdp_work/cvdp_copilot_image_rotate/reports/15_sanity.txt",
+                  "pid": 16264,
+                  "result": 0,
+                  "terminated_pids": []
+                },
+                {
+                  "error_msg": null,
+                  "execution": 1.5118870735168457,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_image_rotate_0015/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111525Z/datapoints/cvdp_copilot_image_rotate_0015/attempt_1/iter_01/cvdp_work/cvdp_copilot_image_rotate/reports/15_synth.txt",
+                  "pid": 16326,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid007\",\n  \"difficulty\": \"easy\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 2.028,\n      \"log_basename\": \"15_sanity.txt\"\n    },\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 1.512,\n      \"log_basename\": \"15_synth.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 1,
+        "status": "passed"
+      }
+    ],
+    "category": "cid007",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_image_rotate_0015",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

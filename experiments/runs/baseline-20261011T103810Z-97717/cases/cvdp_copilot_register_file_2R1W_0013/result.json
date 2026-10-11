@@ -1,0 +1,86 @@
+{
+  "id": "cvdp_copilot_register_file_2R1W_0013",
+  "category": "cid002",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 11.275626667076722,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 1,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 2539,
+      "reported_completion_tokens": 1073,
+      "reported_total_tokens": 3612,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 9.650614666054025,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_register_file_2R1W_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112823Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_register_file_2R1W_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112823Z/datapoints/cvdp_copilot_register_file_2R1W_0013/attempt_1/iter_01/candidate/rtl/cvdp_copilot_register_file_2R1W.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "616d4179d468486d",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_register_file_2R1W_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112823Z/datapoints/cvdp_copilot_register_file_2R1W_0013/attempt_1/iter_01/candidate/rtl/cvdp_copilot_register_file_2R1W.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_register_file_2R1W_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112823Z/datapoints/cvdp_copilot_register_file_2R1W_0013/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_register_file_2R1W.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_register_file_2R1W_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112823Z/datapoints/cvdp_copilot_register_file_2R1W_0013/attempt_1/iter_01/candidate/rtl/cvdp_copilot_register_file_2R1W.sv"
+            },
+            "iteration": 1,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.796687126159668,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_register_file_2R1W_0013/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112823Z/datapoints/cvdp_copilot_register_file_2R1W_0013/attempt_1/iter_01/cvdp_work/cvdp_copilot_register_file_2R1W/reports/13.txt",
+                  "pid": 22640,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.797,\n      \"log_basename\": \"13.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 1,
+        "status": "passed"
+      }
+    ],
+    "category": "cid002",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_register_file_2R1W_0013",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

@@ -1,0 +1,18 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_serializer_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105737Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_data_serializer_0001 ===
+2026-10-11 19:57:37,308 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:57:37,484 INFO ace_cvdp_native_runner.cvdp_copilot_data_serializer_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:57:37,484 INFO ace_cvdp_native_runner.cvdp_copilot_data_serializer_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:57:37,484 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:57:37,484 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:57:37,485 INFO ace_cvdp_native_runner.cvdp_copilot_data_serializer_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:57:37,485 INFO ace_cvdp_native_runner.cvdp_copilot_data_serializer_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:57:37,485 INFO ace_cvdp_native_runner.cvdp_copilot_data_serializer_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_serializer_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105737Z/datapoints/cvdp_copilot_data_serializer_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_serializer_0001
+Requesting valid response to model...
+2026-10-11 19:57:55,476 INFO ace_cvdp_native_runner.cvdp_copilot_data_serializer_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_serializer_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105737Z/datapoints/cvdp_copilot_data_serializer_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_serializer/harness/1
+Running native service: direct
+cvdp_copilot_data_serializer_0001 attempt 1 iteration 1: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_serializer_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105737Z

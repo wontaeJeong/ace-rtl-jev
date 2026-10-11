@@ -1,0 +1,25 @@
+{
+  "call_id": "da1d208e65d246668dfdead5fa0b6052",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_Attenuator_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:38:30.946855+00:00",
+  "request_sha256": "46a8def615d559f477bb5019ca66f054045c02a2d2b448f5a05d8b1fbfca185f",
+  "prompt_chars": 8636,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1928,
+    "completion_tokens": 2340,
+    "total_tokens": 4268,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1689
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2535,
+  "latency_seconds": 26.710389208048582
+}

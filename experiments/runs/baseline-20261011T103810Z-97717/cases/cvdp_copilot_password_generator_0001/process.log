@@ -1,0 +1,43 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_password_generator_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112308Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_password_generator_0001 ===
+2026-10-11 20:23:08,496 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:23:08,641 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:23:08,641 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:23:08,642 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:23:08,642 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:23:08,642 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:23:08,642 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:23:08,642 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_password_generator_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112308Z/datapoints/cvdp_copilot_password_generator_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_password_generator_0001
+Requesting valid response to model...
+2026-10-11 20:23:29,879 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_password_generator_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112308Z/datapoints/cvdp_copilot_password_generator_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_password_generator/harness/1
+Running native service: direct
+cvdp_copilot_password_generator_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:23:30,669 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:23:30,670 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:23:30,670 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:23:34,638 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:23:34,639 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 408
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 20:23:34,639 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 20:23:34,639 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:23:34,639 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:23:47,543 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:23:47,543 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Received LLM response, length: 1643
+2026-10-11 20:23:47,544 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Focusing on new error: - **Error Message**: Password validation failed for every te...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_password_generator_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112308Z/datapoints/cvdp_copilot_password_generator_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_password_generator_0001
+Requesting valid response to model...
+2026-10-11 20:24:02,848 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_password_generator_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112308Z/datapoints/cvdp_copilot_password_generator_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_password_generator/harness/1
+Running native service: direct
+2026-10-11 20:24:03,806 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:24:03,807 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:24:06,288 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:24:06,288 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Received LLM response, length: 467
+2026-10-11 20:24:06,289 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:24:06,289 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 20:24:06,289 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 20:24:06,289 INFO ace_cvdp_native_runner.cvdp_copilot_password_generator_0001.attempt1: Recorded iteration 2: solved - 9/9 tests passed
+cvdp_copilot_password_generator_0001 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_password_generator_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112308Z

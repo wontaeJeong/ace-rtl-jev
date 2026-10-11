@@ -1,0 +1,115 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_fan_controller_0008 ===
+2026-10-11 20:01:49,764 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:01:49,936 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:01:49,936 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:01:49,937 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:01:49,937 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:01:49,937 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:01:49,937 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:01:49,937 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_01/cvdp_work/cvdp_copilot_fan_controller_0008
+Requesting valid response to model...
+2026-10-11 20:02:18,993 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_01/cvdp_work/cvdp_copilot_fan_controller/harness/8
+Running native service: sanity
+Running native service: synth
+cvdp_copilot_fan_controller_0008 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:02:20,159 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:02:20,162 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2312 lines -> 842 lines, 123759 chars -> 52114 chars
+2026-10-11 20:02:20,162 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 123759 chars -> 52114 chars
+2026-10-11 20:02:20,163 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:02:20,163 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:02:22,201 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:02:22,202 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 20:02:22,203 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:02:22,203 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:02:50,362 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:02:50,362 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 1704
+2026-10-11 20:02:50,364 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Focusing on new error: - **Error Message**: PWM output assertion failed; the test e...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_02/cvdp_work/cvdp_copilot_fan_controller_0008
+Requesting valid response to model...
+2026-10-11 20:03:13,657 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_02/cvdp_work/cvdp_copilot_fan_controller/harness/8
+Running native service: sanity
+Running native service: synth
+2026-10-11 20:03:14,696 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2000 lines -> 825 lines, 109106 chars -> 50525 chars
+2026-10-11 20:03:14,697 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 109106 chars -> 50525 chars
+2026-10-11 20:03:14,697 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:03:14,697 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:03:19,444 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:03:19,445 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 482
+2026-10-11 20:03:19,445 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 20:03:19,445 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Recorded iteration 2: no_change - 2/7 tests passed
+cvdp_copilot_fan_controller_0008 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:03:19,445 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:03:19,447 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2000 lines -> 825 lines, 109106 chars -> 50525 chars
+2026-10-11 20:03:19,447 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 109106 chars -> 50525 chars
+2026-10-11 20:03:19,448 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Continuing to focus on same error: - **Error Message**: PWM output assertion failed; the test e...
+2026-10-11 20:03:19,449 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:03:19,449 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:03:42,700 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:03:42,701 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 1353
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_03/cvdp_work/cvdp_copilot_fan_controller_0008
+Requesting valid response to model...
+2026-10-11 20:04:13,335 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_03/cvdp_work/cvdp_copilot_fan_controller/harness/8
+Running native service: sanity
+Running native service: synth
+2026-10-11 20:04:14,461 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2016 lines -> 804 lines, 112983 chars -> 50762 chars
+2026-10-11 20:04:14,461 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 112983 chars -> 50762 chars
+2026-10-11 20:04:14,461 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:04:14,461 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:04:17,918 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:04:17,918 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 488
+2026-10-11 20:04:17,919 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 20:04:17,919 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Recorded iteration 3: no_change - 2/7 tests passed
+cvdp_copilot_fan_controller_0008 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:04:17,920 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:04:17,924 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2016 lines -> 804 lines, 112983 chars -> 50762 chars
+2026-10-11 20:04:17,925 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 112983 chars -> 50762 chars
+2026-10-11 20:04:17,926 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Continuing to focus on same error: - **Error Message**: PWM output assertion failed; the test e...
+2026-10-11 20:04:17,927 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:04:17,927 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:04:41,062 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:04:41,062 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 1475
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_04/cvdp_work/cvdp_copilot_fan_controller_0008
+Requesting valid response to model...
+2026-10-11 20:04:56,359 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_04/cvdp_work/cvdp_copilot_fan_controller/harness/8
+Running native service: sanity
+Running native service: synth
+2026-10-11 20:04:57,322 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2008 lines -> 827 lines, 109482 chars -> 50646 chars
+2026-10-11 20:04:57,322 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 109482 chars -> 50646 chars
+2026-10-11 20:04:57,322 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:04:57,322 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:05:01,493 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:05:01,493 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 532
+2026-10-11 20:05:01,493 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:05:01,493 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 20:05:01,493 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Recorded iteration 4: no_change - 2/7 tests passed
+cvdp_copilot_fan_controller_0008 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:05:01,494 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:05:01,499 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2008 lines -> 827 lines, 109482 chars -> 50646 chars
+2026-10-11 20:05:01,499 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 109482 chars -> 50646 chars
+2026-10-11 20:05:01,501 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Continuing to focus on same error: - **Error Message**: PWM output assertion failed; the test e...
+2026-10-11 20:05:01,502 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:05:01,502 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:05:14,131 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:05:14,132 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 1200
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_05/cvdp_work/cvdp_copilot_fan_controller_0008
+Requesting valid response to model...
+2026-10-11 20:05:29,245 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z/datapoints/cvdp_copilot_fan_controller_0008/attempt_1/iter_05/cvdp_work/cvdp_copilot_fan_controller/harness/8
+Running native service: sanity
+Running native service: synth
+2026-10-11 20:05:30,175 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Intelligent truncation: 2266 lines -> 760 lines, 134209 chars -> 55329 chars
+2026-10-11 20:05:30,175 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Prepared compact error report for prompt: 134209 chars -> 55329 chars
+2026-10-11 20:05:30,175 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:05:30,175 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:05:35,020 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:05:35,020 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Received LLM response, length: 484
+2026-10-11 20:05:35,020 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:05:35,020 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 20:05:35,020 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Recorded iteration 5: no_change - 2/7 tests passed
+cvdp_copilot_fan_controller_0008 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:05:35,021 INFO ace_cvdp_native_runner.cvdp_copilot_fan_controller_0008.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_fan_controller_0008/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110149Z

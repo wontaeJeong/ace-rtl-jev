@@ -1,0 +1,89 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_axis_joiner_0001 ===
+2026-10-11 19:47:48,705 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:47:48,848 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:47:48,848 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:47:48,849 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:47:48,849 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:47:48,849 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:47:48,849 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:47:48,849 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_axis_joiner_0001
+Requesting valid response to model...
+2026-10-11 19:48:18,771 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_axis_joiner/harness/1
+Running native service: direct
+cvdp_copilot_axis_joiner_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:48:19,164 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:48:19,166 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:48:19,166 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:48:21,676 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:48:21,677 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 355
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 19:48:21,677 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 19:48:21,677 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:48:21,678 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:48:37,031 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:48:37,032 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Received LLM response, length: 1896
+2026-10-11 19:48:37,032 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Focusing on new error: - **Error Message**: The test fails because `m_axis_tdata` i...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_axis_joiner_0001
+Requesting valid response to model...
+2026-10-11 19:48:57,270 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_axis_joiner/harness/1
+Running native service: direct
+2026-10-11 19:48:57,655 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:48:57,656 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:49:00,497 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:49:00,497 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Received LLM response, length: 618
+2026-10-11 19:49:00,497 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 19:49:00,497 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Recorded iteration 2: no_change - 0/6 tests passed
+cvdp_copilot_axis_joiner_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:49:00,497 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:49:00,499 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Continuing to focus on same error: - **Error Message**: The test fails because `m_axis_tdata` i...
+2026-10-11 19:49:00,500 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:49:00,500 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:49:18,332 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:49:18,332 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Received LLM response, length: 1556
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_axis_joiner_0001
+Requesting valid response to model...
+2026-10-11 19:49:45,851 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_axis_joiner/harness/1
+Running native service: direct
+2026-10-11 19:49:46,235 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:49:46,235 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:49:51,713 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:49:51,713 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Received LLM response, length: 475
+2026-10-11 19:49:51,713 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 19:49:51,713 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Recorded iteration 3: no_change - 0/6 tests passed
+cvdp_copilot_axis_joiner_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:49:51,714 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:49:51,716 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Continuing to focus on same error: - **Error Message**: The test fails because `m_axis_tdata` i...
+2026-10-11 19:49:51,717 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:49:51,717 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:50:08,613 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:50:08,613 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Received LLM response, length: 1798
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_axis_joiner_0001
+Requesting valid response to model...
+2026-10-11 19:50:31,537 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_axis_joiner/harness/1
+Running native service: direct
+2026-10-11 19:50:31,904 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:50:31,904 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:50:36,428 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:50:36,428 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Received LLM response, length: 420
+2026-10-11 19:50:36,429 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 19:50:36,429 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Recorded iteration 4: no_change - 0/6 tests passed
+cvdp_copilot_axis_joiner_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:50:36,429 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:50:36,431 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Continuing to focus on same error: - **Error Message**: The test fails because `m_axis_tdata` i...
+2026-10-11 19:50:36,432 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:50:36,432 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:50:53,063 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:50:53,063 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Received LLM response, length: 1628
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_axis_joiner_0001
+Requesting valid response to model...
+2026-10-11 19:51:17,028 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z/datapoints/cvdp_copilot_axis_joiner_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_axis_joiner/harness/1
+Running native service: direct
+2026-10-11 19:51:17,418 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Unclear if error solved in iteration 5 - continuing to focus on same error
+2026-10-11 19:51:17,418 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Recorded iteration 5: no_change - 0/6 tests passed
+cvdp_copilot_axis_joiner_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:51:17,418 INFO ace_cvdp_native_runner.cvdp_copilot_axis_joiner_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_joiner_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104748Z

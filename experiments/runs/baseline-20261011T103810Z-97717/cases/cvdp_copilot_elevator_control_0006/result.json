@@ -1,0 +1,207 @@
+{
+  "id": "cvdp_copilot_elevator_control_0006",
+  "category": "cid004",
+  "mode": "baseline",
+  "status": "failure",
+  "returncode": 0,
+  "elapsed_seconds": 1753.393619749928,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 13,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 78754,
+      "reported_completion_tokens": 25869,
+      "reported_total_tokens": 104623,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 240.2160010410007,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "5fc8006b789f1467",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_01/candidate/rtl/elevator_control_system.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/elevator_control_system.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_01/candidate/rtl/elevator_control_system.sv",
+              "rtl/floor_to_seven_segment.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_01/candidate/rtl/floor_to_seven_segment.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid004",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "Failed to execute objective harness",
+                  "execution": 0,
+                  "log": null,
+                  "result": 1
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid004\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": \"Failed to execute objective harness\",\n      \"execution\": 0.0,\n      \"log_basename\": null\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "c4cb5600059deaa4",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_02/candidate/rtl/elevator_control_system.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/elevator_control_system.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_02/candidate/rtl/elevator_control_system.sv",
+              "rtl/floor_to_seven_segment.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_02/candidate/rtl/floor_to_seven_segment.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid004",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "Failed to execute objective harness",
+                  "execution": 0,
+                  "log": null,
+                  "result": 1
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid004\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": \"Failed to execute objective harness\",\n      \"execution\": 0.0,\n      \"log_basename\": null\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "8d364f166be86491",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_03/candidate/rtl/elevator_control_system.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/elevator_control_system.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_03/candidate/rtl/elevator_control_system.sv",
+              "rtl/floor_to_seven_segment.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_03/candidate/rtl/floor_to_seven_segment.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid004",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "Failed to execute objective harness",
+                  "execution": 0,
+                  "log": null,
+                  "result": 1
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid004\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": \"Failed to execute objective harness\",\n      \"execution\": 0.0,\n      \"log_basename\": null\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "7b6df976b05a1e67",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_04/candidate/rtl/elevator_control_system.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/elevator_control_system.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_04/candidate/rtl/elevator_control_system.sv",
+              "rtl/floor_to_seven_segment.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_04/candidate/rtl/floor_to_seven_segment.sv"
+            },
+            "iteration": 4,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid004",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "Failed to execute objective harness",
+                  "execution": 0,
+                  "log": null,
+                  "result": 1
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid004\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": \"Failed to execute objective harness\",\n      \"execution\": 0.0,\n      \"log_basename\": null\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "1dad16ee9497e2c4",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_05/candidate/rtl/elevator_control_system.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_05/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/elevator_control_system.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_05/candidate/rtl/elevator_control_system.sv",
+              "rtl/floor_to_seven_segment.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_05/candidate/rtl/floor_to_seven_segment.sv"
+            },
+            "iteration": 5,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid004",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "Failed to execute objective harness",
+                  "execution": 0,
+                  "log": null,
+                  "result": 1
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid004\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": \"Failed to execute objective harness\",\n      \"execution\": 0.0,\n      \"log_basename\": null\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "status": "failed"
+      }
+    ],
+    "category": "cid004",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_elevator_control_0006",
+    "passed": false,
+    "passed_attempt": null,
+    "stopped_after_first_pass": 0
+  }
+}

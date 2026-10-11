@@ -1,0 +1,45 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_digital_stopwatch_0012/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105836Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_digital_stopwatch_0012 ===
+2026-10-11 19:58:37,117 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:58:37,283 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:58:37,283 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:58:37,284 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:58:37,284 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:58:37,284 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:58:37,284 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:58:37,284 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_digital_stopwatch_0012/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105836Z/datapoints/cvdp_copilot_digital_stopwatch_0012/attempt_1/iter_01/cvdp_work/cvdp_copilot_digital_stopwatch_0012
+Requesting valid response to model...
+2026-10-11 19:58:49,554 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_digital_stopwatch_0012/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105836Z/datapoints/cvdp_copilot_digital_stopwatch_0012/attempt_1/iter_01/cvdp_work/cvdp_copilot_digital_stopwatch/harness/12
+Running native service: 12-new-tb
+cvdp_copilot_digital_stopwatch_0012 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:58:50,342 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:58:50,343 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:58:50,343 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:58:53,937 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:58:53,937 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 418
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 19:58:53,937 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 19:58:53,938 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:58:53,938 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:59:00,772 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:59:00,773 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Received LLM response, length: 1644
+2026-10-11 19:59:00,773 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Focusing on new error: - **Error Message**: Cocotb cannot find a top-level signal n...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_digital_stopwatch_0012/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105836Z/datapoints/cvdp_copilot_digital_stopwatch_0012/attempt_1/iter_02/cvdp_work/cvdp_copilot_digital_stopwatch_0012
+Requesting valid response to model...
+2026-10-11 19:59:07,873 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_digital_stopwatch_0012/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105836Z/datapoints/cvdp_copilot_digital_stopwatch_0012/attempt_1/iter_02/cvdp_work/cvdp_copilot_digital_stopwatch/harness/12
+Running native service: 12-new-tb
+2026-10-11 19:59:28,251 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Intelligent truncation: 7866 lines -> 899 lines, 394015 chars -> 46208 chars
+2026-10-11 19:59:28,251 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Prepared compact error report for prompt: 394015 chars -> 46208 chars
+2026-10-11 19:59:28,251 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:59:28,251 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:59:29,986 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:59:29,987 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Received LLM response, length: 329
+2026-10-11 19:59:29,987 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:59:29,987 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 19:59:29,987 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 19:59:29,987 INFO ace_cvdp_native_runner.cvdp_copilot_digital_stopwatch_0012.attempt1: Recorded iteration 2: solved - 3/3 tests passed
+cvdp_copilot_digital_stopwatch_0012 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_digital_stopwatch_0012/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105836Z

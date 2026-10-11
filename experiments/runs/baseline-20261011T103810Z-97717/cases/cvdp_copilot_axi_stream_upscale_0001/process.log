@@ -1,0 +1,95 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_axi_stream_upscale_0001 ===
+2026-10-11 19:45:48,537 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:45:48,724 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:45:48,724 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:45:48,725 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:45:48,725 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:45:48,725 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:45:48,725 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:45:48,725 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_axi_stream_upscale_0001
+Requesting valid response to model...
+2026-10-11 19:46:03,813 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_axi_stream_upscale/harness/1
+Running native service: direct
+cvdp_copilot_axi_stream_upscale_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:46:04,203 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:46:04,204 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:46:04,204 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:46:05,610 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:46:05,610 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 19:46:05,611 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:46:05,611 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:46:18,823 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:46:18,823 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 1787
+2026-10-11 19:46:18,824 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Focusing on new error: - **Error Message**: `s_axis_ready` was `1`, but the test ex...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_axi_stream_upscale_0001
+Requesting valid response to model...
+2026-10-11 19:46:24,898 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_axi_stream_upscale/harness/1
+Running native service: direct
+2026-10-11 19:46:25,269 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:46:25,269 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:46:28,638 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:46:28,638 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 396
+2026-10-11 19:46:28,638 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 19:46:28,638 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Recorded iteration 2: no_change - 0/6 tests passed
+cvdp_copilot_axi_stream_upscale_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:46:28,638 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:46:28,639 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Continuing to focus on same error: - **Error Message**: `s_axis_ready` was `1`, but the test ex...
+2026-10-11 19:46:28,639 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:46:28,639 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:46:39,405 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:46:39,405 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 1312
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_axi_stream_upscale_0001
+Requesting valid response to model...
+2026-10-11 19:46:45,668 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_axi_stream_upscale/harness/1
+Running native service: direct
+2026-10-11 19:46:46,062 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:46:46,062 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:46:48,428 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:46:48,428 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 470
+2026-10-11 19:46:48,428 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:46:48,428 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 19:46:48,428 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Recorded iteration 3: no_change - 0/6 tests passed
+cvdp_copilot_axi_stream_upscale_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:46:48,429 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:46:48,429 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Continuing to focus on same error: - **Error Message**: `s_axis_ready` was `1`, but the test ex...
+2026-10-11 19:46:48,430 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:46:48,430 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:47:06,343 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:47:06,343 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 1576
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_axi_stream_upscale_0001
+Requesting valid response to model...
+2026-10-11 19:47:16,919 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_axi_stream_upscale/harness/1
+Running native service: direct
+2026-10-11 19:47:17,308 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:47:17,308 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:47:20,349 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:47:20,349 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 493
+2026-10-11 19:47:20,349 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:47:20,349 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 19:47:20,349 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Recorded iteration 4: no_change - 0/6 tests passed
+cvdp_copilot_axi_stream_upscale_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:47:20,349 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:47:20,350 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Continuing to focus on same error: - **Error Message**: `s_axis_ready` was `1`, but the test ex...
+2026-10-11 19:47:20,350 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:47:20,350 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:47:28,460 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:47:28,460 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 1224
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_axi_stream_upscale_0001
+Requesting valid response to model...
+2026-10-11 19:47:33,836 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z/datapoints/cvdp_copilot_axi_stream_upscale_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_axi_stream_upscale/harness/1
+Running native service: direct
+2026-10-11 19:47:34,199 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:47:34,199 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:47:37,189 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:47:37,189 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Received LLM response, length: 403
+2026-10-11 19:47:37,189 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:47:37,189 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 19:47:37,189 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Recorded iteration 5: no_change - 0/6 tests passed
+cvdp_copilot_axi_stream_upscale_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:47:37,190 INFO ace_cvdp_native_runner.cvdp_copilot_axi_stream_upscale_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axi_stream_upscale_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104548Z
