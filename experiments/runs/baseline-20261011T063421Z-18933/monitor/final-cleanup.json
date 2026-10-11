@@ -1,0 +1,11 @@
+{
+  "events": [
+    {
+      "at_utc": "2026-10-11T10:29:39.410145+00:00",
+      "pid": 78666,
+      "case": "cvdp_copilot_sync_serial_communication_0001",
+      "cpu_seconds": 5707.081298432,
+      "action": "terminate_completed_evaluator_orphan"
+    }
+  ]
+}

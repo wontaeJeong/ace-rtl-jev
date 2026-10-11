@@ -16,5 +16,22 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
+.env.local
+
 # Isolated development worktrees.
 .worktrees/
+
+# Native working copies embed benchmark-private harness source. Keep them local;
+# publish per-case evaluator results and API measurement events instead.
+experiments/runs/**/native/
+
+# Live atomic spending ledgers are binary and may have WAL sidecars.
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# Prepared judgment inputs can contain bounded emitted checker diagnostics.
+experiments/studies/**/inputs/
+
+# Browser-tool scratch; publish only selected report previews.
+.playwright-mcp/

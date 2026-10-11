@@ -1,0 +1,97 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_apb_history_shift_register_0001 ===
+2026-10-11 15:43:27,931 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 15:43:28,140 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:43:28,140 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:43:28,141 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:43:28,141 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:43:28,142 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:43:28,142 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:43:28,142 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_apb_history_shift_register_0001
+Requesting valid response to model...
+2026-10-11 15:43:51,506 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_apb_history_shift_register/harness/1
+Running native service: 01-new-tb
+cvdp_copilot_apb_history_shift_register_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:43:51,874 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:43:51,875 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:43:51,875 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:43:56,952 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:43:56,952 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 717
+DEBUG: Retrieved 2 architectural guidance rules based on specification
+2026-10-11 15:43:56,952 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Retrieved 2 RTL coding rules for guidance
+2026-10-11 15:43:56,952 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:43:56,952 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:44:12,737 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:44:12,738 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 1714
+2026-10-11 15:44:12,738 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Focusing on new error: - **Error Message:** `pslverr not asserted on invalid addres...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_apb_history_shift_register_0001
+Requesting valid response to model...
+2026-10-11 15:44:25,049 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_apb_history_shift_register/harness/1
+Running native service: 01-new-tb
+2026-10-11 15:44:25,360 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:44:25,360 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:44:28,549 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:44:28,549 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 548
+2026-10-11 15:44:28,549 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 15:44:28,549 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 15:44:28,549 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Recorded iteration 2: no_change - 0/5 tests passed
+cvdp_copilot_apb_history_shift_register_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:44:28,550 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:44:28,551 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Continuing to focus on same error: - **Error Message:** `pslverr not asserted on invalid addres...
+2026-10-11 15:44:28,551 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:44:28,551 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:44:46,011 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:44:46,011 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 1595
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_apb_history_shift_register_0001
+Requesting valid response to model...
+2026-10-11 15:44:54,480 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_apb_history_shift_register/harness/1
+Running native service: 01-new-tb
+2026-10-11 15:44:54,784 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:44:54,784 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:44:57,386 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:44:57,386 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 482
+2026-10-11 15:44:57,386 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 15:44:57,386 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 15:44:57,386 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Recorded iteration 3: no_change - 0/5 tests passed
+cvdp_copilot_apb_history_shift_register_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:44:57,386 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:44:57,387 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Continuing to focus on same error: - **Error Message:** `pslverr not asserted on invalid addres...
+2026-10-11 15:44:57,388 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:44:57,388 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:45:07,794 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:45:07,794 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 1153
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_apb_history_shift_register_0001
+Requesting valid response to model...
+2026-10-11 15:45:14,478 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_apb_history_shift_register/harness/1
+Running native service: 01-new-tb
+2026-10-11 15:45:14,785 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:45:14,785 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:45:16,567 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:45:16,568 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 460
+2026-10-11 15:45:16,568 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 15:45:16,568 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 15:45:16,568 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Recorded iteration 4: no_change - 0/5 tests passed
+cvdp_copilot_apb_history_shift_register_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:45:16,568 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:45:16,569 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Continuing to focus on same error: - **Error Message:** `pslverr not asserted on invalid addres...
+2026-10-11 15:45:16,570 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:45:16,570 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:45:31,151 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:45:31,151 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 1215
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_apb_history_shift_register_0001
+Requesting valid response to model...
+2026-10-11 15:45:36,944 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z/datapoints/cvdp_copilot_apb_history_shift_register_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_apb_history_shift_register/harness/1
+Running native service: 01-new-tb
+2026-10-11 15:45:37,248 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:45:37,248 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:45:39,814 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:45:39,814 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Received LLM response, length: 436
+2026-10-11 15:45:39,814 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 15:45:39,814 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 15:45:39,814 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Recorded iteration 5: no_change - 0/5 tests passed
+cvdp_copilot_apb_history_shift_register_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 15:45:39,815 INFO ace_cvdp_native_runner.cvdp_copilot_apb_history_shift_register_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_apb_history_shift_register_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T064327Z

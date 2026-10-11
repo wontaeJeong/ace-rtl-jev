@@ -1,0 +1,51 @@
+{
+  "baseline": {
+    "complete": true,
+    "case_count": 1,
+    "planned_case_count": 1,
+    "success_count": 1,
+    "success_rate": 1.0,
+    "status_counts": {
+      "success": 1
+    },
+    "failure_error_count": 0,
+    "reported_total_tokens": 3818,
+    "estimated_total_tokens": 0,
+    "total_tokens": 3818,
+    "average_tokens": 3818.0,
+    "batch_wall_seconds": 22.912536916090176,
+    "sum_case_seconds": 22.91068866592832,
+    "average_case_seconds": 22.91068866592832,
+    "average_call_latency_seconds": 17.361661000177264,
+    "primary": {
+      "calls": 1,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 1788,
+      "reported_completion_tokens": 2030,
+      "reported_total_tokens": 3818,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 17.361661000177264,
+      "average_latency_seconds": 17.361661000177264
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "average_latency_seconds": null
+    }
+  },
+  "jev": null,
+  "changes": {
+    "token_savings_percent": null,
+    "wall_time_savings_percent": null,
+    "success_rate_change_points": null
+  }
+}

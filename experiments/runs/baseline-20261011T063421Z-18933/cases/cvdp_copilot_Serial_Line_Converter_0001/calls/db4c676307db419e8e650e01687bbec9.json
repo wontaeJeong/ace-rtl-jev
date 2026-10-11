@@ -1,0 +1,25 @@
+{
+  "call_id": "db4c676307db419e8e650e01687bbec9",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_Serial_Line_Converter_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T06:38:06.794536+00:00",
+  "request_sha256": "67fad327aeae308f184f80c030194b224020637278b60ffbd8398fa0e2707fea",
+  "prompt_chars": 67021,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 17255,
+    "completion_tokens": 1453,
+    "total_tokens": 18708,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1089
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1400,
+  "latency_seconds": 15.343731499975547
+}

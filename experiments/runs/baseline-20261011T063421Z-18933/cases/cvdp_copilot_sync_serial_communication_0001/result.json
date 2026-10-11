@@ -1,0 +1,222 @@
+{
+  "id": "cvdp_copilot_sync_serial_communication_0001",
+  "category": "cid003",
+  "mode": "baseline",
+  "status": "timeout",
+  "returncode": null,
+  "elapsed_seconds": null,
+  "elapsed_seconds_source": "unavailable_after_parent_exit",
+  "metrics": {
+    "total_tokens_complete": false,
+    "primary": {
+      "calls": 15,
+      "error_calls": 1,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 1,
+      "reported_prompt_tokens": 127379,
+      "reported_completion_tokens": 28793,
+      "reported_total_tokens": 156172,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 329.6650907921139,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "1b2c56454fa782f4",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/candidate/rtl/sync_serial_communication_top.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/sync_serial_communication_top.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/candidate/rtl/sync_serial_communication_top.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "error: Unable to find the root module \"sync_serial_communication_tx_rx\" in the Verilog source.",
+              "signature": "error: Unable to find the root module \"sync_serial_communication_tx_rx\" in the Verilog source.",
+              "stage": "CANDIDATE_COMPILE"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.8572962284088135,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/reports/1.txt",
+                  "pid": 74026,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.857,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [\n    \"error: Unable to find the root module \\\"sync_serial_communication_tx_rx\\\" in the Verilog source.\",\n    \"1 error(s) during elaboration.\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T06342...ync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_communication_tx_rx', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_sync_serial_communication/harness/1/rundir/sim_build/sim.vvp', '-s', 'sync_serial_c\"\n  ],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "2e7ee73a0c13d3f9",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_02/candidate/rtl/sync_serial_communication_top.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/sync_serial_communication_top.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_02/candidate/rtl/sync_serial_communication_top.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.06759691238403,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_sync_serial_communication/reports/1.txt",
+                  "pid": 74211,
+                  "result": 124,
+                  "terminated_pids": [
+                    74211
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.068,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "c5b6e2eb4f77e5ab",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_03/candidate/rtl/sync_serial_communication_top.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/sync_serial_communication_top.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_03/candidate/rtl/sync_serial_communication_top.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.035138130188,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_sync_serial_communication/reports/1.txt",
+                  "pid": 76508,
+                  "result": 124,
+                  "terminated_pids": [
+                    76508
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.035,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "4ec009d2726ad03f",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_04/candidate/rtl/sync_serial_communication_top.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/sync_serial_communication_top.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_04/candidate/rtl/sync_serial_communication_top.sv"
+            },
+            "iteration": 4,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.07389402389526,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_sync_serial_communication/reports/1.txt",
+                  "pid": 77630,
+                  "result": 124,
+                  "terminated_pids": [
+                    77630
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.074,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "56f61146192673de",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_05/candidate/rtl/sync_serial_communication_top.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_05/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/sync_serial_communication_top.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_05/candidate/rtl/sync_serial_communication_top.sv"
+            },
+            "iteration": 5,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": "native harness timeout after 300s",
+                  "execution": 302.0889139175415,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_sync_serial_communication_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083347Z/datapoints/cvdp_copilot_sync_serial_communication_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_sync_serial_communication/reports/1.txt",
+                  "pid": 78661,
+                  "result": 124,
+                  "terminated_pids": [
+                    78661
+                  ]
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 124,\n      \"error_msg\": \"native harness timeout after 300s\",\n      \"execution\": 302.089,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "status": "failed"
+      }
+    ],
+    "category": "cid003",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_sync_serial_communication_0001",
+    "passed": false,
+    "passed_attempt": null,
+    "stopped_after_first_pass": 0
+  },
+  "recovered_from_real_evaluator": true
+}

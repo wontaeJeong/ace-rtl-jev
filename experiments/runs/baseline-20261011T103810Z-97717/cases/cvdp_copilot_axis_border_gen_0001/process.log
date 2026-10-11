@@ -1,0 +1,94 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_axis_border_gen_0001 ===
+2026-10-11 19:47:26,017 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:47:26,203 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:47:26,203 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:47:26,204 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:47:26,204 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:47:26,204 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:47:26,204 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:47:26,204 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_axis_border_gen_0001
+Requesting valid response to model...
+2026-10-11 19:48:05,548 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_axis_border_gen/harness/1
+Running native service: direct
+cvdp_copilot_axis_border_gen_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:48:06,270 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:48:06,272 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:48:06,272 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:48:08,393 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:48:08,393 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 19:48:08,394 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:48:08,395 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:48:30,307 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:48:30,307 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 1976
+2026-10-11 19:48:30,308 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Focusing on new error: - **Error Message:** The testbench waits for `s_axis_tready`...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_axis_border_gen_0001
+Requesting valid response to model...
+2026-10-11 19:48:53,772 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_axis_border_gen/harness/1
+Running native service: direct
+2026-10-11 19:48:54,505 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:48:54,505 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:49:05,711 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:49:05,712 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 545
+2026-10-11 19:49:05,712 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Current error SOLVED in iteration 2 - specific error resolved without breaking other functionality
+2026-10-11 19:49:05,712 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Recorded iteration 2: no_change - 0/16 tests passed
+cvdp_copilot_axis_border_gen_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:49:05,712 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:49:05,714 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:49:05,714 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:49:42,099 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:49:42,099 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 1677
+2026-10-11 19:49:42,099 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Focusing on new error: - **Error Message**: Unexpected `m_axis_tlast` at the end of...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_axis_border_gen_0001
+Requesting valid response to model...
+2026-10-11 19:50:14,983 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_axis_border_gen/harness/1
+Running native service: direct
+2026-10-11 19:50:15,636 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:50:15,636 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:50:20,898 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:50:20,898 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 470
+2026-10-11 19:50:20,898 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:50:20,898 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 19:50:20,898 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Recorded iteration 3: no_change - 0/16 tests passed
+cvdp_copilot_axis_border_gen_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:50:20,898 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:50:20,900 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Continuing to focus on same error: - **Error Message**: Unexpected `m_axis_tlast` at the end of...
+2026-10-11 19:50:20,901 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:50:20,901 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:50:52,741 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:50:52,741 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 1684
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_axis_border_gen_0001
+Requesting valid response to model...
+2026-10-11 19:51:34,458 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_axis_border_gen/harness/1
+Running native service: direct
+2026-10-11 19:51:35,138 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:51:35,138 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:51:38,484 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:51:38,484 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 470
+2026-10-11 19:51:38,484 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:51:38,484 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 19:51:38,484 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Recorded iteration 4: no_change - 0/16 tests passed
+cvdp_copilot_axis_border_gen_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:51:38,485 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:51:38,486 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Continuing to focus on same error: - **Error Message**: Unexpected `m_axis_tlast` at the end of...
+2026-10-11 19:51:38,487 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:51:38,487 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:52:08,607 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:52:08,607 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 1486
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_axis_border_gen_0001
+Requesting valid response to model...
+2026-10-11 19:52:30,137 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_axis_border_gen/harness/1
+Running native service: direct
+2026-10-11 19:52:30,864 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:52:30,864 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:52:33,186 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:52:33,186 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Received LLM response, length: 459
+2026-10-11 19:52:33,186 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 19:52:33,186 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Recorded iteration 5: no_change - 0/16 tests passed
+cvdp_copilot_axis_border_gen_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:52:33,187 INFO ace_cvdp_native_runner.cvdp_copilot_axis_border_gen_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z

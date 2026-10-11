@@ -1,0 +1,25 @@
+{
+  "call_id": "5da1c330dd6f4b5d937a1753f3a5ccf1",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_image_rotate_0014",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:36:16.361930+00:00",
+  "request_sha256": "3d02b33f1b8049d24fab8ffe4bc5413a0bf4b8a283c372b4036d3d7a526e8d0e",
+  "prompt_chars": 9499,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2152,
+    "completion_tokens": 58,
+    "total_tokens": 2210,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 41
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 26,
+  "latency_seconds": 1.797094291076064
+}

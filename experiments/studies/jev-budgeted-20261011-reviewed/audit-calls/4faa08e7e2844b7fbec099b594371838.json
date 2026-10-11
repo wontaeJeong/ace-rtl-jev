@@ -1,0 +1,44 @@
+{
+  "call_id": "4faa08e7e2844b7fbec099b594371838",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_arithmetic_progression_generator_0015",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:20.627899+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2502,
+    "completion_tokens": 59,
+    "total_tokens": 2561,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000105084,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "9971ecf3dc3c016320e1fbadb80040aa85bd8081475f5727ecc3587ee3a71a18",
+  "prompt_chars": 7328,
+  "fallback": false,
+  "budget_ticket": "ef39ef25353f44d6b8d18fab559952a7",
+  "kind": "snapshot_decision",
+  "answers": {
+    "effectiveness": {
+      "type": "choice",
+      "choice": "resolved",
+      "probabilities": {
+        "resolved": 0.79,
+        "persistent": 0.01,
+        "regression": 0,
+        "changed": 0,
+        "uncertain": 0.2
+      },
+      "confidence": 0.74
+    }
+  },
+  "latency_seconds": 0.5041888749692589
+}

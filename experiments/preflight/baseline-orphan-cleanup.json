@@ -1,0 +1,35 @@
+{
+  "at_utc": "2026-10-11T07:11:30.477512+00:00",
+  "baseline_batch": "baseline-20261011T063421Z-18933",
+  "events": [
+    {
+      "pid": 27364,
+      "case": "cvdp_copilot_axis_border_gen_0014",
+      "cpu_seconds": 1259.814019072,
+      "reason": "orphan simulation from already completed case",
+      "action": "terminate"
+    },
+    {
+      "pid": 28796,
+      "case": "cvdp_copilot_binary_search_tree_sorting_0014",
+      "cpu_seconds": 1039.173412736,
+      "reason": "orphan simulation from already completed case",
+      "action": "terminate"
+    },
+    {
+      "pid": 30032,
+      "case": "cvdp_copilot_axis_border_gen_0014",
+      "cpu_seconds": 858.9112353280001,
+      "reason": "orphan simulation from already completed case",
+      "action": "terminate"
+    },
+    {
+      "pid": 36074,
+      "case": "cvdp_copilot_axis_border_gen_0014",
+      "cpu_seconds": 442.63893568000003,
+      "reason": "orphan simulation from already completed case",
+      "action": "terminate"
+    }
+  ],
+  "measurement_caveat": "Orphan simulators consumed CPU during baseline; timing comparison must disclose this environmental interference."
+}

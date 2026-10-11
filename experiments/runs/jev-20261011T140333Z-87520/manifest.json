@@ -1,0 +1,109 @@
+{
+  "mode": "jev",
+  "pid": 87520,
+  "started_at": "2026-10-11T14:03:33.415068+00:00",
+  "case_ids": [
+    "cvdp_copilot_bus_arbiter_0001"
+  ],
+  "cases_planned": 1,
+  "conditions": {
+    "attempts": 1,
+    "iterations": 5,
+    "workers": 8,
+    "llm_timeout": 90,
+    "evaluator_timeout": 300,
+    "case_timeout": 1800
+  },
+  "budget_before": {
+    "limits": {
+      "jev": {
+        "max_calls": 64,
+        "max_money": 100000000,
+        "max_tokens": 1000000,
+        "reserve_money": 1500000
+      },
+      "primary": {
+        "max_calls": 12,
+        "max_tokens": 300000
+      }
+    },
+    "closed": false,
+    "denied": 0,
+    "jev": {
+      "calls": 48,
+      "token_charge": 159308,
+      "known_tokens": 159308,
+      "unknown_token_reservations": 0,
+      "usd_exposure": 0.00656922
+    },
+    "primary": {
+      "calls": 0,
+      "token_charge": 0,
+      "known_tokens": 0,
+      "unknown_token_reservations": 0,
+      "usd_exposure": null
+    }
+  },
+  "baseline_reference": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717",
+  "effective_case_workers": 1,
+  "requires_hook_coverage": true,
+  "environment": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.11.14 (main, Feb 12 2026, 00:41:29) [Clang 21.1.4 ]",
+    "ace_commit": "c8acd090c739a2a2ca71dbde6cfe2070c878d616",
+    "cvdp_commit": "8e894cf74414ab1eaea1e2b4e80a02f123df07b6",
+    "dataset_sha256": "cbcd81295561ebb16e4d857e096f4d9908d042c33aff3b58abf236e868411857",
+    "dataset_rows": 302,
+    "eligible_rows": 292,
+    "tools": {
+      "git": "/opt/homebrew/bin/git",
+      "iverilog": "/opt/homebrew/bin/iverilog",
+      "make": "/usr/bin/make",
+      "verilator": "/opt/homebrew/bin/verilator",
+      "vvp": "/opt/homebrew/bin/vvp",
+      "yosys": "/opt/homebrew/bin/yosys"
+    },
+    "configuration": {
+      "primary_model": "gpt-6-luna",
+      "jev_model": "typesafe/jev-1.13",
+      "jev_auth_mode": "bearer",
+      "token_parameter": "max_completion_tokens",
+      "sampling_mode": "default",
+      "request_timeout": "60"
+    },
+    "ok": true
+  },
+  "state": "completed",
+  "elapsed_seconds": 65.4214392080903,
+  "budget_after": {
+    "limits": {
+      "jev": {
+        "max_calls": 64,
+        "max_money": 100000000,
+        "max_tokens": 1000000,
+        "reserve_money": 1500000
+      },
+      "primary": {
+        "max_calls": 12,
+        "max_tokens": 300000
+      }
+    },
+    "closed": false,
+    "denied": 0,
+    "jev": {
+      "calls": 51,
+      "token_charge": 164649,
+      "known_tokens": 164649,
+      "unknown_token_reservations": 0,
+      "usd_exposure": 0.006787242
+    },
+    "primary": {
+      "calls": 8,
+      "token_charge": 45293,
+      "known_tokens": 45293,
+      "unknown_token_reservations": 0,
+      "usd_exposure": null
+    }
+  },
+  "completed_at": "2026-10-11T14:04:41.510838+00:00"
+}

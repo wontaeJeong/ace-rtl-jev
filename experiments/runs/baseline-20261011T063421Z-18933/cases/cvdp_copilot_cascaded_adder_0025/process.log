@@ -1,0 +1,43 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070329Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_cascaded_adder_0025 ===
+2026-10-11 16:03:29,974 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 16:03:30,155 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:03:30,156 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:03:30,156 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:03:30,156 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:03:30,156 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 16:03:30,156 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 16:03:30,157 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070329Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_01/cvdp_work/cvdp_copilot_cascaded_adder_0025
+Requesting valid response to model...
+2026-10-11 16:04:05,936 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070329Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_01/cvdp_work/cvdp_copilot_cascaded_adder/harness/25
+Running native service: 01-new-tb
+cvdp_copilot_cascaded_adder_0025 attempt 1 iteration 1: FAIL (CANDIDATE_COMPILE)
+2026-10-11 16:04:07,018 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 16:04:07,022 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:04:07,022 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:04:10,725 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:04:10,725 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 355
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 16:04:10,726 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 16:04:10,726 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:04:10,726 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:04:35,037 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:04:35,037 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Received LLM response, length: 1813
+2026-10-11 16:04:35,039 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Focusing on new error: - **Error Message**: Icarus cannot elaborate continuous assi...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070329Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder_0025
+Requesting valid response to model...
+2026-10-11 16:04:55,230 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070329Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25
+Running native service: 01-new-tb
+2026-10-11 16:04:56,517 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 16:04:56,518 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 16:04:59,004 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 16:04:59,004 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Received LLM response, length: 499
+2026-10-11 16:04:59,005 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 16:04:59,005 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 16:04:59,005 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 16:04:59,005 INFO ace_cvdp_native_runner.cvdp_copilot_cascaded_adder_0025.attempt1: Recorded iteration 2: solved - 11/11 tests passed
+cvdp_copilot_cascaded_adder_0025 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T070329Z

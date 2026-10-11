@@ -1,0 +1,32 @@
+{
+  "call_id": "2ca4f2e3c5924d798733c5de52e73c19",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_galois_encryption_0001",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:23.393232+00:00",
+  "status": "error",
+  "usage": {
+    "prompt_tokens": 4271,
+    "completion_tokens": 61,
+    "total_tokens": 4332,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000179382,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "6eb6ab3f3f29a5ccce59ab22e2aef76c7abd21e13d1ba998d0dd0cc967fb27b7",
+  "prompt_chars": 11197,
+  "fallback": false,
+  "budget_ticket": "cfc65b4dc39345b6bc52e0f02d93cc79",
+  "kind": "snapshot_decision",
+  "error_type": "DecisionError",
+  "error_message": "JEV invalid response schema",
+  "latency_seconds": 0.5029990409966558
+}

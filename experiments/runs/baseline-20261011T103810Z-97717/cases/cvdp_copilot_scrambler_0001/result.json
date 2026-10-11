@@ -1,0 +1,212 @@
+{
+  "id": "cvdp_copilot_scrambler_0001",
+  "category": "cid016",
+  "mode": "baseline",
+  "status": "failure",
+  "returncode": 0,
+  "elapsed_seconds": 302.3810553329531,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 13,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 114240,
+      "reported_completion_tokens": 32004,
+      "reported_total_tokens": 146244,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 297.51166612515226,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "d7c52fbab9593505",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_01/candidate/rtl/scrambler.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/scrambler.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_01/candidate/rtl/scrambler.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.5602660179138184,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_scrambler/reports/1.txt",
+                  "pid": 24836,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.56,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "833ff39d99374a2d",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_02/candidate/rtl/scrambler.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/scrambler.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_02/candidate/rtl/scrambler.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.5428330898284912,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_scrambler/reports/1.txt",
+                  "pid": 25182,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.543,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "d8a94644a98c63ac",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_03/candidate/rtl/scrambler.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/scrambler.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_03/candidate/rtl/scrambler.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.7124769687652588,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_scrambler/reports/1.txt",
+                  "pid": 26500,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.712,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "5cea4c4c77857cb0",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_04/candidate/rtl/scrambler.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/scrambler.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_04/candidate/rtl/scrambler.sv"
+            },
+            "iteration": 4,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.5394659042358398,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_scrambler/reports/1.txt",
+                  "pid": 26999,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.539,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": false,
+            "candidate_hash": "5cea4c4c77857cb0",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_05/candidate/rtl/scrambler.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_05/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/scrambler.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_05/candidate/rtl/scrambler.sv"
+            },
+            "iteration": 5,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "easy",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.5517418384552002,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_scrambler_0001/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113000Z/datapoints/cvdp_copilot_scrambler_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_scrambler/reports/1.txt",
+                  "pid": 27800,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"easy\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.552,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "status": "failed"
+      }
+    ],
+    "category": "cid016",
+    "difficulty": "easy",
+    "id": "cvdp_copilot_scrambler_0001",
+    "passed": false,
+    "passed_attempt": null,
+    "stopped_after_first_pass": 0
+  }
+}

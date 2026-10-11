@@ -1,0 +1,42 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T063529Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_Carry_Lookahead_Adder_0005 ===
+2026-10-11 15:35:29,547 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 15:35:29,700 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:35:29,700 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:35:29,701 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:35:29,701 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:35:29,701 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 15:35:29,701 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 15:35:29,701 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T063529Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_Carry_Lookahead_Adder_0005
+Requesting valid response to model...
+2026-10-11 15:35:49,417 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T063529Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_Carry_Lookahead_Adder/harness/5
+Running native service: 01-new-tb
+cvdp_copilot_Carry_Lookahead_Adder_0005 attempt 1 iteration 1: FAIL (CANDIDATE_COMPILE)
+2026-10-11 15:35:49,622 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 15:35:49,624 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:35:49,624 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:35:51,363 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:35:51,363 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 15:35:51,364 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:35:51,364 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:36:05,885 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:36:05,885 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: Received LLM response, length: 1465
+2026-10-11 15:36:05,886 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: Focusing on new error: - **Error Message**: Icarus cannot bind `carry2_3` in the ex...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T063529Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_02/cvdp_work/cvdp_copilot_Carry_Lookahead_Adder_0005
+Requesting valid response to model...
+2026-10-11 15:36:17,492 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T063529Z/datapoints/cvdp_copilot_Carry_Lookahead_Adder_0005/attempt_1/iter_02/cvdp_work/cvdp_copilot_Carry_Lookahead_Adder/harness/5
+Running native service: 01-new-tb
+2026-10-11 15:36:17,802 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 15:36:17,802 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 15:36:20,296 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 15:36:20,296 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: Received LLM response, length: 438
+2026-10-11 15:36:20,297 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 15:36:20,297 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 15:36:20,297 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 15:36:20,297 INFO ace_cvdp_native_runner.cvdp_copilot_Carry_Lookahead_Adder_0005.attempt1: Recorded iteration 2: solved - 3/3 tests passed
+cvdp_copilot_Carry_Lookahead_Adder_0005 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_Carry_Lookahead_Adder_0005/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T063529Z

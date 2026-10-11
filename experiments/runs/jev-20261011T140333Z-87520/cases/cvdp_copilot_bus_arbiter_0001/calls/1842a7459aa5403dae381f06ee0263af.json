@@ -1,0 +1,28 @@
+{
+  "call_id": "1842a7459aa5403dae381f06ee0263af",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_bus_arbiter_0001",
+  "mode": "jev",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T14:04:30.733277+00:00",
+  "request_sha256": "bc317b045d3ace0aeee6fdf3dce0e9a77d5558b4f62aae99a9014b3ac9a79756",
+  "prompt_chars": 38206,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 9527,
+    "completion_tokens": 735,
+    "total_tokens": 10262,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 193
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "fallback_reason": null,
+  "budget_ticket": "044ddfee6a83496293f724f6a592c0a1",
+  "kind": "primary_reasoning",
+  "finish_reason": "stop",
+  "completion_chars": 2282,
+  "latency_seconds": 9.658214791910723
+}

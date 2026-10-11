@@ -1,0 +1,25 @@
+{
+  "call_id": "4b8d4a2315d440ae8bb9869be62fef1b",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_palindrome_3b_0002",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T08:02:54.708926+00:00",
+  "request_sha256": "b5016987bdd6ab7f0c4635210d5324851e474b5b48b5996f1af0d76ef19122d8",
+  "prompt_chars": 5334,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1086,
+    "completion_tokens": 2095,
+    "total_tokens": 3181,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1745
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1194,
+  "latency_seconds": 23.556213667150587
+}

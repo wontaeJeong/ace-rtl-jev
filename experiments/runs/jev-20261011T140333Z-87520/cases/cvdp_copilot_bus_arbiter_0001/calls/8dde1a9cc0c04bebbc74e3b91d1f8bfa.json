@@ -1,0 +1,46 @@
+{
+  "call_id": "8dde1a9cc0c04bebbc74e3b91d1f8bfa",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_bus_arbiter_0001",
+  "mode": "jev",
+  "phase": "evaluation",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:04:14.142517+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2704,
+    "completion_tokens": 59,
+    "total_tokens": 2763,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000113568,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "7c0d23c7bd4c6c89f87cd7cac55f4f945dc51c3b8a697877ccf18cd4480b404f",
+  "prompt_chars": 6937,
+  "fallback": true,
+  "budget_ticket": "9911f115b30b44298eaa43e32fa06fd9",
+  "kind": "retrospective_decision",
+  "answers": {
+    "effectiveness": {
+      "type": "choice",
+      "choice": "changed",
+      "probabilities": {
+        "resolved": 0.07,
+        "persistent": 0.03,
+        "regression": 0.1,
+        "changed": 0.56,
+        "uncertain": 0.24
+      },
+      "confidence": 0.45
+    }
+  },
+  "latency_seconds": 0.4586511249653995,
+  "fallback_reason": "low_confidence",
+  "decision_used": false
+}

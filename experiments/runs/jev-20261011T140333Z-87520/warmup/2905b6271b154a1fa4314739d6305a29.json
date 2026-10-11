@@ -1,0 +1,41 @@
+{
+  "call_id": "2905b6271b154a1fa4314739d6305a29",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": null,
+  "mode": "jev",
+  "phase": "warmup",
+  "questions": [
+    "failure_class"
+  ],
+  "started_at": "2026-10-11T14:03:35.637700+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 320,
+    "completion_tokens": 32,
+    "total_tokens": 352,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 1.344e-05,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "203d20041c2ac3c9d420daf423988ad51c95b680a31e2d70b3aa227dc3a38e23",
+  "prompt_chars": 268,
+  "fallback": false,
+  "budget_ticket": "3bb767418c9a4b2ab4bf64065ccd95e0",
+  "kind": "decision",
+  "answers": {
+    "failure_class": {
+      "type": "choice",
+      "choice": "compile",
+      "probabilities": {
+        "compile": 1,
+        "functional": 0
+      },
+      "confidence": 1
+    }
+  },
+  "latency_seconds": 0.44642916694283485
+}

@@ -1,0 +1,44 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cont_adder_0042/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105712Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_cont_adder_0042 ===
+2026-10-11 19:57:12,985 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:57:13,141 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:57:13,141 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:57:13,142 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:57:13,142 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:57:13,142 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:57:13,142 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:57:13,142 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cont_adder_0042/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105712Z/datapoints/cvdp_copilot_cont_adder_0042/attempt_1/iter_01/cvdp_work/cvdp_copilot_cont_adder_0042
+Requesting valid response to model...
+2026-10-11 19:57:41,664 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cont_adder_0042/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105712Z/datapoints/cvdp_copilot_cont_adder_0042/attempt_1/iter_01/cvdp_work/cvdp_copilot_cont_adder/harness/42
+Running native service: lint
+Running native service: sanity
+cvdp_copilot_cont_adder_0042 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:57:42,813 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:57:42,814 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:57:42,814 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:57:44,490 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:57:44,490 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 19:57:44,491 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:57:44,491 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:58:07,978 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:58:07,978 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: Received LLM response, length: 1871
+2026-10-11 19:58:07,979 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: Focusing on new error: - **Error Message:** Verilator lint fails because `-Wall` re...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cont_adder_0042/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105712Z/datapoints/cvdp_copilot_cont_adder_0042/attempt_1/iter_02/cvdp_work/cvdp_copilot_cont_adder_0042
+Requesting valid response to model...
+2026-10-11 19:58:31,739 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cont_adder_0042/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105712Z/datapoints/cvdp_copilot_cont_adder_0042/attempt_1/iter_02/cvdp_work/cvdp_copilot_cont_adder/harness/42
+Running native service: lint
+Running native service: sanity
+2026-10-11 19:58:32,661 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:58:32,661 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:58:36,699 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:58:36,699 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: Received LLM response, length: 549
+2026-10-11 19:58:36,699 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:58:36,699 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 19:58:36,699 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 19:58:36,699 INFO ace_cvdp_native_runner.cvdp_copilot_cont_adder_0042.attempt1: Recorded iteration 2: solved - 12/12 tests passed
+cvdp_copilot_cont_adder_0042 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cont_adder_0042/native/cvdp_cid007_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105712Z

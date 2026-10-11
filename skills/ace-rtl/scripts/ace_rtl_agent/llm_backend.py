@@ -514,6 +514,11 @@ class LLMBackend:
 
     def __init__(self, model: str = DEFAULT_MODEL_ALIAS, provider: str = "auto"):
         self.model = resolve_model_name(model)
+        self.adapter_script = os.environ.get("ACE_RTL_LLM_SCRIPT")
+        if self.adapter_script:
+            self.provider = "adapter"
+            self.endpoint, self.headers = "", {}
+            return
         self.provider = self._resolve_provider(provider, self.model)
         self.endpoint, self.headers = self._provider_config(self.provider)
         logger.info("Initialized LLM backend provider=%s model=%s", self.provider, self.model)
@@ -582,6 +587,25 @@ class LLMBackend:
     ) -> Dict[str, Any]:
         if max_tokens is None:
             max_tokens = get_model_max_output_tokens(self.model)
+
+        if self.adapter_script:
+            # Reuse the documented external adapter contract for reusable roles,
+            # not only the generator's llm_call.py entry point.
+            from llm_call import call_adapter_script
+
+            result = call_adapter_script(
+                script_path=self.adapter_script,
+                model=self.model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                timeout=self._request_timeout(),
+            )
+            raw = result.get("raw")
+            if isinstance(raw, dict) and raw.get("choices"):
+                return raw
+            return {"choices": [{"message": {"content": result["content"]},
+                                  "finish_reason": result.get("finish_reason")}]}
 
         body = self._request_body_from_messages(messages, temperature, max_tokens)
         timeout = self._request_timeout()

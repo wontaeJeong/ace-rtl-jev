@@ -1,0 +1,121 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_vending_machine_0001 ===
+2026-10-11 17:35:30,421 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 17:35:30,575 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:35:30,576 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:35:30,576 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:35:30,576 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:35:30,576 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 17:35:30,576 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 17:35:30,577 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_vending_machine_0001
+Requesting valid response to model...
+2026-10-11 17:36:16,684 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_vending_machine/harness/1
+Running native service: 01-new-tb
+cvdp_copilot_vending_machine_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:36:18,422 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:36:18,425 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 732 lines -> 476 lines, 96492 chars -> 78316 chars
+2026-10-11 17:36:18,425 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 96492 chars -> 78316 chars
+2026-10-11 17:36:18,425 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:36:18,425 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:36:21,048 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:36:21,048 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 349
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 17:36:21,048 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 17:36:21,049 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (97814 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:36:21,049 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:36:21,049 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:36:46,753 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:36:46,753 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 1645
+2026-10-11 17:36:46,754 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Focusing on new error: - **Error Message**: Dispensed item ID mismatch.
+- **Expecte...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_vending_machine_0001
+Requesting valid response to model...
+2026-10-11 17:36:58,463 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_vending_machine/harness/1
+Running native service: 01-new-tb
+2026-10-11 17:37:00,260 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 838 lines -> 483 lines, 107037 chars -> 76450 chars
+2026-10-11 17:37:00,260 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 107037 chars -> 76450 chars
+2026-10-11 17:37:00,260 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (92202 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:37:00,260 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:37:00,260 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:37:05,185 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:37:05,186 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 481
+2026-10-11 17:37:05,186 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 17:37:05,186 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Recorded iteration 2: no_change - 0/41 tests passed
+cvdp_copilot_vending_machine_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:37:05,186 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:37:05,189 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 838 lines -> 483 lines, 107037 chars -> 76450 chars
+2026-10-11 17:37:05,189 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 107037 chars -> 76450 chars
+2026-10-11 17:37:05,190 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Continuing to focus on same error: - **Error Message**: Dispensed item ID mismatch.
+- **Expecte...
+2026-10-11 17:37:05,191 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (96818 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:37:05,191 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:37:05,191 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:37:27,405 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:37:27,405 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 1445
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_vending_machine_0001
+Requesting valid response to model...
+2026-10-11 17:37:52,426 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_vending_machine/harness/1
+Running native service: 01-new-tb
+2026-10-11 17:37:54,234 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 754 lines -> 462 lines, 96534 chars -> 74512 chars
+2026-10-11 17:37:54,234 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 96534 chars -> 74512 chars
+2026-10-11 17:37:54,234 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (90395 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:37:54,234 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:37:54,234 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:38:02,837 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:38:02,837 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 606
+2026-10-11 17:38:02,837 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 17:38:02,837 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Recorded iteration 3: no_change - 0/41 tests passed
+cvdp_copilot_vending_machine_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:38:02,838 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:38:02,841 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 754 lines -> 462 lines, 96534 chars -> 74512 chars
+2026-10-11 17:38:02,841 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 96534 chars -> 74512 chars
+2026-10-11 17:38:02,841 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Continuing to focus on same error: - **Error Message**: Dispensed item ID mismatch.
+- **Expecte...
+2026-10-11 17:38:02,842 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (94958 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:38:02,842 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:38:02,842 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:38:25,159 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:38:25,160 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 1724
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_vending_machine_0001
+Requesting valid response to model...
+2026-10-11 17:39:05,853 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_vending_machine/harness/1
+Running native service: 01-new-tb
+2026-10-11 17:39:07,680 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 738 lines -> 483 lines, 94343 chars -> 76141 chars
+2026-10-11 17:39:07,680 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 94343 chars -> 76141 chars
+2026-10-11 17:39:07,680 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (92612 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:39:07,680 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:39:07,680 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:39:12,575 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:39:12,575 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 577
+2026-10-11 17:39:12,575 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 17:39:12,575 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Recorded iteration 4: no_change - 0/41 tests passed
+cvdp_copilot_vending_machine_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:39:12,576 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 17:39:12,579 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 738 lines -> 483 lines, 94343 chars -> 76141 chars
+2026-10-11 17:39:12,579 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 94343 chars -> 76141 chars
+2026-10-11 17:39:12,579 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Continuing to focus on same error: - **Error Message**: Dispensed item ID mismatch.
+- **Expecte...
+2026-10-11 17:39:12,580 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (96948 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:39:12,580 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:39:12,580 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:39:27,521 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:39:27,521 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 1402
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_vending_machine_0001
+Requesting valid response to model...
+2026-10-11 17:39:46,400 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z/datapoints/cvdp_copilot_vending_machine_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_vending_machine/harness/1
+Running native service: 01-new-tb
+2026-10-11 17:39:48,140 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Intelligent truncation: 733 lines -> 482 lines, 93891 chars -> 75981 chars
+2026-10-11 17:39:48,140 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prepared compact error report for prompt: 93891 chars -> 75981 chars
+2026-10-11 17:39:48,140 WARNING ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Prompt (91942 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 17:39:48,140 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 17:39:48,140 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 17:39:54,760 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 17:39:54,760 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Received LLM response, length: 510
+2026-10-11 17:39:54,760 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Unclear if error solved in iteration 5 - continuing to focus on same error
+2026-10-11 17:39:54,760 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Recorded iteration 5: no_change - 0/41 tests passed
+cvdp_copilot_vending_machine_0001 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 17:39:54,760 INFO ace_cvdp_native_runner.cvdp_copilot_vending_machine_0001.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T063421Z-18933/cases/cvdp_copilot_vending_machine_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T083530Z

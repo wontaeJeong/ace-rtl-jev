@@ -78,10 +78,12 @@ def compose_env(service_env: Any, service_env_file: Any, issue_path: Path) -> Di
     env["HOME"] = str(issue_path / "rundir")
     env["XDG_CACHE_HOME"] = str(issue_path / "rundir" / ".cache")
     env["PYTHONNOUSERSITE"] = "1"
-    python_prefix = Path(sys.executable).resolve().parent.parent
+    # Resolving a venv's python symlink points at the base interpreter and
+    # silently drops workspace-local pytest/cocotb tools from PATH.
+    python_prefix = Path(sys.prefix)
     python_bin = str(python_prefix / "bin")
     python_lib = python_prefix / "lib"
-    env["PYGPI_PYTHON_BIN"] = str(Path(sys.executable).resolve())
+    env["PYGPI_PYTHON_BIN"] = str(Path(sys.executable).absolute())
     env["PATH"] = os.pathsep.join([python_bin, env.get("PATH", "")]).rstrip(os.pathsep)
     if python_lib.exists():
         env["LD_LIBRARY_PATH"] = os.pathsep.join(
@@ -103,6 +105,11 @@ def compose_env(service_env: Any, service_env_file: Any, issue_path: Path) -> Di
                 continue
             key, value = item.split("=", 1)
             env[key] = map_container_path(value, issue_path)
+    # Evaluator subprocesses do not make inference calls. Keep model credentials
+    # and mutable spending-ledger access in role/adapter processes only.
+    for name in ("LLM_API_KEY", "JEV_API_KEY", "NVIDIA_API_KEY", "OPENAI_API_KEY",
+                 "OPENAI_USER_KEY", "ACE_EXPERIMENT_BUDGET_FILE"):
+        env.pop(name, None)
     return env
 
 
@@ -475,7 +482,9 @@ def install_native_harness_patch() -> None:
                         kill_candidates.append(proc.pid)
                     kill_candidates.extend(pids_matching_path(issue))
                     killed_pids.extend(terminate_pids(kill_candidates, grace_seconds=1.0))
-                    if proc and proc.poll() is None:
+                    # The shell may already have exited after SIGTERM while its
+                    # simulator children remain in the original session/group.
+                    if proc:
                         try:
                             os.killpg(proc.pid, signal.SIGKILL)
                         except ProcessLookupError:
@@ -512,4 +521,3 @@ def result_passed(result: Dict[str, Any]) -> bool:
     if result.get("errors", 1) != 0:
         return False
     return all(test.get("result", 1) == 0 for test in result.get("tests", []))
-

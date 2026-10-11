@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import yaml
+import psutil
 
 from .config import *
 
@@ -112,16 +113,10 @@ def pid_is_alive(pid: int) -> bool:
 
 def proc_table() -> Dict[int, int]:
     table: Dict[int, int] = {}
-    for entry in Path("/proc").iterdir() if Path("/proc").exists() else []:
-        if not entry.name.isdigit():
-            continue
+    for process in psutil.process_iter(["pid", "ppid"]):
         try:
-            stat = (entry / "stat").read_text(encoding="utf-8", errors="replace")
-            # /proc/<pid>/stat has "pid (comm) state ppid ..." and comm may
-            # contain spaces, so split after the final ")".
-            tail = stat.rsplit(")", 1)[1].strip().split()
-            table[int(entry.name)] = int(tail[1])
-        except (OSError, ValueError, IndexError):
+            table[process.pid] = process.info["ppid"]
+        except psutil.Error:
             continue
     return table
 
@@ -142,21 +137,16 @@ def descendant_pids(root_pid: int) -> List[int]:
 
 def proc_matches_path(pid: int, root: Path) -> bool:
     marker = str(root.resolve())
-    proc = Path("/proc") / str(pid)
     try:
-        cmdline = (proc / "cmdline").read_bytes().replace(b"\0", b" ").decode(
-            "utf-8", errors="replace"
-        )
-        if marker in cmdline:
+        process = psutil.Process(pid)
+        cmdline = " ".join(process.cmdline())
+        # Match a path boundary, never an adjacent similarly named task directory.
+        if re.search(r"(?<![\w./-])" + re.escape(marker) + r"(?=$|[/\s'\"])", cmdline):
             return True
-    except OSError:
-        pass
-
-    try:
-        cwd = Path(os.readlink(proc / "cwd")).resolve()
+        cwd = Path(process.cwd()).resolve()
         root_resolved = root.resolve()
         return cwd == root_resolved or root_resolved in cwd.parents
-    except OSError:
+    except (psutil.Error, OSError):
         return False
 
 
@@ -179,13 +169,9 @@ def signal_pids(pids: Iterable[int], sig: signal.Signals = signal.SIGTERM) -> Li
 
 
 def pids_matching_path(root: Path) -> List[int]:
-    if not Path("/proc").exists():
-        return []
     pids: List[int] = []
-    for entry in Path("/proc").iterdir():
-        if not entry.name.isdigit():
-            continue
-        pid = int(entry.name)
+    for process in psutil.process_iter(["pid"]):
+        pid = process.pid
         if proc_matches_path(pid, root):
             pids.append(pid)
     return pids
@@ -337,5 +323,4 @@ def detect_cadence_license_environment() -> Dict[str, Any]:
             else "No common EDA license environment variables are set"
         ),
     }
-
 

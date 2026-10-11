@@ -1,0 +1,118 @@
+{
+  "id": "cvdp_copilot_hill_cipher_0001",
+  "category": "cid003",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 42.3018429169897,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 5,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 45184,
+      "reported_completion_tokens": 4716,
+      "reported_total_tokens": 49900,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 39.77507037506439,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_02/candidate/rtl/hill_cipher.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "44d1ac6d0944012f",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_01/candidate/rtl/hill_cipher.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/hill_cipher.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_01/candidate/rtl/hill_cipher.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.7101068496704102,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_hill_cipher/reports/1.txt",
+                  "pid": 15008,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.71,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "5ad81734a8013699",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_02/candidate/rtl/hill_cipher.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/hill_cipher.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_02/candidate/rtl/hill_cipher.sv"
+            },
+            "iteration": 2,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.615684986114502,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_hill_cipher_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T111154Z/datapoints/cvdp_copilot_hill_cipher_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_hill_cipher/reports/1.txt",
+                  "pid": 15157,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.616,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 2,
+        "status": "passed"
+      }
+    ],
+    "category": "cid003",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_hill_cipher_0001",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

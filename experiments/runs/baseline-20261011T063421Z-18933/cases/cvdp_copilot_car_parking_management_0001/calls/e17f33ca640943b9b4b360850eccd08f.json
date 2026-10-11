@@ -1,0 +1,25 @@
+{
+  "call_id": "e17f33ca640943b9b4b360850eccd08f",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_car_parking_management_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:00:30.161825+00:00",
+  "request_sha256": "b6332b3484b3a14c2b16284ef4b686e005dfb78060fd9520db3263a16fe9919b",
+  "prompt_chars": 9137,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1942,
+    "completion_tokens": 3557,
+    "total_tokens": 5499,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 2442
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 4551,
+  "latency_seconds": 36.54143795790151
+}

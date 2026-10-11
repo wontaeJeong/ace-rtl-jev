@@ -1,0 +1,25 @@
+{
+  "call_id": "1071d399b1f9498e989c6218a227aa4f",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_arithmetic_progression_generator_0003",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T06:43:57.612667+00:00",
+  "request_sha256": "18e9eaf6c3cc30642a079b6b6326b2ff7f464a09e0f1656532f740a7b23b78e0",
+  "prompt_chars": 8008,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1577,
+    "completion_tokens": 2282,
+    "total_tokens": 3859,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1868
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1528,
+  "latency_seconds": 20.060104083037004
+}

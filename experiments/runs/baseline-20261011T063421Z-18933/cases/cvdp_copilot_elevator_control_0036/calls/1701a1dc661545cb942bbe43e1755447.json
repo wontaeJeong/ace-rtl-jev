@@ -1,0 +1,25 @@
+{
+  "call_id": "1701a1dc661545cb942bbe43e1755447",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_elevator_control_0036",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:16:37.775993+00:00",
+  "request_sha256": "8eca3472a09ab9e66a5d2f49e4c199d56707e2101fbc0cb20e3ca27d3c5260f6",
+  "prompt_chars": 19283,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 4790,
+    "completion_tokens": 101,
+    "total_tokens": 4891,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 84
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 26,
+  "latency_seconds": 2.6042199169751257
+}

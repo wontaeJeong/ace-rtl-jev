@@ -1,0 +1,25 @@
+{
+  "call_id": "cc892f428b6e4c57a2b5481f30303a28",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_coffee_machine_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:55:44.583996+00:00",
+  "request_sha256": "1f7fda5a432d170e6c39a0c5db86f68ee0276619e3f5dbf0cc4d8843dd02a853",
+  "prompt_chars": 21311,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 5362,
+    "completion_tokens": 6281,
+    "total_tokens": 11643,
+    "source": "reported",
+    "cached_tokens": 5359,
+    "reasoning_tokens": 4467
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 6537,
+  "latency_seconds": 40.36001387494616
+}

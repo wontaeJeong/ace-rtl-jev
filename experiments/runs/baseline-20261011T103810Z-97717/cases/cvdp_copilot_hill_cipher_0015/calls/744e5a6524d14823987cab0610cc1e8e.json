@@ -1,0 +1,25 @@
+{
+  "call_id": "744e5a6524d14823987cab0610cc1e8e",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_hill_cipher_0015",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:13:03.868339+00:00",
+  "request_sha256": "b6cbe96180296b61b4a981038be26352ea188ca2f717574a3b9f3548679eaea4",
+  "prompt_chars": 45645,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 12217,
+    "completion_tokens": 1315,
+    "total_tokens": 13532,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 250
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3671,
+  "latency_seconds": 9.388014916097745
+}

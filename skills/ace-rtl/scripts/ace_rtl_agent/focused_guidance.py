@@ -172,6 +172,27 @@ class FocusedGuidanceMixin:
     def extract_implementation_changes(self, code_before: str, code_after: str,
                                       guidance: str, focused_error: str,
                                       new_error_report: str) -> Tuple[str, str]:
+        # The original generative retrospective stays intact for baseline and
+        # counted fallback. Only this finite judgment is eligible for JEV.
+        if code_before == code_after:
+            return "No code changes detected", "No changes made"
+        if os.environ.get("ACE_EXPERIMENT_MODE", "baseline") == "jev":
+            import sys
+            from pathlib import Path
+            script_root = Path(__file__).resolve().parents[4] / "scripts"
+            if str(script_root) not in sys.path:
+                sys.path.insert(0, str(script_root))
+            from jev_retrospective import DecisionFallback, judge_retrospective, primary_fallback
+            try:
+                return judge_retrospective(code_before, code_after, guidance, focused_error, new_error_report)
+            except DecisionFallback as exc:
+                with primary_fallback(exc.reason):
+                    return self._extract_implementation_changes_primary(code_before, code_after, guidance, focused_error, new_error_report)
+        return self._extract_implementation_changes_primary(code_before, code_after, guidance, focused_error, new_error_report)
+
+    def _extract_implementation_changes_primary(self, code_before: str, code_after: str,
+                                      guidance: str, focused_error: str,
+                                      new_error_report: str) -> Tuple[str, str]:
         """
         LLM Call 3: Retrospective analysis
 

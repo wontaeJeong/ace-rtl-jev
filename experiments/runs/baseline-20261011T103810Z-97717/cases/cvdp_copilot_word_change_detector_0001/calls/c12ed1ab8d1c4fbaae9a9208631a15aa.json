@@ -1,0 +1,25 @@
+{
+  "call_id": "c12ed1ab8d1c4fbaae9a9208631a15aa",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_word_change_detector_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:41:14.536111+00:00",
+  "request_sha256": "49c4a90afcf1602198b25ceb01e7bea65ae120a1ccecfaa73bc7512ec24f5392",
+  "prompt_chars": 10832,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2318,
+    "completion_tokens": 2519,
+    "total_tokens": 4837,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1934
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2247,
+  "latency_seconds": 21.96901870891452
+}

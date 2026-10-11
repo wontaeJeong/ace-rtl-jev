@@ -1,0 +1,25 @@
+{
+  "call_id": "9a5e78512f6847089e1f67a1391f3031",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_hebbian_rule_0012",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:15:04.326276+00:00",
+  "request_sha256": "039a1b700ba638b41e8ff7f0bb778f04928e651bdb610d949187c7ade2035132",
+  "prompt_chars": 52953,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 14660,
+    "completion_tokens": 1991,
+    "total_tokens": 16651,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1600
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1587,
+  "latency_seconds": 20.48859104188159
+}

@@ -1,0 +1,44 @@
+{
+  "call_id": "19c2ce91e75b464eaab1a8bc58146f5c",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_galois_encryption_0001",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:28.514944+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 4640,
+    "completion_tokens": 61,
+    "total_tokens": 4701,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.00019488,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "3a6d0b5323ec23bf744bc3914e992c57322a8b8bafea761fb528f129f7246ff2",
+  "prompt_chars": 11157,
+  "fallback": false,
+  "budget_ticket": "2ce70e5ccbcf4e71b8c8d9a19b921ac6",
+  "kind": "snapshot_decision",
+  "answers": {
+    "effectiveness": {
+      "type": "choice",
+      "choice": "uncertain",
+      "probabilities": {
+        "resolved": 0.01,
+        "persistent": 0.04,
+        "regression": 0.26,
+        "changed": 0.13,
+        "uncertain": 0.56
+      },
+      "confidence": 0.45
+    }
+  },
+  "latency_seconds": 0.502330208895728
+}

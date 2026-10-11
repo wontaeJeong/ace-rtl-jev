@@ -1,0 +1,25 @@
+{
+  "call_id": "974c5bee9da84210bf0b28a835f195f3",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_vga_controller_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:40:34.500323+00:00",
+  "request_sha256": "978dced86a4d240c8d6a917c0ba43edcce9ef93480bd1153f4bbaa006b8a71e6",
+  "prompt_chars": 13738,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 3213,
+    "completion_tokens": 2263,
+    "total_tokens": 5476,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1381
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3068,
+  "latency_seconds": 18.19053537514992
+}

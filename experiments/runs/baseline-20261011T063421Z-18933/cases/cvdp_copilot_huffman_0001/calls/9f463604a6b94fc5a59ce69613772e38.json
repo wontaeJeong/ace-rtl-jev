@@ -1,0 +1,25 @@
+{
+  "call_id": "9f463604a6b94fc5a59ce69613772e38",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_huffman_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:42:07.116501+00:00",
+  "request_sha256": "e9b67cc2d82772601eecdf76e637045e2b4ff0f73a7b22da2a65edb050c657f6",
+  "prompt_chars": 8974,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1927,
+    "completion_tokens": 5356,
+    "total_tokens": 7283,
+    "source": "reported",
+    "cached_tokens": 1924,
+    "reasoning_tokens": 2834
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 9682,
+  "latency_seconds": 47.8116295831278
+}

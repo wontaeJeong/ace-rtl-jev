@@ -1,0 +1,25 @@
+{
+  "call_id": "86b969458a1d43229b39cf2623ab6e00",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_kogge_stone_adder_0007",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:42:56.143582+00:00",
+  "request_sha256": "9b2081b13a9bef8fae459644dab8fc3b17fc0ddded2ab97a693e561c72aa5b38",
+  "prompt_chars": 10822,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2966,
+    "completion_tokens": 2315,
+    "total_tokens": 5281,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1236
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3082,
+  "latency_seconds": 21.390527999959886
+}

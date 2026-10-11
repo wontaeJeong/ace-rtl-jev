@@ -1,0 +1,25 @@
+{
+  "call_id": "fee9809e8dff40ec8775f47554982513",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_sprite_0004",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:40:09.942742+00:00",
+  "request_sha256": "f733567a28c74962b64636e4ec4fe41e06d39f43181cd40873291e24e015ad32",
+  "prompt_chars": 129098,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 32824,
+    "completion_tokens": 2621,
+    "total_tokens": 35445,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1583
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 4093,
+  "latency_seconds": 20.032459000125527
+}

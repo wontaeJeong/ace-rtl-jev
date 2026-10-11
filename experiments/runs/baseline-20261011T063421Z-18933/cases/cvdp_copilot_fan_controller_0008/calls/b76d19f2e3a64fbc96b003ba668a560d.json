@@ -1,0 +1,25 @@
+{
+  "call_id": "b76d19f2e3a64fbc96b003ba668a560d",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_fan_controller_0008",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T07:19:35.103022+00:00",
+  "request_sha256": "243481a7e616c04d4634ef6f3efdf0b4585894fef77eb6a975d6c183ea838aad",
+  "prompt_chars": 91932,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 25047,
+    "completion_tokens": 1593,
+    "total_tokens": 26640,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 721
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3064,
+  "latency_seconds": 13.962437666021287
+}

@@ -1,0 +1,25 @@
+{
+  "call_id": "e6a3775f00ac473b8159e37a79dda148",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_round_robin_arbiter_0005",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:28:53.325780+00:00",
+  "request_sha256": "742d13f754c4e5b20a5566e7dd68baa29b08d36813b86f728d5fe5d47130f525",
+  "prompt_chars": 9555,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2203,
+    "completion_tokens": 3059,
+    "total_tokens": 5262,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 2279
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2632,
+  "latency_seconds": 29.09460333408788
+}

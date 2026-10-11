@@ -1,0 +1,25 @@
+{
+  "call_id": "d8b28fafeb994138b6160c5948444f84",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_configurable_digital_low_pass_filter_0011",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:57:46.134174+00:00",
+  "request_sha256": "9af82300e0d28152c578f2bb1c8c3985a6485cc4e28bcac0d8604c5a2e586cf1",
+  "prompt_chars": 49801,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 11387,
+    "completion_tokens": 135,
+    "total_tokens": 11522,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 46
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 340,
+  "latency_seconds": 3.6647971249185503
+}

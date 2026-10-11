@@ -1,0 +1,3 @@
+mode,id,status,elapsed_seconds,reported_total_tokens,estimated_total_tokens,unknown_usage_calls
+baseline,cvdp_copilot_bus_arbiter_0001,success,43.7939944579266,45979,0,0
+jev,cvdp_copilot_bus_arbiter_0001,success,65.41541766701266,50269,0,0

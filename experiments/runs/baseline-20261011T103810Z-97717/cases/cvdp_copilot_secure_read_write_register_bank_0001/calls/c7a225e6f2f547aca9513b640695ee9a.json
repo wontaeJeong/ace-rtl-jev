@@ -1,0 +1,25 @@
+{
+  "call_id": "c7a225e6f2f547aca9513b640695ee9a",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_secure_read_write_register_bank_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:33:54.162201+00:00",
+  "request_sha256": "a21bcdc38c8d590e01ef4698a81cf864b0093aa62acb9fe751f3957eced930e9",
+  "prompt_chars": 33956,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 8044,
+    "completion_tokens": 1488,
+    "total_tokens": 9532,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 753
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2722,
+  "latency_seconds": 11.87086550006643
+}

@@ -1,0 +1,41 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_packet_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112300Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_packet_controller_0001 ===
+2026-10-11 20:23:00,524 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:23:00,670 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:23:00,670 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:23:00,671 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:23:00,671 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:23:00,671 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:23:00,671 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:23:00,671 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_packet_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112300Z/datapoints/cvdp_copilot_packet_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_packet_controller_0001
+Requesting valid response to model...
+2026-10-11 20:23:29,351 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_packet_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112300Z/datapoints/cvdp_copilot_packet_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_packet_controller/harness/1
+Running native service: direct
+cvdp_copilot_packet_controller_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:23:29,757 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:23:29,759 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:23:29,759 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:23:32,056 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:23:32,056 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 22
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 20:23:32,057 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:23:32,057 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:23:42,216 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:23:42,216 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: Received LLM response, length: 1659
+2026-10-11 20:23:42,217 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: Focusing on new error: - **Error Message**: Outgoing `xmit_checksum` does not match...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_packet_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112300Z/datapoints/cvdp_copilot_packet_controller_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_packet_controller_0001
+Requesting valid response to model...
+2026-10-11 20:23:53,002 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_packet_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112300Z/datapoints/cvdp_copilot_packet_controller_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_packet_controller/harness/1
+Running native service: direct
+2026-10-11 20:23:53,391 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:23:53,391 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:23:55,631 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:23:55,631 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: Received LLM response, length: 418
+2026-10-11 20:23:55,631 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:23:55,631 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 20:23:55,631 INFO ace_cvdp_native_runner.cvdp_copilot_packet_controller_0001.attempt1: Recorded iteration 2: solved - 2/2 tests passed
+cvdp_copilot_packet_controller_0001 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_packet_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112300Z
