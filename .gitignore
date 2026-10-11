@@ -15,3 +15,10 @@ outputs/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+.env.local
+.worktrees/
+
+# Native working copies embed benchmark-private harness source. Keep them local;
+# publish per-case evaluator results and API measurement events instead.
+experiments/runs/**/native/

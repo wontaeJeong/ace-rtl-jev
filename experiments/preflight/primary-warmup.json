@@ -1,0 +1,37 @@
+{
+  "status_code": 200,
+  "latency_seconds": 1.0041217091493309,
+  "request_contract": {
+    "token_parameter": "max_completion_tokens",
+    "sampling_parameters": "omitted: provider supports default only",
+    "stream": false
+  },
+  "response_keys": [
+    "choices",
+    "created",
+    "id",
+    "model",
+    "object",
+    "service_tier",
+    "system_fingerprint",
+    "usage"
+  ],
+  "usage": {
+    "prompt_tokens": 11,
+    "completion_tokens": 15,
+    "total_tokens": 26,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 5,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "content_nonempty": true,
+  "finish_reason": "stop"
+}

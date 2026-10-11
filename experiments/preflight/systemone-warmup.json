@@ -1,0 +1,37 @@
+{
+  "status_code": 200,
+  "latency_seconds": 8.824044625042006,
+  "request_schema": {
+    "model": "configured via JEV_MODEL",
+    "state": "A compiler reports a syntax error before simulation begins.",
+    "questions": {
+      "failure_class": {
+        "type": "choice",
+        "instructions": "Classify the failure.",
+        "criteria": {
+          "compile": "Syntax or elaboration failure",
+          "functional": "Compiled simulation produces incorrect outputs"
+        }
+      }
+    }
+  },
+  "auth_mode": "none (user confirmed)",
+  "response": {
+    "model": "tev1:4b-q4_K_M",
+    "answers": {
+      "failure_class": {
+        "type": "choice",
+        "choice": "compile",
+        "probabilities": {
+          "compile": 0.999373913998986,
+          "functional": 0.000626086001013986
+        },
+        "confidence": 0.9924346304181267
+      }
+    },
+    "usage": {
+      "input_tokens": 122,
+      "output_tokens": 1
+    }
+  }
+}
