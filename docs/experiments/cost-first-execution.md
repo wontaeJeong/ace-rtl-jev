@@ -1,6 +1,6 @@
 # Cost-first execution policy and remaining design gates
 
-Status: **new paid experiments paused** on the user's instruction. This document is a preparation checklist, not a claim that a programmatic spending cap or the complete JEV integration already exists.
+Status: the checklist was applied before one frozen small campaign authorized by the user's instruction to continue. Shared SQLite admission and JEV integration are now implemented; conservative reservations are not an unconditional provider bill guarantee. The 48-audit/one-E2E scope finished, and **further paid experiments are paused**. No automatic expansion is authorized.
 
 ## Before any new paid request
 

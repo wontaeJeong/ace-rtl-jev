@@ -105,6 +105,11 @@ def compose_env(service_env: Any, service_env_file: Any, issue_path: Path) -> Di
                 continue
             key, value = item.split("=", 1)
             env[key] = map_container_path(value, issue_path)
+    # Evaluator subprocesses do not make inference calls. Keep model credentials
+    # and mutable spending-ledger access in role/adapter processes only.
+    for name in ("LLM_API_KEY", "JEV_API_KEY", "NVIDIA_API_KEY", "OPENAI_API_KEY",
+                 "OPENAI_USER_KEY", "ACE_EXPERIMENT_BUDGET_FILE"):
+        env.pop(name, None)
     return env
 
 

@@ -13,11 +13,13 @@ import time
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import requests
 
 from experiment_config import positive_number, require_jev
 from local_llm_adapter import usage_metrics, write_event
+from inference_budget import reserve, settle
 
 
 class DecisionError(RuntimeError):
@@ -71,6 +73,7 @@ def decide(state: str | dict, questions: dict) -> dict:
             raise ValueError('Only validated choice questions with 2–26 described options are supported')
     body={'model':config['JEV_MODEL'],'state':state,'questions':questions}
     encoded=json.dumps(body,ensure_ascii=False)
+    ticket=reserve('jev',encoded,128*len(questions))
     call_id=uuid.uuid4().hex
     directory=os.environ.get('ACE_EXPERIMENT_TELEMETRY')
     path=Path(directory)/f'{call_id}.json' if directory else None
@@ -78,22 +81,28 @@ def decide(state: str | dict, questions: dict) -> dict:
            'case_id':os.environ.get('ACE_EXPERIMENT_CASE_ID'),'mode':os.environ.get('ACE_EXPERIMENT_MODE','jev'),
            'phase':os.environ.get('ACE_EXPERIMENT_PHASE','evaluation'),'questions':list(questions),
            'started_at':datetime.now(timezone.utc).isoformat(),'status':'inflight','usage':None,'usage_unknown':True,
-           'request_sha256':hashlib.sha256(encoded.encode()).hexdigest(),'prompt_chars':len(encoded),'fallback':False}
+           'request_sha256':hashlib.sha256(encoded.encode()).hexdigest(),'prompt_chars':len(encoded),'fallback':False,
+           'budget_ticket':ticket['id'],'kind':os.environ.get('ACE_EXPERIMENT_CALL_KIND','decision')}
     write_event(event,path);started=time.perf_counter()
     headers={'Authorization':'Bearer '+config['JEV_API_KEY']} if config['JEV_AUTH_MODE']=='bearer' else {}
     try:
-        try:response=requests.post(config['JEV_ENDPOINT_URL'],json=body,headers=headers,timeout=positive_number('JEV_REQUEST_TIMEOUT',15))
+        try:response=requests.post(config['JEV_ENDPOINT_URL'],json=body,headers=headers,timeout=positive_number('JEV_REQUEST_TIMEOUT',15),allow_redirects=False)
         except requests.Timeout:raise DecisionError('JEV request timeout') from None
         except requests.RequestException:raise DecisionError('JEV connection error') from None
-        if not response.ok:raise DecisionError(f'JEV HTTP {response.status_code} (body withheld)')
+        if not 200<=response.status_code<300:raise DecisionError(f'JEV HTTP {response.status_code} (body withheld)')
         try:
             payload=response.json()
             if isinstance(payload,dict):
                 supplied=decision_usage(payload.get('usage'),encoded,'')
-                if supplied['source']=='reported':event.update(usage=supplied,usage_unknown=False)
+                if urlsplit(config['JEV_ENDPOINT_URL']).hostname=='openrouter.ai' or os.environ.get('JEV_COST_CURRENCY')=='USD':supplied['cost_currency']='USD'
+                # Currency receipts survive missing token counts and invalid
+                # answers. Never discard known spend just because parsing fails.
+                if supplied['source']=='reported' or supplied.get('provider_cost') is not None:
+                    event.update(usage=supplied,usage_unknown=supplied['source']!='reported')
             answers=validate_answers(payload,questions)
         except (ValueError,TypeError,KeyError):raise DecisionError('JEV invalid response schema') from None
         usage=decision_usage(payload.get('usage'),encoded,json.dumps(answers))
+        if urlsplit(config['JEV_ENDPOINT_URL']).hostname=='openrouter.ai' or os.environ.get('JEV_COST_CURRENCY')=='USD':usage['cost_currency']='USD'
         event.update(status='ok',usage=usage,usage_unknown=False,answers=answers)
         return {'answers':answers,'usage':usage,'call_id':call_id,'event_file':str(path) if path else None}
     except DecisionError as exc:
@@ -102,3 +111,4 @@ def decide(state: str | dict, questions: dict) -> dict:
     finally:
         event['latency_seconds']=time.perf_counter()-started
         write_event(event,path)
+        settle(ticket,event.get('usage'))

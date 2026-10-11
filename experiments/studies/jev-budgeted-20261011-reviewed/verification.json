@@ -1,0 +1,6 @@
+{
+  "unique_inference_events": 59,
+  "all_reported_usage": true,
+  "events_match_immutable_ledger": true,
+  "limits_respected": true
+}

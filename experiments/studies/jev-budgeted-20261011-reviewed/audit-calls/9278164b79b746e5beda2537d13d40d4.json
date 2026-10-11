@@ -1,0 +1,44 @@
+{
+  "call_id": "9278164b79b746e5beda2537d13d40d4",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_elevator_control_0036",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:22.778709+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 3591,
+    "completion_tokens": 59,
+    "total_tokens": 3650,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000150822,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "71a6942042140a98e880c4cc9b3d1d484da6f794f0dbb2a8b0d8f35e75caece6",
+  "prompt_chars": 10926,
+  "fallback": false,
+  "budget_ticket": "6960c153f1a24390ac8e9dd36c0b43f9",
+  "kind": "snapshot_decision",
+  "answers": {
+    "effectiveness": {
+      "type": "choice",
+      "choice": "resolved",
+      "probabilities": {
+        "resolved": 0.99,
+        "persistent": 0,
+        "regression": 0,
+        "changed": 0,
+        "uncertain": 0.01
+      },
+      "confidence": 0.99
+    }
+  },
+  "latency_seconds": 0.6060525830835104
+}

@@ -1,0 +1,44 @@
+{
+  "call_id": "1b04ba87626842a58bd0317e5a9e179f",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_MSHR_0001",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:16.030994+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 3046,
+    "completion_tokens": 61,
+    "total_tokens": 3107,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000127932,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "200d6264f5de2acc303ef4a19ee079a041143d072dc519be964679b04421e9dd",
+  "prompt_chars": 7871,
+  "fallback": false,
+  "budget_ticket": "08c718e533184a648756240e2f5233a7",
+  "kind": "snapshot_decision",
+  "answers": {
+    "effectiveness": {
+      "type": "choice",
+      "choice": "regression",
+      "probabilities": {
+        "resolved": 0.01,
+        "persistent": 0.06,
+        "regression": 0.61,
+        "changed": 0.03,
+        "uncertain": 0.29
+      },
+      "confidence": 0.51
+    }
+  },
+  "latency_seconds": 0.4927782497834414
+}

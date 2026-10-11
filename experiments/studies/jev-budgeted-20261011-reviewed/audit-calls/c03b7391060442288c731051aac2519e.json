@@ -1,0 +1,44 @@
+{
+  "call_id": "c03b7391060442288c731051aac2519e",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_fan_controller_0008",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:25.439734+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 3817,
+    "completion_tokens": 61,
+    "total_tokens": 3878,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000160314,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "eca3fce052da2efef0a1e625f50037c02b6ff4fcd4ef9423791ff1132eb55726",
+  "prompt_chars": 11186,
+  "fallback": false,
+  "budget_ticket": "ba2a3898ceaa456383027d1cbbee7545",
+  "kind": "snapshot_decision",
+  "answers": {
+    "effectiveness": {
+      "type": "choice",
+      "choice": "uncertain",
+      "probabilities": {
+        "resolved": 0.17,
+        "persistent": 0.06,
+        "regression": 0.06,
+        "changed": 0.04,
+        "uncertain": 0.67
+      },
+      "confidence": 0.59
+    }
+  },
+  "latency_seconds": 0.5050229169428349
+}

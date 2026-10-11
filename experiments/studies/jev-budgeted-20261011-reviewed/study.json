@@ -1,0 +1,95 @@
+{
+  "baseline": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717",
+  "state": "e2e_executed",
+  "eligible_snapshots": 272,
+  "selected_snapshot_ids": [
+    "cvdp_copilot_64b66b_decoder_0011:1:2",
+    "cvdp_copilot_16qam_mapper_0006:1:2",
+    "cvdp_copilot_64b66b_encoder_0009:1:2",
+    "cvdp_copilot_IIR_filter_0019:1:2",
+    "cvdp_copilot_apb_dsp_op_0002:1:2",
+    "cvdp_copilot_MSHR_0001:1:2",
+    "cvdp_copilot_GFCM_0001:1:2",
+    "cvdp_copilot_64b66b_encoder_0009:1:3",
+    "cvdp_copilot_IIR_filter_0019:1:3",
+    "cvdp_copilot_apb_dsp_op_0002:1:3",
+    "cvdp_copilot_MSHR_0001:1:3",
+    "cvdp_copilot_apb_dsp_unit_0001:1:2",
+    "cvdp_copilot_64b66b_encoder_0009:1:5",
+    "cvdp_copilot_IIR_filter_0019:1:4",
+    "cvdp_copilot_apb_dsp_op_0002:1:4",
+    "cvdp_copilot_MSHR_0001:1:4",
+    "cvdp_copilot_apb_dsp_unit_0001:1:3",
+    "cvdp_copilot_GFCM_0003:1:2",
+    "cvdp_copilot_alphablending_0003:1:2",
+    "cvdp_copilot_apb_dsp_op_0002:1:5",
+    "cvdp_copilot_MSHR_0001:1:5",
+    "cvdp_copilot_apb_dsp_unit_0001:1:4",
+    "cvdp_copilot_Serial_Line_Converter_0011:1:2",
+    "cvdp_copilot_cont_adder_0042:1:2",
+    "cvdp_copilot_arithmetic_progression_generator_0015:1:2",
+    "cvdp_copilot_Serial_Line_Converter_0001:1:2",
+    "cvdp_copilot_apb_dsp_unit_0001:1:5",
+    "cvdp_copilot_Serial_Line_Converter_0011:1:3",
+    "cvdp_copilot_elevator_control_0036:1:2",
+    "cvdp_copilot_galois_encryption_0001:1:2",
+    "cvdp_copilot_axi_stream_downscale_0001:1:2",
+    "cvdp_copilot_apb_gpio_0001:1:2",
+    "cvdp_copilot_Serial_Line_Converter_0011:1:5",
+    "cvdp_copilot_fan_controller_0008:1:2",
+    "cvdp_copilot_galois_encryption_0001:1:3",
+    "cvdp_copilot_axi_stream_downscale_0001:1:5",
+    "cvdp_copilot_apb_gpio_0001:1:3",
+    "cvdp_copilot_apb_gpio_0005:1:2",
+    "cvdp_copilot_fan_controller_0008:1:3",
+    "cvdp_copilot_galois_encryption_0001:1:5",
+    "cvdp_copilot_axi_tap_0001:1:2",
+    "cvdp_copilot_apb_gpio_0001:1:4",
+    "cvdp_copilot_apb_gpio_0005:1:3",
+    "cvdp_copilot_fan_controller_0008:1:4",
+    "cvdp_copilot_montgomery_0002:1:2",
+    "cvdp_copilot_axi_tap_0001:1:3",
+    "cvdp_copilot_apb_gpio_0001:1:5",
+    "cvdp_copilot_apb_gpio_0005:1:4"
+  ],
+  "selected_count": 48,
+  "excluded": {
+    "no_changed_nonempty_candidate": 27,
+    "missing_generated_or_emitted_artifacts": 2
+  },
+  "e2e_case_id": "cvdp_copilot_bus_arbiter_0001",
+  "e2e_baseline_seconds": 43.7939944579266,
+  "scope": "judgment audit plus one real E2E; not full 292-case JEV evaluation",
+  "budget": {
+    "limits": {
+      "jev": {
+        "max_calls": 64,
+        "max_money": 100000000,
+        "max_tokens": 1000000,
+        "reserve_money": 1500000
+      },
+      "primary": {
+        "max_calls": 12,
+        "max_tokens": 300000
+      }
+    },
+    "closed": false,
+    "denied": 0,
+    "jev": {
+      "calls": 51,
+      "token_charge": 164649,
+      "known_tokens": 164649,
+      "unknown_token_reservations": 0,
+      "usd_exposure": 0.006787242
+    },
+    "primary": {
+      "calls": 8,
+      "token_charge": 45293,
+      "known_tokens": 45293,
+      "unknown_token_reservations": 0,
+      "usd_exposure": null
+    }
+  },
+  "e2e_batch": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520",
+  "baseline_projection": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/studies/jev-budgeted-20261011-reviewed/baseline-projection"
+}

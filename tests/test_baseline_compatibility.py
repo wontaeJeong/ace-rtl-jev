@@ -57,3 +57,11 @@ def test_portable_process_discovery_finds_owned_children_not_similar_paths(tmp_p
         assert proc_matches_path(other.pid,root) is False
     finally:
         for p in (owned,other):p.terminate();p.wait()
+
+
+def test_evaluator_environment_does_not_receive_model_credentials(tmp_path,monkeypatch):
+    from ace_cvdp_native.harness import compose_env
+    for name in ('LLM_API_KEY','JEV_API_KEY','NVIDIA_API_KEY','OPENAI_API_KEY','OPENAI_USER_KEY','ACE_EXPERIMENT_BUDGET_FILE'):
+        monkeypatch.setenv(name,'secret-fixture-value')
+    env=compose_env({},None,tmp_path)
+    assert all(name not in env for name in ('LLM_API_KEY','JEV_API_KEY','NVIDIA_API_KEY','OPENAI_API_KEY','OPENAI_USER_KEY','ACE_EXPERIMENT_BUDGET_FILE'))

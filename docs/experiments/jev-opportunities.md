@@ -1,6 +1,6 @@
 # JEV-like opportunity audit
 
-Status: original full 292-case baseline and clean eight-worker baseline are complete with genuine evaluator evidence. Independent `scripts/systemone_adapter.py` is implemented and tested against both HTTP fixtures and the real updated endpoint. **No optimization hook has been applied to RTL-agent execution yet.** New paid runs are paused until design/offline/budget gates are satisfied. The choices below are proposed interventions, not measured benefits.
+Status: original full baseline and clean eight-worker baseline are complete. The validated adapter, retrospective hook, primary fallback and shared inference admission are implemented. After offline tests/review, a frozen 48-judgment audit and one actual CVDP E2E were executed within the small campaign. **The E2E consumed 9.33% more total tokens, not fewer.** The choices below record source-analysis rationale; observed results and limitations are in `reports/jev-final/final-report.md`. JEV remains experimental opt-in, not a recommended default.
 
 ## Confirmed SystemOne capabilities
 

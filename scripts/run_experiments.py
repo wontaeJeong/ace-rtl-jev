@@ -21,6 +21,7 @@ import psutil
 
 from experiment_config import ROOT, load_config, require_primary, require_jev
 from local_llm_adapter import complete, write_event
+from inference_budget import BudgetDenied, snapshot
 
 sys.path.insert(0, str(ROOT / 'skills/ace-rtl/scripts'))
 from ace_cvdp_native.harness import required_native_tools_for_row
@@ -68,13 +69,15 @@ def aggregate_calls(calls: list[dict]) -> dict:
         result[provider] = {
             'calls': len(events), 'error_calls': sum(c.get('status') != 'ok' for c in events),
             'fallback_calls': sum(bool(c.get('fallback')) for c in events),
-            'unknown_usage_calls': sum(u is None for u in usage),
+            'unknown_usage_calls': sum(u is None or (c.get('usage_unknown') is True and u.get('source')!='reported') for c,u in zip(events,usage)),
             'reported_prompt_tokens': sum(u['prompt_tokens'] for u in usage if u and u['source'] == 'reported'),
             'reported_completion_tokens': sum(u['completion_tokens'] for u in usage if u and u['source'] == 'reported'),
             'reported_total_tokens': sum(u['total_tokens'] for u in usage if u and u['source'] == 'reported'),
             'estimated_total_tokens': sum(u['total_tokens'] for u in usage if u and u['source'] != 'reported'),
             'latency_seconds': sum(c.get('latency_seconds', 0) for c in events),
             'latency_complete': all('latency_seconds' in c for c in events),
+            'reported_usd': (sum(u['provider_cost'] for u in usage if u and u.get('cost_currency')=='USD' and u.get('provider_cost') is not None)
+                             if any(u and u.get('cost_currency')=='USD' and u.get('provider_cost') is not None for u in usage) else None),
         }
         if result[provider]['unknown_usage_calls']:
             result['total_tokens_complete'] = False
@@ -157,6 +160,7 @@ def run_case(case: dict, batch: Path, args: argparse.Namespace) -> dict:
               'elapsed_seconds':elapsed, 'metrics':aggregate_calls(calls),
               'native_summary':str(summaries[0].relative_to(batch)) if summaries else None,
               'result':summary['results'][0] if summary else None}
+    if record['status']!='success' and any(c.get('event')=='budget_denied' for c in calls):record['status']='budget_exhausted'
     write_event(record, case_dir / 'result.json')
     print(f"{case['id']}: {record['status']} ({record['elapsed_seconds']:.1f}s)", flush=True)
     return record
@@ -169,6 +173,46 @@ def mark_case_started(case_dir: Path) -> float:
     return started
 
 
+def validate_baseline_reference(path: Path, case_ids: list[str], conditions: dict, environment: dict) -> dict:
+    summary_path=Path(path)/'summary.json'
+    if not summary_path.is_file():raise ValueError('Completed baseline summary is required')
+    data=json.loads(summary_path.read_text());manifest=data['manifest']
+    if manifest.get('state')!='completed' or sorted(r['id'] for r in data['results'])!=sorted(manifest['case_ids']):
+        raise ValueError('Baseline is incomplete')
+    if not set(case_ids)<=set(manifest['case_ids']):raise ValueError('Cases do not match baseline cohort')
+    if conditions!=manifest['conditions']:raise ValueError('Unmatched baseline conditions')
+    for key in ('dataset_sha256','cvdp_commit'):
+        if environment.get(key)!=manifest['environment'].get(key):raise ValueError('Unmatched baseline '+key)
+    left=environment['configuration'];right=manifest['environment']['configuration']
+    for key in ('primary_model','token_parameter','sampling_mode','request_timeout'):
+        if left.get(key)!=right.get(key):raise ValueError('Unmatched primary configuration '+key)
+    return manifest
+
+
+def completion_state(results: list[dict]) -> str:
+    return 'budget_exhausted' if any(r['status']=='budget_exhausted' for r in results) else 'completed'
+
+
+def warm_models(batch: Path, manifest: dict, model: str) -> None:
+    names=('ACE_EXPERIMENT_TELEMETRY','ACE_EXPERIMENT_PHASE','ACE_EXPERIMENT_MODE')
+    previous={name:os.environ.get(name) for name in names}
+    os.environ.update(ACE_EXPERIMENT_TELEMETRY=str(batch/'warmup'),ACE_EXPERIMENT_PHASE='warmup',ACE_EXPERIMENT_MODE=manifest['mode'])
+    try:
+        complete({'model':model,'messages':[{'role':'user','content':'Reply READY.'}],'max_tokens':256})
+        if manifest['mode']=='jev':
+            from systemone_adapter import decide
+            decide('A compiler reports a syntax error.',{'failure_class':{'type':'choice','instructions':'Classify the failure.','criteria':{'compile':'Syntax or elaboration failure','functional':'Wrong simulated output'}}})
+    except Exception as exc:
+        manifest.update(state='budget_exhausted' if isinstance(exc,BudgetDenied) else 'warmup_error',error_type=type(exc).__name__,
+                        budget_after=snapshot(Path(os.environ['ACE_EXPERIMENT_BUDGET_FILE'])))
+        write_event(manifest,batch/'manifest.json');write_event({'manifest':manifest,'results':[]},batch/'summary.json')
+        raise
+    finally:
+        for name,value in previous.items():
+            if value is None:os.environ.pop(name,None)
+            else:os.environ[name]=value
+
+
 def mark_case_finished(case_dir: Path, started: float, returncode: int | None) -> float:
     elapsed=time.perf_counter()-started
     record=json.loads((case_dir/'execution.json').read_text())
@@ -179,6 +223,9 @@ def mark_case_finished(case_dir: Path, started: float, returncode: int | None) -
 
 
 def run_batch(args: argparse.Namespace) -> Path:
+    budget_file=os.environ.get('ACE_EXPERIMENT_BUDGET_FILE')
+    if not budget_file:raise BudgetDenied('explicit campaign file required before a new run')
+    budget_before=snapshot(Path(budget_file))
     config = require_primary()
     require_jev()
     report = preflight(ROOT / 'experiments/preflight/environment.json')
@@ -189,26 +236,30 @@ def run_batch(args: argparse.Namespace) -> Path:
         raise ValueError('Unknown or excluded requested case IDs')
     if args.limit: cases = cases[:args.limit]
     if not cases: raise ValueError('No eligible cases selected')
+    conditions={k:getattr(args,k) for k in ('attempts','iterations','workers','llm_timeout','evaluator_timeout','case_timeout')}
+    reference=None
+    if args.mode=='jev':
+        if not getattr(args,'baseline',None):raise ValueError('JEV requires --baseline completed batch')
+        reference=validate_baseline_reference(Path(args.baseline),[c['id'] for c in cases],conditions,report)
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     batch = ROOT / 'experiments/runs' / f'{args.mode}-{stamp}-{os.getpid()}'
     batch.mkdir(parents=True, exist_ok=False)
     manifest = {'mode':args.mode, 'pid':os.getpid(), 'started_at':datetime.now(timezone.utc).isoformat(),
                 'case_ids':[c['id'] for c in cases], 'cases_planned':len(cases),
-                'conditions':{k:getattr(args,k) for k in ('attempts','iterations','workers','llm_timeout','evaluator_timeout','case_timeout')},
+                'conditions':conditions,'budget_before':budget_before,
+                'baseline_reference':str(args.baseline) if reference else None,
+                'effective_case_workers':min(args.workers,len(cases)),'requires_hook_coverage':args.mode=='jev',
                 'environment':{k:v for k,v in report.items() if k != 'cases'}, 'state':'running'}
     write_event(manifest, batch / 'manifest.json')
-    os.environ['ACE_EXPERIMENT_TELEMETRY'] = str(batch / 'warmup')
-    os.environ['ACE_EXPERIMENT_PHASE'] = 'warmup'
-    complete({'model':config['LLM_MODEL'],'messages':[{'role':'user','content':'Reply READY.'}],'max_tokens':256})
-    os.environ.pop('ACE_EXPERIMENT_TELEMETRY', None)
-    os.environ.pop('ACE_EXPERIMENT_PHASE', None)
+    warm_models(batch,manifest,config['LLM_MODEL'])
     start = time.perf_counter();results = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
         futures = [executor.submit(run_case,c,batch,args) for c in cases]
         for future in concurrent.futures.as_completed(futures):
             results.append(future.result())
             write_event({'results':sorted(results,key=lambda r:r['id'])}, batch / 'summary.partial.json')
-    manifest.update(state='completed', elapsed_seconds=time.perf_counter()-start,
+    manifest.update(state=completion_state(results), elapsed_seconds=time.perf_counter()-start,
+                    budget_after=snapshot(Path(budget_file)),
                     completed_at=datetime.now(timezone.utc).isoformat())
     write_event(manifest, batch / 'manifest.json')
     write_event({'manifest':manifest, 'results':sorted(results,key=lambda r:r['id'])}, batch / 'summary.json')
@@ -225,7 +276,8 @@ def main() -> int:
     commands=parser.add_subparsers(dest='command',required=True)
     commands.add_parser('preflight')
     run=commands.add_parser('run')
-    run.add_argument('--mode',choices=['baseline'],default='baseline')
+    run.add_argument('--mode',choices=['baseline','jev'],default='baseline')
+    run.add_argument('--baseline',type=Path)
     run.add_argument('--id',action='append');run.add_argument('--limit',type=int,default=0)
     run.add_argument('--attempts',type=int,default=1);run.add_argument('--iterations',type=int,default=5)
     run.add_argument('--workers',type=int,default=4);run.add_argument('--llm-timeout',type=int,default=90)

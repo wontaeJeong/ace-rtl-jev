@@ -1,0 +1,152 @@
+{
+  "id": "cvdp_copilot_bus_arbiter_0001",
+  "category": "cid002",
+  "mode": "jev",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 65.41541766701266,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 7,
+      "error_calls": 0,
+      "fallback_calls": 1,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 40219,
+      "reported_completion_tokens": 5061,
+      "reported_total_tokens": 45280,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 61.418567416258156,
+      "latency_complete": true,
+      "reported_usd": null
+    },
+    "jev": {
+      "calls": 2,
+      "error_calls": 0,
+      "fallback_calls": 1,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 4871,
+      "reported_completion_tokens": 118,
+      "reported_total_tokens": 4989,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0.8781946669332683,
+      "latency_complete": true,
+      "reported_usd": 0.000204582
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_03/candidate/rtl/cvdp_copilot_bus_arbiter.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "4fb803fb45359505",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_01/candidate/rtl/cvdp_copilot_bus_arbiter.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_bus_arbiter.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_01/candidate/rtl/cvdp_copilot_bus_arbiter.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "error: Unable to find the root module \"cvdp_copilot_bus_arbiter\" in the Verilog source.",
+              "signature": "error: Unable to find the root module \"cvdp_copilot_bus_arbiter\" in the Verilog source.",
+              "stage": "CANDIDATE_COMPILE"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.3919820785522461,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_bus_arbiter/reports/1.txt",
+                  "pid": 87663,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.392,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [\n    \"error: Unable to find the root module \\\"cvdp_copilot_bus_arbiter\\\" in the Verilog source.\",\n    \"1 error(s) during elaboration.\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87...p_work/cvdp_copilot_bus_arbiter/harness/1/rundir/sim_build/sim.vvp', '-s', 'cvdp_copilot_bus_arbiter', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_bus_arbiter/harness/1/rundir/sim_build/sim.vvp', '-s', 'cvdp_copilot_bus_arbiter', '-g2012', '-f', '/Users/wt.jeong/\"\n  ],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "f99caf132bc06db0",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_02/candidate/rtl/cvdp_copilot_bus_arbiter.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_bus_arbiter.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_02/candidate/rtl/cvdp_copilot_bus_arbiter.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.4998142719268799,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_bus_arbiter/reports/1.txt",
+                  "pid": 87730,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.5,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "3e505559c6f0f110",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_03/candidate/rtl/cvdp_copilot_bus_arbiter.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cvdp_copilot_bus_arbiter.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_03/candidate/rtl/cvdp_copilot_bus_arbiter.sv"
+            },
+            "iteration": 3,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.4289829730987549,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520/cases/cvdp_copilot_bus_arbiter_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T140336Z/datapoints/cvdp_copilot_bus_arbiter_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_bus_arbiter/reports/1.txt",
+                  "pid": 87812,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.429,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 3,
+        "status": "passed"
+      }
+    ],
+    "category": "cid002",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_bus_arbiter_0001",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

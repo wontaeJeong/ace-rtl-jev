@@ -1,0 +1,152 @@
+{
+  "audit": {
+    "complete": true,
+    "selected_count": 48,
+    "executed_count": 48,
+    "valid_decisions": 45,
+    "decision_errors": 3,
+    "accepted_decisions": 13,
+    "would_fallback_count": 35,
+    "actual_primary_fallback_calls": 0,
+    "accepted_already_all_pass_count": 11,
+    "historical_primary_tokens": 622384,
+    "actual_jev_tokens": 159308,
+    "unknown_jev_usage_calls": 0,
+    "actual_jev_usd_known": 0.006569219999999998,
+    "accepted_historical_primary_tokens": 152539,
+    "accepted_actual_jev_tokens": 37083,
+    "accepted_point_token_reduction_percent": 75.68949580107383,
+    "hypothetical_tokens_with_historical_fallback": 629153,
+    "primary_proxy_labeled_count": 19,
+    "primary_proxy_agree_count": 1,
+    "primary_proxy_agreement_rate": 0.05263157894736842,
+    "all_pass_oracle_count": 12,
+    "all_pass_resolved_count": 12,
+    "all_pass_resolved_rate": 1.0
+  },
+  "campaign_budget": {
+    "limits": {
+      "jev": {
+        "max_calls": 64,
+        "max_money": 100000000,
+        "max_tokens": 1000000,
+        "reserve_money": 1500000
+      },
+      "primary": {
+        "max_calls": 12,
+        "max_tokens": 300000
+      }
+    },
+    "closed": false,
+    "denied": 0,
+    "jev": {
+      "calls": 51,
+      "token_charge": 164649,
+      "known_tokens": 164649,
+      "unknown_token_reservations": 0,
+      "usd_exposure": 0.006787242
+    },
+    "primary": {
+      "calls": 8,
+      "token_charge": 45293,
+      "known_tokens": 45293,
+      "unknown_token_reservations": 0,
+      "usd_exposure": null
+    }
+  },
+  "baseline_e2e": {
+    "complete": true,
+    "case_count": 1,
+    "planned_case_count": 1,
+    "success_count": 1,
+    "success_rate": 1.0,
+    "status_counts": {
+      "success": 1
+    },
+    "failure_error_count": 0,
+    "reported_total_tokens": 45979,
+    "estimated_total_tokens": 0,
+    "total_tokens": 45979,
+    "average_tokens": 45979.0,
+    "batch_wall_seconds": null,
+    "sum_case_seconds": 43.7939944579266,
+    "average_case_seconds": 43.7939944579266,
+    "unknown_case_runtime_count": 0,
+    "average_call_latency_seconds": 5.181569520675112,
+    "primary": {
+      "calls": 8,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 41746,
+      "reported_completion_tokens": 4233,
+      "reported_total_tokens": 45979,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 41.45255616540089,
+      "average_latency_seconds": 5.181569520675112
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "average_latency_seconds": null
+    }
+  },
+  "jev_e2e": {
+    "complete": true,
+    "case_count": 1,
+    "planned_case_count": 1,
+    "success_count": 1,
+    "success_rate": 1.0,
+    "status_counts": {
+      "success": 1
+    },
+    "failure_error_count": 0,
+    "reported_total_tokens": 50269,
+    "estimated_total_tokens": 0,
+    "total_tokens": 50269,
+    "average_tokens": 50269.0,
+    "batch_wall_seconds": 65.4214392080903,
+    "sum_case_seconds": 65.41541766701266,
+    "average_case_seconds": 65.41541766701266,
+    "unknown_case_runtime_count": 0,
+    "average_call_latency_seconds": 6.921862453687936,
+    "primary": {
+      "calls": 7,
+      "error_calls": 0,
+      "fallback_calls": 1,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 40219,
+      "reported_completion_tokens": 5061,
+      "reported_total_tokens": 45280,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 61.418567416258156,
+      "average_latency_seconds": 8.77408105946545
+    },
+    "jev": {
+      "calls": 2,
+      "error_calls": 0,
+      "fallback_calls": 1,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 4871,
+      "reported_completion_tokens": 118,
+      "reported_total_tokens": 4989,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0.8781946669332683,
+      "average_latency_seconds": 0.43909733346663415
+    }
+  },
+  "e2e_changes": {
+    "token_savings_percent": -9.330346462515497,
+    "wall_time_savings_percent": null,
+    "success_rate_change_points": 0.0
+  },
+  "full_292_case_jev_evaluation": "NOT RUN",
+  "repetitions_ablation": "NOT RUN"
+}
