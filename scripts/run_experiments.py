@@ -69,7 +69,7 @@ def aggregate_calls(calls: list[dict]) -> dict:
         result[provider] = {
             'calls': len(events), 'error_calls': sum(c.get('status') != 'ok' for c in events),
             'fallback_calls': sum(bool(c.get('fallback')) for c in events),
-            'unknown_usage_calls': sum(u is None for u in usage),
+            'unknown_usage_calls': sum(u is None or (c.get('usage_unknown') is True and u.get('source')!='reported') for c,u in zip(events,usage)),
             'reported_prompt_tokens': sum(u['prompt_tokens'] for u in usage if u and u['source'] == 'reported'),
             'reported_completion_tokens': sum(u['completion_tokens'] for u in usage if u and u['source'] == 'reported'),
             'reported_total_tokens': sum(u['total_tokens'] for u in usage if u and u['source'] == 'reported'),
@@ -248,7 +248,7 @@ def run_batch(args: argparse.Namespace) -> Path:
                 'case_ids':[c['id'] for c in cases], 'cases_planned':len(cases),
                 'conditions':conditions,'budget_before':budget_before,
                 'baseline_reference':str(args.baseline) if reference else None,
-                'effective_case_workers':min(args.workers,len(cases)),
+                'effective_case_workers':min(args.workers,len(cases)),'requires_hook_coverage':args.mode=='jev',
                 'environment':{k:v for k,v in report.items() if k != 'cases'}, 'state':'running'}
     write_event(manifest, batch / 'manifest.json')
     warm_models(batch,manifest,config['LLM_MODEL'])

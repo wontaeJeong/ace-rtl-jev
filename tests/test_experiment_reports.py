@@ -18,13 +18,18 @@ def batch(mode, tokens, seconds):
     empty = {'calls':0,'reported_prompt_tokens':0,'reported_completion_tokens':0,
              'reported_total_tokens':0,'estimated_total_tokens':0,'unknown_usage_calls':0,
              'latency_seconds':0,'latency_complete':True,'fallback_calls':0,'error_calls':0}
+    decision=dict(empty)
+    if mode=='jev':
+        # Arithmetic fixtures represent an actually exercised decision hook.
+        decision.update(calls=1,reported_prompt_tokens=10,reported_completion_tokens=1,reported_total_tokens=11)
+        provider.update(reported_prompt_tokens=tokens-31,reported_total_tokens=tokens-11)
     return {'manifest':{'mode':mode, 'state':'completed','cases_planned':2,'case_ids':['a','b'],
                        'conditions':{'attempts':1,'iterations':5,'workers':4},
                        'environment':{'dataset_sha256':'fixture','cvdp_commit':'fixed',
                                       'configuration':{'primary_model':'same','sampling_mode':'default'}},
                        'elapsed_seconds':seconds},
             'results':[{'id':'a','status':'success','elapsed_seconds':10,
-                        'metrics':{'total_tokens_complete':True,'primary':provider,'jev':empty}},
+                        'metrics':{'total_tokens_complete':True,'primary':provider,'jev':decision}},
                        {'id':'b','status':'failure','elapsed_seconds':20,
                         'metrics':{'total_tokens_complete':True,'primary':empty,'jev':empty}}]}
 

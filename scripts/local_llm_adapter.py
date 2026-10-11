@@ -80,12 +80,12 @@ def complete(request: dict) -> dict:
         try:
             response = requests.post(config['LLM_BASE_URL'].rstrip('/') + '/chat/completions',
                                      json=body, headers={'Authorization': 'Bearer ' + config['LLM_API_KEY']},
-                                     timeout=positive_number('REQUEST_TIMEOUT', 60))
+                                     timeout=positive_number('REQUEST_TIMEOUT', 60),allow_redirects=False)
         except requests.Timeout:
             raise RuntimeError('timeout: primary inference request') from None
         except requests.RequestException:
             raise RuntimeError('connection error: primary inference request') from None
-        if not response.ok:
+        if not 200<=response.status_code<300:
             raise RuntimeError(f'HTTP {response.status_code}: primary inference request failed (body withheld)')
         try:
             payload = response.json()

@@ -59,7 +59,13 @@ def read_artifact(path: str | Path, batch: Path, kind: str) -> str:
 
 def primary_label(text: str | None) -> str | None:
     if not text:return None
-    low=text.lower();new=any(s in low for s in ('new error','different error','different failure','new failure','introduced'))
+    low=text.lower()
+    if any(s in low for s in ('unclear','cannot determine','insufficient evidence','possibly')):return None
+    # Remove explicit negative new-failure clauses before searching positive
+    # evidence. Bare "introduced" can describe a fix, not a new error.
+    positive=re.sub(r'\b(?:no|without|not any|no evidence of)\s+(?:(?:new|different|additional)\s+)*(?:errors?|failures?|regressions?)\b[^.;\n]*','',low)
+    positive=re.sub(r'\b(?:did|does|do|has|have|had|was|were|is|are)\s+not\s+(?:introduce|introduced|cause|caused)\b[^.;\n]*','',positive)
+    new=any(s in positive for s in ('new error','different error','different failure','new failure','additional failure','additional error','regression'))
     if any(s in low for s in ('not solve','still present','remains','persists')):return 'regression' if new else 'persistent'
     if any(s in low for s in ('solved','resolved','fixed','no longer present','successfully')):return 'changed' if new else 'resolved'
     return None

@@ -85,8 +85,10 @@ def compare(baseline: dict, improved: dict | None) -> dict:
         x,y=bm[key],jm[key]
         return (x-y)/x*100 if bm['complete'] and jm['complete'] and x is not None and y is not None and x>0 else None
     # Estimates are disclosed but cannot support a claimed measured token saving.
-    tokens = saving('total_tokens') if bm['estimated_total_tokens']==0 and jm['estimated_total_tokens']==0 else None
-    return {'token_savings_percent':tokens, 'wall_time_savings_percent':saving('batch_wall_seconds'),
+    coverage_required=bool(j.get('requires_hook_coverage')) or j.get('mode')=='jev'
+    covered=jm['jev']['calls']>0
+    tokens = saving('total_tokens') if bm['estimated_total_tokens']==0 and jm['estimated_total_tokens']==0 and (covered or not coverage_required) else None
+    return {'token_savings_percent':tokens, 'wall_time_savings_percent':saving('batch_wall_seconds') if covered or not coverage_required else None,
             'success_rate_change_points':(jm['success_rate']-bm['success_rate'])*100 if bm['success_rate'] is not None and jm['success_rate'] is not None else None}
 
 
@@ -110,6 +112,10 @@ def render_markdown(baseline: dict, improved: dict | None) -> str:
         y=(jm[key[0]][key[1]] if isinstance(key,tuple) else jm[key]) if jm else None
         delta=y-x if bm['complete'] and jm and jm['complete'] and x is not None and y is not None else None
         lines.append(f'| {label} | {fmt(x)} | {fmt(y) if jm else "Not run"} | {fmt(delta)} |')
+    if jm and jm['jev']['calls']==0:
+        lines += ['', '**Retrospective hook not exercised:** zero evaluation-phase JEV calls. Observed differences are not JEV-attributable.']
+    elif jm:
+        lines += ['', f"Retrospective hook coverage: {jm['jev']['calls']} evaluation-phase JEV calls (warmup excluded)."]
     lines += ['', f"Measured token savings (%): {fmt(changes['token_savings_percent'])}.",
               f"Measured batch wall-time savings (%): {fmt(changes['wall_time_savings_percent'])}.",
               '', '## Conditions and measurement', '', '```json',json.dumps(baseline['manifest']['conditions'],indent=2),'```',
@@ -152,6 +158,7 @@ def render_html(baseline: dict, improved: dict | None) -> str:
     other={r['id']:r for r in improved['results']} if improved else {}
     cases=''.join('<tr><td>'+escape(r['id'])+'</td><td>'+escape(case_status(r))+'</td><td>'+escape(case_status(other[r['id']]) if r['id'] in other else 'Not run')+'</td><td>'+fmt(r.get('elapsed_seconds'))+'</td><td>'+fmt(other[r['id']].get('elapsed_seconds') if r['id'] in other else None)+'</td></tr>' for r in baseline['results'])
     note='No improved E2E data. No optimization or savings claim.' if not improved else 'Matched measured case data only. Small-cohort stochastic outcomes do not establish general improvements.'
+    if improved and jm['jev']['calls']==0:note+=' Retrospective hook not exercised: zero evaluation-phase JEV calls; differences are not JEV-attributable.'
     if baseline['manifest'].get('subset_projection'):note+=' Historical subset projection: original concurrent batch time is not reused; no controlled batch-wall speedup claim.'
     return '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACE-RTL measured report</title>
 <style>body{font:15px system-ui,sans-serif;background:#f3f6fb;color:#17243c;margin:0}main{max-width:1200px;margin:auto;padding:40px 24px}h1{font-size:30px}h2{font-size:20px;margin-top:32px}.tag{color:#2459bc;font-weight:700}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}.card,section{background:white;border:1px solid #dfe6f1;border-radius:12px;padding:20px}.card b{display:block;font-size:25px;margin-top:8px}.notice{background:#fff6dc;border-left:4px solid #b78500;padding:16px;margin:22px 0}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #e6ebf3;padding:11px;vertical-align:top}th{color:#435675}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}.scroll{overflow:auto}footer{color:#52647f;margin-top:26px}</style></head><body><main>

@@ -86,16 +86,19 @@ def decide(state: str | dict, questions: dict) -> dict:
     write_event(event,path);started=time.perf_counter()
     headers={'Authorization':'Bearer '+config['JEV_API_KEY']} if config['JEV_AUTH_MODE']=='bearer' else {}
     try:
-        try:response=requests.post(config['JEV_ENDPOINT_URL'],json=body,headers=headers,timeout=positive_number('JEV_REQUEST_TIMEOUT',15))
+        try:response=requests.post(config['JEV_ENDPOINT_URL'],json=body,headers=headers,timeout=positive_number('JEV_REQUEST_TIMEOUT',15),allow_redirects=False)
         except requests.Timeout:raise DecisionError('JEV request timeout') from None
         except requests.RequestException:raise DecisionError('JEV connection error') from None
-        if not response.ok:raise DecisionError(f'JEV HTTP {response.status_code} (body withheld)')
+        if not 200<=response.status_code<300:raise DecisionError(f'JEV HTTP {response.status_code} (body withheld)')
         try:
             payload=response.json()
             if isinstance(payload,dict):
                 supplied=decision_usage(payload.get('usage'),encoded,'')
                 if urlsplit(config['JEV_ENDPOINT_URL']).hostname=='openrouter.ai' or os.environ.get('JEV_COST_CURRENCY')=='USD':supplied['cost_currency']='USD'
-                if supplied['source']=='reported':event.update(usage=supplied,usage_unknown=False)
+                # Currency receipts survive missing token counts and invalid
+                # answers. Never discard known spend just because parsing fails.
+                if supplied['source']=='reported' or supplied.get('provider_cost') is not None:
+                    event.update(usage=supplied,usage_unknown=supplied['source']!='reported')
             answers=validate_answers(payload,questions)
         except (ValueError,TypeError,KeyError):raise DecisionError('JEV invalid response schema') from None
         usage=decision_usage(payload.get('usage'),encoded,json.dumps(answers))
