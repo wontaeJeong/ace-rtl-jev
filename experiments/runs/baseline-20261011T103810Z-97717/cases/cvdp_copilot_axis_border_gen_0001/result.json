@@ -1,0 +1,212 @@
+{
+  "id": "cvdp_copilot_axis_border_gen_0001",
+  "category": "cid002",
+  "mode": "baseline",
+  "status": "failure",
+  "returncode": 0,
+  "elapsed_seconds": 307.6141528750304,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 14,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 208604,
+      "reported_completion_tokens": 31832,
+      "reported_total_tokens": 240436,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 302.1027086270042,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "fb22b9a4e201a080",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_01/candidate/rtl/axis_image_border_gen.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/axis_image_border_gen.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_01/candidate/rtl/axis_image_border_gen.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.7083039283752441,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_axis_border_gen/reports/1.txt",
+                  "pid": 3402,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.708,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "a12c347460c3a41e",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_02/candidate/rtl/axis_image_border_gen.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/axis_image_border_gen.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_02/candidate/rtl/axis_image_border_gen.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.7176458835601807,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_axis_border_gen/reports/1.txt",
+                  "pid": 3764,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.718,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "c399eae0f123e7d8",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_03/candidate/rtl/axis_image_border_gen.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/axis_image_border_gen.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_03/candidate/rtl/axis_image_border_gen.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.6379978656768799,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_axis_border_gen/reports/1.txt",
+                  "pid": 4483,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.638,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "e8dc5e7a2d629d79",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_04/candidate/rtl/axis_image_border_gen.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/axis_image_border_gen.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_04/candidate/rtl/axis_image_border_gen.sv"
+            },
+            "iteration": 4,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.6656031608581543,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_axis_border_gen/reports/1.txt",
+                  "pid": 5143,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.666,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "33337c4ebedcc40a",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_05/candidate/rtl/axis_image_border_gen.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_05/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/axis_image_border_gen.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_05/candidate/rtl/axis_image_border_gen.sv"
+            },
+            "iteration": 5,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.7128901481628418,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_axis_border_gen_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T104725Z/datapoints/cvdp_copilot_axis_border_gen_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_axis_border_gen/reports/1.txt",
+                  "pid": 5859,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.713,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "status": "failed"
+      }
+    ],
+    "category": "cid002",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_axis_border_gen_0001",
+    "passed": false,
+    "passed_attempt": null,
+    "stopped_after_first_pass": 0
+  }
+}

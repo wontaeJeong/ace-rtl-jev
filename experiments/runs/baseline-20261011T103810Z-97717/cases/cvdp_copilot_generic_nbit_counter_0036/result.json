@@ -1,0 +1,86 @@
+{
+  "id": "cvdp_copilot_generic_nbit_counter_0036",
+  "category": "cid016",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 19.451759290881455,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 1,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 2625,
+      "reported_completion_tokens": 1988,
+      "reported_total_tokens": 4613,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 17.979370083892718,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_generic_nbit_counter_0036/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110949Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_generic_nbit_counter_0036/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110949Z/datapoints/cvdp_copilot_generic_nbit_counter_0036/attempt_1/iter_01/candidate/rtl/generic_counter.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "e8a99b6374755875",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_generic_nbit_counter_0036/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110949Z/datapoints/cvdp_copilot_generic_nbit_counter_0036/attempt_1/iter_01/candidate/rtl/generic_counter.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_generic_nbit_counter_0036/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110949Z/datapoints/cvdp_copilot_generic_nbit_counter_0036/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/generic_counter.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_generic_nbit_counter_0036/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110949Z/datapoints/cvdp_copilot_generic_nbit_counter_0036/attempt_1/iter_01/candidate/rtl/generic_counter.sv"
+            },
+            "iteration": 1,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid016",
+              "difficulty": "medium",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.47309088706970215,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_generic_nbit_counter_0036/native/cvdp_cid016_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110949Z/datapoints/cvdp_copilot_generic_nbit_counter_0036/attempt_1/iter_01/cvdp_work/cvdp_copilot_generic_nbit_counter/reports/36.txt",
+                  "pid": 13943,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid016\",\n  \"difficulty\": \"medium\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.473,\n      \"log_basename\": \"36.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 1,
+        "status": "passed"
+      }
+    ],
+    "category": "cid016",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_generic_nbit_counter_0036",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

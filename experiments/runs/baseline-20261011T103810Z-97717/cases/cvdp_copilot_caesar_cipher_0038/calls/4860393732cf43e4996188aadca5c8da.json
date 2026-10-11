@@ -1,0 +1,25 @@
+{
+  "call_id": "4860393732cf43e4996188aadca5c8da",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_caesar_cipher_0038",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:53:05.071593+00:00",
+  "request_sha256": "79ff6b252928665d26579a9da7a694b0d81762637bed0e4965389cbd637593f2",
+  "prompt_chars": 4129,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 888,
+    "completion_tokens": 1184,
+    "total_tokens": 2072,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 924
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 715,
+  "latency_seconds": 13.67293658410199
+}

@@ -61,6 +61,10 @@ Portable process discovery now uses the already-declared psutil dependency rathe
 
 Eight-worker real CVDP shakedown after these common fixes completed all eight cases: six passed and two candidate failures, with no setup/runner errors. These smoke outcomes do not establish a performance gain or replace the full cohort. Final clean baseline/improved comparison will use **eight workers for both** and otherwise unchanged 1 attempt × 5 iterations, API 60 s, LLM subprocess 90 s, evaluator 300 s, case 1800 s conditions. Durable parent driver logs are retained locally rather than depending only on harness-managed ephemeral stdout.
 
+Clean batch `baseline-20261011T103810Z-97717` completed all 292 cases: 239 success / 52 candidate failure / 1 native service timeout (81.8493%). Measured batch wall time 4,367.2497 s, mean case time 109.6309 s, no missing case timers. Primary calls 1,311; reported input 14,235,838 and output 2,302,443, known subtotal 16,538,281; 33 usage-unknown calls mean full billed tokens are unavailable. Watcher observed zero orphan cleanup events. Report: `reports/clean-baseline/`.
+
+The user subsequently required cost-first design/preparation before tests. No new paid runs are queued after this completion. Remaining work is design/offline integration and spending-limit preparation; JEV E2E, repeated/ablation experiments and optimization savings remain unexecuted/unavailable.
+
 ## Measurement protocol
 
 One attempt, at most five iterations, four concurrent cases, request timeout 60 s, original LLM subprocess timeout 90 s, each evaluator 300 s, each whole case 1800 s. Smoke uses one case/one iteration/one worker. This reduced budget is an explicit controlled experiment, not the original default five attempts × 30 iterations.

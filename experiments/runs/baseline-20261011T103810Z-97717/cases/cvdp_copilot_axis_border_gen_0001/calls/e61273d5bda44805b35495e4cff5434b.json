@@ -1,0 +1,25 @@
+{
+  "call_id": "e61273d5bda44805b35495e4cff5434b",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_axis_border_gen_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:48:08.446386+00:00",
+  "request_sha256": "ff849a5629bc5c5a8e28b7b63198e62d5d8dbf3d228b868b07757e1abe9b4e31",
+  "prompt_chars": 55121,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 15357,
+    "completion_tokens": 1962,
+    "total_tokens": 17319,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1488
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1976,
+  "latency_seconds": 21.834149250062183
+}

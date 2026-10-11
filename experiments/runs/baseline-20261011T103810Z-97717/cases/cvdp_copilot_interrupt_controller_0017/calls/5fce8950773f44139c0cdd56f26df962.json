@@ -1,0 +1,25 @@
+{
+  "call_id": "5fce8950773f44139c0cdd56f26df962",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_interrupt_controller_0017",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:19:13.384481+00:00",
+  "request_sha256": "fc14ca16d1f88d37b3836e0198b9fe176e364fc2a7197822e25287dab37e3833",
+  "prompt_chars": 66978,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 16419,
+    "completion_tokens": 2651,
+    "total_tokens": 19070,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 2274
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1642,
+  "latency_seconds": 28.61130537511781
+}

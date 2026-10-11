@@ -1,0 +1,25 @@
+{
+  "call_id": "df95661bc09449568f5aa012c22da752",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_cdc_pulse_synchronizer_0004",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:53:51.336852+00:00",
+  "request_sha256": "8ed9046863a1a8e0cd99db360a33ef2307c005d7e0dc8ae15a79e5b6653c58ff",
+  "prompt_chars": 7869,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 1676,
+    "completion_tokens": 479,
+    "total_tokens": 2155,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 209
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1025,
+  "latency_seconds": 3.1459073340520263
+}

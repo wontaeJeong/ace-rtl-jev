@@ -1,0 +1,98 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_Serial_Line_Converter_0011 ===
+2026-10-11 19:39:47,316 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:39:47,466 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:39:47,466 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:39:47,467 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:39:47,467 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:39:47,467 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:39:47,467 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:39:47,467 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_01/cvdp_work/cvdp_copilot_Serial_Line_Converter_0011
+Requesting valid response to model...
+2026-10-11 19:40:19,532 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_01/cvdp_work/cvdp_copilot_Serial_Line_Converter/harness/11
+Running native service: 11-new-tb
+cvdp_copilot_Serial_Line_Converter_0011 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:40:20,535 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:40:20,537 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:40:20,537 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:40:24,923 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:40:24,924 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 300
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 19:40:24,924 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 19:40:24,924 WARNING ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Prompt (81028 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:40:24,924 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:40:24,924 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:40:53,900 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:40:53,900 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Received LLM response, length: 1767
+2026-10-11 19:40:53,901 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Focusing on new error: - **Error Message:** The encoded output does not match the e...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_02/cvdp_work/cvdp_copilot_Serial_Line_Converter_0011
+Requesting valid response to model...
+2026-10-11 19:41:29,163 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_02/cvdp_work/cvdp_copilot_Serial_Line_Converter/harness/11
+Running native service: 11-new-tb
+2026-10-11 19:41:30,164 WARNING ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Prompt (81850 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:41:30,164 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:41:30,164 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:41:37,930 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:41:37,930 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Received LLM response, length: 578
+2026-10-11 19:41:37,930 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 19:41:37,930 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Recorded iteration 2: no_change - 20/41 tests passed
+cvdp_copilot_Serial_Line_Converter_0011 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:41:37,931 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:41:37,932 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Continuing to focus on same error: - **Error Message:** The encoded output does not match the e...
+2026-10-11 19:41:37,933 WARNING ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Prompt (92187 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:41:37,933 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:41:37,933 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:42:07,769 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:42:07,769 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Received LLM response, length: 1243
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_03/cvdp_work/cvdp_copilot_Serial_Line_Converter_0011
+Requesting valid response to model...
+2026-10-11 19:42:18,521 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_03/cvdp_work/cvdp_copilot_Serial_Line_Converter/harness/11
+Running native service: 11-new-tb
+2026-10-11 19:42:19,481 WARNING ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Prompt (81866 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:42:19,481 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:42:19,481 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:42:22,478 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:42:22,478 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Received LLM response, length: 417
+2026-10-11 19:42:22,478 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 19:42:22,478 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Recorded iteration 3: no_change - 20/41 tests passed
+cvdp_copilot_Serial_Line_Converter_0011 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:42:22,479 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:42:22,480 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Continuing to focus on same error: - **Error Message:** The encoded output does not match the e...
+2026-10-11 19:42:22,481 WARNING ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Prompt (92210 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:42:22,481 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:42:22,481 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:42:49,004 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:42:49,004 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Received LLM response, length: 1412
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_04/cvdp_work/cvdp_copilot_Serial_Line_Converter_0011
+Requesting valid response to model...
+2026-10-11 19:43:13,645 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_04/cvdp_work/cvdp_copilot_Serial_Line_Converter/harness/11
+Running native service: 11-new-tb
+2026-10-11 19:43:14,647 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 19:43:14,647 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Recorded iteration 4: no_change - 20/41 tests passed
+cvdp_copilot_Serial_Line_Converter_0011 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:43:14,647 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:43:14,649 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Continuing to focus on same error: - **Error Message:** The encoded output does not match the e...
+2026-10-11 19:43:14,649 WARNING ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Prompt (92203 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:43:14,649 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:43:14,650 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:43:37,443 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:43:37,443 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Received LLM response, length: 1700
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_05/cvdp_work/cvdp_copilot_Serial_Line_Converter_0011
+Requesting valid response to model...
+2026-10-11 19:43:50,287 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z/datapoints/cvdp_copilot_Serial_Line_Converter_0011/attempt_1/iter_05/cvdp_work/cvdp_copilot_Serial_Line_Converter/harness/11
+Running native service: 11-new-tb
+2026-10-11 19:43:51,358 WARNING ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Prompt (94666 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:43:51,358 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:43:51,358 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:43:58,094 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:43:58,094 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Received LLM response, length: 422
+2026-10-11 19:43:58,095 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:43:58,095 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Current error appears solved but introduced NEW errors in iteration 5
+2026-10-11 19:43:58,095 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 19:43:58,095 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Recorded iteration 5: improved - 30/51 tests passed
+cvdp_copilot_Serial_Line_Converter_0011 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:43:58,095 INFO ace_cvdp_native_runner.cvdp_copilot_Serial_Line_Converter_0011.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_Serial_Line_Converter_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T103947Z

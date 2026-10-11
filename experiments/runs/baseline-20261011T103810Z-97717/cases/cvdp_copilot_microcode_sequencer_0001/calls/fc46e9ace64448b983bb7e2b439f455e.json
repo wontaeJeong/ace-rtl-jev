@@ -1,0 +1,25 @@
+{
+  "call_id": "fc46e9ace64448b983bb7e2b439f455e",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_microcode_sequencer_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:20:31.588708+00:00",
+  "request_sha256": "673e728e2943647cc137a4fcd56d4d000fd818b223027fa1cc66cb3aeb4dd38b",
+  "prompt_chars": 31068,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 7989,
+    "completion_tokens": 3417,
+    "total_tokens": 11406,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 2462
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 3427,
+  "latency_seconds": 30.592819542158395
+}

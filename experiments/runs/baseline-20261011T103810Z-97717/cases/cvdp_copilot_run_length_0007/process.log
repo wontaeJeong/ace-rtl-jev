@@ -1,0 +1,121 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_run_length_0007 ===
+2026-10-11 20:29:42,790 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:29:42,984 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:29:42,984 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:29:42,985 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:29:42,985 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:29:42,985 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:29:42,985 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:29:42,986 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_01/cvdp_work/cvdp_copilot_run_length_0007
+Requesting valid response to model...
+2026-10-11 20:30:16,156 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_01/cvdp_work/cvdp_copilot_run_length/harness/7
+Running native service: 7-new-tb
+cvdp_copilot_run_length_0007 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:30:19,059 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:30:19,062 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137072 chars -> 90000 chars
+2026-10-11 20:30:19,062 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137072 chars -> 90000 chars
+2026-10-11 20:30:19,062 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:30:19,062 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:30:23,212 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:30:23,212 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 337
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 20:30:23,212 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 20:30:23,213 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (103918 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:30:23,213 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:30:23,213 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:30:55,291 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:30:55,291 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 2281
+2026-10-11 20:30:55,293 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Focusing on new error: - **Error Message:** `valid` is not asserted after continuou...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_02/cvdp_work/cvdp_copilot_run_length_0007
+Requesting valid response to model...
+2026-10-11 20:31:18,732 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_02/cvdp_work/cvdp_copilot_run_length/harness/7
+Running native service: 7-new-tb
+2026-10-11 20:31:21,378 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137071 chars -> 90000 chars
+2026-10-11 20:31:21,378 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137071 chars -> 90000 chars
+2026-10-11 20:31:21,378 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (99634 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:31:21,378 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:31:21,378 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:31:26,016 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:31:26,016 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 492
+2026-10-11 20:31:26,016 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:31:26,017 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 20:31:26,017 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Recorded iteration 2: no_change - 0/65 tests passed
+cvdp_copilot_run_length_0007 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:31:26,017 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:31:26,019 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137071 chars -> 90000 chars
+2026-10-11 20:31:26,019 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137071 chars -> 90000 chars
+2026-10-11 20:31:26,020 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Continuing to focus on same error: - **Error Message:** `valid` is not asserted after continuou...
+2026-10-11 20:31:26,020 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (105119 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:31:26,020 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:31:26,020 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:31:52,621 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:31:52,622 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 1530
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_03/cvdp_work/cvdp_copilot_run_length_0007
+Requesting valid response to model...
+2026-10-11 20:32:18,372 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_03/cvdp_work/cvdp_copilot_run_length/harness/7
+Running native service: 7-new-tb
+2026-10-11 20:32:20,926 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137071 chars -> 90000 chars
+2026-10-11 20:32:20,926 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137071 chars -> 90000 chars
+2026-10-11 20:32:20,926 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (99744 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:32:20,926 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:32:20,926 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:32:23,465 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:32:23,465 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 370
+2026-10-11 20:32:23,465 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:32:23,465 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 20:32:23,465 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Recorded iteration 3: no_change - 0/65 tests passed
+cvdp_copilot_run_length_0007 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:32:23,466 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:32:23,469 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137071 chars -> 90000 chars
+2026-10-11 20:32:23,469 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137071 chars -> 90000 chars
+2026-10-11 20:32:23,469 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Continuing to focus on same error: - **Error Message:** `valid` is not asserted after continuou...
+2026-10-11 20:32:23,470 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (105097 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:32:23,470 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:32:23,470 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:33:05,548 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:33:05,548 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 1567
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_04/cvdp_work/cvdp_copilot_run_length_0007
+Requesting valid response to model...
+2026-10-11 20:33:31,387 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_04/cvdp_work/cvdp_copilot_run_length/harness/7
+Running native service: 7-new-tb
+2026-10-11 20:33:34,169 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137071 chars -> 90000 chars
+2026-10-11 20:33:34,169 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137071 chars -> 90000 chars
+2026-10-11 20:33:34,169 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (99691 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:33:34,169 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:33:34,169 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:33:36,741 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:33:36,741 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 394
+2026-10-11 20:33:36,741 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:33:36,741 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 20:33:36,741 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Recorded iteration 4: no_change - 0/65 tests passed
+cvdp_copilot_run_length_0007 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:33:36,742 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:33:36,744 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137071 chars -> 90000 chars
+2026-10-11 20:33:36,744 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137071 chars -> 90000 chars
+2026-10-11 20:33:36,744 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Continuing to focus on same error: - **Error Message:** `valid` is not asserted after continuou...
+2026-10-11 20:33:36,745 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (105041 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:33:36,745 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:33:36,745 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:34:10,307 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:34:10,308 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 1564
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_05/cvdp_work/cvdp_copilot_run_length_0007
+Requesting valid response to model...
+2026-10-11 20:34:22,454 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z/datapoints/cvdp_copilot_run_length_0007/attempt_1/iter_05/cvdp_work/cvdp_copilot_run_length/harness/7
+Running native service: 7-new-tb
+2026-10-11 20:34:25,098 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Intelligent truncation: 1064 lines -> 573 lines, 137071 chars -> 90000 chars
+2026-10-11 20:34:25,098 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prepared compact error report for prompt: 137071 chars -> 90000 chars
+2026-10-11 20:34:25,098 WARNING ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Prompt (99646 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:34:25,098 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:34:25,098 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:34:29,380 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:34:29,380 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Received LLM response, length: 572
+2026-10-11 20:34:29,380 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:34:29,380 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 20:34:29,380 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Recorded iteration 5: no_change - 0/65 tests passed
+cvdp_copilot_run_length_0007 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:34:29,381 INFO ace_cvdp_native_runner.cvdp_copilot_run_length_0007.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_run_length_0007/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112942Z

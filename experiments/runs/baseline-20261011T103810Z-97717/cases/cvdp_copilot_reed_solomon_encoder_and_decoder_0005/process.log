@@ -1,0 +1,109 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_reed_solomon_encoder_and_decoder_0005 ===
+2026-10-11 20:27:26,296 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:27:26,452 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:27:26,452 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:27:26,452 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:27:26,452 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:27:26,453 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:27:26,453 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:27:26,453 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder_0005
+Requesting valid response to model...
+2026-10-11 20:27:48,757 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_01/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/harness/5
+Running native service: 01-new-tb
+cvdp_copilot_reed_solomon_encoder_and_decoder_0005 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:27:51,009 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:27:51,011 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Intelligent truncation: 990 lines -> 568 lines, 101202 chars -> 77327 chars
+2026-10-11 20:27:51,011 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prepared compact error report for prompt: 101202 chars -> 77327 chars
+2026-10-11 20:27:51,011 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:27:51,011 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:27:52,940 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:27:52,940 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 20:27:52,940 WARNING ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prompt (84846 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:27:52,941 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:27:52,941 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:28:15,528 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:28:15,528 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Received LLM response, length: 1745
+2026-10-11 20:28:15,530 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Focusing on new error: - **Error Message**: The encoder’s parity output does not ma...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_02/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder_0005
+Requesting valid response to model...
+2026-10-11 20:29:04,490 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_02/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/harness/5
+Running native service: 01-new-tb
+2026-10-11 20:29:06,150 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Intelligent truncation: 990 lines -> 568 lines, 101158 chars -> 77299 chars
+2026-10-11 20:29:06,150 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prepared compact error report for prompt: 101158 chars -> 77299 chars
+2026-10-11 20:29:06,150 WARNING ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prompt (84607 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:29:06,150 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:29:06,150 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:29:11,085 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:29:11,085 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Received LLM response, length: 615
+2026-10-11 20:29:11,085 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 20:29:11,085 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Recorded iteration 2: no_change - 0/41 tests passed
+cvdp_copilot_reed_solomon_encoder_and_decoder_0005 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:29:11,085 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:29:11,087 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Intelligent truncation: 990 lines -> 568 lines, 101158 chars -> 77299 chars
+2026-10-11 20:29:11,087 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prepared compact error report for prompt: 101158 chars -> 77299 chars
+2026-10-11 20:29:11,087 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Continuing to focus on same error: - **Error Message**: The encoder’s parity output does not ma...
+2026-10-11 20:29:11,088 WARNING ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prompt (85797 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:29:11,088 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:29:11,088 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:29:28,809 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:29:28,809 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Received LLM response, length: 1782
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_03/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder_0005
+Requesting valid response to model...
+2026-10-11 20:29:52,741 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_03/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/harness/5
+Running native service: 01-new-tb
+2026-10-11 20:29:54,636 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Intelligent truncation: 990 lines -> 568 lines, 101179 chars -> 77320 chars
+2026-10-11 20:29:54,636 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prepared compact error report for prompt: 101179 chars -> 77320 chars
+2026-10-11 20:29:54,636 WARNING ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prompt (84876 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:29:54,636 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:29:54,636 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:29:57,849 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:29:57,850 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Received LLM response, length: 525
+2026-10-11 20:29:57,850 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 20:29:57,850 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Recorded iteration 3: no_change - 0/41 tests passed
+cvdp_copilot_reed_solomon_encoder_and_decoder_0005 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:29:57,851 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:29:57,854 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Intelligent truncation: 990 lines -> 568 lines, 101179 chars -> 77320 chars
+2026-10-11 20:29:57,855 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prepared compact error report for prompt: 101179 chars -> 77320 chars
+2026-10-11 20:29:57,855 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Continuing to focus on same error: - **Error Message**: The encoder’s parity output does not ma...
+2026-10-11 20:29:57,856 WARNING ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prompt (85856 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:29:57,856 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:29:57,856 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:30:10,782 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:30:10,782 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Received LLM response, length: 1627
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_04/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder_0005
+Requesting valid response to model...
+2026-10-11 20:30:44,174 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_04/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/harness/5
+Running native service: 01-new-tb
+2026-10-11 20:30:46,061 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Intelligent truncation: 990 lines -> 568 lines, 101187 chars -> 77326 chars
+2026-10-11 20:30:46,061 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prepared compact error report for prompt: 101187 chars -> 77326 chars
+2026-10-11 20:30:46,061 WARNING ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prompt (84895 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:30:46,061 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:30:46,061 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:30:49,647 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:30:49,647 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Received LLM response, length: 440
+2026-10-11 20:30:49,647 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 20:30:49,647 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Recorded iteration 4: no_change - 0/41 tests passed
+cvdp_copilot_reed_solomon_encoder_and_decoder_0005 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:30:49,648 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:30:49,650 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Intelligent truncation: 990 lines -> 568 lines, 101187 chars -> 77326 chars
+2026-10-11 20:30:49,650 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prepared compact error report for prompt: 101187 chars -> 77326 chars
+2026-10-11 20:30:49,650 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Continuing to focus on same error: - **Error Message**: The encoder’s parity output does not ma...
+2026-10-11 20:30:49,651 WARNING ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Prompt (85925 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:30:49,651 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:30:49,651 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:31:13,114 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:31:13,114 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Received LLM response, length: 1527
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_05/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder_0005
+Requesting valid response to model...
+2026-10-11 20:31:27,334 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z/datapoints/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/attempt_1/iter_05/cvdp_work/cvdp_copilot_reed_solomon_encoder_and_decoder/harness/5
+Running native service: 01-new-tb
+2026-10-11 20:31:29,085 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Unclear if error solved in iteration 5 - continuing to focus on same error
+2026-10-11 20:31:29,085 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Recorded iteration 5: no_change - 0/41 tests passed
+cvdp_copilot_reed_solomon_encoder_and_decoder_0005 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:31:29,086 INFO ace_cvdp_native_runner.cvdp_copilot_reed_solomon_encoder_and_decoder_0005.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_reed_solomon_encoder_and_decoder_0005/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T112726Z

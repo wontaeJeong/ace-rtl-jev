@@ -1,0 +1,25 @@
+{
+  "call_id": "8659bd483e1a413eb7f95379152e564e",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_vending_machine_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:43:30.352644+00:00",
+  "request_sha256": "5aacb1b32ab81e12ff2c17cd1ab83f3678a08bae51ba849758de1803cbcac6cc",
+  "prompt_chars": 66877,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 17553,
+    "completion_tokens": 1903,
+    "total_tokens": 19456,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1577
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 1344,
+  "latency_seconds": 17.97941404208541
+}

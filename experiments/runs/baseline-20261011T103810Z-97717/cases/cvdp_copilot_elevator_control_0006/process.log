@@ -1,0 +1,96 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_elevator_control_0006 ===
+2026-10-11 19:59:09,921 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:59:10,093 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:59:10,093 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:59:10,093 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:59:10,093 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:59:10,094 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:59:10,094 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:59:10,094 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_01/cvdp_work/cvdp_copilot_elevator_control_0006
+Requesting valid response to model...
+2026-10-11 20:00:08,724 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_01/cvdp_work/cvdp_copilot_elevator_control/harness/6
+Running native service: direct
+[ERROR] Failed to execute None harness...
+cvdp_copilot_elevator_control_0006 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:05:10,995 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:05:10,997 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:05:10,997 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:05:29,086 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:05:29,086 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 1334
+2026-10-11 20:05:29,087 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Focusing on new error: - **Error Message:** “Failed to execute objective harness” (...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_02/cvdp_work/cvdp_copilot_elevator_control_0006
+Requesting valid response to model...
+2026-10-11 20:05:58,123 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_02/cvdp_work/cvdp_copilot_elevator_control/harness/6
+Running native service: direct
+[ERROR] Failed to execute None harness...
+2026-10-11 20:11:00,362 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:11:00,362 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:11:03,304 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:11:03,304 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 476
+2026-10-11 20:11:03,304 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:11:03,304 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLM confirms error NOT solved in iteration 2 - continuing to focus on it
+2026-10-11 20:11:03,304 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Recorded iteration 2: no_change - 0/2 tests passed
+cvdp_copilot_elevator_control_0006 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:11:03,305 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:11:03,306 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Continuing to focus on same error: - **Error Message:** “Failed to execute objective harness” (...
+2026-10-11 20:11:03,307 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:11:03,307 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:11:17,868 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:11:17,869 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 1504
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_03/cvdp_work/cvdp_copilot_elevator_control_0006
+Requesting valid response to model...
+2026-10-11 20:11:46,278 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_03/cvdp_work/cvdp_copilot_elevator_control/harness/6
+Running native service: direct
+[ERROR] Failed to execute None harness...
+2026-10-11 20:16:48,563 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:16:48,563 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:16:50,869 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:16:50,869 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 490
+2026-10-11 20:16:50,869 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:16:50,869 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 20:16:50,869 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Recorded iteration 3: no_change - 0/2 tests passed
+cvdp_copilot_elevator_control_0006 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:16:50,869 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:16:50,871 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Continuing to focus on same error: - **Error Message:** “Failed to execute objective harness” (...
+2026-10-11 20:16:50,871 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:16:50,871 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:17:10,128 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:17:10,128 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 1186
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_04/cvdp_work/cvdp_copilot_elevator_control_0006
+Requesting valid response to model...
+2026-10-11 20:17:26,439 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_04/cvdp_work/cvdp_copilot_elevator_control/harness/6
+Running native service: direct
+[ERROR] Failed to execute None harness...
+2026-10-11 20:22:28,685 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:22:28,685 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:22:34,222 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:22:34,222 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 327
+2026-10-11 20:22:34,222 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:22:34,222 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLM confirms error NOT solved in iteration 4 - continuing to focus on it
+2026-10-11 20:22:34,222 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Recorded iteration 4: no_change - 0/2 tests passed
+cvdp_copilot_elevator_control_0006 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:22:34,223 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:22:34,224 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Continuing to focus on same error: - **Error Message:** “Failed to execute objective harness” (...
+2026-10-11 20:22:34,225 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:22:34,225 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:22:51,031 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:22:51,032 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 1488
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_05/cvdp_work/cvdp_copilot_elevator_control_0006
+Requesting valid response to model...
+2026-10-11 20:23:18,289 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z/datapoints/cvdp_copilot_elevator_control_0006/attempt_1/iter_05/cvdp_work/cvdp_copilot_elevator_control/harness/6
+Running native service: direct
+[ERROR] Failed to execute None harness...
+2026-10-11 20:28:20,525 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:28:20,525 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:28:22,899 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:28:22,899 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Received LLM response, length: 409
+2026-10-11 20:28:22,899 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:28:22,899 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: LLM confirms error NOT solved in iteration 5 - continuing to focus on it
+2026-10-11 20:28:22,899 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Recorded iteration 5: no_change - 0/2 tests passed
+cvdp_copilot_elevator_control_0006 attempt 1 iteration 5: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:28:22,900 INFO ace_cvdp_native_runner.cvdp_copilot_elevator_control_0006.attempt1: Auto-continue (conservative policy): Only 5 iterations since last restart - minimum 12 required before considering restart
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_elevator_control_0006/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105909Z

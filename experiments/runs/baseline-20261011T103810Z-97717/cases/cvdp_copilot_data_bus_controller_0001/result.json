@@ -1,0 +1,150 @@
+{
+  "id": "cvdp_copilot_data_bus_controller_0001",
+  "category": "cid003",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 68.21152229211293,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 8,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 55051,
+      "reported_completion_tokens": 7427,
+      "reported_total_tokens": 62478,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 65.6208856657613,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_03/candidate/rtl/data_bus_controller.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "27ff841fe28125c5",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/candidate/rtl/data_bus_controller.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/data_bus_controller.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/candidate/rtl/data_bus_controller.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:51: error: 's_valid' is not a valid l-value for a procedural assignment.",
+              "signature": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/d",
+              "stage": "CANDIDATE_COMPILE"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.2798290252685547,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/reports/1.txt",
+                  "pid": 10004,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.28,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:51: error: 's_valid' is not a valid l-value for a procedural assignment.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:52: error: 's_data' is not a valid l-value for a procedural assignment.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:53: error: 'm0_read' is not a valid l-value for a procedural assignment.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:54: error: 'm1_read' is not a valid l-value for a procedural assignment.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:58: error: 's_data' is not a valid l-value for a procedural assignment.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:59: error: 'm1_read' is not a valid l-value for a procedural assignment.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:61: error: 's_data' is not a valid l-value for a procedural assignment.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rtl/data_bus_controller.sv:62: error: 'm0_read' is not a valid l-value for a procedural assignment.\",\n    \"8 error(s) during elaboration.\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...ork/cvdp_copilot_data_bus_controller/harness/1/rundir/sim_build/sim.vvp', '-s', 'data_bus_controller', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_data_bus_controller/harness/1/rundir/sim_build/sim.vvp', '-s', 'data_bus_controller', '-g2012',\"\n  ],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "52772582f502ca3d",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_02/candidate/rtl/data_bus_controller.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/data_bus_controller.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_02/candidate/rtl/data_bus_controller.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "candidate compiled and ran but failed one or more CVDP checks",
+              "signature": "candidate compiled and ran but failed one or more CVDP checks",
+              "stage": "CANDIDATE_FUNCTIONAL"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.3790099620819092,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_data_bus_controller/reports/1.txt",
+                  "pid": 10192,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 0.379,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "f9e0931677129500",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_03/candidate/rtl/data_bus_controller.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/data_bus_controller.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_03/candidate/rtl/data_bus_controller.sv"
+            },
+            "iteration": 3,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid003",
+              "difficulty": "medium",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 0.5592148303985596,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_data_bus_controller_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105732Z/datapoints/cvdp_copilot_data_bus_controller_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_data_bus_controller/reports/1.txt",
+                  "pid": 10329,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid003\",\n  \"difficulty\": \"medium\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 0.559,\n      \"log_basename\": \"1.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 3,
+        "status": "passed"
+      }
+    ],
+    "category": "cid003",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_data_bus_controller_0001",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

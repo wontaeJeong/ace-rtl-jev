@@ -1,0 +1,88 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_gcd_0001 ===
+2026-10-11 20:06:00,805 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:06:00,996 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:06:00,997 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:06:00,998 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:06:00,998 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:06:00,998 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:06:00,998 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:06:00,998 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_gcd_0001
+Requesting valid response to model...
+2026-10-11 20:06:44,689 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_gcd/harness/1
+Running native service: 01-new-tb
+cvdp_copilot_gcd_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:06:45,887 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:06:45,889 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:06:45,889 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:07:03,704 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:07:03,704 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 1540
+2026-10-11 20:07:03,705 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Focusing on new error: - **Error Message:** GCD latency is incorrect for equal inpu...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_gcd_0001
+Requesting valid response to model...
+2026-10-11 20:07:21,769 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_gcd/harness/1
+Running native service: 01-new-tb
+2026-10-11 20:07:25,001 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:07:25,002 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:07:32,785 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:07:32,786 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 584
+2026-10-11 20:07:32,786 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 20:07:32,786 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Recorded iteration 2: no_change - 4/26 tests passed
+cvdp_copilot_gcd_0001 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:07:32,787 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:07:32,789 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Continuing to focus on same error: - **Error Message:** GCD latency is incorrect for equal inpu...
+2026-10-11 20:07:32,789 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:07:32,789 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:08:04,449 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:08:04,449 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 1481
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_gcd_0001
+Requesting valid response to model...
+2026-10-11 20:08:30,692 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_03/cvdp_work/cvdp_copilot_gcd/harness/1
+Running native service: 01-new-tb
+2026-10-11 20:08:32,322 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:08:32,322 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:08:36,481 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:08:36,481 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 466
+2026-10-11 20:08:36,481 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 20:08:36,481 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Recorded iteration 3: regressed - 2/26 tests passed
+cvdp_copilot_gcd_0001 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:08:36,482 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:08:36,485 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Continuing to focus on same error: - **Error Message:** GCD latency is incorrect for equal inpu...
+2026-10-11 20:08:36,487 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:08:36,487 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:08:42,207 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:08:42,208 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 1309
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_gcd_0001
+Requesting valid response to model...
+2026-10-11 20:08:53,246 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_04/cvdp_work/cvdp_copilot_gcd/harness/1
+Running native service: 01-new-tb
+2026-10-11 20:08:56,408 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:08:56,408 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:09:00,238 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:09:00,238 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 480
+2026-10-11 20:09:00,238 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:09:00,238 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 20:09:00,238 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Recorded iteration 4: improved - 4/26 tests passed
+cvdp_copilot_gcd_0001 attempt 1 iteration 4: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:09:00,238 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Auto-continue (conservative policy): Only 4 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:09:00,240 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Continuing to focus on same error: - **Error Message:** GCD latency is incorrect for equal inpu...
+2026-10-11 20:09:00,241 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:09:00,241 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:09:21,722 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:09:21,722 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 1459
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_gcd_0001
+Requesting valid response to model...
+2026-10-11 20:10:02,027 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z/datapoints/cvdp_copilot_gcd_0001/attempt_1/iter_05/cvdp_work/cvdp_copilot_gcd/harness/1
+Running native service: 01-new-tb
+2026-10-11 20:10:05,031 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:10:05,031 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:10:08,615 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:10:08,616 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Received LLM response, length: 409
+2026-10-11 20:10:08,616 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:10:08,616 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Unclear if error solved in iteration 5 - continuing to focus on same error
+2026-10-11 20:10:08,616 INFO ace_cvdp_native_runner.cvdp_copilot_gcd_0001.attempt1: Recorded iteration 5: solved - 16/16 tests passed
+cvdp_copilot_gcd_0001 attempt 1 iteration 5: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_gcd_0001/native/cvdp_cid003_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T110600Z

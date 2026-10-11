@@ -1,0 +1,25 @@
+{
+  "call_id": "534d6bf96fd54d9b9651a2660852de59",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_thermostat_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:39:40.814833+00:00",
+  "request_sha256": "a6d86f7782ed1ceb2c0eb07b7bac1f69225cff79a939698fc58743eb2c8f4df1",
+  "prompt_chars": 10148,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2602,
+    "completion_tokens": 1938,
+    "total_tokens": 4540,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1093
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2938,
+  "latency_seconds": 15.027900041081011
+}

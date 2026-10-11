@@ -1,0 +1,182 @@
+{
+  "id": "cvdp_copilot_cascaded_adder_0025",
+  "category": "cid002",
+  "mode": "baseline",
+  "status": "success",
+  "returncode": 0,
+  "elapsed_seconds": 191.16164829209447,
+  "metrics": {
+    "total_tokens_complete": true,
+    "primary": {
+      "calls": 11,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 168684,
+      "reported_completion_tokens": 20507,
+      "reported_total_tokens": 189191,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 180.94235908286646,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": "cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/summary.json",
+  "result": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_04/candidate/rtl/cascaded_adder.sv",
+        "history": [
+          {
+            "candidate_changed": true,
+            "candidate_hash": "c04f803a38f513cf",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_01/candidate/rtl/cascaded_adder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_01/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cascaded_adder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_01/candidate/rtl/cascaded_adder.sv"
+            },
+            "iteration": 1,
+            "passed": false,
+            "primary_failure": {
+              "message": "popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...01/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', ...],)",
+              "signature": "popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...01/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2",
+              "stage": "CANDIDATE_COMPILE"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 1.9620401859283447,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_01/cvdp_work/cvdp_copilot_cascaded_adder/reports/25.txt",
+                  "pid": 6817,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 1.962,\n      \"log_basename\": \"25.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...01/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_01/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', '-Pcascaded_adder.\"\n  ],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "fff72925bef7f172",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/candidate/rtl/cascaded_adder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cascaded_adder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/candidate/rtl/cascaded_adder.sv"
+            },
+            "iteration": 2,
+            "passed": false,
+            "primary_failure": {
+              "message": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:79: error: Variable 'stage_output' cannot be driven by a continuous assignment/module or continuous assignment with non-default stren",
+              "signature": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapo",
+              "stage": "CANDIDATE_COMPILE"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 2.105879783630371,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/reports/25.txt",
+                  "pid": 7237,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 2.106,\n      \"log_basename\": \"25.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:79: error: Variable 'stage_output' cannot be driven by a continuous assignment/module or continuous assignment with non-default stren\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:84: error: Variable 'stage_output' cannot be driven by a continuous assignment/module or continuous assignment with non-default stren\",\n    \"cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:84: error: Variable 'stage_output' cannot be driven by a continuous assignment/module or continuous assignment with non-default strength.\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:113: error: Variable 'valid_pipeline' cannot be driven by a continuous assignment/module or continuous assignment with non-default st\",\n    \"859 error(s) during elaboration.\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', '-Pcascaded_adder.\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_02/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', '-Pcascaded_adder.\"\n  ],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "c31becfbc0d55d28",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/candidate/rtl/cascaded_adder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cascaded_adder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/candidate/rtl/cascaded_adder.sv"
+            },
+            "iteration": 3,
+            "passed": false,
+            "primary_failure": {
+              "message": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:87: error: Variable 'stage_output_q' cannot be driven by a continuous assignment/module or continuous assignment with non-default str",
+              "signature": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapo",
+              "stage": "CANDIDATE_COMPILE"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 1,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 3.353551149368286,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/cvdp_work/cvdp_copilot_cascaded_adder/reports/25.txt",
+                  "pid": 7498,
+                  "result": 1,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 1,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 1,\n      \"error_msg\": null,\n      \"execution\": 3.354,\n      \"log_basename\": \"25.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:87: error: Variable 'stage_output_q' cannot be driven by a continuous assignment/module or continuous assignment with non-default str\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:81: error: Variable 'stage_output_q' cannot be driven by a continuous assignment/module or continuous assignment with non-default str\",\n    \"/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rtl/cascaded_adder.sv:115: error: Variable 'valid_pipeline_q' cannot be driven by a continuous assignment/module or continuous assignment with non-default \",\n    \"137 error(s) during elaboration.\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', '-Pcascaded_adder.\",\n    \"popenargs = (['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T10381...03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', ...],)\",\n    \"E               subprocess.CalledProcessError: Command '['iverilog', '-o', '/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_03/cvdp_work/cvdp_copilot_cascaded_adder/harness/25/rundir/sim_build/sim.vvp', '-s', 'cascaded_adder', '-g2012', '-Pcascaded_adder.\"\n  ],\n  \"setup_diagnostics\": []\n}"
+          },
+          {
+            "candidate_changed": true,
+            "candidate_hash": "5461feab3ab8b66e",
+            "candidate_path": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_04/candidate/rtl/cascaded_adder.sv",
+            "evaluator_error_report": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_04/evaluator_error_report.txt",
+            "generated_files": {
+              "rtl/cascaded_adder.sv": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_04/candidate/rtl/cascaded_adder.sv"
+            },
+            "iteration": 4,
+            "passed": true,
+            "primary_failure": {
+              "message": "no failure detected",
+              "signature": "no failure detected",
+              "stage": "PASS"
+            },
+            "result": {
+              "category": "cid002",
+              "difficulty": "medium",
+              "errors": 0,
+              "tests": [
+                {
+                  "error_msg": null,
+                  "execution": 1.0683238506317139,
+                  "log": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_cascaded_adder_0025/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105348Z/datapoints/cvdp_copilot_cascaded_adder_0025/attempt_1/iter_04/cvdp_work/cvdp_copilot_cascaded_adder/reports/25.txt",
+                  "pid": 8560,
+                  "result": 0,
+                  "terminated_pids": []
+                }
+              ]
+            },
+            "summary": "{\n  \"category\": \"cid002\",\n  \"difficulty\": \"medium\",\n  \"errors\": 0,\n  \"preflight_failures\": [],\n  \"postprocess_actions\": [],\n  \"service_results\": [\n    {\n      \"result\": 0,\n      \"error_msg\": null,\n      \"execution\": 1.068,\n      \"log_basename\": \"25.txt\"\n    }\n  ],\n  \"safe_compile_diagnostics\": [],\n  \"setup_diagnostics\": []\n}"
+          }
+        ],
+        "passed_iteration": 4,
+        "status": "passed"
+      }
+    ],
+    "category": "cid002",
+    "difficulty": "medium",
+    "id": "cvdp_copilot_cascaded_adder_0025",
+    "passed": true,
+    "passed_attempt": 1,
+    "stopped_after_first_pass": 0
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "call_id": "2e7e964afccb40169ee85a081e5e1bf3",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_aes_key_expansion_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T10:40:46.446544+00:00",
+  "request_sha256": "f8b6b2461be854d1be5129221e0009320d6deedd0bf12acede90efd316835c2b",
+  "prompt_chars": 17106,
+  "status": "error",
+  "usage": null,
+  "usage_unknown": true,
+  "fallback": false,
+  "error_type": "RuntimeError",
+  "latency_seconds": 60.02727633318864
+}

@@ -1,0 +1,64 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_serial_in_parallel_out_0011 ===
+2026-10-11 20:34:04,341 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:34:04,494 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:34:04,494 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:34:04,495 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:34:04,495 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:34:04,495 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:34:04,495 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:34:04,495 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z/datapoints/cvdp_copilot_serial_in_parallel_out_0011/attempt_1/iter_01/cvdp_work/cvdp_copilot_serial_in_parallel_out_0011
+Requesting valid response to model...
+2026-10-11 20:34:42,309 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z/datapoints/cvdp_copilot_serial_in_parallel_out_0011/attempt_1/iter_01/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/11
+Running native service: 11-new-tb
+cvdp_copilot_serial_in_parallel_out_0011 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:34:44,115 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:34:44,118 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:34:44,118 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:34:45,591 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:34:45,591 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 20:34:45,592 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Prompt (95720 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:34:45,592 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:34:45,592 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:34:57,072 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:34:57,072 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Received LLM response, length: 1681
+2026-10-11 20:34:57,073 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Focusing on new error: - **Error Message**: Cocotb cannot find a top-level signal n...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z/datapoints/cvdp_copilot_serial_in_parallel_out_0011/attempt_1/iter_02/cvdp_work/cvdp_copilot_serial_in_parallel_out_0011
+Requesting valid response to model...
+2026-10-11 20:35:13,618 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z/datapoints/cvdp_copilot_serial_in_parallel_out_0011/attempt_1/iter_02/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/11
+Running native service: 11-new-tb
+2026-10-11 20:35:15,467 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Prompt (102765 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:35:15,467 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:35:15,467 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:35:18,072 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:35:18,072 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Received LLM response, length: 373
+2026-10-11 20:35:18,072 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Unclear if error solved in iteration 2 - continuing to focus on same error
+2026-10-11 20:35:18,072 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Recorded iteration 2: no_change - 0/41 tests passed
+cvdp_copilot_serial_in_parallel_out_0011 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:35:18,073 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:35:18,076 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Continuing to focus on same error: - **Error Message**: Cocotb cannot find a top-level signal n...
+2026-10-11 20:35:18,077 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Prompt (102343 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:35:18,077 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:35:18,077 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:35:27,662 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:35:27,662 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Received LLM response, length: 1419
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z/datapoints/cvdp_copilot_serial_in_parallel_out_0011/attempt_1/iter_03/cvdp_work/cvdp_copilot_serial_in_parallel_out_0011
+Requesting valid response to model...
+2026-10-11 20:35:42,626 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z/datapoints/cvdp_copilot_serial_in_parallel_out_0011/attempt_1/iter_03/cvdp_work/cvdp_copilot_serial_in_parallel_out/harness/11
+Running native service: 11-new-tb
+2026-10-11 20:35:44,499 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Intelligent truncation: 1351 lines -> 500 lines, 144534 chars -> 54483 chars
+2026-10-11 20:35:44,499 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Prepared compact error report for prompt: 144534 chars -> 54483 chars
+2026-10-11 20:35:44,499 WARNING ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Prompt (69246 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:35:44,499 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:35:44,499 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:35:48,873 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:35:48,873 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Received LLM response, length: 339
+2026-10-11 20:35:48,873 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:35:48,873 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Unclear if error solved in iteration 3 - continuing to focus on same error
+2026-10-11 20:35:48,873 INFO ace_cvdp_native_runner.cvdp_copilot_serial_in_parallel_out_0011.attempt1: Recorded iteration 3: solved - 21/21 tests passed
+cvdp_copilot_serial_in_parallel_out_0011 attempt 1 iteration 3: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_serial_in_parallel_out_0011/native/cvdp_cid004_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T113404Z

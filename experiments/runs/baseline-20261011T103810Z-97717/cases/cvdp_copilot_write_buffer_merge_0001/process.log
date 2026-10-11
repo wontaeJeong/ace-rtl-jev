@@ -1,0 +1,46 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_write_buffer_merge_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T114158Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_write_buffer_merge_0001 ===
+2026-10-11 20:41:58,373 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 20:41:58,606 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:41:58,606 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:41:58,607 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:41:58,608 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:41:58,608 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 20:41:58,608 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 20:41:58,609 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_write_buffer_merge_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T114158Z/datapoints/cvdp_copilot_write_buffer_merge_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_write_buffer_merge_0001
+Requesting valid response to model...
+2026-10-11 20:42:27,436 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_write_buffer_merge_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T114158Z/datapoints/cvdp_copilot_write_buffer_merge_0001/attempt_1/iter_01/cvdp_work/cvdp_copilot_write_buffer_merge/harness/1
+Running native service: auto
+cvdp_copilot_write_buffer_merge_0001 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 20:42:29,925 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 20:42:29,928 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Intelligent truncation: 992 lines -> 494 lines, 97462 chars -> 67883 chars
+2026-10-11 20:42:29,928 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Prepared compact error report for prompt: 97462 chars -> 67883 chars
+2026-10-11 20:42:29,928 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:42:29,928 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:42:31,242 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:42:31,242 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 26
+DEBUG: No architectural rules were relevant to this design specification
+2026-10-11 20:42:31,243 WARNING ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Prompt (81185 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 20:42:31,243 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:42:31,243 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:42:50,558 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:42:50,558 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Received LLM response, length: 1831
+2026-10-11 20:42:50,560 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Focusing on new error: - **Error Message:** Output latency mismatch.
+- **Expected v...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_write_buffer_merge_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T114158Z/datapoints/cvdp_copilot_write_buffer_merge_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_write_buffer_merge_0001
+Requesting valid response to model...
+2026-10-11 20:43:05,348 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_write_buffer_merge_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T114158Z/datapoints/cvdp_copilot_write_buffer_merge_0001/attempt_1/iter_02/cvdp_work/cvdp_copilot_write_buffer_merge/harness/1
+Running native service: auto
+2026-10-11 20:43:07,752 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 20:43:07,752 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 20:43:09,943 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 20:43:09,944 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Received LLM response, length: 424
+2026-10-11 20:43:09,944 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 20:43:09,944 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Current error appears solved but introduced NEW errors in iteration 2
+2026-10-11 20:43:09,944 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1:    Keeping focus on original error to find solution that doesn't break other functionality
+2026-10-11 20:43:09,944 INFO ace_cvdp_native_runner.cvdp_copilot_write_buffer_merge_0001.attempt1: Recorded iteration 2: solved - 31/31 tests passed
+cvdp_copilot_write_buffer_merge_0001 attempt 1 iteration 2: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_write_buffer_merge_0001/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T114158Z

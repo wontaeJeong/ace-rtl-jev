@@ -1,0 +1,37 @@
+{
+  "id": "cvdp_copilot_axi_alu_0001",
+  "category": "cid016",
+  "mode": "baseline",
+  "status": "timeout",
+  "returncode": null,
+  "elapsed_seconds": 1800.0465295831673,
+  "metrics": {
+    "total_tokens_complete": false,
+    "primary": {
+      "calls": 18,
+      "error_calls": 8,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 8,
+      "reported_prompt_tokens": 149679,
+      "reported_completion_tokens": 38932,
+      "reported_total_tokens": 188611,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 744.6733497909736,
+      "latency_complete": true
+    },
+    "jev": {
+      "calls": 0,
+      "error_calls": 0,
+      "fallback_calls": 0,
+      "unknown_usage_calls": 0,
+      "reported_prompt_tokens": 0,
+      "reported_completion_tokens": 0,
+      "reported_total_tokens": 0,
+      "estimated_total_tokens": 0,
+      "latency_seconds": 0,
+      "latency_complete": true
+    }
+  },
+  "native_summary": null,
+  "result": null
+}

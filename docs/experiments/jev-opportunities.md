@@ -1,6 +1,6 @@
 # JEV-like opportunity audit
 
-Status: original full 292-case baseline is complete with recovered genuine evaluator evidence; clean paired baseline is running. Independent `scripts/systemone_adapter.py` is implemented and tested against both HTTP fixtures and the real updated endpoint. **No optimization hook has been applied to RTL-agent execution yet.** The choices below are proposed interventions, not measured benefits.
+Status: original full 292-case baseline and clean eight-worker baseline are complete with genuine evaluator evidence. Independent `scripts/systemone_adapter.py` is implemented and tested against both HTTP fixtures and the real updated endpoint. **No optimization hook has been applied to RTL-agent execution yet.** New paid runs are paused until design/offline/budget gates are satisfied. The choices below are proposed interventions, not measured benefits.
 
 ## Confirmed SystemOne capabilities
 

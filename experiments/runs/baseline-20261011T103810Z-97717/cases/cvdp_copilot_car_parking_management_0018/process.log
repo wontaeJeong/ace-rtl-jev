@@ -1,0 +1,83 @@
+RUN_DIR=/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z
+INFO:src.config_manager:No .env file found at .env, skipping
+=== Datapoint 1/1: cvdp_copilot_car_parking_management_0018 ===
+2026-10-11 19:53:19,847 INFO src.config_manager: No .env file found at .env, skipping
+Queue timeout is disabled by default. Set QUEUE_TIMEOUT environment variable to enable it.
+2026-10-11 19:53:19,988 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:53:19,988 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:53:19,988 INFO ace_rtl_agent.utils.llm_client: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:53:19,988 INFO ace_rtl_agent.utils.llm_client: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:53:19,988 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient initialized: model=gpt-6-luna, max_retries=3, initial_backoff=5.0
+2026-10-11 19:53:19,988 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLM backend initialized for model: gpt-6-luna
+2026-10-11 19:53:19,989 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Initialized FreshStartCoordinator
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_01/cvdp_work/cvdp_copilot_car_parking_management_0018
+Requesting valid response to model...
+2026-10-11 19:53:52,599 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_01/cvdp_work/cvdp_copilot_car_parking_management/harness/18
+Running native service: direct
+cvdp_copilot_car_parking_management_0018 attempt 1 iteration 1: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:53:53,424 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Auto-continue (conservative policy): Only 1 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:53:53,426 INFO ace_rtl_agent.utils.llm_client: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:53:53,426 INFO ace_rtl_agent.utils.llm_client: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:53:57,755 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:53:57,755 INFO ace_rtl_agent.utils.llm_client: Received LLM response, length: 386
+DEBUG: Retrieved 1 architectural guidance rules based on specification
+2026-10-11 19:53:57,755 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Retrieved 1 RTL coding rules for guidance
+2026-10-11 19:53:57,756 WARNING ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Prompt (73738 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:53:57,756 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:53:57,756 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:54:21,980 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:54:21,980 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Received LLM response, length: 2119
+2026-10-11 19:54:21,981 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Focusing on new error: - **Error Message**: Fee validation failed: `fee_ready` was ...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_02/cvdp_work/cvdp_copilot_car_parking_management_0018
+Requesting valid response to model...
+2026-10-11 19:54:48,173 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_02/cvdp_work/cvdp_copilot_car_parking_management/harness/18
+Running native service: direct
+2026-10-11 19:54:49,083 WARNING ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Prompt (72388 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:54:49,083 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:54:49,083 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:54:53,592 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:54:53,592 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Received LLM response, length: 586
+2026-10-11 19:54:53,592 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Current error SOLVED in iteration 2 - specific error resolved without breaking other functionality
+2026-10-11 19:54:53,592 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Recorded iteration 2: no_change - 0/21 tests passed
+cvdp_copilot_car_parking_management_0018 attempt 1 iteration 2: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:54:53,592 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Auto-continue (conservative policy): Only 2 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:54:53,595 WARNING ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Prompt (75231 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:54:53,595 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:54:53,595 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:55:07,110 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:55:07,111 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Received LLM response, length: 1606
+2026-10-11 19:55:07,112 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Focusing on new error: - **Error Message**: QR code mismatch.
+- **Expected vs Actua...
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_03/cvdp_work/cvdp_copilot_car_parking_management_0018
+Requesting valid response to model...
+2026-10-11 19:55:24,843 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_03/cvdp_work/cvdp_copilot_car_parking_management/harness/18
+Running native service: direct
+2026-10-11 19:55:25,874 WARNING ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Prompt (78286 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:55:25,874 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:55:25,874 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:55:29,524 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:55:29,524 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Received LLM response, length: 476
+2026-10-11 19:55:29,524 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1:    Detected new error introduction in fix effectiveness analysis
+2026-10-11 19:55:29,524 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLM confirms error NOT solved in iteration 3 - continuing to focus on it
+2026-10-11 19:55:29,524 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Recorded iteration 3: no_change - 0/21 tests passed
+cvdp_copilot_car_parking_management_0018 attempt 1 iteration 3: FAIL (CANDIDATE_FUNCTIONAL)
+2026-10-11 19:55:29,525 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Auto-continue (conservative policy): Only 3 iterations since last restart - minimum 12 required before considering restart
+2026-10-11 19:55:29,527 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Continuing to focus on same error: - **Error Message**: QR code mismatch.
+- **Expected vs Actua...
+2026-10-11 19:55:29,528 WARNING ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Prompt (79799 chars) exceeds context budget for gpt-6-luna; truncated to 66000 chars.
+2026-10-11 19:55:29,528 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:55:29,528 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:56:02,662 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:56:02,662 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Received LLM response, length: 1532
+Creating harness environment for datapoint: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_04/cvdp_work/cvdp_copilot_car_parking_management_0018
+Requesting valid response to model...
+2026-10-11 19:56:23,597 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: FreshStartCoordinator harness context set: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z/datapoints/cvdp_copilot_car_parking_management_0018/attempt_1/iter_04/cvdp_work/cvdp_copilot_car_parking_management/harness/18
+Running native service: direct
+2026-10-11 19:56:24,489 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Starting retry loop with max_retries=3
+2026-10-11 19:56:24,489 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: LLMClient: Calling model gpt-6-luna (attempt 1/4)
+2026-10-11 19:56:27,990 INFO ace_rtl_agent.llm_backend: adapter finish_reason=stop
+2026-10-11 19:56:27,991 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Received LLM response, length: 409
+2026-10-11 19:56:27,991 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Unclear if error solved in iteration 4 - continuing to focus on same error
+2026-10-11 19:56:27,991 INFO ace_cvdp_native_runner.cvdp_copilot_car_parking_management_0018.attempt1: Recorded iteration 4: solved - 9/9 tests passed
+cvdp_copilot_car_parking_management_0018 attempt 1 iteration 4: PASS (PASS)
+completed run: /Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717/cases/cvdp_copilot_car_parking_management_0018/native/cvdp_cid002_cvdp_v1.1.0_nonagentic_code_generation_no_commercial_20261011T105319Z

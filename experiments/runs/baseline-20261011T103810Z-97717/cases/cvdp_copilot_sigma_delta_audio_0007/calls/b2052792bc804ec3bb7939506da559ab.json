@@ -1,0 +1,25 @@
+{
+  "call_id": "b2052792bc804ec3bb7939506da559ab",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_sigma_delta_audio_0007",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:34:37.891443+00:00",
+  "request_sha256": "259e88aa8c58f7e4d210ac95b3370ce10824fcdf31a6dc761ce4ccd3e1cdc325",
+  "prompt_chars": 8680,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2637,
+    "completion_tokens": 3423,
+    "total_tokens": 6060,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 1653
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 4961,
+  "latency_seconds": 26.198012875160202
+}

@@ -1,0 +1,25 @@
+{
+  "call_id": "6ac128de085c48a5b185a92d9a073972",
+  "provider": "primary",
+  "model": "gpt-6-luna",
+  "case_id": "cvdp_copilot_password_generator_0001",
+  "mode": "baseline",
+  "phase": "evaluation",
+  "started_at": "2026-10-11T11:23:47.639151+00:00",
+  "request_sha256": "6adad17beb580dcb434ba8bea519383d0d9aca00dd23a822d09d78caf68799cc",
+  "prompt_chars": 53049,
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 13315,
+    "completion_tokens": 1643,
+    "total_tokens": 14958,
+    "source": "reported",
+    "cached_tokens": 0,
+    "reasoning_tokens": 961
+  },
+  "usage_unknown": false,
+  "fallback": false,
+  "finish_reason": "stop",
+  "completion_chars": 2031,
+  "latency_seconds": 15.15117191709578
+}
