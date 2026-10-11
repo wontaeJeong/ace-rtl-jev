@@ -30,3 +30,6 @@ experiments/runs/**/native/
 
 # Prepared judgment inputs can contain bounded emitted checker diagnostics.
 experiments/studies/**/inputs/
+
+# Browser-tool scratch; publish only selected report previews.
+.playwright-mcp/

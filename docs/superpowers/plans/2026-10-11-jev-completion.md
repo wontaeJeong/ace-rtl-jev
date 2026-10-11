@@ -42,6 +42,10 @@ Files: report HTML writer, study/comparison reports, guides and tests.
 - [ ] GREEN: generate all formats offline, fresh review before paid study, fix important findings through RED→GREEN, then preserve actual results and final limitations.
 - [ ] Verify all tests, manifests, raw events, keys/private source exclusion; commit/push/new PR. No merge without that PR's explicit approval.
 
+## Observed outcome
+
+Frozen paid scope actually executed: audit48 +CVDP case1. Both E2E modes passed; total evaluation tokens 45,979 →50,269 (+9.33%), primary fallback1, JEV decisions2. Historical case43.794 s vs actual65.415 s is descriptive only, not controlled batch-wall comparison. Accepted audit13/48, would-fallback35, schema-error3; old narrative proxy1/19 (not accuracy ground truth), all-pass checks12/12. Budget: primary8 calls/45,293 tokens; JEV51 calls/164,649 tokens/USD0.006787242. No unknown new usage, denial or overrun. No full292 improved run/repetition/ablation and no additional paid tuning. Keep baseline default, publish the negative outcome and confidence/information-loss risks.
+
 ## Evidence and constraints
 
 Baseline remains `baseline-20261011T103810Z-97717`: 292 actual outcomes, 239 success, known 16,538,281 tokens plus 33 usage-unknown calls; 4,367.250 s measured batch wall. Primary model metadata GET returned its ID but no pricing; no inference was sent for metadata discovery. Current JEV is OpenRouter/TypeSafe, not the initial local Ollama server. Full 292-case JEV evaluation is not authorized by this small new campaign allocation and must remain pending in reports.

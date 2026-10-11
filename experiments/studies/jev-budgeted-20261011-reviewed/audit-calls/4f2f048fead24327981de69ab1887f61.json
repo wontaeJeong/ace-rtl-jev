@@ -1,0 +1,44 @@
+{
+  "call_id": "4f2f048fead24327981de69ab1887f61",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_Serial_Line_Converter_0011",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:22.269364+00:00",
+  "status": "ok",
+  "usage": {
+    "prompt_tokens": 2850,
+    "completion_tokens": 61,
+    "total_tokens": 2911,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.0001197,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "833a35916a05f2a3a188abc0314244822aed1bc5952e4ccca6f2a6ebe2472760",
+  "prompt_chars": 7260,
+  "fallback": false,
+  "budget_ticket": "6892f982aad148faa50e073442f5df3a",
+  "kind": "snapshot_decision",
+  "answers": {
+    "effectiveness": {
+      "type": "choice",
+      "choice": "regression",
+      "probabilities": {
+        "resolved": 0.02,
+        "persistent": 0.03,
+        "regression": 0.47,
+        "changed": 0.16,
+        "uncertain": 0.32
+      },
+      "confidence": 0.34
+    }
+  },
+  "latency_seconds": 0.5016080408822745
+}

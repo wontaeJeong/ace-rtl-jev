@@ -1,0 +1,32 @@
+{
+  "call_id": "2550e27d2db74d7ea8b691511ae00645",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_Serial_Line_Converter_0011",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:24.931383+00:00",
+  "status": "error",
+  "usage": {
+    "prompt_tokens": 2887,
+    "completion_tokens": 61,
+    "total_tokens": 2948,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000121254,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "d47428a0a6dc363a9e2dc6544a08900ed17acfbfef158dea52ed03998a0bc313",
+  "prompt_chars": 7551,
+  "fallback": false,
+  "budget_ticket": "30323562a79440d9a0d82601c1e6ac2a",
+  "kind": "snapshot_decision",
+  "error_type": "DecisionError",
+  "error_message": "JEV invalid response schema",
+  "latency_seconds": 0.5011106252204627
+}

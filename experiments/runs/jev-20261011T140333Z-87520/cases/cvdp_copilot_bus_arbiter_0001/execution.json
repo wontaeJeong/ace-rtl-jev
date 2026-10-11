@@ -1,0 +1,9 @@
+{
+  "state": "finished",
+  "started_at": "2026-10-11T14:03:36.090103+00:00",
+  "pid": 87520,
+  "monotonic_started": 1380830.733883791,
+  "finished_at": "2026-10-11T14:04:41.506090+00:00",
+  "elapsed_seconds": 65.41541766701266,
+  "returncode": 0
+}

@@ -63,7 +63,7 @@ Eight-worker real CVDP shakedown after these common fixes completed all eight ca
 
 Clean batch `baseline-20261011T103810Z-97717` completed all 292 cases: 239 success / 52 candidate failure / 1 native service timeout (81.8493%). Measured batch wall time 4,367.2497 s, mean case time 109.6309 s, no missing case timers. Primary calls 1,311; reported input 14,235,838 and output 2,302,443, known subtotal 16,538,281; 33 usage-unknown calls mean full billed tokens are unavailable. Watcher observed zero orphan cleanup events. Report: `reports/clean-baseline/`.
 
-The user subsequently required cost-first design/preparation before tests. No new paid runs are queued after this completion. Remaining work is design/offline integration and spending-limit preparation; JEV E2E, repeated/ablation experiments and optimization savings remain unexecuted/unavailable.
+The user subsequently required cost-first design/preparation before tests. After implementing/reviewing admission and fallback, the user-authorized frozen small campaign executed 48 judgment snapshots and one real E2E. Campaign primary8 calls/45,293 tokens, JEV51 calls/164,649 tokens/USD0.006787242, including warmup; no new usage unknown/denial. E2E both passed, but JEV total evaluation tokens increased45,979→50,269 (+9.33%), primary fallback1. Full292 JEV/repeated/ablation remain unexecuted. No extra tuning is queued; see `reports/jev-final/` and the explicit limits in `jev-guide.md`.
 
 ## Measurement protocol
 

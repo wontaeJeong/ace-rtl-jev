@@ -1,0 +1,32 @@
+{
+  "call_id": "275bc888dde84903a7227f4b4370bca0",
+  "provider": "jev",
+  "model": "typesafe/jev-1.13",
+  "case_id": "cvdp_copilot_apb_dsp_op_0002",
+  "mode": "jev",
+  "phase": "judgment_audit",
+  "questions": [
+    "effectiveness"
+  ],
+  "started_at": "2026-10-11T14:03:15.610775+00:00",
+  "status": "error",
+  "usage": {
+    "prompt_tokens": 3202,
+    "completion_tokens": 61,
+    "total_tokens": 3263,
+    "source": "reported",
+    "cached_tokens": null,
+    "reasoning_tokens": null,
+    "provider_cost": 0.000134484,
+    "cost_currency": "USD"
+  },
+  "usage_unknown": false,
+  "request_sha256": "224eb78c812fd11f07453051bc00cf69eb09e176201173add819d46140506b62",
+  "prompt_chars": 8026,
+  "fallback": false,
+  "budget_ticket": "1a1a5d68b1084639a6dc57007257a534",
+  "kind": "snapshot_decision",
+  "error_type": "DecisionError",
+  "error_message": "JEV invalid response schema",
+  "latency_seconds": 0.4121816670522094
+}

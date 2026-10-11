@@ -1,6 +1,6 @@
 {
   "baseline": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/baseline-20261011T103810Z-97717",
-  "state": "prepared_offline",
+  "state": "e2e_executed",
   "eligible_snapshots": 272,
   "selected_snapshot_ids": [
     "cvdp_copilot_64b66b_decoder_0011:1:2",
@@ -59,5 +59,37 @@
   },
   "e2e_case_id": "cvdp_copilot_bus_arbiter_0001",
   "e2e_baseline_seconds": 43.7939944579266,
-  "scope": "judgment audit plus one real E2E; not full 292-case JEV evaluation"
+  "scope": "judgment audit plus one real E2E; not full 292-case JEV evaluation",
+  "budget": {
+    "limits": {
+      "jev": {
+        "max_calls": 64,
+        "max_money": 100000000,
+        "max_tokens": 1000000,
+        "reserve_money": 1500000
+      },
+      "primary": {
+        "max_calls": 12,
+        "max_tokens": 300000
+      }
+    },
+    "closed": false,
+    "denied": 0,
+    "jev": {
+      "calls": 51,
+      "token_charge": 164649,
+      "known_tokens": 164649,
+      "unknown_token_reservations": 0,
+      "usd_exposure": 0.006787242
+    },
+    "primary": {
+      "calls": 8,
+      "token_charge": 45293,
+      "known_tokens": 45293,
+      "unknown_token_reservations": 0,
+      "usd_exposure": null
+    }
+  },
+  "e2e_batch": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520",
+  "baseline_projection": "/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/studies/jev-budgeted-20261011-reviewed/baseline-projection"
 }
