@@ -427,6 +427,7 @@ def run_attempt(
         'mode':settings.mode, 'enabled_extensions':settings.enabled_extensions,
         'question_version':settings.question_version, 'policy':settings.policy,
         'deadline_seconds':settings.wall_seconds, 'generator_model':args.generator_model,
+        'deadline_monotonic':deadline,
         'reflector_model':args.reflector_model, 'coordinator_model':args.coordinator_model,
     })
     policy = None
@@ -470,6 +471,8 @@ def run_attempt(
     state_version = 0
     best = None
     decision = None
+    pending_branches = []
+    active_branch = None
     memory = None
     if 'lesson_memory' in settings.enabled_extensions:
         from .extensions import lesson_guidance
@@ -500,6 +503,12 @@ def run_attempt(
         return value
 
     def finish(status, **fields):
+        if status in ('cancelled','stopped_after_sibling_pass','budget_exhausted'):
+            persist_cancelled_effect(attempt_root,fields.get('cancellation_reason') or status)
+        for pending in pending_branches:
+            path=pending['directory']/'branch.json'
+            data=json.loads(path.read_text());data.update(outcome='not_executed',discard_reason=status)
+            write_json(path,data)
         result = {'attempt':attempt_index,'status':status,'history':history,
                   'worker_wall_seconds':time.monotonic()-started, **fields}
         write_json(attempt_root / 'attempt_result.json',result)
@@ -515,6 +524,8 @@ def run_attempt(
     for iteration in range(1, args.max_iterations + 1):
         if stop_event.is_set():
             return cancellation()
+        os.environ.pop('ACE_EXPERIMENT_FALLBACK',None)
+        os.environ.pop('ACE_EXPERIMENT_FALLBACK_REASON',None)
         if time.monotonic() >= deadline:
             return finish('budget_exhausted',cancellation_reason='budget_exhausted')
         if admission_event is not None and checkpoint_queue is not None:
@@ -529,6 +540,37 @@ def run_attempt(
                     return finish('budget_exhausted',cancellation_reason='budget_exhausted')
             admission_event.clear()
         iteration_dir = attempt_root / f'iter_{iteration:02d}'
+        if active_branch is None and pending_branches:
+            iteration_dir.mkdir(parents=True,exist_ok=True)
+            pending=pending_branches.pop(0)
+            active_branch=pending
+            parent_bundle=pending['parent']
+            before=pending['observation']
+            action=pending['action']
+            decision=pending['decision']
+            previous_candidates=dict(parent_bundle.files)
+            episode += 1
+            debugger.clear_history()
+            debugger.current_observation=before
+            os.environ['ACE_RTL_PARENT_ACTION']=action.action_id
+            coordinator_text=f'Execute previously committed independent branch {pending["branch_id"]} from the frozen parent.'
+            if action.action_kind=='fresh_start':
+                if restarts>=settings.max_restarts:return finish('decision_budget_exhausted')
+                restarts += 1
+                previous_candidates={}
+                reflection='Independent architecture branch: regenerate from only the public specification and target contract.'
+            elif action.action_kind=='repair_with_template':
+                from ace_rtl_agent.decision.strategies import get_strategy_guidance
+                reflection=get_strategy_guidance(action.strategy_id)
+            else:
+                os.environ['ACE_RTL_ROLE']='reflector'
+                reflection,metadata=call_reflector(debugger,iteration_dir,contract.task_id,target_file,
+                    parent_bundle.files[target_file],pending['error_report'],iteration,contract.specification,
+                    build_reflector_harness_context(None,target_file,mutable_targets=target_files,public_context=contract.immutable_context),
+                    candidate_files=dict(parent_bundle.files),task_contract=contract,observation=before,bundle=parent_bundle,
+                    action=action,evidence=pending['evidence'],best=best)
+            ledger.append('branch_dispatched',branch_id=pending['branch_id'],action_id=action.action_id,
+                          parent_observation_id=before.observation_id,precommitted=True,budget_refunded=False)
         from .extensions import route_roles
         route = route_roles(settings,decision,failures=len([h for h in history if not h.get('passed')]),
                             default_model=args.generator_model)
@@ -558,6 +600,7 @@ def run_attempt(
         files=dict(bundle.files)
         manifest = {**bundle.to_dict(), 'generated_files':dict(model.generated_files),
                     'mutable_targets':target_files, 'task_id':contract.task_id}
+        if active_branch:manifest['branch_id']=active_branch['branch_id']
         write_json(iteration_dir/'candidate_manifest.json',manifest)
         # A cancelled generation is evidence, not a fabricated evaluation.
         if stop_event.is_set() or time.monotonic() >= deadline:
@@ -620,6 +663,13 @@ def run_attempt(
             'candidate_hash':bundle.tested_hash,'candidate_changed':bool(bundle.changed_files),
             'candidate_path':model.generated_files.get(target_file),'generated_files':dict(model.generated_files)})
         archive.append((bundle,observation))
+        if active_branch:
+            path=active_branch['directory']/'branch.json'
+            data=json.loads(path.read_text());data.update(outcome='verified_pass' if passed else
+                   'task_failed' if observation.evaluation_validity=='valid' else 'unknown',
+                   after_observation_id=observation.observation_id,tested_hash=bundle.tested_hash,
+                   evaluation_path=str(iteration_dir/'real_evaluator_result.json'))
+            write_json(path,data)
         write_json(attempt_root/'candidate_archive.json',[{'bundle':b.to_dict(),'observation':o.to_dict()} for b,o in archive])
         if observation.evaluation_validity == 'valid':
             if best is None or (transition.comparable and transition.metric_delta.get('failed_count',0)<0):
@@ -651,6 +701,9 @@ def run_attempt(
             return finish(status)
         if time.monotonic() >= deadline:
             return finish('budget_exhausted',cancellation_reason='budget_exhausted')
+        if active_branch and pending_branches:
+            active_branch=None
+            continue
 
         debugger.current_observation = observation
         debugger.previous_observation = before
@@ -676,6 +729,15 @@ def run_attempt(
                 except ValueError as exc:
                     write_json(iteration_dir/'decision_rejected.json',{'reason':str(exc)})
                     return finish('decision_rejected',abstention_reason=str(exc))
+        if 'lesson_memory' in settings.enabled_extensions and action is not None and chosen and chosen.action_kind=='fresh_start':
+            from .extensions import curate_episode_lesson
+            try:
+                lesson=curate_episode_lesson(observation,action,evidence,family=contract.category,
+                    generator_version='requested:'+route['generator_model'],evaluator_version=git_commit_or_unknown(cvdp_repo),
+                    client=policy.client if policy else None,timeout=min(5,max(.001,deadline-time.monotonic())))
+                write_json(iteration_dir/'candidate_lesson.json',lesson)
+            except (ValueError,RuntimeError) as exc:
+                write_json(iteration_dir/'lesson_curation_abstained.json',{'reason':type(exc).__name__,'active_memory_updated':False})
         if chosen is None:
             should_restart, reason = coordinator_agent.should_fresh_start(iteration)
             kind = 'fresh_start' if should_restart and restarts < settings.max_restarts else 'reflect_focused'
@@ -693,6 +755,46 @@ def run_attempt(
             write_json(iteration_dir/'learned_policy_advice.json',{'prediction':advice,'calibrated':False,'features':features})
             if not advice:
                 chosen=replace(chosen,action_kind='reflect_deep',strategy_id=None)
+        if 'beam' in settings.enabled_extensions and policy and decision and not active_branch:
+            from ace_rtl_agent.decision.extensions import select_branches, materialize_branches
+            raw=decision.answers.get('next_action',{}).get('probabilities',{})
+            kinds=('reflect_focused','reflect_deep','repair_with_template','fresh_start')
+            scores={k:v for k,v in raw.items() if k in kinds and v>0}
+            if scores and sum(scores.values())>0:
+                scores={k:v/sum(scores.values()) for k,v in scores.items()}
+                strategies={k:{'semantic_family':k,'eligible':True} for k in scores}
+                plan=select_branches(scores,strategies,args.max_iterations-iteration,max_width=settings.beam_width,
+                                     margin=float((settings.policy or {}).get('beam_margin',.1)))
+                write_json(iteration_dir/'beam_plan.json',{'selected':plan.selected,'discarded':dict(plan.discarded),
+                           'heuristic_scores':dict(plan.heuristic_scores),'probabilities_are_success_rates':False})
+                # Commit alternatives on the still-current immutable parent, never
+                # reinterpret an old response as a decision on a later observation.
+                committed={chosen.action_kind:(chosen,decision)}
+                for kind in plan.selected:
+                    if chosen.action_kind not in plan.selected:continue
+                    if kind==chosen.action_kind:continue
+                    try:
+                        alternative=policy.alternative(decision,kind,observation,contract,bundle)
+                        branch_action=policy.commit(alternative,observation,contract,bundle,
+                                      budget_remaining=deadline-time.monotonic(),cancelled=stop_event.is_set())
+                        committed[kind]=(branch_action,alternative)
+                    except ValueError as exc:
+                        ledger.append('branch_discarded',strategy_id=kind,reason=str(exc))
+                allowed=tuple(k for k in plan.selected if k in committed)
+                if chosen.action_kind in allowed and len(allowed)>1:
+                    from dataclasses import replace as replace_plan
+                    checkpoints=materialize_branches(replace_plan(plan,selected=allowed),bundle,observation,
+                               attempt_root/'branches',checkpoint_version=settings.question_version)
+                    for checkpoint in checkpoints:
+                        branch_action,branch_decision=committed[checkpoint.strategy_id]
+                        entry={'branch_id':checkpoint.branch_id,'directory':checkpoint.directory,'parent':bundle,
+                               'observation':observation,'action':branch_action,'decision':branch_decision,
+                               'evidence':tuple(evidence),'error_report':error_report}
+                        path=checkpoint.directory/'branch.json';data=json.loads(path.read_text())
+                        data['action']=branch_action.to_dict();write_json(path,data)
+                        write_json(checkpoint.directory/'decision.json',branch_decision.to_dict())
+                        if checkpoint.strategy_id==chosen.action_kind:active_branch=entry
+                        else:pending_branches.append(entry)
         if stop_event.is_set() or time.monotonic() >= deadline:
             return cancellation() if stop_event.is_set() else finish('budget_exhausted',cancellation_reason='budget_exhausted')
         action = chosen
@@ -726,6 +828,7 @@ def run_attempt(
                 before = observation
                 next_decision = policy.decide(observation,contract,bundle,before=before,history=tuple(history),
                                evidence=evidence,best=best,budget_remaining=deadline-time.monotonic())
+                decision=next_decision
                 write_json(iteration_dir/f'decision-{state_version}.json',next_decision.to_dict())
                 chosen = policy.commit(next_decision,observation,contract,bundle,
                                        budget_remaining=deadline-time.monotonic(),cancelled=stop_event.is_set())
@@ -808,6 +911,9 @@ def run_attempt(
         harness_context = build_reflector_harness_context(None,target_file,mutable_targets=target_files,
                                                            public_context=contract.immutable_context)
         os.environ['ACE_RTL_ROLE']='reflector'
+        if decision and decision.fallback_reason and settings.mode!='shadow':
+            os.environ['ACE_EXPERIMENT_FALLBACK']='1'
+            os.environ['ACE_EXPERIMENT_FALLBACK_REASON']=decision.fallback_reason
         reflection, metadata = call_reflector(debugger,iteration_dir,contract.task_id,target_file,
                   files.get(target_file,''),error_report,iteration,contract.specification,harness_context,
                   candidate_files=previous_candidates,task_contract=contract,observation=observation,
@@ -858,6 +964,30 @@ def attempt_worker_main(
         log_handle.close()
 
 
+def persist_cancelled_effect(attempt_root: Path, reason: str) -> None:
+    """Parent-owned cancellation record even when the worker cannot report."""
+    from ace_rtl_agent.decision.types import Observation,EffectRecord,canonical_hash
+    before={};pending={}
+    for iteration_dir in sorted(attempt_root.glob('iter_*')):
+        for name,destination in (('observation.json','before'),('action.json','pending')):
+            try:
+                data=json.loads((iteration_dir/name).read_text())
+                if isinstance(data,dict):
+                    if destination=='before':before=data
+                    else:pending=data
+            except (OSError,ValueError):pass
+    version=int(before.get('version',0))+1
+    task_id=str(before.get('task_id',attempt_root.parent.name))
+    identity=canonical_hash([task_id,attempt_root.name,'cancelled',version,reason])
+    observation=Observation(identity,version,task_id,int(attempt_root.name.rsplit('_',1)[-1]),
+          before.get('episode_id','unknown'),before.get('iteration',0)+1,'unknown',
+          inferences={'cancellation_reason':reason,'evaluation_completed':False})
+    transition=EffectRecord(canonical_hash([identity,pending.get('action_id')]),before.get('observation_id'),
+                           identity,pending.get('action_id'),outcome='cancelled')
+    write_json(attempt_root/'cancellation_observation.json',observation.to_dict())
+    write_json(attempt_root/'cancellation_effect.json',transition.to_dict())
+
+
 def stop_attempt_process(
     *,
     process: multiprocessing.Process,
@@ -876,6 +1006,7 @@ def stop_attempt_process(
     killed_pids.extend(terminate_pids(pids_matching_path(attempt_root), grace_seconds=0.1))
     cleanup = cleanup_attempt_root(attempt_root, dp_root)
     reason = cancellation_reason or ('verified_sibling_pass' if winner_attempt > 0 else 'user_cancel')
+    persist_cancelled_effect(attempt_root,reason)
     from ace_rtl_agent.decision.ledger import EventLedger
     EventLedger(dp_root/'events','parent').append('attempt_terminated',
          terminated_attempt=int(attempt_root.name.rsplit('_',1)[-1]),cancellation_reason=reason,
@@ -1022,6 +1153,18 @@ def run_datapoint(
                 passed_attempt = int(claim["attempt"])
                 stop_event.set()
                 stop_sibling_attempts(passed_attempt)
+            for attempt,process in processes.items():
+                if attempt in reported_attempts:continue
+                try:
+                    cutoff=json.loads((attempt_roots[attempt]/'decision_settings.json').read_text()).get('deadline_monotonic')
+                except (OSError,ValueError):cutoff=None
+                if isinstance(cutoff,(int,float)) and time.monotonic()>=cutoff:
+                    stopped=stop_attempt_process(process=process,attempt_root=attempt_roots[attempt],dp_root=dp_root,
+                              winner_attempt=-1,cancellation_reason='budget_exhausted')
+                    stopped['status']='budget_exhausted'
+                    attempt_results.append(stopped);reported_attempts.add(attempt)
+                    active_checkpoints.discard(attempt);checkpoints.pop(str(attempt),None)
+                    admit_checkpoints()
             # Enforce total wall time even if a transport keeps its socket alive.
             if time.monotonic() >= worker_args.task_deadline:
                 stop_event.set()

@@ -336,3 +336,32 @@ class DecisionPolicy:
         if action.action_kind == 'fresh_start':
             self._restarts += 1
         return action
+
+    def alternative(self, record, kind, observation, contract, bundle):
+        """X beam only: a separately fitted action on the same frozen parent.
+
+        This is not a cached response applied to a later active observation. The
+        returned proposal must be committed before dispatch/forking that parent.
+        """
+        from dataclasses import replace
+        saved=self._records.get(record.decision_id)
+        if not saved or kind not in saved[1] or not record.chosen_action:
+            raise ValueError('branch action is not eligible')
+        own_fit=self._probability(record.answers.get('fit_'+kind))
+        risks=[self._probability(record.answers.get('risk_'+kind+'_'+r)) for r in ('interface','reset','latency','width')]
+        if own_fit is None or own_fit<self._setting('fit_threshold',.7):
+            raise ValueError('branch own fit is insufficient')
+        if any(v is None or v>=self._setting('severe_risk_threshold',.5) for v in risks):
+            raise ValueError('branch severe/unknown risk')
+        details=saved[1][kind]
+        original=record.chosen_action
+        binding={key:original.preconditions[key] for key in
+             ('contract_hash','observation_hash','state_digest','evidence_ids','selected_evidence_ids','context_selection')}
+        preconditions={**binding,**details.get('preconditions',{}),'search_heuristic':True,
+                       'branch_origin_decision_id':record.decision_id}
+        action=replace(original,action_id=canonical_hash([original.action_id,'branch',kind]),action_kind=kind,
+                       strategy_id=preconditions.get('strategy_id'),preconditions=preconditions)
+        alternative=replace(record,decision_id=canonical_hash([record.decision_id,'branch',kind]),chosen_action=action,
+                            abstention_reason=None,fallback_reason=None)
+        self._records[alternative.decision_id]=(alternative,saved[1],saved[2],saved[3],saved[4],canonical_hash(alternative.to_dict()))
+        return alternative

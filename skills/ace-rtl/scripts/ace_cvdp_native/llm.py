@@ -169,8 +169,10 @@ class AceIterationModel:
             if task_kind in ('rtl','rtl_implementation') and Path(target_file).suffix in ('.sv','.v'):
                 public_initial = self.task_contract.initial_targets.get(target_file,'') if self.task_contract else ''
                 header = re.search(r'\bmodule\s+([A-Za-z_][\w$]*)\s*(?:#\s*\(|\()',public_initial or prompt)
-                module_name = header.group(1) if header else Path(target_file).stem
-                output_contract += f' Preserve the public module name `{module_name}`; use this name for the declared RTL target.'
+                module_name = Path(target_file).stem
+                output_contract += f' Expose module name `{module_name}` for the public target basename.'
+                if header and header.group(1)!=module_name:
+                    output_contract += f' Preserve the specified module `{header.group(1)}` and its public interface; provide a same-interface wrapper named `{module_name}` when needed, within this declared target file.'
         full_prompt = f"""\
 {prompt}
 

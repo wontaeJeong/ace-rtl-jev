@@ -204,13 +204,15 @@ def test_runtime_error_candidates_are_distinct_not_prose_counts():
 
 
 @pytest.mark.parametrize('mode,choice', [('jev_core','fresh_start'),('shadow','fresh_start'),
-                                        ('jev_core','repair_with_template')])
+                                        ('jev_core','repair_with_template'),('jev_extended','reflect_focused')])
 def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypatch, mode, choice):
     import threading,types
     from argparse import Namespace
     from ace_cvdp_native import cli
     from ace_rtl_agent.decision import systemone_client
     generated=[];requests=[]
+    iterations=3 if mode=='jev_extended' else 2
+    if mode=='jev_extended':monkeypatch.setenv('ACE_RTL_ENABLE_BEAM','true')
     class Model:
         def __init__(self, **kw):
             generated.append(kw); self.generated_files={};self.preflight_issues=[];self.postprocess_actions=[]
@@ -226,8 +228,8 @@ def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypat
                 target=tmp_path/'harness'/name;target.parent.mkdir(parents=True,exist_ok=True)
                 target.write_text(Path(path).read_text())
             return issue,{},types.SimpleNamespace(issue_path=str(tmp_path/'harness'))
-        def run(self,**kw):return {'errors':int(len(generated)==1),'tests':[{'service':'1','result':int(len(generated)==1),
-                                    'execution':.1,'error_msg':'syntax error rtl/a.sv' if len(generated)==1 else None}]}
+        def run(self,**kw):return {'errors':int(len(generated)<iterations),'tests':[{'service':'1','result':int(len(generated)<iterations),
+                                    'execution':.1,'error_msg':'syntax error rtl/a.sv' if len(generated)<iterations else None}]}
     class Debugger:
         def __init__(self,*a,**kw):self.fix_history=[]
         def record_observation(self,*a,**kw):pass
@@ -248,6 +250,8 @@ def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypat
                 else:
                     selected=choice if key=='next_action' else next(iter(q['criteria']))
                     answers[key]={'type':'choice','choice':selected,'confidence':1.0,'probabilities':{k:float(k==selected) for k in q['criteria']}}
+                    if mode=='jev_extended' and key=='next_action':
+                        answers[key]['probabilities']={k:(.55 if k=='reflect_focused' else .45 if k=='fresh_start' else 0.0) for k in q['criteria']}
             return {'answers':answers,'requested_model':'configured','resolved_model':None,'usage':{'source':'unknown'}}
     monkeypatch.setitem(sys.modules,'src',types.SimpleNamespace(dataset_processor=object()))
     monkeypatch.setattr(cli,'install_native_harness_patch',lambda:None)
@@ -256,32 +260,43 @@ def test_native_core_actions_and_shadow_reach_next_generator(tmp_path, monkeypat
     monkeypatch.setattr(cli,'FocusedDebugger',Debugger);monkeypatch.setattr(cli,'FreshStartCoordinator',Coordinator)
     monkeypatch.setattr(systemone_client.SystemOneClient,'from_env',lambda:Client())
     args=Namespace(cid='cid002',reflector_model='configured',coordinator_model='configured',generator_model='configured',
-                   max_iterations=2,llm_timeout=5,evaluator_timeout=5,decision_mode=mode)
+                   max_iterations=iterations,llm_timeout=5,evaluator_timeout=5,decision_mode=mode)
     row={'id':'t','required_services':['1'],'categories':['RTL implementation','easy'],'input':{'prompt':'Implement RTL','context':{}},
          'output':{'context':{'rtl/a.sv':'','rtl/b.sv':''}},'harness':{'services':{'1':{}}}}
     result=cli.run_attempt(workspace=tmp_path,cvdp_repo=tmp_path,row=row,row_jsonl=tmp_path/'row.jsonl',
               attempt_root=tmp_path/'dp/attempt_1',attempt_index=1,args=args,stop_event=threading.Event())
     assert result['status']=='passed'
-    assert len(requests)==1 and len(generated)==2
+    assert len(requests)==1 and len(generated)==iterations
     assert bool(generated[1]['previous_candidate']) == bool(mode=='shadow' or choice!='fresh_start')
     assert generated[1]['task_contract'].task_kind=='rtl_implementation'
     if choice=='repair_with_template':assert 'reported syntax' in generated[1]['reflection']
     assert result['history'][1]['effect']['action_id'] is not None
+    if mode=='jev_extended':
+        assert generated[2]['previous_candidate'] is None
+        branches=list((tmp_path/'dp/attempt_1/branches').glob('*/branch.json'))
+        assert len(branches)==2
+        assert {json.loads(p.read_text())['outcome'] for p in branches}=={'task_failed','verified_pass'}
+        assert result['history'][2]['effect']['before_observation_id']==result['history'][0]['observation']['observation_id']
 
 
-def test_parent_enforces_wall_deadline_even_when_child_never_returns(tmp_path,monkeypatch):
+@pytest.mark.parametrize('short_scope',['task','attempt'])
+def test_parent_enforces_wall_deadline_even_when_child_never_returns(tmp_path,monkeypatch,short_scope):
     import queue,threading,types
     from argparse import Namespace
     from ace_cvdp_native import cli
-    monkeypatch.setenv('ACE_RTL_TASK_WALL_SECONDS','.001')
+    monkeypatch.setenv('ACE_RTL_TASK_WALL_SECONDS','.001' if short_scope=='task' else '900')
     class Queue(queue.Queue):
         def close(self):pass
         def join_thread(self):pass
     class Process:
         pid=None
         exitcode=None
-        def __init__(self,**kw):self.alive=False
-        def start(self):self.alive=True
+        def __init__(self,**kw):self.alive=False;self.kw=kw['args'][2]
+        def start(self):
+            self.alive=True
+            if short_scope=='attempt':
+                root=self.kw['attempt_root'];root.mkdir(parents=True)
+                (root/'decision_settings.json').write_text(json.dumps({'deadline_monotonic':0}))
         def is_alive(self):return self.alive
         def join(self,**kw):pass
     monkeypatch.setattr(cli.multiprocessing,'get_context',lambda _:types.SimpleNamespace(Event=threading.Event,Queue=Queue,Process=Process))
@@ -314,3 +329,16 @@ def test_tested_hash_binds_actual_prepared_mutable_files_not_assumed_model_bytes
     assert bundle.files==tested
     assert path.read_text()==normalized['rtl/a.sv']
     assert Path(model.generated_files['rtl/a.sv']).read_text()==tested['rtl/a.sv']
+
+
+def test_parent_cancellation_preserves_unknown_effect_and_prior_action(tmp_path):
+    from ace_cvdp_native.cli import persist_cancelled_effect
+    root=tmp_path/'t/attempt_1';iteration=root/'iter_01';iteration.mkdir(parents=True)
+    (iteration/'observation.json').write_text(json.dumps({'observation_id':'before','version':3,'task_id':'t','episode_id':'e1','iteration':1,'tested_hash':'old'}))
+    (iteration/'action.json').write_text(json.dumps({'action_id':'pending-action'}))
+    persist_cancelled_effect(root,'budget_exhausted')
+    after=json.loads((root/'cancellation_observation.json').read_text())
+    effect=json.loads((root/'cancellation_effect.json').read_text())
+    assert after['version']==4 and after['evaluation_validity']=='unknown'
+    assert effect['action_id']=='pending-action' and effect['before_observation_id']=='before'
+    assert effect['outcome']=='cancelled'

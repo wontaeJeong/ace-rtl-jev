@@ -392,3 +392,19 @@ def test_decision_delivery_does_not_repeat_raw_normalized_tested_source():
     assert 'raw_files' not in state['candidate']
     assert 'normalized_files' not in state['candidate']
     assert state['candidate']['files']==bundle.files
+
+
+def test_beam_alternative_is_committed_against_frozen_parent_and_own_fit():
+    obs,contract,bundle=fixture()
+    policy=DecisionPolicy(Client())
+    first=policy.decide(obs,contract,bundle)
+    policy.commit(first,obs,contract,bundle)
+    alternative=policy.alternative(first,'fresh_start',obs,contract,bundle)
+    assert alternative.chosen_action.action_kind=='fresh_start'
+    assert alternative.chosen_action.preconditions['search_heuristic'] is True
+    policy.commit(alternative,obs,contract,bundle)
+    assert alternative.chosen_action.observation_id==obs.observation_id
+    poor=DecisionPolicy(Client(fit=.1))
+    rejected=poor.decide(obs,contract,bundle)
+    with pytest.raises(ValueError,match='fit'):
+        poor.alternative(rejected,'fresh_start',obs,contract,bundle)

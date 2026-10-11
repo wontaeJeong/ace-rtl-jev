@@ -390,7 +390,7 @@ class SystemOneClient:
         event = {'call_id': call_id, 'provider': 'jev', 'systemone_provider': self.provider,
                  'status': 'inflight', 'usage': None, 'usage_unknown': True,
                  'budget_ticket': ticket['id'], 'request_sha256': hashlib.sha256(encoded.encode()).hexdigest(),
-                 'started_at': datetime.now(timezone.utc).isoformat(), 'role':'rule_selector' if 'rules' in state else 'jev_decision',
+                 'started_at': datetime.now(timezone.utc).isoformat(), 'role':'rule_selector' if 'rules' in state else 'lesson_curator' if state.get('purpose')=='lesson_curation' else 'jev_decision',
                  'model':self.model,'requested_model':self.model,'retry_index':0,'cache_hit':False,
                  'parent_action_id':os.environ.get('ACE_RTL_PARENT_ACTION'),
                  'question_keys':list(questions),'schema_version':'systemone-wire-1'}
@@ -421,6 +421,19 @@ class SystemOneClient:
                 # Capture validated receipts *before* any model/answer failure.
                 usage = _capture_usage(payload.get('usage'))
                 event.update(usage=usage, usage_unknown=usage['source'] != 'reported')
+                consistency={}
+                supplied=payload.get('answers')
+                if isinstance(supplied,dict):
+                    for key,question in questions.items():
+                        answer=supplied.get(key)
+                        if question['type']=='score' and isinstance(answer,dict) and _finite_number(answer.get('score')):
+                            probs=answer.get('probabilities')
+                            expected=None
+                            if isinstance(probs,dict) and set(probs)=={str(i) for i in range(len(question['criteria']))} and all(probability(p) for p in probs.values()):
+                                expected=sum(int(k)*p for k,p in probs.items())
+                            consistency[key]={'score':answer['score'],'distribution_expectation':expected,
+                                              'levels':len(question['criteria'])}
+                event['score_consistency']=consistency
                 _usage_receipt(payload.get('usage'))
                 if self.capabilities.usage_required and usage['source'] != 'reported':
                     raise ValueError

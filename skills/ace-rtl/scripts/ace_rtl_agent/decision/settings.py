@@ -19,7 +19,7 @@ class DecisionSettings:
     enabled_extensions: tuple[str, ...] = ()
     beam_width: int = 2
     max_restarts: int = 2
-    max_decisions_per_candidate: int = 3
+    max_decisions_per_candidate: int = 4
     wall_seconds: float = 600.0
     evaluation_cache_mode: str = 'off'
     question_version: str = 'jev-questions-1'
@@ -59,6 +59,9 @@ class DecisionSettings:
                 raise ValueError('policy must be an object')
             from .state_builder import assert_public
             assert_public(policy)
+        policy={'fit_threshold':.7,'severe_risk_threshold':.5,'max_restarts':2,
+                'max_decisions_per_candidate':4,'max_evaluator_retries':1,
+                'timeout_seconds':20.0,'context_token_budget':24000,**policy}
         seconds = float(os.environ.get('ACE_RTL_ATTEMPT_WALL_SECONDS', 600))
         task_seconds = float(os.environ.get('ACE_RTL_TASK_WALL_SECONDS',1200))
         run_seconds = float(os.environ.get('ACE_RTL_RUN_WALL_SECONDS',1800))
@@ -71,6 +74,6 @@ class DecisionSettings:
         if question_version not in QUESTION_REGISTRY:
             raise ValueError('unknown question schema version')
         return cls(selected, enabled, width, int(policy.get('max_restarts',2)),
-                   int(policy.get('max_decisions_per_candidate',3)), seconds,
+                   int(policy.get('max_decisions_per_candidate',4)), seconds,
                    os.environ.get('ACE_RTL_EVALUATION_CACHE_MODE','off'),
                    question_version,policy,aliases,task_seconds,run_seconds)

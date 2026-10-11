@@ -36,3 +36,30 @@ def lesson_guidance(path, version, contract):
     return {'snapshot_digest':snapshot.digest,'snapshot_version':snapshot.version,
             'lesson_ids':[x.lesson_id for x in lessons],
             'guidance':'\n'.join(x.text for x in lessons),'frozen':True}
+
+
+def curate_episode_lesson(observation, action, evidence, *, family, generator_version,
+                          evaluator_version, client=None, timeout=5):
+    """Emit bounded candidate lessons; evaluation memory is never updated online."""
+    from ace_rtl_agent.decision.extensions import Lesson,curate_lessons
+    from ace_rtl_agent.decision.types import canonical_hash
+    from ace_rtl_agent.decision.state_builder import public_evidence
+    clean=public_evidence(evidence,observation)
+    if not action or not clean:
+        return {'lesson':None,'reason':'insufficient_action_or_public_evidence','active_memory_updated':False}
+    text=f'Observed {observation.evaluator_status} in this episode. Preserve the public interface and previously verified passing constraints; the root cause remains unconfirmed.'
+    lesson=Lesson(canonical_hash([observation.observation_id,action.action_id,text]),text,family,observation.task_id,
+            (observation.observation_id,),(action.action_id,),(observation.observation_id,),
+            tuple(e.evidence_id for e in clean),('same public task contract and observed failure stage',),
+            generator_version=generator_version,evaluator_version=evaluator_version)
+    envelope=None
+    if client:
+        envelope=client.decide({'purpose':'lesson_curation','lesson':asdict(lesson),'observation':observation.to_dict(),
+                    'evidence':[e.to_dict() for e in clean]},
+            {'supported':{'type':'noul','instructions':'Is state.lesson supported by the supplied state.observation and public state.evidence? Do not infer a cause or solution.'},
+             'applicable':{'type':'noul','instructions':'Does state.lesson apply under its explicit same-task-contract preconditions, without claiming a general verified rule?'}},timeout=timeout)
+        if any(envelope.get('answers',{}).get(k,{}).get('noul',0)<.7 for k in ('supported','applicable')):
+            return {'lesson':None,'reason':'unsupported_or_inapplicable','decision':envelope,'active_memory_updated':False}
+    curated=curate_lessons((lesson,),[e.evidence_id for e in clean],confirmed_evaluations=())
+    return {'lesson':asdict(curated[0]),'decision':envelope,'active_memory_updated':False,
+            'status':'candidate_only','experimental_threshold':.7}

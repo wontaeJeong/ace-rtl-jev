@@ -398,3 +398,13 @@ def test_policy_timeout_cannot_expand_configured_provider_timeout(campaign):
     transport=Transport()
     client(transport,timeout_seconds=2).decide({'actions':{'a':{}}},mixed_questions(),timeout=10)
     assert transport.calls[0][1]['timeout']<=2
+
+
+def test_inconsistent_score_records_scalar_evidence_not_arbitrary_body(campaign):
+    from ace_rtl_agent.decision.systemone_client import SystemOneSchemaError
+    path,_=campaign
+    payload=response_payload();payload['answers']['risk']['score']=1.7
+    with pytest.raises(SystemOneSchemaError):client(Transport(payload)).decide({'actions':{'a':{}}},mixed_questions())
+    event=json.loads(next((path.parent/'events').glob('*.json')).read_text())
+    assert event['score_consistency']['risk']['score']==1.7
+    assert event['score_consistency']['risk']['distribution_expectation']==pytest.approx(.7)

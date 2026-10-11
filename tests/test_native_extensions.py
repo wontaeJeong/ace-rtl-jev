@@ -26,3 +26,20 @@ def test_native_learned_policy_cannot_activate_fixture_artifact(tmp_path):
     path.write_text(json.dumps({'production_ready':False,'artifact_version':'ace-offline-stump-1'}))
     with pytest.raises(ValueError,match='validated'):
         load_learned_policy(path,question_version='q',policy_version='p',model_version='m')
+
+
+def test_episode_curation_keeps_failed_observation_lesson_candidate_and_memory_frozen():
+    from ace_cvdp_native.extensions import curate_episode_lesson
+    from ace_rtl_agent.decision.types import Observation,ProposedAction,Evidence
+    observation=Observation('o',2,'t',1,'e1',2,'hash',evaluator_status='CANDIDATE_FUNCTIONAL',evaluation_validity='valid')
+    action=ProposedAction('a','before','reflect_focused')
+    evidence=[Evidence('diag','emitted evaluator','diagnostic',text='public mismatch',observation_id='o')]
+    class Client:
+        def decide(self,state,questions,**kwargs):
+            assert state['observation']['observation_id']=='o'
+            return {'answers':{'supported':{'noul':.9},'applicable':{'noul':.8}},'requested_model':'fixture','resolved_model':None}
+    result=curate_episode_lesson(observation,action,evidence,family='family',generator_version='fixture-generator',
+                                evaluator_version='fixture-harness',client=Client())
+    assert result['lesson']['status']=='candidate'
+    assert result['lesson']['action_ids']==('a',)
+    assert result['active_memory_updated'] is False
