@@ -440,7 +440,7 @@ def make_preflight_result(issues: List[str], actions: List[str]) -> Dict[str, An
 
 
 def summarize_result(result: Dict[str, Any]) -> str:
-    tests = result.get("tests", [])
+    tests = result.get("tests") or []
     log_paths = [test.get("log") for test in tests if isinstance(test, dict)]
     diag: List[str] = []
     if log_text_indicates_compilation_failure(log_paths):
@@ -456,9 +456,12 @@ def summarize_result(result: Dict[str, Any]) -> str:
         "postprocess_actions": result.get("postprocess_actions") or [],
         "service_results": [
             {
+                "service": test.get("service") or test.get("service_id"),
+                "execution_status": test.get("execution_status"),
+                "stage": test.get("stage"),
                 "result": test.get("result"),
                 "error_msg": test.get("error_msg"),
-                "execution": round(float(test.get("execution", 0.0)), 3),
+                "execution": round(float(test.get("execution") or 0.0), 3),
                 "log_basename": Path(test["log"]).name if test.get("log") else None,
             }
             for test in tests
@@ -471,6 +474,7 @@ def summarize_result(result: Dict[str, Any]) -> str:
 
 
 def primary_failure_from_summary(result: Dict[str, Any], summary: str) -> Dict[str, Any]:
+    from ace_rtl_agent.decision.observations import execution_stage, validate_result
     try:
         payload = json.loads(summary)
     except json.JSONDecodeError:
@@ -479,7 +483,15 @@ def primary_failure_from_summary(result: Dict[str, Any], summary: str) -> Dict[s
     preflight = payload.get("preflight_failures") or []
     diagnostics = payload.get("safe_compile_diagnostics") or []
     setup = payload.get("setup_diagnostics") or []
-    if preflight:
+    actual_stage = execution_stage(result)
+    invalid = validate_result(result, result.get('required_services', ()))
+    if not invalid and result.get('errors') == 0:
+        message = 'all required evaluator services passed'
+        stage = 'PASS'
+    elif actual_stage == 'EVALUATOR_TIMEOUT':
+        message = 'evaluator timed out; candidate execution stage is not established'
+        stage = actual_stage
+    elif preflight:
         message = str(preflight[0])
         stage = "LOCAL_PREFLIGHT"
     elif setup:
@@ -488,9 +500,12 @@ def primary_failure_from_summary(result: Dict[str, Any], summary: str) -> Dict[s
     elif diagnostics:
         message = str(diagnostics[0])
         stage = "CANDIDATE_COMPILE"
+    elif invalid:
+        message = 'invalid evaluator result: ' + ', '.join(invalid)
+        stage = 'INVALID_EVALUATION'
     elif result.get("errors", 0):
-        message = "candidate compiled and ran but failed one or more CVDP checks"
-        stage = "CANDIDATE_FUNCTIONAL"
+        message = 'evaluator service failed; compilation/runtime stage not established'
+        stage = actual_stage
     else:
         message = "no failure detected"
         stage = "PASS"
@@ -507,7 +522,10 @@ def primary_failure_from_summary(result: Dict[str, Any], summary: str) -> Dict[s
 def primary_failure_from_attempt_error(message: str) -> Dict[str, Any]:
     text = str(message or "").strip() or "attempt failed before evaluation"
     low = text.lower()
-    if "llm call failed" in low or "failed to get chat response" in low:
+    if 'timeout' in low or 'timed out' in low:
+        stage = 'EVALUATOR_TIMEOUT'
+        kind = 'execution_timeout'
+    elif "llm call failed" in low or "failed to get chat response" in low:
         stage = "INFRA_SETUP"
         kind = "llm_role_call"
     elif "generator extraction failed" in low:
@@ -532,5 +550,3 @@ def primary_failure_from_attempt_error(message: str) -> Dict[str, Any]:
 def load_response_content(path: Path) -> str:
     payload = json.loads(path.read_text(encoding="utf-8"))
     return str(payload.get("content", "")).strip()
-
-

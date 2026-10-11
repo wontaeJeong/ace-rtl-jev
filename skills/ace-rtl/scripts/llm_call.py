@@ -10,6 +10,7 @@ import argparse
 import json
 import os
 import random
+import signal
 import subprocess
 import sys
 import time
@@ -23,6 +24,7 @@ from ace_rtl_agent.llm_backend import (
     is_nvidia_inference_model,
     resolve_model_name,
 )
+from ace_rtl_agent.decision.budget import Deadline, PaidCall, adapter_manages_budget, retryable, retry_delay
 
 
 def resolve_model(model: str) -> str:
@@ -113,32 +115,7 @@ def shrink_last_user(messages: List[Dict[str, str]], max_chars: int) -> List[Dic
 
 
 def transient_error(error: Exception) -> bool:
-    text = str(error).lower()
-    return any(
-        token in text
-        for token in [
-            "timeout",
-            "timed out",
-            "429",
-            "500",
-            "502",
-            "503",
-            "504",
-            "529",
-            "connection reset",
-            "connection error",
-            "temporarily unavailable",
-            "rate limit",
-            "too many requests",
-            "empty response",
-            "overloaded",
-            "limit reached",
-            "context window",
-            "contextwindow",
-            "maximum context",
-            "too many tokens",
-        ]
-    )
+    return retryable(error)
 
 
 def context_error(error: Exception) -> bool:
@@ -190,7 +167,12 @@ def call_adapter_script(
     temperature: float,
     max_tokens: int,
     timeout: int,
+    deadline=None,
+    retry_index=0,
+    role=None,
 ) -> Dict[str, object]:
+    deadline = deadline or Deadline.from_env(timeout)
+    timeout = deadline.timeout(timeout)
     request = {
         "model": model,
         "messages": messages,
@@ -209,18 +191,34 @@ def call_adapter_script(
             ),
         },
     }
-    proc = subprocess.run(
-        adapter_command(script_path),
-        input=json.dumps(request),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        timeout=timeout,
-    )
-    if proc.returncode != 0:
-        detail = proc.stderr.strip() or proc.stdout.strip()
-        raise RuntimeError(f"adapter script failed with exit code {proc.returncode}: {detail}")
-    result = extract_adapter_content(proc.stdout)
+    env = dict(os.environ, ACE_RTL_DEADLINE_MONOTONIC=str(deadline.end))
+    if role:
+        env['ACE_RTL_ROLE'] = role
+    with PaidCall(provider='adapter', model=model, messages=messages, max_tokens=max_tokens,
+                  managed=adapter_manages_budget(script_path), retry_index=retry_index, role=role) as call:
+        proc = subprocess.Popen(adapter_command(script_path), stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, stdin=subprocess.PIPE, text=True, start_new_session=True, env=env)
+        try:
+            stdout, stderr = proc.communicate(json.dumps(request), timeout=deadline.timeout(timeout))
+        except BaseException as exc:
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            proc.communicate()
+            if isinstance(exc, (TimeoutError, subprocess.TimeoutExpired)) and deadline.expired:
+                raise TimeoutError('NON_RETRYABLE: common deadline exhausted') from None
+            raise
+        if proc.returncode != 0:
+            detail = stderr.strip() or stdout.strip()
+            raise RuntimeError(f"adapter script failed with exit code {proc.returncode}: {detail}")
+        # Keep billed usage even when content validation subsequently fails.
+        try:
+            call.complete(json.loads(stdout))
+        except ValueError:
+            pass
+        result = extract_adapter_content(stdout)
+        call.complete(result['raw'])
     return {
         "provider": "adapter",
         "model": model,
@@ -229,6 +227,8 @@ def call_adapter_script(
         "truncated": result["finish_reason"] == "length",
         "raw": result["raw"],
         "attempts": 1,
+        'usage': call.usage,
+        'call_id': call.call_id,
     }
 
 
@@ -242,16 +242,21 @@ def call_with_retries(
     max_retries: int,
     initial_backoff: float,
     shrink_chars: int,
+    timeout=None,
+    deadline=None,
+    role=None,
 ) -> Dict[str, object]:
     adapter_script = os.environ.get("ACE_RTL_LLM_SCRIPT")
     backend = None if adapter_script else LLMBackend(model=model, provider=provider)
     working_messages = messages
-    context_shrink_used = False
     backoff = initial_backoff
     last_error: Optional[Exception] = None
+    requested_timeout = timeout or env_positive_int_any(['NEMOTRON_TIMEOUT', 'ACE_RTL_LLM_TIMEOUT'], 1800)
+    deadline = deadline or Deadline.from_env(requested_timeout)
 
     for attempt in range(max_retries + 1):
         try:
+            remaining_timeout = deadline.timeout(requested_timeout)
             if adapter_script:
                 result = call_adapter_script(
                     script_path=adapter_script,
@@ -259,7 +264,7 @@ def call_with_retries(
                     messages=working_messages,
                     temperature=temperature,
                     max_tokens=max_tokens,
-                    timeout=env_positive_int_any(["NEMOTRON_TIMEOUT", "ACE_RTL_LLM_TIMEOUT"], 1800),
+                    timeout=remaining_timeout, deadline=deadline, retry_index=attempt, role=role,
                 )
             else:
                 assert backend is not None
@@ -267,22 +272,19 @@ def call_with_retries(
                     working_messages,
                     temperature=temperature,
                     max_tokens=max_tokens,
+                    timeout=remaining_timeout, deadline=deadline, retry_index=attempt, role=role,
                 )
             result["attempts"] = attempt + 1
             return result
         except Exception as exc:
             last_error = exc
-            if context_error(exc) and not context_shrink_used and attempt < max_retries:
-                context_shrink_used = True
-                working_messages = shrink_last_user(working_messages, shrink_chars)
-                continue
             if "non_retryable" in str(exc).lower():
                 break
             if attempt >= max_retries or not transient_error(exc):
                 break
             wait = min(backoff, 60.0) * random.uniform(0.8, 1.2)
             print(f"warning: transient LLM error: {exc}; retrying in {wait:.1f}s", file=sys.stderr)
-            time.sleep(wait)
+            deadline.sleep(retry_delay(exc, wait))
             backoff = min(backoff * 2, 60.0)
 
     raise RuntimeError(f"LLM call failed after {max_retries + 1} attempts: {last_error}")
@@ -326,6 +328,8 @@ def main() -> int:
         max_retries=args.max_retries,
         initial_backoff=args.initial_backoff,
         shrink_chars=args.context_retry_chars,
+        timeout=args.timeout,
+        role=args.component,
     )
     result["component"] = args.component
     Path(args.output).write_text(json.dumps(result, indent=2), encoding="utf-8")

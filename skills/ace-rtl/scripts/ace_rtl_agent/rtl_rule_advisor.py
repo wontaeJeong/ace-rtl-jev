@@ -33,7 +33,7 @@ class RTLRuleAdvisor:
     Not: Low-level implementation details or syntax corrections
     """
 
-    def __init__(self, database_path: Optional[str] = None, model_name: str = "nvidia/nemotron-3-ultra-550b-a55b"):
+    def __init__(self, database_path: Optional[str] = None, model_name: str = "nvidia/nemotron-3-ultra-550b-a55b", decision_client=None):
         if database_path is None:
             # Default path within the agent's database directory
             database_path = Path(__file__).parent / "database" / "rtl_coding_rules.json"
@@ -42,11 +42,16 @@ class RTLRuleAdvisor:
         self.rules = self._load_rules()
         self.enabled = len(self.rules) > 0
         self.model_name = model_name
-        self.llm_client = LLMClient(model=self.model_name) if self.enabled else None
+        self.llm_client = LLMClient(model=self.model_name) if self.enabled and decision_client is None else None
 
         # State for persistent rule retrieval
         self.retrieved_rules = []  # Rules selected for this design session
         self.specification_processed = False  # Whether we've processed the spec yet
+        self.decision_client = decision_client
+        self.selection_status = 'unprocessed'
+        self._selection_cache = {}
+        self._specification_key = None
+        self.last_decision = None
 
     def _load_rules(self) -> List[Dict]:
         """Load RTL coding rules from database."""
@@ -69,7 +74,18 @@ class RTLRuleAdvisor:
         Returns:
             True if architectural rules were successfully retrieved
         """
-        if not self.enabled or not self.llm_client or self.specification_processed:
+        from .decision.types import canonical_hash
+        key = canonical_hash({'specification': specification, 'rules': self.rules})
+        if self._specification_key != key:
+            self.specification_processed = False
+            self.retrieved_rules = []
+            self._specification_key = key
+        if key in self._selection_cache:
+            self.retrieved_rules = self._selection_cache[key]
+            self.specification_processed = True
+            self.selection_status = 'matched' if self.retrieved_rules else 'no_match'
+            return bool(self.retrieved_rules)
+        if not self.enabled or not (self.llm_client or self.decision_client) or self.specification_processed:
             return len(self.retrieved_rules) > 0
 
         try:
@@ -124,10 +140,33 @@ Respond in JSON format:
 
 Be specific about WHY each rule is relevant by citing actual specification text that matches the rule's purpose. If no rules are clearly relevant to the specification requirements, return an empty array."""
 
-            response = self.llm_client.call_llm(prompt)
+            if self.decision_client is not None:
+                from .decision.state_builder import assert_public
+                state = {'specification': specification, 'rules': {r['id']: r for r in self.rules}}
+                assert_public(state)
+                questions = {}
+                for rule in self.rules:
+                    rid = rule['id']
+                    questions['applicable:' + rid] = {'type': 'noul', 'instructions':
+                        'Is state.rules[' + json.dumps(rid) + '] applicable to explicit requirements in state.specification?',
+                        'criteria': {'true': 'Public requirement supports this rule.', 'false': 'Unsupported or contradicted.'}}
+                    questions['usefulness:' + rid] = {'type': 'score', 'instructions':
+                        'Rate the usefulness of state.rules[' + json.dumps(rid) + '] for state.specification independently.',
+                        'criteria': ['Irrelevant or contradicted', 'Background guidance', 'Directly applicable guidance']}
+                envelope = self.decision_client.decide(state, questions, timeout=15)
+                self.last_decision = envelope
+                answers = envelope['answers']
+                selected_rules = [{'rule_id': r['id'], 'relevance_reason': 'Typed public requirement applicability',
+                                   'score': answers['usefulness:' + r['id']]['score']}
+                                  for r in self.rules if answers['applicable:' + r['id']]['noul'] >= .7
+                                  and answers['usefulness:' + r['id']]['score'] >= 1]
+            else:
+                response = self.llm_client.call_llm(prompt,role='rule_selector')
 
             # Parse LLM response (extract JSON from anywhere in the response)
             try:
+                if self.decision_client is not None:
+                    response = json.dumps({'selected_rules': selected_rules})
                 # Look for JSON block anywhere in the response
                 json_start = response.find("```json")
                 if json_start != -1:
@@ -158,17 +197,22 @@ Be specific about WHY each rule is relevant by citing actual specification text 
                         raise json.JSONDecodeError("No JSON found in response", response, 0)
 
                 selection_data = json.loads(clean_response)
-                selected_rules = selection_data.get("selected_rules", [])
+                selected_rules = selection_data.get("selected_rules")
+                if not isinstance(selected_rules, list) or any(not isinstance(item, dict) for item in selected_rules):
+                    raise ValueError('invalid rule selection schema')
             except (json.JSONDecodeError, ValueError) as e:
                 print(f"Warning: Could not parse LLM rule selection response: {e}")
-                print(f"Raw response: {response[:500]}...")
-                self.specification_processed = True
+                self.selection_status = 'parse_error'
                 return False
 
             # Build retrieved rules list (clean schema)
             self.retrieved_rules = []
+            seen = set()
             for selection in selected_rules:
                 rule_id = selection.get("rule_id")
+                if rule_id in seen:
+                    continue
+                seen.add(rule_id)
                 relevance_reason = selection.get("relevance_reason", "")
 
                 # Find the full rule data
@@ -185,7 +229,7 @@ Be specific about WHY each rule is relevant by citing actual specification text 
                     RuleAdvice(
                         rule_id=rule_id,
                         title=rule_data["title"],
-                        relevance_score=1.0,
+                        relevance_score=selection.get('score', 1.0),
                         relevance_reason=relevance_reason,
                         guidance_prompt=guidance_prompt,
                         example_spec=example_spec,
@@ -194,6 +238,8 @@ Be specific about WHY each rule is relevant by citing actual specification text 
                 )
 
             self.specification_processed = True
+            self.selection_status = 'matched' if self.retrieved_rules else 'no_match'
+            self._selection_cache[key] = list(self.retrieved_rules)
             if len(self.retrieved_rules) > 0:
                 print(f"DEBUG: Retrieved {len(self.retrieved_rules)} architectural guidance rules based on specification")
             else:
@@ -201,8 +247,8 @@ Be specific about WHY each rule is relevant by citing actual specification text 
             return len(self.retrieved_rules) > 0
 
         except Exception as e:
-            print(f"Warning: Failing code rule retrieval failed: {e}")
-            self.specification_processed = True
+            print(f"Warning: RTL rule retrieval failed ({type(e).__name__}; details withheld)")
+            self.selection_status = 'api_error'
             return False
 
     def has_relevant_rules(self) -> bool:

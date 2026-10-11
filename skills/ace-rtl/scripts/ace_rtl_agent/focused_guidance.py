@@ -171,7 +171,13 @@ class FocusedGuidanceMixin:
 
     def extract_implementation_changes(self, code_before: str, code_after: str,
                                       guidance: str, focused_error: str,
-                                      new_error_report: str) -> Tuple[str, str]:
+                                      new_error_report: str, *, before=None, observation=None,
+                                      bundle=None, action=None) -> Tuple[str, str]:
+        if bundle is not None and observation is not None:
+            from .decision.state_builder import build_effect
+            effect = build_effect(before, observation, bundle, action=action, focus_error=focused_error)
+            changes = '\n'.join(f'{name}:\n{bundle.diffs.get(name, "")}' for name in bundle.changed_files)
+            return changes or 'No code changes detected', effect.focus_status
         # The original generative retrospective stays intact for baseline and
         # counted fallback. Only this finite judgment is eligible for JEV.
         if code_before == code_after:
@@ -270,10 +276,6 @@ OUTPUT FORMAT:
                 effectiveness_match = re.search(r'###\s*(?:2\.)?\s*FIX EFFECTIVENESS\s*\n(.+?)(?=###|$)',
                                                changes_response, re.DOTALL | re.IGNORECASE)
                 fix_effectiveness = effectiveness_match.group(1).strip() if effectiveness_match else "Effectiveness not analyzed"
-
-                # Clean up - remove hedging language
-                impl_changes = re.sub(r'\b(likely|probably|possibly|may have|might have)\b', '', impl_changes, flags=re.IGNORECASE).strip()
-                fix_effectiveness = re.sub(r'\b(likely|probably|possibly|may have|might have)\b', '', fix_effectiveness, flags=re.IGNORECASE).strip()
 
                 return impl_changes, fix_effectiveness
         except Exception as e:
@@ -421,14 +423,17 @@ OUTPUT FORMAT:
 
             return "Made targeted modifications to the logic"
 
-    def parse_test_results(self, error_report: str) -> Tuple[int, int]:
+    def parse_test_results(self, error_report: str, *, observation=None) -> Tuple[int, int]:
         """
         Parse test results from error report.
 
         Returns:
             (num_passing, num_total)
         """
-        # Look for test summary patterns
+        if observation is not None:
+            executed = set(observation.executed_checks)
+            return len(set(observation.passed_checks) & executed), len(executed)
+        # Look for explicit aggregate summaries only; repeated prose is not a count.
         patterns = [
             r'(\d+)\s+passed.*?(\d+)\s+total',
             r'(\d+)/(\d+)\s+tests?\s+passed',
@@ -447,12 +452,5 @@ OUTPUT FORMAT:
                 else:
                     total = int(match.group(2))
                 return passed, total
-
-        # Fallback: Count individual test results
-        passed = len(re.findall(r'\bpassed\b', error_report, re.IGNORECASE))
-        failed = len(re.findall(r'\bfailed\b', error_report, re.IGNORECASE))
-
-        if passed > 0 or failed > 0:
-            return passed, passed + failed
 
         return 0, 0

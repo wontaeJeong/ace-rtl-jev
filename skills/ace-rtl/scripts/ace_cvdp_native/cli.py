@@ -78,7 +78,7 @@ def select_generation_processor_class(dataset_processor):
     return candidates[0][2]
 
 
-def run_attempt(
+def _legacy_run_attempt(
     *,
     workspace: Path,
     cvdp_repo: Path,
@@ -165,6 +165,8 @@ def run_attempt(
         # require a separate subjective-scoring model key.
         processor._sbj_model_config = None
         processor._sbj_model_instance = None
+        processor.include_harness = False
+        processor.include_golden_patch = False
         processor.process_json()
         prepared_id, obj, repo = processor.prepare(issue=task_id, model=model)
         if prepared_id != task_id:
@@ -196,7 +198,15 @@ def run_attempt(
         candidate_files = read_generated_candidate_files(model.generated_files)
         current_hash = candidate_bundle_hash(candidate_files)
         candidate_changed = previous_candidate_hash is None or current_hash != previous_candidate_hash
-        passed = result_passed(result)
+        from ace_rtl_agent.decision.types import CandidateBundle
+        from ace_rtl_agent.decision.observations import build_task_contract
+        legacy_contract = build_task_contract(row,args.cid)
+        legacy_bundle = CandidateBundle.create(candidate_files,episode_id='legacy')
+        result = {**result,'tested_hash':legacy_bundle.tested_hash}
+        write_json(iteration_dir/'real_evaluator_result.json',result)
+        write_json(iteration_dir/'candidate_manifest.json',{**legacy_bundle.to_dict(),
+            'generated_files':dict(model.generated_files),'mutable_targets':target_files,'task_id':task_id})
+        passed = result_passed(result,required_services=legacy_contract.required_services,tested_hash=legacy_bundle.tested_hash)
         if passed:
             stop_event.set()
             if not try_claim_first_pass(
@@ -205,6 +215,9 @@ def run_attempt(
                 attempt_index=attempt_index,
                 iteration=iteration,
                 candidate_path=candidate_path,
+                evaluation_path=iteration_dir/'real_evaluator_result.json',
+                manifest_path=iteration_dir/'candidate_manifest.json',
+                required_services=legacy_contract.required_services,
             ):
                 claim = read_first_pass_claim(attempt_root.parent)
                 logger.info(
@@ -354,6 +367,454 @@ def run_attempt(
     }
 
 
+def run_attempt(
+    *, workspace: Path, cvdp_repo: Path, row: Dict[str, Any], row_jsonl: Path,
+    attempt_root: Path, attempt_index: int, args: argparse.Namespace, stop_event: Any,
+    checkpoint_queue: Any = None, admission_event: Any = None,
+) -> Dict[str, Any]:
+    """Native state -> valid evaluation -> terminal gate -> bounded action loop."""
+    from dataclasses import replace
+    from ace_rtl_agent.decision.settings import DecisionSettings
+    from ace_rtl_agent.decision.types import CandidateBundle, ProposedAction, Evidence, canonical_hash
+    from ace_rtl_agent.decision.observations import build_task_contract, observe, effect
+    from ace_rtl_agent.decision.ledger import EventLedger
+    from ace_rtl_agent.decision.cache import EvaluationCache
+    settings = DecisionSettings.from_env(getattr(args, 'decision_mode', None))
+    if settings.mode == 'legacy':
+        return _legacy_run_attempt(workspace=workspace, cvdp_repo=cvdp_repo, row=row,
+                   row_jsonl=row_jsonl, attempt_root=attempt_root, attempt_index=attempt_index,
+                   args=args, stop_event=stop_event)
+
+    sys.path.insert(0, str(cvdp_repo))
+    install_native_harness_patch()
+    from src import dataset_processor
+    contract = build_task_contract(row, args.cid)
+    if not row.get('allowed_tools'):
+        contract = replace(contract,allowed_tools=('inspect_public_artifact','retry_evaluator'))
+    target_files = list(contract.mutable_targets)
+    if not target_files:
+        raise ValueError('task declares no mutable targets')
+    if not contract.required_services:
+        raise RuntimeError('INFRA_SETUP: missing expected CVDP evaluator service manifest')
+    target_file = target_files[0]
+    logger = logging.getLogger(f'ace_cvdp_native_runner.{contract.task_id}.attempt{attempt_index}')
+    debugger = FocusedDebugger(logger, model_name=args.reflector_model, api_key=role_api_key(),
+                              max_retries=3, initial_backoff=1.0)
+    debugger.task_contract = contract
+    coordinator_agent = FreshStartCoordinator(args.coordinator_model, logger, api_key=role_api_key(),
+                                              max_retries=3, initial_backoff=1.0)
+    coordinator_agent.focused_debugger = debugger
+    coordinator_agent.task_contract = contract
+    deadline = time.monotonic() + settings.wall_seconds
+    deadline = min(deadline,getattr(args,'task_deadline',deadline),getattr(args,'run_deadline',deadline))
+    os.environ['ACE_RTL_DEADLINE_MONOTONIC'] = str(deadline)
+    os.environ['ACE_RTL_EVENT_ROOT'] = str(attempt_root.parent / 'events')
+    os.environ['ACE_RTL_ATTEMPT_ID'] = str(attempt_index)
+    os.environ['ACE_RTL_TASK_ID'] = contract.task_id
+    os.environ['ACE_RTL_RUN_ID'] = str(getattr(args,'run_id',attempt_root.parent.parent.name))
+    os.environ['ACE_RTL_DECISION_MODE'] = settings.mode
+    ledger = EventLedger(attempt_root.parent/'events',attempt_index)
+    evaluation_cache = EvaluationCache(attempt_root.parent/'evaluation_cache')
+    cache_context = dict((settings.policy or {}).get('evaluation_context',{}))
+    cache_context.update(task_hash=canonical_hash(row),config_hash=canonical_hash({
+        'evaluator_timeout':args.evaluator_timeout,'cid':args.cid}),policy_version='evaluation-1')
+    cache_context['deterministic'] = bool(settings.evaluation_cache_mode=='deterministic' and
+                                           cache_context.get('determinism_verified') is True)
+    # Durable paid request artifacts are never inside evaluator scratch.
+    os.environ['ACE_EXPERIMENT_TELEMETRY'] = str(attempt_root.parent / 'calls' / f'attempt_{attempt_index}')
+    write_json(attempt_root / 'task_contract.json', contract.to_dict())
+    write_json(attempt_root / 'decision_settings.json', {
+        'mode':settings.mode, 'enabled_extensions':settings.enabled_extensions,
+        'question_version':settings.question_version, 'policy':settings.policy,
+        'deadline_seconds':settings.wall_seconds, 'generator_model':args.generator_model,
+        'reflector_model':args.reflector_model, 'coordinator_model':args.coordinator_model,
+    })
+    policy = None
+    if settings.mode in ('shadow','jev_core','jev_extended'):
+        from ace_rtl_agent.decision.policy import DecisionPolicy
+        from ace_rtl_agent.decision.systemone_client import SystemOneClient
+        try:
+            client = SystemOneClient.from_env()
+        except (ValueError, RuntimeError) as exc:
+            client = None
+            write_json(attempt_root / 'decision_preflight_error.json', {'error_type':type(exc).__name__})
+        policy = DecisionPolicy(client=client, config=settings.policy)
+        if settings.mode in ('jev_core','jev_extended'):
+            debugger.decision_policy = policy
+            if getattr(debugger,'rtl_rule_advisor',None):
+                debugger.rtl_rule_advisor.decision_client = client
+        if contract.task_kind == 'unknown' and client:
+            from ace_rtl_agent.decision.questions import build_task_kind_questions
+            try:
+                task_proposal = client.decide({'contract':contract.to_dict(),'public_requirements':[],'generated_code':None},build_task_kind_questions(),
+                                             timeout=min(15,max(.001,deadline-time.monotonic())))
+                write_json(attempt_root/'task_kind_proposal.json',task_proposal)
+                answer = task_proposal['answers']['task_kind']
+                if settings.mode != 'shadow' and answer.get('confidence',0) >= .7 and answer.get('choice') != 'unknown':
+                    contract = replace(contract,task_kind=answer['choice'])
+                    debugger.task_contract = coordinator_agent.task_contract = contract
+                    write_json(attempt_root/'task_contract.json',contract.to_dict())
+            except (ValueError,RuntimeError) as exc:
+                write_json(attempt_root/'task_kind_abstained.json',{'reason':type(exc).__name__})
+    history = []
+    archive = []
+    before = None
+    parent_bundle = None
+    action = None
+    episode = 1
+    restarts = 0
+    previous_candidates = {}
+    reflection = 'Initial generation from the public specification.'
+    coordinator_text = 'Generate every declared mutable target.'
+    metadata = None
+    state_version = 0
+    best = None
+    decision = None
+    memory = None
+    if 'lesson_memory' in settings.enabled_extensions:
+        from .extensions import lesson_guidance
+        config = settings.policy or {}
+        if not config.get('lesson_snapshot') or not config.get('lesson_version'):
+            raise ValueError('lesson_memory requires an explicit frozen snapshot and version')
+        memory = lesson_guidance(config['lesson_snapshot'],config['lesson_version'],contract)
+        write_json(attempt_root/'lesson_snapshot_reference.json',memory)
+        reflection += '\nPinned confirmed lessons:\n' + memory['guidance']
+    learned = None
+    if 'learned_policy' in settings.enabled_extensions:
+        from .extensions import load_learned_policy
+        config = settings.policy or {}
+        if not config.get('learned_policy_artifact') or not config.get('learned_model_version'):
+            raise ValueError('learned_policy requires separately validated artifact and pinned model version')
+        learned = load_learned_policy(config['learned_policy_artifact'],question_version=settings.question_version,
+                  policy_version=config.get('learned_policy_version','policy-1'),model_version=config['learned_model_version'])
+    started = time.monotonic()
+
+    def budget_snapshot():
+        value={'attempt_remaining_seconds':max(0,deadline-time.monotonic()),
+               'task_remaining_seconds':max(0,getattr(args,'task_deadline',deadline)-time.monotonic()),
+               'run_remaining_seconds':max(0,getattr(args,'run_deadline',deadline)-time.monotonic())}
+        raw=os.environ.get('ACE_EXPERIMENT_BUDGET_FILE')
+        if raw:
+            from ace_rtl_agent.decision.budget import campaign
+            value['campaign']=campaign().snapshot(Path(raw))
+        return value
+
+    def finish(status, **fields):
+        result = {'attempt':attempt_index,'status':status,'history':history,
+                  'worker_wall_seconds':time.monotonic()-started, **fields}
+        write_json(attempt_root / 'attempt_result.json',result)
+        ledger.append('attempt_terminated',status=status,task_id=contract.task_id,**fields)
+        return result
+
+    def cancellation():
+        claim = read_first_pass_claim(attempt_root.parent)
+        if claim:
+            return finish('stopped_after_sibling_pass', cancellation_reason='verified_sibling_pass', winner_attempt=claim['attempt'])
+        return finish('cancelled', cancellation_reason='infra_halt' if (attempt_root.parent/'infra_halt.json').exists() else 'user_cancel')
+
+    for iteration in range(1, args.max_iterations + 1):
+        if stop_event.is_set():
+            return cancellation()
+        if time.monotonic() >= deadline:
+            return finish('budget_exhausted',cancellation_reason='budget_exhausted')
+        if admission_event is not None and checkpoint_queue is not None:
+            checkpoint_queue.put({'checkpoint_attempt':attempt_index,'iteration':iteration,
+                'candidate_id':parent_bundle.candidate_id if parent_bundle else '',
+                'observation_id':before.observation_id if before else '',
+                'progress':None,'policy_version':'policy-1'})
+            while not admission_event.wait(timeout=.05):
+                if stop_event.is_set():
+                    return cancellation()
+                if time.monotonic() >= deadline:
+                    return finish('budget_exhausted',cancellation_reason='budget_exhausted')
+            admission_event.clear()
+        iteration_dir = attempt_root / f'iter_{iteration:02d}'
+        from .extensions import route_roles
+        route = route_roles(settings,decision,failures=len([h for h in history if not h.get('passed')]),
+                            default_model=args.generator_model)
+        if route.get('reflector_model'):
+            debugger.model_name = route['reflector_model']
+            if getattr(debugger,'llm_client',None):
+                debugger.llm_client.model_name = route['reflector_model']
+                debugger.llm_client.client.model = route['reflector_model']
+        model = AceIterationModel(workspace=workspace,iteration_dir=iteration_dir,cid=args.cid,
+             generator_model=route['generator_model'],llm_timeout=max(1,min(args.llm_timeout,int(deadline-time.monotonic()))),
+             reflection=reflection,coordinator=coordinator_text,previous_candidate=previous_candidates or None,
+             task_contract=contract,episode_id=f'episode-{episode}',generator_output_tokens=route['max_output_tokens'])
+        write_json(iteration_dir/'model_route.json',route)
+        processor = select_generation_processor_class(dataset_processor)(filename=str(row_jsonl),golden=False,
+            threads=1,debug=False,host=False,prefix=str(iteration_dir/'cvdp_work'),network_name=None,manage_network=False)
+        processor._sbj_model_config = None
+        processor._sbj_model_instance = None
+        processor.include_harness = False
+        processor.include_golden_patch = False
+        processor.process_json()
+        prepared_id, obj, repo = processor.prepare(issue=contract.task_id, model=model)
+        if prepared_id != contract.task_id:
+            raise RuntimeError('prepared task ID mismatch')
+        prepared_root=Path(getattr(repo,'issue_path','') or (iteration_dir/'cvdp_work'/contract.task_id))
+        bundle=bind_prepared_candidate(model,prepared_root,target_files,iteration_dir=iteration_dir,
+                                      episode_id=f'episode-{episode}',parent=parent_bundle)
+        files=dict(bundle.files)
+        manifest = {**bundle.to_dict(), 'generated_files':dict(model.generated_files),
+                    'mutable_targets':target_files, 'task_id':contract.task_id}
+        write_json(iteration_dir/'candidate_manifest.json',manifest)
+        # A cancelled generation is evidence, not a fabricated evaluation.
+        if stop_event.is_set() or time.monotonic() >= deadline:
+            cancelled_obs = observe({'errors':1,'tests':[],'cancelled':True},contract,bundle,
+                attempt=attempt_index,iteration=iteration,version=len(history)+1,episode_id=f'episode-{episode}')
+            cancelled_obs = replace(cancelled_obs,evaluator_status='UNKNOWN',evaluation_validity='unknown')
+            cancelled_effect = effect(before,cancelled_obs,action,bundle)
+            write_json(iteration_dir/'observation.json',cancelled_obs.to_dict())
+            write_json(iteration_dir/'effect.json',cancelled_effect.to_dict())
+            history.append({'iteration':iteration,'passed':False,'observation':cancelled_obs.to_dict(),
+                            'effect':cancelled_effect.to_dict(),'outcome':'cancelled'})
+            return cancellation() if stop_event.is_set() else finish('budget_exhausted',cancellation_reason='budget_exhausted')
+        if model.preflight_issues:
+            result = make_preflight_result(model.preflight_issues,model.postprocess_actions)
+            write_json(iteration_dir/'preflight_result.json',result)
+        else:
+            cached = evaluation_cache.get(bundle.tested_hash,cache_context)
+            ledger.append('evaluation_started',candidate_hash=bundle.tested_hash,iteration=iteration,cache_hit=bool(cached),
+                          parent_action_id=action.action_id if action else None)
+            if cached:
+                result = json.loads(Path(cached['evaluation_path']).read_text())
+                write_json(iteration_dir/'evaluation_reuse.json',{'evaluation_path':cached['evaluation_path'],
+                                      'reused_measurement':True,'candidate_hash':bundle.tested_hash})
+            else:
+                os.environ['CVDP_NATIVE_TIMEOUT'] = str(max(1,min(args.evaluator_timeout,int(deadline-time.monotonic()))))
+                result = processor.run(id=contract.task_id,obj=obj,repo=repo,model=model)
+            ledger.append('evaluation_completed',candidate_hash=bundle.tested_hash,iteration=iteration,cache_hit=bool(cached))
+        # Explicit runner provenance does not manufacture tool execution facts.
+        if isinstance(result, dict):
+            result = {**result, 'tested_hash':bundle.tested_hash}
+        write_json(iteration_dir/'real_evaluator_result.json',result)
+        if not model.preflight_issues:
+            evaluation_cache.put(bundle.tested_hash,cache_context,{
+                'candidate_path':model.generated_files[target_file],
+                'evaluation_path':str(iteration_dir/'real_evaluator_result.json'),
+                'manifest_path':str(iteration_dir/'candidate_manifest.json'),'required_services':contract.required_services})
+        observation = observe(result,contract,bundle,attempt=attempt_index,iteration=iteration,
+                       version=state_version+1,episode_id=f'episode-{episode}',budget_snapshot=budget_snapshot())
+        state_version = observation.version
+        summary = summarize_result(result)
+        failure = primary_failure_from_summary(result,summary)
+        if observation.evaluator_status == 'UNKNOWN' and failure['stage'] in ('INFRA_SETUP','CANDIDATE_COMPILE','CANDIDATE_FUNCTIONAL'):
+            observation = replace(observation,evaluator_status=failure['stage'],
+                          evaluation_validity='incomplete' if failure['stage']=='INFRA_SETUP' else observation.evaluation_validity,
+                          inferences={'stage_source':'sanitized_emitted_diagnostics','stage_message':failure['message']})
+        error_report = build_evaluator_error_report(result,summary)
+        error_catalog = diagnostic_error_candidates(error_report,service_ids=observation.failed_checks)
+        if error_catalog and observation.evaluator_status!='PASS':
+            observation = replace(observation,errors=observation.errors+tuple(error_catalog),
+                                  inferences={**observation.inferences,'error_candidates':error_catalog})
+        transition = effect(before,observation,action,bundle)
+        debugger.record_observation(observation,bundle,before=before,action=action,effect=transition,
+                                    focus_error_id=action.error_id if action else None)
+        write_json(iteration_dir/'observation.json',observation.to_dict())
+        write_json(iteration_dir/'effect.json',transition.to_dict())
+        passed = observation.evaluation_validity == 'valid' and observation.evaluator_status == 'PASS'
+        (iteration_dir/'evaluator_error_report.txt').write_text(error_report,encoding='utf-8')
+        history.append({'iteration':iteration,'passed':passed,'result':result,'summary':summary,
+            'primary_failure':failure,'observation':observation.to_dict(),'effect':transition.to_dict(),
+            'candidate_hash':bundle.tested_hash,'candidate_changed':bool(bundle.changed_files),
+            'candidate_path':model.generated_files.get(target_file),'generated_files':dict(model.generated_files)})
+        archive.append((bundle,observation))
+        write_json(attempt_root/'candidate_archive.json',[{'bundle':b.to_dict(),'observation':o.to_dict()} for b,o in archive])
+        if observation.evaluation_validity == 'valid':
+            if best is None or (transition.comparable and transition.metric_delta.get('failed_count',0)<0):
+                best = (bundle,observation)
+        print(f'{contract.task_id} attempt {attempt_index} iteration {iteration}: {"PASS" if passed else "FAIL"} ({observation.evaluator_status})')
+        # The deterministic effect and audit are saved before every terminal return.
+        if passed:
+            candidate_path = Path(model.generated_files[target_file])
+            claimed = try_claim_first_pass(dp_root=attempt_root.parent,task_id=contract.task_id,
+                 attempt_index=attempt_index,iteration=iteration,candidate_path=candidate_path,
+                 evaluation_path=iteration_dir/'real_evaluator_result.json',manifest_path=iteration_dir/'candidate_manifest.json',
+                 required_services=contract.required_services)
+            claim = read_first_pass_claim(attempt_root.parent)
+            if claimed or claim:
+                stop_event.set()
+            return finish('passed' if claimed else 'stopped_after_sibling_pass',passed_iteration=iteration,
+                  candidate_path=str(candidate_path),time_to_first_verified_pass=time.monotonic()-started,
+                  cancellation_reason=None if claimed else 'verified_sibling_pass',winner_attempt=claim.get('attempt') if claim else None)
+        if observation.evaluator_status == 'INFRA_SETUP' and not any(
+                  s.get('retryable_execution_failure') is True and not s.get('fatal_infra') for s in observation.services.values()):
+            write_json(attempt_root.parent/'infra_halt.json',{'cause':'infra_halt','attempt':attempt_index})
+            stop_event.set()
+            return finish('infra_error',failed_iteration=iteration,cancellation_reason='infra_halt')
+        if stop_event.is_set():
+            return cancellation()
+        if iteration >= args.max_iterations:
+            status={'EVALUATOR_TIMEOUT':'evaluator_timeout','INVALID_EVALUATION':'invalid_evaluation',
+                    'INFRA_SETUP':'infra_error'}.get(observation.evaluator_status,'failed')
+            return finish(status)
+        if time.monotonic() >= deadline:
+            return finish('budget_exhausted',cancellation_reason='budget_exhausted')
+
+        debugger.current_observation = observation
+        debugger.previous_observation = before
+        debugger.current_effect = transition
+        debugger.current_bundle = bundle
+        # Baseline/effects are already recorded; prose retrospective never controls native state.
+        coordinator_agent.add_iteration_result(iteration=iteration,test_passed=False,error_report=error_report,
+                                                rtl_code=format_candidate_bundle(target_files,files),mismatch_count=-1)
+        chosen = None
+        os.environ['ACE_RTL_ROLE']='coordinator'
+        evidence = [Evidence('current-failure','emitted_evaluator','emitted_log',text=error_report,
+                     candidate_id=bundle.candidate_id,observation_id=observation.observation_id)]
+        if policy:
+            decision = policy.decide(observation,contract,bundle,before=before,history=tuple(history),
+                          evidence=evidence,best=best,budget_remaining=max(0,deadline-time.monotonic()),cancelled=stop_event.is_set())
+            write_json(iteration_dir/'decision.json',decision.to_dict())
+            if decision.fallback_reason == 'explicit_termination':
+                return finish('decision_budget_exhausted',cancellation_reason='budget_exhausted')
+            if settings.mode != 'shadow':
+                try:
+                    chosen = policy.commit(decision,observation,contract,bundle,
+                              budget_remaining=max(0,deadline-time.monotonic()),cancelled=stop_event.is_set())
+                except ValueError as exc:
+                    write_json(iteration_dir/'decision_rejected.json',{'reason':str(exc)})
+                    return finish('decision_rejected',abstention_reason=str(exc))
+        if chosen is None:
+            should_restart, reason = coordinator_agent.should_fresh_start(iteration)
+            kind = 'fresh_start' if should_restart and restarts < settings.max_restarts else 'reflect_focused'
+            chosen = ProposedAction(canonical_hash([observation.observation_id,kind]),observation.observation_id,kind,
+                target_ids=contract.mutable_targets,observation_version=observation.version,tested_hash=bundle.tested_hash)
+        if learned is not None and decision is not None:
+            from ace_rtl_agent.decision.offline import predict_policy
+            fits=[v.get('noul') for k,v in decision.answers.items() if k.startswith('fit_') and isinstance(v.get('noul'),(int,float))]
+            risks=[v.get('noul') for k,v in decision.answers.items() if k.startswith('risk_') and isinstance(v.get('noul'),(int,float))]
+            features={'fit': min(fits) if fits else None,'risk_max':max(risks) if risks else None,
+                      'prior_changed_files':len(bundle.changed_files)}
+            advice=predict_policy(learned,features,pinned_versions={'question_version':settings.question_version,
+                 'model_version':decision.resolved_model or decision.requested_model,
+                 'policy_version':(settings.policy or {}).get('learned_policy_version','policy-1')})
+            write_json(iteration_dir/'learned_policy_advice.json',{'prediction':advice,'calibrated':False,'features':features})
+            if not advice:
+                chosen=replace(chosen,action_kind='reflect_deep',strategy_id=None)
+        if stop_event.is_set() or time.monotonic() >= deadline:
+            return cancellation() if stop_event.is_set() else finish('budget_exhausted',cancellation_reason='budget_exhausted')
+        action = chosen
+        os.environ['ACE_RTL_PARENT_ACTION'] = chosen.action_id
+        write_json(iteration_dir/'action.json',chosen.to_dict())
+        ledger.append('action_committed',action_id=chosen.action_id,action_kind=chosen.action_kind,
+                      observation_id=chosen.observation_id,version=chosen.observation_version)
+        previous_candidates = dict(files)
+        parent_bundle = bundle
+        before = observation
+        coordinator_text = f'Typed action: {chosen.action_kind}. Preserve task kind {contract.task_kind} and all targets.'
+        if chosen.action_kind == 'switch_focus':
+            debugger.current_focused_error = chosen.error_id
+            debugger.error_solved = False
+            ledger.append('focus_switched',error_id=chosen.error_id,observation_id=observation.observation_id)
+        if chosen.action_kind == 'gather_evidence':
+            from ace_rtl_agent.decision.strategies import summarize_diagnostic
+            try:
+                additional = summarize_diagnostic(chosen,evidence)
+                state_version += 1
+                observation = replace(observation,observation_id=canonical_hash([observation.observation_id,additional.evidence_id]),
+                             version=state_version,evidence_ids=observation.evidence_ids+(additional.evidence_id,))
+                additional = replace(additional,observation_id=observation.observation_id)
+                evidence = [replace(e,observation_id=observation.observation_id,
+                              values={**e.values,'unexposed_tail_available':False}) for e in evidence]+[additional]
+                write_json(iteration_dir/f'diagnostic-{state_version}.json',{'evidence':additional.to_dict(),
+                           'observation':observation.to_dict(),'reused_measurement':True,'action_id':chosen.action_id})
+                ledger.append('diagnostic_completed',action_id=chosen.action_id,evidence_id=additional.evidence_id,
+                               new_measurement=False)
+                debugger.current_observation = observation
+                before = observation
+                next_decision = policy.decide(observation,contract,bundle,before=before,history=tuple(history),
+                               evidence=evidence,best=best,budget_remaining=deadline-time.monotonic())
+                write_json(iteration_dir/f'decision-{state_version}.json',next_decision.to_dict())
+                chosen = policy.commit(next_decision,observation,contract,bundle,
+                                       budget_remaining=deadline-time.monotonic(),cancelled=stop_event.is_set())
+                if chosen.action_kind == 'gather_evidence':
+                    return finish('decision_budget_exhausted',abstention_reason='repeated_diagnostic_without_new_source')
+                action = chosen
+                write_json(iteration_dir/'action.json',chosen.to_dict())
+                ledger.append('action_committed',action_id=chosen.action_id,action_kind=chosen.action_kind,
+                              observation_id=observation.observation_id,version=state_version)
+            except ValueError as exc:
+                write_json(iteration_dir/'diagnostic_rejected.json',{'reason':str(exc)})
+                return finish('decision_rejected',abstention_reason='diagnostic_unavailable_or_repeated')
+        if chosen.action_kind == 'retry_evaluator':
+            if not any(s.get('retryable_execution_failure') is True and not s.get('fatal_infra') for s in observation.services.values()):
+                return finish('decision_rejected',abstention_reason='evaluator_retry_not_eligible')
+            retry_limit=int((settings.policy or {}).get('max_evaluator_retries',1))
+            if sum(h.get('evaluation_retry',False) for h in history) >= retry_limit:
+                return finish('decision_budget_exhausted',abstention_reason='evaluator_retry_limit')
+            ledger.append('evaluation_started',candidate_hash=bundle.tested_hash,retry_index=1,parent_action_id=chosen.action_id)
+            os.environ['CVDP_NATIVE_TIMEOUT']=str(max(1,min(args.evaluator_timeout,int(deadline-time.monotonic()))))
+            retried=processor.run(id=contract.task_id,obj=obj,repo=repo,model=model)
+            retried={**retried,'tested_hash':bundle.tested_hash}
+            retry_path=iteration_dir/'retry_evaluator_result.json'
+            write_json(retry_path,retried)
+            state_version += 1
+            after=observe(retried,contract,bundle,attempt=attempt_index,iteration=iteration,
+                          version=state_version,episode_id=f'episode-{episode}')
+            retry_effect=effect(observation,after,chosen,bundle)
+            write_json(iteration_dir/'retry_observation.json',after.to_dict())
+            write_json(iteration_dir/'retry_effect.json',retry_effect.to_dict())
+            debugger.record_observation(after,bundle,before=observation,action=chosen,effect=retry_effect)
+            history.append({'iteration':iteration,'evaluation_retry':True,'passed':after.evaluator_status=='PASS',
+                            'result':retried,'observation':after.to_dict(),'effect':retry_effect.to_dict()})
+            ledger.append('evaluation_completed',candidate_hash=bundle.tested_hash,retry_index=1,observation_id=after.observation_id)
+            if after.evaluator_status=='PASS' and after.evaluation_validity=='valid':
+                claimed=try_claim_first_pass(dp_root=attempt_root.parent,task_id=contract.task_id,attempt_index=attempt_index,
+                    iteration=iteration,candidate_path=Path(model.generated_files[target_file]),evaluation_path=retry_path,
+                    manifest_path=iteration_dir/'candidate_manifest.json',required_services=contract.required_services)
+                if claimed:stop_event.set()
+                return finish('passed' if claimed else 'stopped_after_sibling_pass',passed_iteration=iteration,
+                              time_to_first_verified_pass=time.monotonic()-started)
+            observation=after
+            before=after
+            error_report=build_evaluator_error_report(retried,summarize_result(retried))
+            chosen=replace(chosen,action_id=canonical_hash([chosen.action_id,'repair-after-retry']),
+                           action_kind='reflect_focused',observation_id=after.observation_id,observation_version=after.version)
+            action=chosen
+        if chosen.action_kind == 'fresh_start' and restarts < settings.max_restarts:
+            restarts += 1
+            episode += 1
+            debugger.clear_history()
+            coordinator_agent.mark_fresh_start(iteration)
+            previous_candidates = {}
+            reflection = 'New episode: regenerate from public specification; do not re-inject previous candidate or guidance.'
+            if memory:
+                reflection += '\nPinned confirmed lessons:\n'+memory['guidance']
+            continue
+        if chosen.action_kind == 'rollback_best' and best:
+            previous_candidates = dict(best[0].files)
+            parent_bundle = best[0]
+            # New monotonic version referencing archived observation; never new measurement.
+            write_json(iteration_dir/'rollback.json',{'archived_observation_id':best[1].observation_id,
+                         'active_version':observation.version+1,'budget_remaining':deadline-time.monotonic()})
+            state_version += 1
+            archived=best[1]
+            observation=replace(archived,observation_id=canonical_hash([archived.observation_id,'rollback',state_version]),version=state_version)
+            before=observation
+            debugger.current_observation=observation
+            error_report=next((build_evaluator_error_report(h['result'],h.get('summary',summarize_result(h['result'])))
+                              for h in history if h.get('observation',{}).get('observation_id')==archived.observation_id),error_report)
+            evidence=[Evidence('rollback-failure','archived_emitted_evaluator','diagnostic',text=error_report,
+                               candidate_id=parent_bundle.candidate_id,observation_id=observation.observation_id)]
+            ledger.append('rollback_activated',action_id=chosen.action_id,archived_observation_id=archived.observation_id,
+                          active_version=state_version,budget_rewound=False,new_measurement=False)
+        if chosen.action_kind == 'repair_with_template':
+            from ace_rtl_agent.decision.strategies import STRATEGIES
+            recipe = STRATEGIES.get(chosen.strategy_id)
+            reflection = getattr(recipe,'guidance','') or 'Apply the selected narrow repair while preserving the public interface.'
+            continue
+        harness_context = build_reflector_harness_context(None,target_file,mutable_targets=target_files,
+                                                           public_context=contract.immutable_context)
+        os.environ['ACE_RTL_ROLE']='reflector'
+        reflection, metadata = call_reflector(debugger,iteration_dir,contract.task_id,target_file,
+                  files.get(target_file,''),error_report,iteration,contract.specification,harness_context,
+                  candidate_files=previous_candidates,task_contract=contract,observation=observation,
+                  bundle=parent_bundle,action=chosen,evidence=evidence,best=best)
+    return finish('failed')
+
+
 def attempt_worker_main(
     result_queue: multiprocessing.Queue,
     run_log: str,
@@ -404,6 +865,7 @@ def stop_attempt_process(
     dp_root: Path,
     winner_attempt: int,
     pre_signaled_pids: Optional[Iterable[int]] = None,
+    cancellation_reason: Optional[str] = None,
 ) -> Dict[str, Any]:
     killed_pids: List[int] = list(pre_signaled_pids or [])
     killed_pids.extend(terminate_pids(attempt_process_pids(process, attempt_root), grace_seconds=0.2))
@@ -413,10 +875,16 @@ def stop_attempt_process(
         process.join(timeout=0.5)
     killed_pids.extend(terminate_pids(pids_matching_path(attempt_root), grace_seconds=0.1))
     cleanup = cleanup_attempt_root(attempt_root, dp_root)
+    reason = cancellation_reason or ('verified_sibling_pass' if winner_attempt > 0 else 'user_cancel')
+    from ace_rtl_agent.decision.ledger import EventLedger
+    EventLedger(dp_root/'events','parent').append('attempt_terminated',
+         terminated_attempt=int(attempt_root.name.rsplit('_',1)[-1]),cancellation_reason=reason,
+         upstream_usage='unknown_unless_received',winner_attempt=winner_attempt if reason=='verified_sibling_pass' else None)
     return {
         "attempt": int(attempt_root.name.rsplit("_", 1)[-1]),
-        "status": "stopped_after_sibling_pass",
-        "winner_attempt": winner_attempt,
+        "status": "stopped_after_sibling_pass" if reason=='verified_sibling_pass' else 'cancelled',
+        "winner_attempt": winner_attempt if reason=='verified_sibling_pass' else None,
+        "cancellation_reason": reason,
         "terminated_pids": sorted(set(killed_pids)),
         "cleanup": cleanup,
     }
@@ -456,6 +924,28 @@ def run_datapoint(
     attempt_roots: Dict[int, Path] = {}
     reported_attempts: set[int] = set()
     passed_attempt: Optional[int] = None
+    from ace_rtl_agent.decision.settings import DecisionSettings
+    settings = DecisionSettings.from_env(getattr(args,'decision_mode',None))
+    worker_args = copy.copy(args)
+    worker_args.task_deadline = min(time.monotonic()+settings.task_wall_seconds,
+                                   getattr(args,'run_deadline',float('inf')))
+    admission_events = {}
+    checkpoints = {}
+    active_checkpoints = set()
+    scheduler = None
+    if 'adaptive_scheduling' in settings.enabled_extensions:
+        from ace_rtl_agent.decision.extensions import AdaptiveScheduler, AttemptCheckpoint
+        scheduler = AdaptiveScheduler(int((settings.policy or {}).get('minimum_checkpoints',1)),enabled=True)
+
+    def admit_checkpoints():
+        if not scheduler:
+            return
+        slots=max(0,int((settings.policy or {}).get('checkpoint_concurrency',1))-len(active_checkpoints))
+        for attempt_id in scheduler.allocate(list(checkpoints.values()),slots):
+            attempt=int(attempt_id)
+            checkpoints.pop(attempt_id,None)
+            active_checkpoints.add(attempt)
+            admission_events[attempt].set()
 
     def stop_sibling_attempts(winner_attempt: int) -> None:
         pre_signaled_pids: Dict[int, List[int]] = {}
@@ -517,8 +1007,9 @@ def run_datapoint(
                         "row_jsonl": row_jsonl,
                         "attempt_root": attempt_root,
                         "attempt_index": i,
-                        "args": args,
+                        "args": worker_args,
                         "stop_event": stop_event,
+                        **({'checkpoint_queue':result_queue,'admission_event':admission_events.setdefault(i,ctx.Event())} if scheduler else {}),
                     },
                 ),
             )
@@ -531,12 +1022,35 @@ def run_datapoint(
                 passed_attempt = int(claim["attempt"])
                 stop_event.set()
                 stop_sibling_attempts(passed_attempt)
+            # Enforce total wall time even if a transport keeps its socket alive.
+            if time.monotonic() >= worker_args.task_deadline:
+                stop_event.set()
+                for attempt,process in processes.items():
+                    if attempt in reported_attempts:
+                        continue
+                    stopped=stop_attempt_process(process=process,attempt_root=attempt_roots[attempt],
+                         dp_root=dp_root,winner_attempt=-1,cancellation_reason='budget_exhausted')
+                    stopped['status']='budget_exhausted'
+                    reported_attempts.add(attempt)
+                    attempt_results.append(stopped)
+                write_json(dp_root/'attempt_results.partial.json',attempt_results)
+                break
 
             try:
                 result = result_queue.get(timeout=0.05)
             except queue.Empty:
                 result = None
 
+            if result is not None:
+                if scheduler and 'checkpoint_attempt' in result:
+                    from ace_rtl_agent.decision.extensions import AttemptCheckpoint
+                    attempt=result['checkpoint_attempt']
+                    active_checkpoints.discard(attempt)
+                    checkpoints[str(attempt)] = AttemptCheckpoint(str(attempt),progress=result.get('progress'),
+                        candidate_id=result.get('candidate_id',''),observation_id=result.get('observation_id',''),
+                        policy_version=result.get('policy_version','policy-1'))
+                    admit_checkpoints()
+                    result=None
             if result is not None:
                 attempt = result.get("attempt")
                 if isinstance(attempt, int) and attempt not in reported_attempts:
@@ -550,6 +1064,9 @@ def run_datapoint(
                         result["winner_attempt"] = passed_attempt
                         result["suppressed_duplicate_pass"] = True
                     reported_attempts.add(attempt)
+                    active_checkpoints.discard(attempt)
+                    checkpoints.pop(str(attempt),None)
+                    admit_checkpoints()
                     attempt_results.append(result)
                     write_json(dp_root / "attempt_results.partial.json", attempt_results)
                     if result.get("status") == "passed" and passed_attempt is None:
@@ -729,6 +1246,8 @@ def parse_args() -> argparse.Namespace:
         help="Number of CVDP datapoints to run in parallel by default",
     )
     parser.add_argument("--max-iterations", type=int, default=30)
+    parser.add_argument('--decision-mode', choices=('legacy','baseline_fixed','shadow','jev_core','jev_extended'),
+                        default=os.environ.get('ACE_RTL_DECISION_MODE','baseline_fixed'))
     parser.add_argument("--llm-timeout", type=int, default=1800)
     parser.add_argument(
         "--evaluator-timeout",
@@ -746,6 +1265,11 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    from ace_rtl_agent.decision.settings import DecisionSettings
+    settings = DecisionSettings.from_env(args.decision_mode)
+    args.run_deadline = time.monotonic()+settings.run_wall_seconds
+    if min(args.attempts,args.max_iterations,args.datapoint_workers,args.llm_timeout,args.evaluator_timeout) <= 0:
+        raise ValueError('attempt, iteration, worker and timeout budgets must be positive')
     workspace = Path(args.workspace).resolve()
     maybe_reexec_workspace_python(workspace)
     dataset = ensure_under(Path(args.dataset), workspace, "dataset")
@@ -758,6 +1282,7 @@ def main() -> int:
         raise RuntimeError("NVIDIA_API_KEY must be set, or set ACE_RTL_LLM_SCRIPT")
 
     run_dir = unique_run_dir(outputs_root, args.cid, dataset.stem)
+    args.run_id = run_dir.name
     log_file = (run_dir / "run.log").open("w", encoding="utf-8", buffering=1)
     sys.stdout = Tee(sys.__stdout__, log_file)
     sys.stderr = Tee(sys.__stderr__, log_file)
@@ -799,6 +1324,13 @@ def main() -> int:
             "max_iterations": args.max_iterations,
             "evaluator_timeout": args.evaluator_timeout,
             "native_harness": True,
+            "decision_mode": settings.mode,
+            "enabled_extensions": settings.enabled_extensions,
+            "question_version": settings.question_version,
+            "policy": settings.policy,
+            "evaluation_cache_mode": settings.evaluation_cache_mode,
+            "wall_budgets": {'run_seconds':settings.run_wall_seconds,'task_seconds':settings.task_wall_seconds,
+                             'attempt_seconds':settings.wall_seconds},
         },
     )
 

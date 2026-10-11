@@ -77,6 +77,37 @@ def open_budget(path: Path):
         db.close();raise BudgetDenied('invalid campaign file') from None
 
 
+def init_scope_limits(path: Path, limits: dict) -> None:
+    """Add immutable task/attempt quotas without resetting existing campaign spend."""
+    if not isinstance(limits,dict) or set(limits)-{'task','attempt'}:
+        raise ValueError('scope limits must define task/attempt provider quotas')
+    normalized={}
+    for scope,providers in limits.items():
+        normalized[scope]={}
+        if not isinstance(providers,dict) or set(providers)-{'primary','jev'}:
+            raise ValueError('invalid scope providers')
+        for provider,values in providers.items():
+            if not isinstance(values,dict) or any(type(values.get(k)) is not int or values[k]<=0 for k in ('max_calls','max_tokens')):
+                raise ValueError('positive scope call/token quotas required')
+            item={k:values[k] for k in ('max_calls','max_tokens')}
+            if 'max_usd' in values:
+                if provider!='jev':raise ValueError('primary USD quota requires a separately known price bound')
+                item['max_money']=money_units(values['max_usd'])
+            normalized[scope][provider]=item
+    db,_=open_budget(Path(path))
+    try:
+        db.execute('BEGIN IMMEDIATE')
+        db.execute('CREATE TABLE IF NOT EXISTS scopes (ticket_id TEXT NOT NULL, scope_name TEXT NOT NULL, scope_key TEXT NOT NULL, PRIMARY KEY(ticket_id,scope_name))')
+        canonical=json.dumps(normalized,sort_keys=True)
+        existing=db.execute("SELECT value FROM meta WHERE key='scope_limits'").fetchone()
+        if existing and existing[0]!=canonical:raise ValueError('Scoped campaign limits are immutable')
+        if not existing and db.execute('SELECT count(*) FROM tickets').fetchone()[0]:
+            raise ValueError('cannot add scoped limits after paid reservations without historical scope identities')
+        if not existing:db.execute("INSERT INTO meta VALUES ('scope_limits',?)",(canonical,))
+        db.commit()
+    finally:db.close()
+
+
 def reserve(provider: str, input_text: str, output_tokens: int) -> dict:
     raw=os.environ.get('ACE_EXPERIMENT_BUDGET_FILE')
     if not raw:raise BudgetDenied('ACE_EXPERIMENT_BUDGET_FILE is required')
@@ -95,10 +126,30 @@ def reserve(provider: str, input_text: str, output_tokens: int) -> dict:
         elif calls>=limit['max_calls']:error=provider+' request cap reached'
         elif charged+tokens>limit['max_tokens']:error=provider+' token reservation cap reached'
         elif provider=='jev' and cost+money>limit['max_money']:error='JEV currency exposure cap reached'
+        scoped=db.execute("SELECT value FROM meta WHERE key='scope_limits'").fetchone()
+        scope_limits=json.loads(scoped[0]) if scoped else {}
+        task=os.environ.get('ACE_RTL_TASK_ID') or os.environ.get('ACE_EXPERIMENT_CASE_ID')
+        run_id=os.environ.get('ACE_RTL_RUN_ID')
+        if task and run_id:task=run_id+':'+task
+        attempt=os.environ.get('ACE_RTL_ATTEMPT_ID')
+        links=[]
+        for scope,providers in scope_limits.items():
+            if provider not in providers:continue
+            scope_key=task if scope=='task' else (task+':'+attempt if task and attempt else None)
+            if not scope_key:
+                if os.environ.get('ACE_EXPERIMENT_PHASE')=='warmup':continue
+                error=error or 'missing '+scope+' identity for scoped admission';continue
+            quota=providers[provider]
+            counts,used,exposure=db.execute('SELECT count(*),coalesce(sum(t.token_charge),0),coalesce(sum(t.money_charge),0) FROM tickets t JOIN scopes s ON t.id=s.ticket_id WHERE s.scope_name=? AND s.scope_key=? AND t.provider=?',(scope,scope_key,provider)).fetchone()
+            if counts>=quota['max_calls']:error=error or scope+' '+provider+' request cap reached'
+            elif used+tokens>quota['max_tokens']:error=error or scope+' '+provider+' token reservation cap reached'
+            elif quota.get('max_money') is not None and exposure+money>quota['max_money']:error=error or scope+' currency exposure cap reached'
+            links.append((ticket_id,scope,scope_key))
         if error:
             db.execute("UPDATE meta SET value=CAST(value AS INTEGER)+1 WHERE key='denied'")
         else:
             db.execute('INSERT INTO tickets VALUES (?,?,?,?,?,?,?,?,?)',(ticket_id,provider,tokens,tokens,money,money,'inflight',0,0))
+            if links:db.executemany('INSERT INTO scopes VALUES (?,?,?)',links)
         db.commit()
     finally:db.close()
     if error:raise BudgetDenied(error)
@@ -132,7 +183,13 @@ def snapshot(path: Path) -> dict:
         for provider in limits:
             calls,tokens,cost,known,unknown=db.execute('SELECT count(*),coalesce(sum(token_charge),0),coalesce(sum(money_charge),0),coalesce(sum(CASE WHEN tokens_known=1 THEN token_charge ELSE 0 END),0),coalesce(sum(CASE WHEN tokens_known=0 THEN 1 ELSE 0 END),0) FROM tickets WHERE provider=?',(provider,)).fetchone()
             result[provider]={'calls':calls,'token_charge':tokens,'known_tokens':known,'unknown_token_reservations':unknown,
-                              'usd_exposure':cost/1e9 if provider=='jev' else None}
+                               'usd_exposure':cost/1e9 if provider=='jev' else None}
+        scopes=db.execute("SELECT value FROM meta WHERE key='scope_limits'").fetchone()
+        if scopes:
+            result['scope_limits']=json.loads(scopes[0])
+            result['scope_usage']=[{'scope':s,'identity':i,'provider':p,'calls':c,'token_charge':t,
+                                    'usd_exposure':m/1e9 if p=='jev' else None}
+                 for s,i,p,c,t,m in db.execute('SELECT s.scope_name,s.scope_key,t.provider,count(*),sum(t.token_charge),sum(t.money_charge) FROM tickets t JOIN scopes s ON t.id=s.ticket_id GROUP BY s.scope_name,s.scope_key,t.provider')]
         return result
     finally:db.close()
 

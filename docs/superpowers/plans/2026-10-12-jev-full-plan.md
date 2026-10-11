@@ -25,9 +25,9 @@
 
 ### 1. Shared contract / audit (integration owner)
 - [x] Record current HEAD, preserved configuration names, native graph and file ownership in audit.
-- [ ] Write `tests/test_decision_types.py`: frozen Observation, nullable metrics, path rejection, bundle second-file change.
-- [ ] Observe RED, implement `decision/types.py`: TaskContract, CandidateBundle, Observation, Evidence, ProposedAction, DecisionRecord, EffectRecord and canonical hashes.
-- [ ] Run focused tests, then full suite; commit with integrated work.
+- [x] Write `tests/test_decision_types.py`: frozen Observation, nullable metrics, path rejection, bundle second-file change.
+- [x] Observe RED, implement `decision/types.py`: TaskContract, CandidateBundle, Observation, Evidence, ProposedAction, DecisionRecord, EffectRecord and canonical hashes.
+- [x] Run focused tests, then full suite; commit with integrated work.
 
 ### 2. D observation and runtime (independent owners)
 - [ ] Test F07–12, service validity, execution stage, baseline/bundle/test comparability and public metadata classification.

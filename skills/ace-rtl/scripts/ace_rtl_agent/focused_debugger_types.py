@@ -3,7 +3,8 @@
 
 """Focused debugger shared data types."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
+from typing import Any
 
 
 @dataclass
@@ -18,5 +19,16 @@ class FixAttempt:
     test_results: str  # Test results after this fix (e.g., "0/10 passed", "3/10 passed")
     outcome: str  # "improved", "no_change", "regressed", "solved"
     mismatch_count: int = -1  # Numeric mismatch count from simulation (-1 = unknown)
+    observation_id: str | None = None
+    before_observation_id: str | None = None
+    action_id: str | None = None
+    effect_id: str | None = None
+    episode_id: str = ''
+    focus_status: str = 'unknown'
+    confirmed_regressions: tuple[str, ...] = ()
+    newly_reached_failures: tuple[str, ...] = ()
+    metrics: Any = None
 
+    def to_dict(self):
+        return asdict(self)
 

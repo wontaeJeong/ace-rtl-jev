@@ -330,7 +330,20 @@ def marker_in_text(text: str, markers: Iterable[str]) -> bool:
     return any(marker in text for marker in markers)
 
 
-def classify_task(target_file: str, prompt: str) -> str:
+def classify_task(target_file: str, prompt: str, category: str = '', task_kind: str = None) -> str:
+    aliases = {'rtl_implementation': 'rtl', 'rtl_optimization': 'optimization'}
+    declared = aliases.get(task_kind, task_kind)
+    if declared in {'rtl', 'optimization', 'assertion', 'coverage', 'checker', 'verification'}:
+        return declared
+    metadata = str(category).lower().replace('_', ' ').replace('-', ' ')
+    for tokens, kind in [(('assertion',), 'assertion'), (('optimization', 'lint'), 'optimization'),
+                         (('checker', 'bug detection'), 'checker'), (('coverage',), 'coverage'),
+                         (('testbench', 'verification', 'stimulus'), 'verification'),
+                         (('rtl', 'implementation'), 'rtl')]:
+        if any(token in metadata for token in tokens):
+            return kind
+    # Negated instructions and generated source cannot redefine the task.
+    prompt = re.sub(r'(?im)(?:do not|don\x27t|must not|never|without|no)\s+[^.;\n]*', '', prompt)
     text = f"{target_file}\n{prompt}".lower()
     target = target_file.lower()
     is_rtl_target = target.startswith("rtl/")
@@ -364,6 +377,7 @@ def classify_task(target_file: str, prompt: str) -> str:
 
 
 def guidance_for_task(task_kind: str) -> str:
+    task_kind = {'rtl_implementation': 'rtl', 'rtl_optimization': 'optimization'}.get(task_kind, task_kind)
     if task_kind == "coverage":
         return COVERAGE_GUIDANCE
     if task_kind == "checker":
@@ -414,5 +428,3 @@ def system_prompt_for_task(task_kind: str, multi_file: bool = False) -> str:
 
 def now_stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-
-

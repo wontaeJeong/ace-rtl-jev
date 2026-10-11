@@ -21,7 +21,8 @@ class FocusedHistoryMixin:
                       test_results: str,
                       outcome: str,
                       test_passed: bool = False,
-                      mismatch_count: int = -1):
+                      mismatch_count: int = -1, *, observation=None, before=None,
+                      action=None, bundle=None, effect=None, focus_error_id=None):
         """
         Record a fix attempt for history tracking.
 
@@ -36,6 +37,25 @@ class FocusedHistoryMixin:
             outcome: "improved", "no_change", "regressed", "solved"
             mismatch_count: Numeric mismatch count from simulation
         """
+        if observation is not None:
+            from .decision.state_builder import build_effect
+            if effect is None:
+                if bundle is None:
+                    raise ValueError('typed observation history requires evaluated bundle')
+                effect = build_effect(before, observation, bundle, action=action,
+                                      focus_error=focus_error_id or focused_error)
+            # Prose and caller-supplied test_passed cannot override execution facts.
+            mismatch = observation.metrics.get('mismatch_count')
+            mismatch_count = mismatch if isinstance(mismatch, int) and mismatch >= 0 else -1
+            self.error_solved = effect.focus_status == 'observed_resolved'
+            self.focus_status = effect.focus_status
+            outcome = 'solved' if observation.evaluator_status == 'PASS' and observation.evaluation_validity == 'valid' else (
+                'regressed' if effect.confirmed_regressions else 'improved' if self.error_solved else 'no_change')
+            fix_effectiveness = effect.focus_status
+            if not hasattr(self, 'observations'):
+                self.observations, self.effects = [], []
+            self.observations.append(observation)
+            self.effects.append(effect)
         attempt = FixAttempt(
             iteration=iteration,
             focused_error=focused_error,
@@ -45,10 +65,23 @@ class FocusedHistoryMixin:
             fix_effectiveness=fix_effectiveness,
             test_results=test_results,
             outcome=outcome,
-            mismatch_count=mismatch_count
+            mismatch_count=mismatch_count,
+            observation_id=observation.observation_id if observation else None,
+            before_observation_id=before.observation_id if before else None,
+            action_id=action.action_id if action else None,
+            effect_id=effect.effect_id if effect else None,
+            episode_id=observation.episode_id if observation else '',
+            focus_status=effect.focus_status if effect else 'unknown',
+            confirmed_regressions=effect.confirmed_regressions if effect else (),
+            newly_reached_failures=effect.newly_reached_failures if effect else (),
+            metrics=dict(observation.metrics) if observation else None,
         )
 
         self.fix_history.append(attempt)
+
+        if observation is not None:
+            self.logger.info('Recorded typed observation %s: focus=%s', observation.observation_id, effect.focus_status)
+            return effect
 
         # Check if current error was solved - with regression detection
         # 1. Check if LLM says the specific error was solved
@@ -57,7 +90,8 @@ class FocusedHistoryMixin:
 
         # 2. Check if LLM explicitly says it's NOT solved
         llm_says_not_solved = fix_effectiveness and any(keyword in fix_effectiveness.lower() for keyword in
-                                     ['still present', 'not solve', 'did not solve', 'failed to solve', 'remains', 'persists'])
+                                     ['still present', 'not solve', 'did not solve', 'failed to solve', 'remains', 'persists',
+                                      'not fixed', 'not resolved', 'not eliminated', 'not successfully', 'unsolved', 'unresolved'])
 
         # 3. Check if we introduced NEW errors (regression detection)
         introduced_new_errors = self._check_if_new_errors_introduced(fix_effectiveness)
@@ -111,6 +145,9 @@ class FocusedHistoryMixin:
             return False
 
         effectiveness_lower = fix_effectiveness.lower()
+        # Negated introductions are not regressions. This is compatibility prose
+        # only; typed control uses confirmed_regressions/newly_reached_failures.
+        effectiveness_lower = re.sub(r'\b(?:no|not|without)\s+(?:new\s+)?(?:errors?|failures?|regressions?)(?:\s+(?:were|was|are|have been))?(?:\s+introduced)?', '', effectiveness_lower)
 
         # Keywords indicating new errors introduced
         new_error_indicators = [
@@ -127,6 +164,16 @@ class FocusedHistoryMixin:
             self.logger.info(f"   Detected new error introduction in fix effectiveness analysis")
 
         return has_new_error
+
+    def record_observation(self, observation, bundle, *, before=None, action=None,
+                           focus_error_id=None, effect=None):
+        """Record the first baseline as well as every subsequent deterministic effect."""
+        focus_error_id = focus_error_id or (action.error_id if action else None) or next(
+            iter(observation.errors or observation.failed_checks), None)
+        return self.record_attempt(observation.iteration, focus_error_id or '', '', '',
+                                   ', '.join(bundle.changed_files), '', '', 'no_change',
+                                   observation=observation, bundle=bundle, before=before,
+                                   action=action, focus_error_id=focus_error_id, effect=effect)
 
     def _is_structural_or_build_error(self, focused_error: str) -> bool:
         """Return True for compile/elaboration/interface failures that should not stay sticky after they disappear."""
@@ -343,5 +390,3 @@ class FocusedHistoryMixin:
                         "Focus on preserving ALL currently-passing signals while fixing the target.")
 
         return None
-
-

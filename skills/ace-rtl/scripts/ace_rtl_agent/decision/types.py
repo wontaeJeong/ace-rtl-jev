@@ -65,6 +65,8 @@ class TaskContract(Serializable):
     allowed_strategies: tuple[str, ...] = ACTION_KINDS
     specification: str = ''
     schema_version: str = SCHEMA_VERSION
+    initial_targets: Mapping[str, str] = field(default_factory=dict)
+
 
 
 @dataclass(frozen=True)
@@ -80,6 +82,8 @@ class CandidateBundle(Serializable):
     changed_files: tuple[str, ...] = ()
     diffs: Mapping[str, str] = field(default_factory=dict)
     normalization_actions: tuple[str, ...] = ()
+    normalized_files: Mapping[str, str] = field(default_factory=dict)
+    raw_files: Mapping[str, str] = field(default_factory=dict)
 
     @classmethod
     def create(cls, files: Mapping[str, str], *, episode_id: str, parent=None,
@@ -90,10 +94,11 @@ class CandidateBundle(Serializable):
         diffs = {name: ''.join(difflib.unified_diff(previous.get(name, '').splitlines(True),
                         clean.get(name, '').splitlines(True), fromfile=name, tofile=name)) for name in changed}
         digest = canonical_hash(clean)
+        raw = dict(raw_files) if raw_files is not None else dict(clean)
         return cls(digest, parent.candidate_id if parent else None, episode_id, clean,
-                   canonical_hash(dict(raw_files or clean)), digest, digest,
+                   canonical_hash(raw), digest, digest,
                    {k: hashlib.sha256(v.encode()).hexdigest() for k, v in clean.items()},
-                   changed, diffs, tuple(normalization_actions))
+                   changed, diffs, tuple(normalization_actions),dict(clean),raw)
 
 
 @dataclass(frozen=True)
@@ -133,6 +138,9 @@ class Observation(Serializable):
     budget_snapshot: Mapping[str, Any] = field(default_factory=dict)
     errors: tuple[str, ...] = ()
     schema_version: str = SCHEMA_VERSION
+    # Derived diagnostic interpretations do not overwrite raw service facts.
+    inferences: Mapping[str, Any] = field(default_factory=dict)
+    metric_availability: Mapping[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

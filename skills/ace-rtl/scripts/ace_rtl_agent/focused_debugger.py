@@ -29,12 +29,18 @@ class FocusedDebugger(
     def __init__(self, logger, model_name: str = "nvidia/nemotron-3-ultra-550b-a55b",
                  ace_rtl_stages: set = None, ace_rtl_temperature: float = 0.2,
                  api_key: Optional[str] = None, max_retries: int = 3,
-                 initial_backoff: float = 5.0):
+                  initial_backoff: float = 5.0, decision_policy=None, task_contract=None):
         self.logger = logger
         self.model_name = model_name
         self.ace_rtl_stages = ace_rtl_stages if ace_rtl_stages is not None else set()
         self.ace_rtl_temperature = ace_rtl_temperature
         self.fix_history: List[FixAttempt] = []
+        self.observations = []
+        self.effects = []
+        self.archived_episodes = []
+        self.lessons = []
+        self.decision_policy = decision_policy
+        self.task_contract = task_contract
 
         # LLM client for stage 1 (error analysis & fix guidance)
         # Use ACE-RTL if stage 1 is in ace_rtl_stages, otherwise use LLM
@@ -61,16 +67,20 @@ class FocusedDebugger(
 
         # Initialize RTL rule advisor for architectural guidance
         from .rtl_rule_advisor import RTLRuleAdvisor
-        self.rtl_rule_advisor = RTLRuleAdvisor(model_name=model_name)
+        self.rtl_rule_advisor = RTLRuleAdvisor(model_name=model_name,
+            decision_client=getattr(decision_policy, 'client', None))
         self.rtl_rules_retrieved = False
 
-    def clear_history(self):
+    def clear_history(self, *, reset_rules=False):
         """Clear history - used when doing a fresh start/restart."""
+        if self.fix_history:
+            self.archived_episodes.append(tuple(self.fix_history))
         self.fix_history = []
         self.current_focused_error = None
         self.error_solved = False
-        self.rtl_rule_advisor.reset_session()
-        self.rtl_rules_retrieved = False
+        # Rules/curated lessons describe the task, not current episode progress.
+        # A different task must explicitly reset its rule session.
+        if reset_rules:
+            self.rtl_rule_advisor.reset_session()
+            self.rtl_rules_retrieved = False
         self.logger.info("Cleared focused debugger history for fresh start")
-
-

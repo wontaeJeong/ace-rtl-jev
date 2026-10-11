@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import copy
+import fcntl
 import hashlib
 import json
 import logging
@@ -22,6 +23,7 @@ import subprocess
 import sys
 import time
 import traceback
+import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -216,13 +218,18 @@ def request_attempt_stop(process: multiprocessing.Process, attempt_root: Path) -
 
 
 def cleanup_attempt_root(attempt_root: Path, dp_root: Path) -> Dict[str, Any]:
-    result = {"attempt_dir": str(attempt_root), "attempt_dir_removed": False}
+    result = {"attempt_dir": str(attempt_root), "attempt_dir_removed": False, "scratch_removed": []}
     try:
         resolved = attempt_root.resolve()
         dp_resolved = dp_root.resolve()
         if resolved != dp_resolved and dp_resolved in resolved.parents and resolved.exists():
-            shutil.rmtree(resolved)
-            result["attempt_dir_removed"] = True
+            # Audit candidates, calls, results and harness logs are never scratch.
+            for name in ('scratch', 'build', '.scratch', '.build'):
+                scratch = resolved / name
+                if scratch.is_dir() and not scratch.is_symlink():
+                    ensure_under(scratch, resolved, 'scratch')
+                    shutil.rmtree(scratch)
+                    result['scratch_removed'].append(str(scratch))
     except OSError as exc:
         result["cleanup_error"] = str(exc)
     return result
@@ -232,6 +239,71 @@ def first_pass_claim_path(dp_root: Path) -> Path:
     return dp_root / "first_pass_claim.json"
 
 
+def validate_evaluation_artifacts(*, candidate_path, manifest_path, evaluation_path,
+                                  required_services=(), require_pass=True, expected_hash=None,
+                                  task_id=None):
+    """Bind complete native evaluator tests to the exact archived candidate bytes."""
+    from ace_rtl_agent.decision.types import canonical_hash, validate_target
+    from ace_rtl_agent.decision.observations import validate_result
+    candidate_path, manifest_path, evaluation_path = map(Path, (candidate_path, manifest_path, evaluation_path))
+    manifest_bytes = manifest_path.read_bytes()
+    evaluation_bytes = evaluation_path.read_bytes()
+    manifest = json.loads(manifest_bytes)
+    evaluation = json.loads(evaluation_bytes)
+    if not isinstance(manifest, dict) or not isinstance(evaluation, dict):
+        raise ValueError('artifacts must be objects')
+    files = manifest.get('files')
+    if not isinstance(files, dict) or not files or any(not isinstance(v, str) for v in files.values()):
+        raise ValueError('manifest needs nonempty candidate files')
+    generated = manifest.get('generated_files')
+    if generated is not None:
+        if not isinstance(generated, dict) or set(generated) != set(files):
+            raise ValueError('generated file targets differ from bundle')
+        generated = {name: ensure_under(Path(path), manifest_path.parent, 'archived candidate')
+                     for name, path in generated.items()}
+        if candidate_path.is_file() and candidate_path.resolve() not in generated.values():
+            raise ValueError('primary candidate is outside generated manifest')
+    if manifest.get('mutable_targets') is not None and set(manifest['mutable_targets']) != set(files):
+        raise ValueError('incomplete mutable target bundle')
+    hashes = {}
+    for name, content in files.items():
+        validate_target(name)
+        target = generated[name] if generated is not None else (candidate_path / name if candidate_path.is_dir() else candidate_path)
+        if generated is None and not candidate_path.is_dir() and len(files) != 1:
+            raise ValueError('multifile candidate needs directory')
+        if generated is None and candidate_path.is_dir():
+            ensure_under(target, candidate_path, 'candidate file')
+        data = target.read_bytes()
+        if data != content.encode('utf-8'):
+            raise ValueError('candidate bytes differ from manifest')
+        hashes[name] = hashlib.sha256(data).hexdigest()
+    digest = canonical_hash(files)
+    if any(manifest.get(key) != digest for key in ('candidate_id', 'tested_hash')):
+        raise ValueError('candidate bundle hash mismatch')
+    normalized=manifest.get('normalized_files',files)
+    if not isinstance(normalized,dict) or manifest.get('normalized_hash')!=canonical_hash(normalized):
+        raise ValueError('normalized provenance hash mismatch')
+    if manifest.get('file_hashes') != hashes or (expected_hash and expected_hash != digest):
+        raise ValueError('candidate file hash mismatch')
+    if evaluation.get('tested_hash') != digest:
+        raise ValueError('evaluation hash not bound to candidate')
+    if task_id is not None:
+        evaluation_task = evaluation.get('task_id', evaluation.get('id'))
+        manifest_task = manifest.get('task_id')
+        if evaluation_task is None and manifest_task is None:
+            raise ValueError('task identity missing from artifacts')
+        if any(value is not None and value != task_id for value in (evaluation_task, manifest_task)):
+            raise ValueError('evaluation task mismatch')
+    if validate_result(evaluation, required_services, digest):
+        raise ValueError('invalid evaluator result')
+    if require_pass and evaluation.get('errors') != 0:
+        raise ValueError('evaluator did not pass')
+    if evaluation.get('evaluation_validity', 'valid') != 'valid':
+        raise ValueError('evaluation validity is not valid')
+    return {'tested_hash': digest, 'manifest_hash': hashlib.sha256(manifest_bytes).hexdigest(),
+            'evaluation_hash': hashlib.sha256(evaluation_bytes).hexdigest()}
+
+
 def try_claim_first_pass(
     *,
     dp_root: Path,
@@ -239,7 +311,13 @@ def try_claim_first_pass(
     attempt_index: int,
     iteration: int,
     candidate_path: Path,
+    evaluation_path: Optional[Path] = None,
+    manifest_path: Optional[Path] = None,
+    required_services: Iterable[str] = (),
 ) -> bool:
+    # Legacy callers remain callable but cannot mint success without authoritative artifacts.
+    if evaluation_path is None or manifest_path is None:
+        return False
     claim_path = first_pass_claim_path(dp_root)
     payload = {
         "id": task_id,
@@ -248,16 +326,45 @@ def try_claim_first_pass(
         "candidate_path": str(candidate_path),
         "claimed_at": now_stamp(),
         "pid": os.getpid(),
+        "schema_version": "ace-winner-1",
+        "evaluation_path": str(Path(evaluation_path).resolve()),
+        "manifest_path": str(Path(manifest_path).resolve()),
+        "required_services": list(required_services),
     }
+    payload['candidate_path'] = str(Path(candidate_path).resolve())
     claim_path.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        fd = os.open(str(claim_path), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
-    except FileExistsError:
-        return False
-    with os.fdopen(fd, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, sort_keys=True)
-        f.write("\n")
-    return True
+    # Never unlink the lock inode. OS locks are released after writer death.
+    with (dp_root / 'first_pass_claim.lock').open('a+b') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if read_first_pass_claim(dp_root) is not None:
+            return False
+        try:
+            payload.update(validate_evaluation_artifacts(candidate_path=candidate_path,
+                manifest_path=manifest_path, evaluation_path=evaluation_path,
+                required_services=payload['required_services'], task_id=task_id))
+        except (OSError, ValueError, TypeError, KeyError):
+            return False
+        # Preserve corrupt/partial claims as audit evidence, then recover ownership.
+        if claim_path.exists():
+            os.replace(claim_path, claim_path.with_name('invalid_claim_' + uuid.uuid4().hex + '.json'))
+        # Make the referenced artifacts durable before publishing the complete claim.
+        manifest = json.loads(Path(manifest_path).read_text())
+        generated = manifest.get('generated_files')
+        candidate_files = list(generated.values()) if generated else [
+            Path(candidate_path) / name if Path(candidate_path).is_dir() else candidate_path
+            for name in manifest['files']]
+        for artifact in (manifest_path, evaluation_path, *candidate_files):
+            with Path(artifact).open('rb') as stream:
+                os.fsync(stream.fileno())
+        for directory in {Path(p).parent for p in (manifest_path, evaluation_path, *candidate_files)}:
+            fd = os.open(directory, os.O_RDONLY)
+            try:
+                os.fsync(fd)
+            finally:
+                os.close(fd)
+        from ace_rtl_agent.decision.ledger import durable_json
+        durable_json(claim_path, payload)
+        return True
 
 
 def read_first_pass_claim(dp_root: Path) -> Optional[Dict[str, Any]]:
@@ -266,9 +373,18 @@ def read_first_pass_claim(dp_root: Path) -> Optional[Dict[str, Any]]:
         return None
     try:
         payload = json.loads(claim_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None
-    if not isinstance(payload.get("attempt"), int):
+        if not isinstance(payload, dict) or payload.get('schema_version') != 'ace-winner-1':
+            return None
+        if type(payload.get('attempt')) is not int or type(payload.get('iteration')) is not int:
+            return None
+        if not isinstance(payload.get('id'), str) or not isinstance(payload.get('required_services'), list):
+            return None
+        hashes = validate_evaluation_artifacts(candidate_path=Path(payload['candidate_path']),
+            manifest_path=Path(payload['manifest_path']), evaluation_path=Path(payload['evaluation_path']),
+            required_services=payload['required_services'], task_id=payload['id'])
+        if any(payload.get(key) != value for key, value in hashes.items()):
+            return None
+    except (OSError, ValueError, TypeError, KeyError):
         return None
     return payload
 
@@ -323,4 +439,3 @@ def detect_cadence_license_environment() -> Dict[str, Any]:
             else "No common EDA license environment variables are set"
         ),
     }
-
