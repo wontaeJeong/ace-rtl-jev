@@ -1,0 +1,18 @@
+[
+  {
+    "task_id": "cvdp_copilot_bus_arbiter_0001",
+    "tested_hash": "33944cb60cc532273c3f9ee1545ed494e70cdb029e277edfb681387d04b04275",
+    "evaluation_hash": "56eb3ef4b5e3f06fc2c1bdae1ecfb474e91caa6067626d2968bcaa4de1780300",
+    "required_services": [
+      "direct"
+    ]
+  },
+  {
+    "task_id": "cvdp_copilot_signed_adder_0001",
+    "tested_hash": "70c7b4f050288dda3dd6a62d35491773585aba1e701e368680d5ef583e6b3569",
+    "evaluation_hash": "b37a010b2bc7ea64ffef3fe83c9b8c42e161e06fe43a8292c6e3659817cd256f",
+    "required_services": [
+      "01-new-tb"
+    ]
+  }
+]
