@@ -11,6 +11,36 @@ from .focused_debugger_types import FixAttempt
 
 
 class FocusedPromptingMixin:
+    def create_reflection(self, observation, contract, bundle, *, action=None, evidence=(),
+                          analysis='', guidance='', history=(), best=None, token_budget=24000):
+        """Structured native reflection, not a nested generator prompt.
+
+        Generative callers supply their analysis/guidance once. Recipe guidance
+        is still an instruction to the generator, never a synthesized RTL patch.
+        """
+        from .decision.context_selector import select_context
+        selected = action.preconditions.get('selected_evidence_ids') if action else None
+        if selected is not None:
+            evidence = tuple(item for item in evidence if item.evidence_id in selected)
+        context = select_context(contract, observation, bundle, evidence=evidence,
+                                 history=history, best=best, token_budget=token_budget)
+        error_id = action.error_id if action else next(iter(observation.errors or observation.failed_checks), None)
+        supported = set(observation.errors) | set(observation.failed_checks)
+        if error_id not in supported:
+            error_id = None
+        recipe = action.preconditions.get('recipe') if action else None
+        if recipe:
+            guidance = recipe['guidance']
+        return {'focus': {'error_id': error_id, 'target_ids': list(action.target_ids if action else contract.mutable_targets),
+                          'target_id': action.preconditions.get('focus_target') if action else None},
+                'evidence': context['evidence'], 'analysis': analysis, 'guidance': guidance,
+                'constraints': {'task_kind': contract.task_kind, 'mutable_targets': list(contract.mutable_targets),
+                                'required_services': list(contract.required_services),
+                                'passing_checks': list(observation.passed_checks),
+                                'output_contract': 'Generate every declared mutable target; preserve all immutable context.'},
+                'context_selection': {k: context[k] for k in ('token_accounting', 'estimated_tokens',
+                                      'omitted_evidence_ids', 'truncated_evidence_ids')}}
+
     def create_focused_prompt(self,
                              buggy_code: str,
                              error_report: str,
@@ -18,7 +48,8 @@ class FocusedPromptingMixin:
                              specification: str = "",
                              testbench_code: Optional[str] = None,
                              context_code: Optional[str] = None,
-                             per_signal_mismatches: Optional[List[Dict]] = None) -> Tuple[str, str, str]:
+                             per_signal_mismatches: Optional[List[Dict]] = None,
+                             task_contract=None, observation=None) -> Tuple[str, str, str]:
         """
         Create minimal, focused prompt.
 
@@ -34,6 +65,7 @@ class FocusedPromptingMixin:
         Returns:
             Tuple of (prompt, focused_error, fix_guidance)
         """
+        observation = observation or getattr(self, 'current_observation', None)
         is_assertion_insertion_task = self._is_cvdp_assertion_insertion_task(
             specification, buggy_code, testbench_code
         )
@@ -57,6 +89,15 @@ class FocusedPromptingMixin:
             and not is_lint_optimization_task
             and not is_verification_task
         )
+        canonical = task_contract or getattr(self, 'task_contract', None)
+        if canonical is not None and canonical.task_kind != 'unknown':
+            kind = canonical.task_kind
+            is_assertion_insertion_task = kind == 'assertion'
+            is_lint_optimization_task = kind == 'rtl_optimization'
+            is_coverage_task = kind == 'coverage'
+            is_bug_detection_task = kind == 'checker'
+            is_verification_task = kind in {'coverage', 'checker'}
+            is_rtl_modification_task = kind == 'rtl_implementation'
         spec_lower = specification.lower()
         requires_target_file_sections = (
             "// target_file:" in spec_lower
@@ -259,6 +300,11 @@ class FocusedPromptingMixin:
 
         # Check if stuck on current error for too long without progress
         force_new_error = False
+        if observation is not None and self.current_focused_error:
+            # A solved/replaced check can change focus even within runtime category.
+            observed = set(observation.errors) | set(observation.failed_checks)
+            if self.current_focused_error in observation.passed_checks or self.current_focused_error not in observed:
+                force_new_error = True
         if self.current_focused_error and not self.error_solved and len(self.fix_history) >= 5:
             recent = self.fix_history[-5:]
             recent_on_same = [a for a in recent if a.focused_error == self.current_focused_error]
@@ -302,6 +348,7 @@ class FocusedPromptingMixin:
 
         # Store guidance for later use (will be returned in metadata)
         self._current_fix_guidance = fix_guidance
+        self._current_error_reasoning = error_reasoning
 
         # Build history
         history = self._build_history_trajectory()
@@ -480,4 +527,3 @@ Provide ONLY the corrected code (no analysis or guidance needed - that's already
 """
 
         return prompt, focused_error, fix_guidance
-

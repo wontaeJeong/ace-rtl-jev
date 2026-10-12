@@ -8,11 +8,11 @@ Robust LLM client with retry logic and prompt management.
 import logging
 import os
 import random
-import time
 from pathlib import Path
 from typing import Dict, Optional
 
 from ..llm_backend import LLMBackend, enforce_prompt_char_budget, resolve_model_name
+from ..decision.budget import Deadline, retryable, retry_delay
 
 
 MAX_BACKOFF_SECONDS = 60
@@ -49,6 +49,7 @@ class LLMClient:
 
         self.client = self._setup_client(api_key)
         self._prompt_cache: Dict[str, str] = {}
+        self.last_response = None
         self.prompts_dir = self._find_prompts_directory()
 
     def _setup_client(self, api_key: Optional[str] = None) -> LLMBackend:
@@ -141,40 +142,7 @@ class LLMClient:
             raise
 
     def _is_transient_error(self, error: Exception) -> bool:
-        error_text = str(error).lower()
-        if "non_retryable" in error_text:
-            return False
-        transient_indicators = [
-            "timeout",
-            "timed out",
-            "http/1.1 429",
-            "429 ",
-            "code': '429'",
-            "code\": \"429\"",
-            "529",
-            "overloaded",
-            "queue requests limit reached",
-            "request limit reached",
-            "limit reached",
-            "500",
-            "502",
-            "503",
-            "504",
-            "upstream connect error",
-            "connection failure",
-            "connection reset",
-            "temporarily unavailable",
-            "rate limit",
-            "too many requests",
-            "empty response",
-            "contextwindowexceeded",
-            "context length",
-            "context_window",
-            "maximum context length",
-            "reduce the length",
-            "too many tokens",
-        ]
-        return any(indicator in error_text for indicator in transient_indicators)
+        return retryable(error)
 
     def call_llm(
         self,
@@ -182,11 +150,17 @@ class LLMClient:
         temperature: float = 0.7,
         max_tokens: Optional[int] = None,
         timeout: Optional[int] = None,
+        deadline=None,
+        role=None,
     ) -> Optional[str]:
+        allowance=getattr(self,'max_output_tokens',None)
+        if allowance is not None:max_tokens=min(max_tokens,allowance) if max_tokens is not None else allowance
         last_error = None
         backoff_time = self.initial_backoff
         working_prompt = enforce_prompt_char_budget(prompt, self.model, self.logger)
-        context_shrink_used = False
+        self.last_response = None
+        requested_timeout = timeout or self.client._request_timeout()
+        deadline = deadline or Deadline.from_env(requested_timeout)
 
         self.logger.info("LLMClient: Starting retry loop with max_retries=%s", self.max_retries)
         for attempt in range(self.max_retries + 1):
@@ -201,8 +175,11 @@ class LLMClient:
                     working_prompt,
                     temperature=temperature,
                     max_tokens=max_tokens,
+                    timeout=deadline.timeout(requested_timeout), deadline=deadline,
+                    retry_index=attempt, role=role,
                 )
                 if response:
+                    self.last_response = getattr(self.client, 'last_response', None)
                     content = response.strip()
                     self.logger.info("Received LLM response, length: %s", len(content))
                     return content
@@ -211,15 +188,6 @@ class LLMClient:
             except Exception as e:
                 last_error = e
                 is_reasoning_exhausted = "non_retryable" in str(e).lower()
-                is_context_window = self._is_context_window_error(e)
-
-                if is_context_window and not context_shrink_used and attempt < self.max_retries:
-                    context_shrink_used = True
-                    working_prompt = self._shrink_prompt_after_context_error(working_prompt)
-                    self.logger.warning(
-                        "Context-window rejection is deterministic; retrying once with a smaller prompt."
-                    )
-                    continue
 
                 if is_reasoning_exhausted:
                     self.logger.error(
@@ -238,7 +206,11 @@ class LLMClient:
                 jitter = random.uniform(0.8, 1.2)
                 wait_time = min(backoff_time, MAX_BACKOFF_SECONDS) * jitter
                 self.logger.warning("Transient error: %s. Retrying in %.2fs...", e, wait_time)
-                time.sleep(wait_time)
+                try:
+                    deadline.sleep(retry_delay(e, wait_time))
+                except TimeoutError as exhausted:
+                    last_error = exhausted
+                    break
                 backoff_time = min(backoff_time * 2, MAX_BACKOFF_SECONDS)
 
         self.logger.error("LLM call failed after %s attempts: %s", self.max_retries + 1, last_error)

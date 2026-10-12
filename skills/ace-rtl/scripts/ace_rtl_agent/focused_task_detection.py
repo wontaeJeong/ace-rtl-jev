@@ -4,6 +4,7 @@
 """Focused debugger implementation mixins."""
 
 import os
+import json
 import re
 from typing import Dict, List, Optional, Tuple
 
@@ -11,10 +12,33 @@ from .focused_debugger_types import FixAttempt
 
 
 class FocusedTaskDetectionMixin:
+    def _canonical_task_kind(self):
+        contract = getattr(self, 'task_contract', None)
+        return getattr(contract, 'task_kind', None)
+
+    def _observed_service_failed(self, service, report):
+        observation = getattr(self, 'observation', None) or getattr(self, 'current_observation', None)
+        services = getattr(observation, 'services', {})
+        if service in services:
+            record = services[service]
+            return isinstance(record, dict) and type(record.get('result')) is int and record['result'] != 0
+        try:
+            payload = json.loads(report)
+            records = payload.get('service_results', payload.get('tests', []))
+            matches = [r for r in records if isinstance(r, dict) and (r.get('service') or r.get('service_id')) == service]
+            if matches:
+                return any(type(r.get('result')) is int and r['result'] != 0 for r in matches)
+        except (ValueError, TypeError, AttributeError):
+            pass
+        return bool(re.search(r'\b' + re.escape(service) + r'\s*[:=]\s*(?:fail|error)', report, re.I))
+
     def _is_verification_task(self, specification: str, code: str) -> bool:
         """Detect CVDP testbench/stimulus-generation tasks."""
+        kind = self._canonical_task_kind()
+        if kind and kind != 'unknown':
+            return kind in {'verification', 'coverage', 'checker'}
         spec_low = specification.lower()
-        code_low = code.lower()
+        code_low = ''  # Generated source is not task metadata.
         code_markers = [
             "$finish", "$display", "$error", "$fatal", "covergroup",
             "cover property", "always #", "module tb",
@@ -44,6 +68,9 @@ class FocusedTaskDetectionMixin:
         self, specification: str, code: str, testbench_code: Optional[str]
     ) -> bool:
         """Detect CVDP coverage-only testbench generation."""
+        kind = self._canonical_task_kind()
+        if kind and kind != 'unknown':
+            return kind == 'coverage'
         text = f"{specification}\n{code}\n{testbench_code or ''}"
         low = text.lower()
         has_cvdp_context = "# === cvdp harness context ===" in low
@@ -62,6 +89,9 @@ class FocusedTaskDetectionMixin:
         self, specification: str, code: str, testbench_code: Optional[str]
     ) -> bool:
         """Detect CVDP checker/bug-detection testbench generation."""
+        kind = self._canonical_task_kind()
+        if kind and kind != 'unknown':
+            return kind == 'checker'
         text = f"{specification}\n{code}\n{testbench_code or ''}"
         low = text.lower()
         return (
@@ -79,7 +109,10 @@ class FocusedTaskDetectionMixin:
         self, specification: str, code: str, testbench_code: Optional[str]
     ) -> bool:
         """Detect RTL assertion-insertion tasks."""
-        text = f"{specification}\n{code}\n{testbench_code or ''}"
+        kind = self._canonical_task_kind()
+        if kind and kind != 'unknown':
+            return kind == 'assertion'
+        text = re.sub(r'(?im)(?:do not|don\x27t|must not|never|without|no)\s+[^.;\n]*', '', specification)
         low = text.lower()
         assertion_markers = [
             "create systemverilog assertions",
@@ -141,7 +174,10 @@ class FocusedTaskDetectionMixin:
         self, specification: str, code: str, testbench_code: Optional[str]
     ) -> bool:
         """Detect RTL lint/area/power-performance tasks."""
-        text = f"{specification}\n{code}\n{testbench_code or ''}"
+        kind = self._canonical_task_kind()
+        if kind and kind != 'unknown':
+            return kind in {'rtl_optimization', 'optimization'}
+        text = specification
         low = text.lower()
         task_markers = [
             "lint code review",
@@ -175,7 +211,10 @@ class FocusedTaskDetectionMixin:
         self, specification: str, code: str, testbench_code: Optional[str]
     ) -> bool:
         """Detect CVDP RTL modification/generation tasks."""
-        text = f"{specification}\n{code}\n{testbench_code or ''}"
+        kind = self._canonical_task_kind()
+        if kind and kind != 'unknown':
+            return kind in {'rtl_implementation', 'rtl'}
+        text = specification
         low = text.lower()
         has_cvdp_context = "# === cvdp harness context ===" in low
         has_rtl_target_path = re.search(r"(?:^|[\s`'\"(])/code/rtl/[\w.$-]+\.(?:sv|v)\b|(?:^|[\s`'\"(])rtl/[\w.$-]+\.(?:sv|v)\b", low) is not None
@@ -222,7 +261,7 @@ class FocusedTaskDetectionMixin:
             )
         if re.search(r"\b(?:Timeout for .+ expired|timeout expired|timed out)\b", error_report or "", re.IGNORECASE):
             guidance.append(
-                "- The native CVDP run timed out. Treat this as a DUT progress/deadlock bug: make the FSM leave reset/idle, assert the expected valid/done/ready signal, bound internal loops/counters, and ensure the harness-observed transaction completes without changing the testbench."
+                "- The native CVDP evaluator timed out. This alone does not establish compilation or DUT execution. Inspect available execution facts before attributing it to DUT progress; if runtime is confirmed, check FSM/handshake progress without changing the testbench."
             )
         missing_objects = sorted(set(
             re.findall(r"contains no object named\s+([A-Za-z_][A-Za-z0-9_$]*)", error_report)
@@ -262,9 +301,9 @@ class FocusedTaskDetectionMixin:
         ]
         if re.search(r"\b(?:Timeout for .+ expired|timeout expired|timed out)\b", error_report or "", re.IGNORECASE):
             guidance.append(
-                "- Sanity timed out. Fix forward progress before optimizing: drive reset/default state deterministically, make the expected valid/done/ready handshake complete, and avoid FSM states or counters that can stall forever."
+                "- The evaluator timed out; the affected service and candidate execution stage may be unknown. Confirm whether sanity reached runtime before changing forward-progress logic."
             )
-        if "sanity" in lower or "assertionerror" in lower or "test failed" in lower or "simulation" in lower:
+        if self._observed_service_failed('sanity', error_report):
             guidance.append(
                 "- Sanity failed. First restore functional equivalence. Do not simplify away pipeline/register/FSM behavior unless the tests and prompt prove the latency change is allowed."
             )
@@ -280,7 +319,7 @@ class FocusedTaskDetectionMixin:
             guidance.append(
                 "- Protocol/timing failed. Preserve cycle-level behavior: initialize idle levels, advance counters/FSMs exactly once per clock, hold outputs stable for the required bit/sample period, and avoid combinational glitches on serialized or PWM-like outputs."
             )
-        if "synth" in lower or "yosys" in lower or "number of cells" in lower or "number of wires" in lower:
+        if self._observed_service_failed('synth', error_report):
             guidance.append(
                 "- Synthesis/optimization failed. Read the reported baseline/target metric and reduce only the requested metric(s): remove unused regs/wires/parameters, collapse redundant temporaries, simplify constant logic, share repeated expressions, reduce mux trees/case duplication, and avoid unnecessary arrays or wide intermediate signals."
             )
@@ -305,7 +344,7 @@ class FocusedTaskDetectionMixin:
             "- If the target is an RTL file, preserve the original module name, port list, parameters, logic, latency, reset behavior, and output assignments. Assertions should observe behavior only.",
             "- If the prompt requests a separate assertion/verif module, preserve the exact existing checker module name and file role, instantiate/reference the DUT exactly as requested, and do not modify immutable RTL behavior.",
         ]
-        if any(token in lower for token in ["syntax error", "*e,", "compilation", "elaboration", "xmvlog", "xmelab"]):
+        if any(token in lower for token in ["syntax error", "*e,", "compilation failed", "elaboration failed", "compile error"]):
             guidance.append(
                 "- Compilation/elaboration failed. Prefer simple Cadence-compatible immediate assertions inside existing procedural blocks; declare helper variables before statements and avoid unsupported SVA forms."
             )
@@ -407,5 +446,3 @@ class FocusedTaskDetectionMixin:
                 "- Coverage merge failed. Keep the testbench simple and finite so xrun creates a fresh cov_work database."
             )
         return "\n".join(guidance)
-
-

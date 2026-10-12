@@ -66,6 +66,9 @@ class FreshStartCoordinator:
 
         # Track iteration history for pattern analysis
         self.iteration_history: List[IterationSnapshot] = []
+        self.archived_episodes = []
+        self.lessons = []
+        self.episode_id = 0
         self.fresh_start_count = 0
         self.last_fresh_start_iteration = 0
 
@@ -85,6 +88,10 @@ class FreshStartCoordinator:
         """Record a runner-managed fresh start."""
         self.fresh_start_count += 1
         self.last_fresh_start_iteration = current_iteration
+        if self.iteration_history:
+            self.archived_episodes.append(tuple(self.iteration_history))
+        self.iteration_history = []
+        self.episode_id += 1
         self.logger.info(
             "FreshStartCoordinator recorded runner-managed fresh start #%s at iteration %s",
             self.fresh_start_count,
@@ -166,10 +173,8 @@ class FreshStartCoordinator:
             fresh_rtl = self._extract_rtl_from_response(response)
 
             # Update restart tracking
-            self.fresh_start_count += 1
-            self.last_fresh_start_iteration = (
-                current_iteration if current_iteration is not None else len(self.iteration_history)
-            )
+            self.mark_fresh_start(current_iteration if current_iteration is not None else
+                                  (self.iteration_history[-1].iteration if self.iteration_history else 0))
 
             self.logger.info(f"Generated fresh RTL code (restart #{self.fresh_start_count})")
             return fresh_rtl, prompt

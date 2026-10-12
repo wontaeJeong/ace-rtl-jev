@@ -31,17 +31,11 @@ class FocusedErrorAnalysisMixin:
             'compilation failed',
             'compile error',
             'compilation error',
-            'iverilog',
-            'exit status',
-            'return code',
             'syntax error',
             'parse error',
             'module not found',
-            'module definition',
             'port mismatch',
             'undeclared',
-            'subprocess.callederror',
-            'returned non-zero',
             'compilation unsuccessful'
         ]
 
@@ -508,5 +502,4 @@ OUTPUT FORMAT:
         # Fallback to simple reasoning if LLM fails
         simple_reasoning = self._simple_error_reasoning(focused_error)
         return simple_reasoning, "Fix the identified issue in the code"
-
 

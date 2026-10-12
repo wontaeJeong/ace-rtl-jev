@@ -1,0 +1,30 @@
+{
+  "limits": {
+    "jev": {
+      "max_calls": 12,
+      "max_money": 50000000,
+      "max_tokens": 160000,
+      "reserve_money": 2000000
+    },
+    "primary": {
+      "max_calls": 18,
+      "max_tokens": 900000
+    }
+  },
+  "closed": false,
+  "denied": 0,
+  "jev": {
+    "calls": 8,
+    "token_charge": 79973,
+    "known_tokens": 79973,
+    "unknown_token_reservations": 0,
+    "usd_exposure": 0.016
+  },
+  "primary": {
+    "calls": 16,
+    "token_charge": 68174,
+    "known_tokens": 68174,
+    "unknown_token_reservations": 0,
+    "usd_exposure": null
+  }
+}

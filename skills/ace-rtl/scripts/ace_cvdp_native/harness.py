@@ -249,13 +249,19 @@ def row_harness_text(row: Dict[str, Any]) -> str:
 def service_names_from_row(row: Dict[str, Any]) -> List[str]:
     harness = row.get("harness") or {}
     compose_text = harness.get("docker-compose.yml") if isinstance(harness, dict) else None
+    if not isinstance(compose_text,str) and isinstance(harness,dict) and isinstance(harness.get('files'),dict):
+        compose_text=harness['files'].get('docker-compose.yml')
     if not isinstance(compose_text, str):
         return []
     try:
         data = yaml.safe_load(compose_text) or {}
     except yaml.YAMLError:
         return []
+    if not isinstance(data,dict):
+        return []
     services = data.get("services") or {}
+    if not isinstance(services,dict):
+        return []
     return [str(name) for name in services.keys()]
 
 
@@ -426,6 +432,9 @@ def install_native_harness_patch() -> None:
             command = compose_command(service.get("command", ""), issue)
             if not command.strip():
                 result = {
+                    "service": service_name,
+                    "execution_status": "not_executed",
+                    "stage": "INFRA_SETUP",
                     "result": 1,
                     "log": service_log,
                     "error_msg": "native harness service has no command",
@@ -500,6 +509,9 @@ def install_native_harness_patch() -> None:
                     killed_pids.extend(terminate_pids(pids_matching_path(issue), grace_seconds=0.2))
 
             result = {
+                "service": service_name,
+                "execution_status": "completed",
+                "stage": "EVALUATOR_TIMEOUT" if code == 124 else "UNKNOWN",
                 "result": code,
                 "log": service_log,
                 "error_msg": msg,
@@ -517,7 +529,9 @@ def install_native_harness_patch() -> None:
     cvdp_repository.Repository.obj_harness = native_obj_harness
 
 
-def result_passed(result: Dict[str, Any]) -> bool:
-    if result.get("errors", 1) != 0:
+def result_passed(result: Dict[str, Any], required_services=None, tested_hash=None) -> bool:
+    from ace_rtl_agent.decision.observations import validate_result
+    if not isinstance(result, dict):
         return False
-    return all(test.get("result", 1) == 0 for test in result.get("tests", []))
+    required = required_services if required_services is not None else result.get('required_services', ())
+    return not validate_result(result, required, tested_hash) and result.get('errors') == 0

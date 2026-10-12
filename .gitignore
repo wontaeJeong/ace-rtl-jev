@@ -17,6 +17,8 @@ __pycache__/
 .pytest_cache/
 
 .env.local
+
+# Isolated development worktrees.
 .worktrees/
 
 # Native working copies embed benchmark-private harness source. Keep them local;

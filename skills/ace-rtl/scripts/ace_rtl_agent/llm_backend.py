@@ -11,7 +11,10 @@ import subprocess
 import tempfile
 import urllib.error
 import urllib.request
+from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+from .decision.budget import Deadline, PaidCall, HTTPRequestError, retryable, usage_envelope
 
 
 logging.basicConfig(level=logging.INFO)
@@ -212,12 +215,8 @@ def _urlopen_json_worker(endpoint: str, body: bytes, headers: Dict[str, str], so
             payload = json.loads(response.read().decode("utf-8"))
         conn.send({"ok": True, "payload": payload})
     except urllib.error.HTTPError as e:
-        try:
-            error_body = e.read().decode("utf-8", errors="replace")[:500]
-        except Exception:
-            error_body = ""
-        detail = error_body or e.reason or ""
-        conn.send({"ok": False, "error": f"HTTP {e.code}: {detail}"})
+        conn.send({'ok': False, 'code': e.code, 'retry_after': e.headers.get('Retry-After'),
+                   'error': f'HTTP {e.code}: request failed (body withheld)'})
     except Exception as e:
         conn.send({"ok": False, "error": str(e)})
     finally:
@@ -228,17 +227,35 @@ def _curl_quote(value: str) -> str:
     return '"' + value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ") + '"'
 
 
+def _raise_curl_error(proc, header_path):
+    detail = proc.stderr or ''
+    status = re.search(r'(?:returned error:|HTTP(?:/\S+)?\s+)\s*(\d{3})', detail, re.I)
+    header_text = Path(header_path).read_text(errors='replace') if header_path else ''
+    header_statuses = re.findall(r'^HTTP/\S+\s+(\d{3})', header_text, re.M)
+    code = int(header_statuses[-1]) if header_statuses else int(status.group(1)) if status else None
+    retry_headers = re.findall(r'^Retry-After:\s*([^\r\n]+)', header_text, re.M | re.I)
+    if code is not None and code >= 400:
+        raise HTTPRequestError(code, retry_headers[-1] if retry_headers else None)
+    if proc.returncode == 28:
+        raise TimeoutError('HTTP request timed out')
+    if proc.returncode in (6, 7, 18, 52, 55, 56):
+        raise RuntimeError('connection error: HTTP request failed')
+    raise RuntimeError(f'curl exited {proc.returncode}: request failed (body withheld)')
+
+
 def _json_request_with_curl(endpoint: str, body: bytes, headers: Dict[str, str], timeout_seconds: int) -> Dict[str, Any]:
     curl = shutil.which("curl")
     if not curl:
         raise RuntimeError("curl is not available")
 
-    body_path = None
+    body_path = header_path = None
     try:
         with tempfile.NamedTemporaryFile(prefix="ace_rtl_llm_body_", suffix=".json", delete=False) as body_file:
             body_file.write(body)
             body_path = body_file.name
         os.chmod(body_path, 0o600)
+        with tempfile.NamedTemporaryFile(prefix='ace_rtl_http_headers_', delete=False) as header_file:
+            header_path = header_file.name
 
         config_lines = [
             f"url = {_curl_quote(endpoint)}",
@@ -257,6 +274,7 @@ def _json_request_with_curl(endpoint: str, body: bytes, headers: Dict[str, str],
                 "--http1.1",
                 "--location",
                 "--fail-with-body",
+                '--dump-header', header_path,
                 "--max-time",
                 str(timeout_seconds),
                 "--connect-timeout",
@@ -267,13 +285,14 @@ def _json_request_with_curl(endpoint: str, body: bytes, headers: Dict[str, str],
             input=config,
             text=True,
             capture_output=True,
-            timeout=timeout_seconds + 15,
+            timeout=timeout_seconds,
         )
         if proc.returncode != 0:
-            detail = (proc.stdout or proc.stderr or "").strip()[:1000]
-            raise RuntimeError(f"curl exited {proc.returncode}: {detail}")
+            _raise_curl_error(proc, header_path)
         return json.loads(proc.stdout)
     finally:
+        if header_path:
+            os.unlink(header_path)
         if body_path:
             try:
                 os.unlink(body_path)
@@ -282,40 +301,22 @@ def _json_request_with_curl(endpoint: str, body: bytes, headers: Dict[str, str],
 
 
 def _curl_failure_should_retry_without_urllib(error: Exception) -> bool:
-    text = str(error).lower()
-    retry_indicators = (
-        "curl exited 22",
-        "curl exited 28",
-        "429",
-        "500",
-        "502",
-        "503",
-        "504",
-        "too many requests",
-        "bad gateway",
-        "service unavailable",
-        "gateway time-out",
-        "gateway timeout",
-        "operation timed out",
-    )
-    return any(indicator in text for indicator in retry_indicators)
+    return retryable(error)
 
 
 def urlopen_json_with_total_timeout(req, timeout_seconds: int) -> Dict[str, Any]:
     """Read a JSON HTTP response with a hard wall-clock timeout."""
-    timeout_seconds = max(30, int(timeout_seconds))
-    socket_timeout = max(1, min(timeout_seconds, MAX_SOCKET_TIMEOUT))
+    deadline = Deadline.from_env(timeout_seconds)
+    timeout_seconds = deadline.timeout(timeout_seconds)
+    socket_timeout = min(timeout_seconds, MAX_SOCKET_TIMEOUT)
 
     endpoint = req.full_url
     body = req.data or b""
     headers = dict(req.header_items())
 
-    try:
+    if shutil.which('curl'):
+        # A failed request may already be charged. Never silently issue a second one.
         return _json_request_with_curl(endpoint, body, headers, timeout_seconds)
-    except Exception as e:
-        if _curl_failure_should_retry_without_urllib(e):
-            raise RuntimeError(f"transient curl failure: {e}") from e
-        logger.warning("curl request path failed, falling back to urllib worker: %s", e)
 
     parent_conn, child_conn = mp.Pipe(duplex=False)
     proc = mp.Process(
@@ -325,26 +326,23 @@ def urlopen_json_with_total_timeout(req, timeout_seconds: int) -> Dict[str, Any]
     )
     proc.start()
     child_conn.close()
-    proc.join(timeout_seconds)
-
-    if proc.is_alive():
-        proc.terminate()
-        proc.join(5)
+    try:
+        # Drain the pipe before joining: a large completion blocks child send().
+        if not parent_conn.poll(deadline.remaining()):
+            raise TimeoutError(f'NON_RETRYABLE: HTTP request exceeded common deadline ({timeout_seconds}s)')
+        try:
+            result = parent_conn.recv()
+        except EOFError:
+            raise RuntimeError('HTTP request worker exited without a response') from None
+    finally:
         if proc.is_alive():
             proc.kill()
-            proc.join(5)
+        proc.join(.2)
         parent_conn.close()
-        raise TimeoutError(f"HTTP request exceeded {timeout_seconds}s wall-clock timeout")
-
-    if not parent_conn.poll():
-        exitcode = proc.exitcode
-        parent_conn.close()
-        raise RuntimeError(f"HTTP request process exited without a response (exitcode={exitcode})")
-
-    result = parent_conn.recv()
-    parent_conn.close()
     if result.get("ok"):
         return result["payload"]
+    if result.get('code'):
+        raise HTTPRequestError(result['code'], result.get('retry_after'))
     raise RuntimeError(result.get("error") or "HTTP request failed")
 
 
@@ -376,19 +374,21 @@ def stream_chat_completion_with_total_timeout(
     if not curl:
         raise RuntimeError("curl is required for streaming chat completions")
 
-    timeout_seconds = max(30, int(timeout_seconds))
+    timeout_seconds = Deadline.from_env(timeout_seconds).timeout(timeout_seconds)
     stream_headers = dict(headers)
     stream_headers["Accept"] = "text/event-stream"
     stream_body = dict(body_payload)
     stream_body["stream"] = True
     body = json.dumps(stream_body).encode("utf-8")
 
-    body_path = None
+    body_path = header_path = None
     try:
         with tempfile.NamedTemporaryFile(prefix="ace_rtl_llm_stream_", suffix=".json", delete=False) as body_file:
             body_file.write(body)
             body_path = body_file.name
         os.chmod(body_path, 0o600)
+        with tempfile.NamedTemporaryFile(prefix='ace_rtl_http_headers_', delete=False) as header_file:
+            header_path = header_file.name
 
         config_lines = [
             f"url = {_curl_quote(endpoint)}",
@@ -407,6 +407,7 @@ def stream_chat_completion_with_total_timeout(
                 "--http1.1",
                 "--location",
                 "--fail-with-body",
+                '--dump-header', header_path,
                 "--no-buffer",
                 "--max-time",
                 str(timeout_seconds),
@@ -418,11 +419,10 @@ def stream_chat_completion_with_total_timeout(
             input=config,
             text=True,
             capture_output=True,
-            timeout=timeout_seconds + 15,
+            timeout=timeout_seconds,
         )
         if proc.returncode != 0:
-            detail = (proc.stdout or proc.stderr or "").strip()[:1200]
-            raise RuntimeError(f"curl exited {proc.returncode}: {detail}")
+            _raise_curl_error(proc, header_path)
 
         stripped = proc.stdout.strip()
         if stripped.startswith("{"):
@@ -483,6 +483,8 @@ def stream_chat_completion_with_total_timeout(
             "stream": True,
         }
     finally:
+        if header_path:
+            os.unlink(header_path)
         if body_path:
             try:
                 os.unlink(body_path)
@@ -584,9 +586,15 @@ class LLMBackend:
         messages: List[Dict[str, str]],
         temperature: float,
         max_tokens: Optional[int] = None,
+        timeout=None,
+        deadline=None,
+        retry_index=0,
+        role=None,
     ) -> Dict[str, Any]:
         if max_tokens is None:
             max_tokens = get_model_max_output_tokens(self.model)
+        deadline = deadline or Deadline.from_env(timeout or self._request_timeout())
+        timeout = deadline.timeout(timeout or self._request_timeout())
 
         if self.adapter_script:
             # Reuse the documented external adapter contract for reusable roles,
@@ -599,30 +607,28 @@ class LLMBackend:
                 messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                timeout=self._request_timeout(),
+                timeout=timeout,
+                deadline=deadline,
+                retry_index=retry_index,
+                role=role,
             )
             raw = result.get("raw")
             if isinstance(raw, dict) and raw.get("choices"):
                 return raw
             return {"choices": [{"message": {"content": result["content"]},
-                                  "finish_reason": result.get("finish_reason")}]}
+                                  "finish_reason": result.get("finish_reason")}],
+                    'usage': result.get('usage')}
 
         body = self._request_body_from_messages(messages, temperature, max_tokens)
-        timeout = self._request_timeout()
-        if streaming_enabled():
-            payload = stream_chat_completion_with_total_timeout(
-                self.endpoint,
-                body,
-                self.headers,
-                timeout,
-            )
-        else:
-            req = urllib.request.Request(
-                self.endpoint,
-                data=json.dumps(body).encode("utf-8"),
-                headers=self.headers,
-            )
-            payload = urlopen_json_with_total_timeout(req, timeout)
+        with PaidCall(provider=self.provider, model=self.model, messages=messages,
+                      max_tokens=max_tokens, retry_index=retry_index, role=role) as call:
+            timeout = deadline.timeout(timeout)
+            if streaming_enabled():
+                payload = stream_chat_completion_with_total_timeout(self.endpoint, body, self.headers, timeout)
+            else:
+                req = urllib.request.Request(self.endpoint, data=json.dumps(body).encode('utf-8'), headers=self.headers)
+                payload = urlopen_json_with_total_timeout(req, timeout)
+            call.complete(payload)
 
         if not payload.get("choices"):
             raise ValueError("Response contained no choices")
@@ -672,16 +678,21 @@ class LLMBackend:
         messages: List[Dict[str, str]],
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
+        timeout=None,
+        deadline=None,
+        retry_index=0,
+        role=None,
     ) -> Dict[str, Any]:
         if temperature is None:
             temperature = env_float_any(["NEMOTRON_TEMPERATURE", "ACE_RTL_TEMPERATURE"], 0.2)
         if max_tokens is None:
             max_tokens = get_model_max_output_tokens(self.model)
-        payload = self._complete_messages(messages, temperature, max_tokens)
+        payload = self._complete_messages(messages, temperature, max_tokens, timeout=timeout,
+                                          deadline=deadline, retry_index=retry_index, role=role)
         content = self._content_from_payload(payload, max_tokens)
         choice = payload["choices"][0]
         finish = choice.get("finish_reason")
-        return {
+        result = {
             "provider": self.provider,
             "model": self.model,
             "content": content,
@@ -689,18 +700,26 @@ class LLMBackend:
             "truncated": finish == "length",
             "raw": payload,
             "attempts": 1,
+            'usage': usage_envelope(payload.get('usage')),
         }
+        self.last_response = result
+        return result
 
     def prompt(
         self,
         prompt: str,
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
+        timeout=None,
+        deadline=None,
+        retry_index=0,
+        role=None,
     ) -> str:
         if temperature is None:
             temperature = env_float_any(["NEMOTRON_TEMPERATURE", "ACE_RTL_TEMPERATURE"], 0.2)
         prompt = enforce_prompt_char_budget(prompt, self.model, logger)
-        return self._get_model_response(prompt, temperature, max_tokens=max_tokens)
+        return self.complete_messages([{'role': 'user', 'content': prompt}], temperature,
+            max_tokens, timeout=timeout, deadline=deadline, retry_index=retry_index, role=role)['content']
 
 
 # Backward-compatible alias for older in-package call sites during migration.
