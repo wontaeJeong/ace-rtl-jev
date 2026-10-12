@@ -1,0 +1,53 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JEV native integration audit | ACE-RTL × JEV</title><link rel="stylesheet" href="../assets/site.css"></head><body><header><a href="../index.html"><strong>ACE-RTL × JEV</strong></a><nav><a href="../index.html">보고서 목록</a><a href="../native/index.html">최신 검증</a><a href="../completion/index.html">완료·제한</a><a href="../runbook/index.html">사용법</a></nav></header><main><h1>JEV native integration audit</h1>
+<h2>Starting state (2026-10-12)</h2>
+<ul>
+<li>Original main HEAD: <code>880b7c9eb362b66c500cb2943ad8f85ee39ad9c5</code> (11 commits ahead of origin/main).</li>
+<li>Main had only the untracked implementation instruction; ignored <code>.env.local</code> is preserved without printing values.</li>
+<li>Worktree <code>implementation/jev-full-plan</code> created from fetched origin/main, then fast-forwarded to original HEAD to retain user adapters and measured reports.</li>
+<li>No CodeGraph index exists. No project AGENTS.md found.</li>
+<li>Existing isolated environment baseline: 71 tests passed. System Python lacks pytest; use the prepared Python until a local environment is established.</li>
+</ul>
+<h2>Active graph before edits</h2>
+<p><code>ace_cvdp_native_runner.py -&gt; ace_cvdp_native.cli.main -&gt; run_datapoint -&gt; attempt_worker_main -&gt; run_attempt</code>. <code>run_attempt -&gt; processor.prepare(model=AceIterationModel) -&gt; AceIterationModel.prompt -&gt; run_role_call -&gt; llm_call.py -&gt; ACE_RTL_LLM_SCRIPT / llm_backend</code>. <code>run_attempt -&gt; processor.run -&gt; patched native_obj_harness -&gt; real service results -&gt; result_passed</code>. Failed candidate: <code>record_reflector_iteration_result -&gt; FocusedDebugger.extract_implementation_changes</code>, then <code>call_coordinator -&gt; FreshStartCoordinator.should_fresh_start</code>, then <code>call_reflector -&gt; FocusedDebugger.create_focused_prompt</code>. The existing JEV hook (<code>scripts/jev_retrospective.py</code>) is choice-only and affects prose retrospective classification, not a typed native state/action contract. The separate legacy agent is <code>ace_agent_runner.py -&gt; ace_rtl_agent.main/agent/agent_loop</code>; ContextBuilder/IterationMemory/ComprehensiveReasoningCoordinator are not the native integration surface.</p>
+<h2>Boundaries</h2>
+<p>The pre-edit reflector reads <code>.env</code>, checker Python and compose files for non-RTL tasks: this is unsafe as a new model input. New native context will use only row-declared public input context, excluding every mutable target. Diagnostics remain sanitized emitted results; no hidden checker/reference source is read. The real evaluator is the sole authority for PASS. Empty or incomplete service results are not success.</p>
+<h2>Ownership / shared interface</h2>
+<p>Shared frozen dataclasses live in <code>ace_rtl_agent/decision/types.py</code>; all consumers serialize with <code>to_dict()</code>. Orchestrator owns types, native <code>cli.py</code>/<code>llm.py</code> and integration tests.</p>
+<div class="table-wrap"><table><thead><tr><th>Worker</th><th>Exclusive ownership</th></tr></thead><tbody>
+<tr><td>Observation</td><td>native diagnostics/harness/config, decision/observations.py, task detection/error analysis, tests/test_decision_observations.py</td></tr>
+<tr><td>Runtime</td><td>native processes.py, decision/budget.py ledger.py cache.py, backend/client/llm_call.py, tests/test_decision_runtime.py</td></tr>
+<tr><td>SystemOne</td><td>decision/systemone_client.py questions.py, tests/test_decision_systemone.py</td></tr>
+<tr><td>Policy/context</td><td>decision/policy.py state_builder.py strategies.py context_selector.py; focused history/guidance/prompting/debugger/types/coordinator/rule advisor; tests/test_decision_policy.py</td></tr>
+<tr><td>Extensions</td><td>decision/extensions.py offline.py; scripts/decision_offline.py; tests/test_decision_extensions.py</td></tr>
+<tr><td>Integration</td><td>cli.py/llm.py/types.py/settings.py, runner/report docs and integration tests</td></tr>
+</tbody></table></div>
+<p>Workers must not modify files owned by another worker, reset user changes, make paid calls or commit shared work.</p>
+<h2>Actual CVDP correspondence</h2>
+<p>Installed framework commit: <code>8e894cf74414ab1eaea1e2b4e80a02f123df07b6</code>. <code>DatasetProcessor.prepare -&gt; create_repo -&gt; get_context_for_repo -&gt; model.prompt</code>, then <code>Repository.prepare -&gt; restore_files -&gt; write_file</code>. Restore performs template substitution. Native binding therefore reads <strong>only declared mutable files</strong> from <code>repo.issue_path</code>, preserves normalized output separately, and hashes the actual prepared/evaluated bytes. Refinement <code>include_harness/include_golden_patch</code> is forced false; that framework path is not used.</p>
+<p>Actual dataset service definitions are under <code>row.harness.files["docker-compose.yml"]</code>, not only <code>row.harness["docker-compose.yml"]</code>. A real row inspection exposed the difference; a regression test now pins the installed shape. Bus-arbiter requires <code>direct</code>; signed-adder requires <code>01-new-tb</code>. A report must use each task's actual manifest, not assume one service name.</p>
+<h2>F01–F20 disposition</h2>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Disposition in active fixed/core path</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>F01</td><td>Fixed: typed observation/effect controls focus; prose isolated to legacy</td><td><code>test_decision_policy.py</code>, <code>focused_history.record_observation</code></td></tr>
+<tr><td>F02</td><td>Fixed where execution proves resolution; absent symptoms remain unknown; new symptom IDs may switch focus</td><td>observation effect / named-symptom tests, policy focus eligibility</td></tr>
+<tr><td>F03</td><td>Fixed: nullable metrics with unavailability reason; no synthetic mismatch improvements</td><td>observation metric availability/comparability tests</td></tr>
+<tr><td>F04</td><td>Fixed: baseline always saved and recorded without retrospective calls</td><td>native terminal/baseline integration tests</td></tr>
+<tr><td>F05</td><td>Fixed: complete bundle, per-file diff, all targets passed to reflector</td><td>types/second-file and reflector bundle tests</td></tr>
+<tr><td>F06</td><td>Fixed: every mutable target excluded from public immutable context, initial targets have separate provenance</td><td>native public-context and contract tests</td></tr>
+<tr><td>F07</td><td>Fixed: canonical task contract across roles; negation/incidental code do not reclassify</td><td>task detection/metadata fixtures</td></tr>
+<tr><td>F08</td><td>Fixed: tool-name mentions do not establish compile failure</td><td>observation/error-analysis fixtures</td></tr>
+<tr><td>F09</td><td>Fixed: service-specific optimization guidance</td><td>sanity PASS / synth FAIL fixtures</td></tr>
+<tr><td>F10</td><td>Fixed in native: structured IDs/counts; unsupported counts unknown</td><td>dedupe/count fixtures; prose remains compatibility-only</td></tr>
+<tr><td>F11</td><td>Fixed: timeout is incomplete/unknown, never functional success</td><td>timeout/effect tests</td></tr>
+<tr><td>F12</td><td>Fixed: required services, valid exits, nonempty authoritative records, required checks actually executed</td><td>empty/missing/skipped/truncated diagnostics fixtures; real verified manifests</td></tr>
+<tr><td>F13</td><td>Fixed: deterministic audit/effect precedes terminal gate; optional calls skipped</td><td>native PASS/last-iteration call-zero fixtures</td></tr>
+<tr><td>F14</td><td>Fixed/core typed causes and verified claim checks; parent cancellation evidence persisted</td><td>parent deadline/cancellation fixtures</td></tr>
+<tr><td>F15</td><td>Fixed: retained candidate/call/result evidence, scratch-only cleanup</td><td>runtime cleanup fixtures</td></tr>
+<tr><td>F16</td><td>Fixed: exclusive OS lock, artifact durability/hash validation, atomic publication and invalid-claim recovery</td><td>concurrent/partial/crash claim tests</td></tr>
+<tr><td>F17</td><td>Fixed: actual deadlines/retries and usage envelopes</td><td>runtime backend/client/HTTP tests</td></tr>
+<tr><td>F18</td><td>Fixed: structured reflector result, no nested generator prompt; raw/normalized source omitted from delivery view</td><td>native reflection/public candidate tests</td></tr>
+<tr><td>F19</td><td>Fixed: current episode separated from archived episode history</td><td>focused/coordinator episode fixtures</td></tr>
+<tr><td>F20</td><td>Fixed: misleading <code>error_reasoning=guidance</code> removed</td><td>structured reflector metadata test</td></tr>
+</tbody></table></div>
+<p>Legacy mode retains some reference-control semantics intentionally; it is not advertised as the original unmodified program or as the new typed control path.</p>
+<h2>Real-run findings (not inferred performance)</h2>
+<p>1. Mixed actual SystemOne request accepted Choice/Noul/Score, with reported usage. 2. Original A at <code>94754d7</code> cannot initialize the configured custom primary model in its old coordinator backend; zero paid calls, no CVDP evaluation. It was not silently patched or replaced. 3. First B/C campaign reached actual evaluations but immutable dictionaries failed Queue pickle reconstruction. Added an explicit transport regression and constructor-based pickle protocol; retained all failed-run receipts/artifacts. 4. Fixed recheck: B bus-arbiter verified PASS; C task failed. C used more total tokens. This does not support a JEV performance improvement or changing the default. 5. Signed-adder core smoke verified required service <code>01-new-tb</code> and durable manifest/result hashes. It passed initially and therefore does not demonstrate JEV repair efficacy. 6. Some actual Score responses fail expected-score/distribution consistency validation. Strict rejection/fallback is retained; scalar-only validation evidence is recorded without arbitrary response bodies. A repeat frozen contract batch was valid. Intermittent provider contract failures and their paid usage remain visible.</p></main><footer>Evidence first · only valid actual CVDP results establish PASS. <a href="https://github.com/wontaeJeong/ace-rtl-jev">Source repository</a></footer></body></html>

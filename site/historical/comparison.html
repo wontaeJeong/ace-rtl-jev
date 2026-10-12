@@ -1,0 +1,61 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACE-RTL measured report</title>
+<style>body{font:15px system-ui,sans-serif;background:#f3f6fb;color:#17243c;margin:0}main{max-width:1200px;margin:auto;padding:40px 24px}h1{font-size:30px}h2{font-size:20px;margin-top:32px}.tag{color:#2459bc;font-weight:700}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}.card,section{background:white;border:1px solid #dfe6f1;border-radius:12px;padding:20px}.card b{display:block;font-size:25px;margin-top:8px}.notice{background:#fff6dc;border-left:4px solid #b78500;padding:16px;margin:22px 0}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #e6ebf3;padding:11px;vertical-align:top}th{color:#435675}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}.scroll{overflow:auto}footer{color:#52647f;margin-top:26px}</style></head><body><main>
+<div class="tag">REAL EVALUATOR EVIDENCE · NO INFERRED SUCCESSES</div><h1>ACE-RTL 측정 리포트</h1><div class="cards"><div class="card">Baseline cases<b>1</b></div><div class="card">Baseline passed<b>1</b></div><div class="card">Known tokens<b>45,979</b></div><div class="card">Batch wall seconds<b>Unavailable</b></div></div><div class="notice">Matched measured case data only. Small-cohort stochastic outcomes do not establish general improvements. Historical subset projection: original concurrent batch time is not reused; no controlled batch-wall speedup claim. Token estimates, unknown billing and primary currency prices are not treated as zero. Warmup is separate in performance statistics but included in spending controls.</div><section><h2>Baseline / JEV-like</h2><table><thead><tr><th>Metric</th><th>Baseline</th><th>JEV-like</th></tr></thead><tbody><tr><th>Cases</th><td>1</td><td>1</td></tr><tr><th>Passed</th><td>1</td><td>1</td></tr><tr><th>Success rate</th><td>1.000</td><td>1.000</td></tr><tr><th>Known reported tokens</th><td>45,979</td><td>50,269</td></tr><tr><th>Complete total tokens</th><td>45,979</td><td>50,269</td></tr><tr><th>Batch wall seconds</th><td>Unavailable</td><td>65.421</td></tr><tr><th>Mean case seconds</th><td>43.794</td><td>65.415</td></tr><tr><th>Mean API latency seconds</th><td>5.182</td><td>6.922</td></tr><tr><th>Failed/error cases</th><td>0</td><td>0</td></tr></tbody></table></section><section><h2>Case outcomes</h2><div class="scroll"><table><thead><tr><th>Case</th><th>Baseline</th><th>JEV-like</th><th>Baseline s</th><th>JEV s</th></tr></thead><tbody><tr><td>cvdp_copilot_bus_arbiter_0001</td><td>success</td><td>success</td><td>43.794</td><td>65.415</td></tr></tbody></table></div></section><details><summary>Full methodology, provider accounting and limitations</summary><pre># ACE-RTL measured comparison
+
+Baseline state: `completed`; coverage 1/1.
+Improved state: `completed`.
+
+| 지표 | Baseline | JEV-like | 변화 (JEV − baseline) |
+|---|---:|---:|---:|
+| 평가 케이스 수 | 1 | 1 | 0 |
+| 성공 케이스 수 | 1 | 1 | 0 |
+| 성공률 (0–1) | 1.000 | 1.000 | 0.000 |
+| 총 토큰 (reported + disclosed estimates) | 45979 | 50269 | 4290 |
+| 평균 토큰/케이스 | 45979.000 | 50269.000 | 4290.000 |
+| 총 실행 시간 (batch wall s) | Unavailable | 65.421 | Unavailable |
+| 평균 실행 시간/케이스 (s) | 43.794 | 65.415 | 21.621 |
+| 주력 LLM 호출 수 | 8 | 7 | -1 |
+| JEV-like 호출 수 | 0 | 2 | 2 |
+| 평균 호출 지연 시간 (s) | 5.182 | 6.922 | 1.740 |
+| 실패 및 오류 건수 | 0 | 0 | 0 |
+
+Retrospective hook coverage: 2 evaluation-phase JEV calls (warmup excluded).
+
+Measured token savings (%): -9.330.
+Measured batch wall-time savings (%): Unavailable.
+
+## Conditions and measurement
+
+```json
+{
+  &quot;attempts&quot;: 1,
+  &quot;iterations&quot;: 5,
+  &quot;workers&quot;: 8,
+  &quot;llm_timeout&quot;: 90,
+  &quot;evaluator_timeout&quot;: 300,
+  &quot;case_timeout&quot;: 1800
+}
+```
+
+Warmup is actual inference, excluded from evaluation metrics. Total wall time is concurrent batch wall time; average case time includes subprocess/evaluator/repair overhead. Retry calls, JEV calls and primary fallback calls count toward totals.
+An inflight/error call with unavailable usage is not assigned fictional zero cost. Unknown billing suppresses token savings. Char/4 estimates are labeled and cannot establish measured token savings. Provider caches/load time may be opaque; no custom cache was added.
+
+## Provider accounting
+
+| Mode/provider | Calls | Reported input | Reported output | Reported total | Estimated total | Unknown usage calls | Fallback calls | Mean latency (s) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| baseline/primary | 8 | 41746 | 4233 | 45979 | 0 | 0 | 0 | 5.182 |
+| baseline/jev | 0 | 0 | 0 | 0 | 0 | 0 | 0 | Unavailable |
+| jev/primary | 7 | 40219 | 5061 | 45280 | 0 | 0 | 1 | 8.774 |
+| jev/jev | 2 | 4871 | 118 | 4989 | 0 | 0 | 1 | 0.439 |
+
+## Case outcomes
+
+| Case | Baseline | JEV-like | Baseline s | JEV s |
+|---|---|---|---:|---:|
+| `cvdp_copilot_bus_arbiter_0001` | success | success | 43.794 | 65.415 |
+
+## Limitations
+
+One bounded non-agentic no-commercial native cohort, not all CVDP workflows or original default budgets. Commercial rows are explicitly excluded by actual tool requirements. API stochasticity and remote latency remain uncontrolled; single-run differences are descriptive, not statistically established effects. Repetitions/ablation must be reported only when actually executed. See environment and opportunities documents for provenance, integrity rules and remaining work.
+</pre></details><footer>Self-contained HTML; no external assets or model inference used to render this report.</footer></main></body></html>

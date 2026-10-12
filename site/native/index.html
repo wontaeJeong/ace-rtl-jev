@@ -1,0 +1,51 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Native JEV implementation — measured validation | ACE-RTL × JEV</title><link rel="stylesheet" href="../assets/site.css"></head><body><header><a href="../index.html"><strong>ACE-RTL × JEV</strong></a><nav><a href="../index.html">보고서 목록</a><a href="index.html">최신 검증</a><a href="../completion/index.html">완료·제한</a><a href="../runbook/index.html">사용법</a></nav></header><main><h1>Native JEV implementation — measured validation</h1>
+<h2>Outcome</h2>
+<p>Typed native D/J integration and opt-in X algorithms are implemented and covered by local contracts/integration fixtures. Default remains <strong>`baseline_fixed`</strong>. Real verification establishes evaluator-based PASS; this small campaign does <strong>not</strong> establish JEV superiority.</p>
+<p>PR: <a href="https://github.com/wontaeJeong/ace-rtl-jev/pull/4">https://github.com/wontaeJeong/ace-rtl-jev/pull/4</a>. Final local verification: <strong>286 tests passed</strong>, compile/diff checks clean; nine Important review reproductions and active integration omissions fixed in a single test-covered pass. No automatic merge or second fresh-review approval is claimed.</p>
+<h2>Fixed A/B/C task: bus-arbiter</h2>
+<p>One task, one attempt, two iterations, one worker; same prepared primary model/adapter, dataset and CVDP/tool environment. X off. Warmup excluded. Requested model aliases are fixed; sampling seed and concrete resolved weight revisions are not guaranteed.</p>
+<p>Comparison runtime source: <code>ab609ce</code>; signed-adder smoke source: <code>b16f512</code>. Later review fixes revalidated existing evaluator/claim artifacts rather than relabelling those as newly measured simulator runs.</p>
+<div class="table-wrap"><table><thead><tr><th>Arm</th><th>Outcome</th><th>Wall seconds</th><th>Primary HTTP calls</th><th>Primary tokens</th><th>JEV HTTP calls</th><th>JEV tokens</th></tr></thead><tbody>
+<tr><td>A: original <code>94754d7</code></td><td>Infrastructure blocked; custom model backend unsupported</td><td>1.08</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>B: fixed baseline</td><td><strong>Verified actual PASS</strong>, iteration 2</td><td>37.23</td><td>4</td><td>16,624</td><td>0</td><td>0</td></tr>
+<tr><td>C: core</td><td>Actual task failure after iteration 2</td><td>29.68</td><td>3</td><td>16,962</td><td>3</td><td>32,981</td></tr>
+</tbody></table></div>
+<p>C used <strong>49,943 total tokens</strong>, versus B's 16,624 (+200.4%). Its shorter wall time is not a speedup claim because the outcomes differ. Core executed a real <code>gather_evidence</code> transition; subsequent strict Score schema failures invoked primary analysis fallback. No model judgment was counted as benchmark success.</p>
+<p>A is excluded from the valid-evaluation denominator, but remains an end-to-end infrastructure failure. B: end-to-end/valid-evaluation-only success 1/1. C: 0/1. These single stochastic samples are insufficient for noninferiority or causal conclusions.</p>
+<h2>Additional actual verification</h2>
+<ul>
+<li>Mixed <code>/v1/systemone</code> Choice/Noul/Score contract: valid with reported usage.</li>
+<li>Frozen 25-question contract replay: valid; contract diagnostic only, not E2E improvement.</li>
+<li>Intermittent actual Score responses were rejected for expected-score consistency. Additional scalar evidence instrumentation preserves supplied score versus distribution expectation; no invalid answer is approved.</li>
+<li>Signed-adder <code>jev_core</code>: <strong>verified PASS</strong> on required service <code>01-new-tb</code>, first iteration; total wall 20.33s, worker time to verified pass 19.50s. An initial PASS does not exercise or prove a successful JEV repair branch.</li>
+<li>Initial B/C run had a real multiprocessing serialization failure after evaluations. This was fixed by a RED→GREEN pickle regression; all its paid calls and results remain in the campaign ledger. It is not silently included as a successful run.</li>
+</ul>
+<h2>Evidence locations</h2>
+<p>Local artifacts, deliberately Git-ignored because working copies include benchmark-private harness source:</p>
+<ul>
+<li><code>outputs/jev-full-validation/contract-smoke.json</code></li>
+<li><code>outputs/jev-full-validation/primary-contract.json</code></li>
+<li><code>outputs/jev-full-validation/abc/</code> — initial failed collection, preserved</li>
+<li><code>outputs/jev-full-validation/abc-recheck/summary.json</code>, <code>report.md</code></li>
+<li><code>outputs/jev-full-validation/signed-adder-core/</code> — actual evaluator/claim/provenance</li>
+<li><code>outputs/jev-full-validation/campaign.sqlite</code> — immutable shared admission/settlement</li>
+</ul>
+<p>Published summaries contain statuses, hashes, counters and measurements—not private checker/reference source, credentials or prompt snapshots. The signed-adder verified claim binds tested hash <code>70c7b4f050288dda3dd6a62d35491773585aba1e701e368680d5ef583e6b3569</code> and evaluator hash <code>b37a010b2bc7ea64ffef3fe83c9b8c42e161e06fe43a8292c6e3659817cd256f</code>.</p>
+<h2>Extension/data status</h2>
+<div class="table-wrap"><table><thead><tr><th>Extension</th><th>Implementation/verification</th><th>Actual performance experiment</th></tr></thead><tbody>
+<tr><td>X-01 beam</td><td>Own-fit/risk gated alternatives, frozen-parent independent files/actions, bounded generation checkpoints, discarded outcomes; native fixture</td><td>Not funded/run; no benefit claimed</td></tr>
+<tr><td>X-02 scheduling</td><td>Minimum exploration/fair next-iteration checkpoint admission; no paid-call refund or process pause/resume</td><td>Not run</td></tr>
+<tr><td>X-03 routing</td><td>User alias allowlist, maximum individual risk, output allowance and evaluator requirement</td><td>Not run</td></tr>
+<tr><td>X-04 lessons</td><td>Frozen snapshot retrieval; bounded evidence-linked candidate curation; no online benchmark memory update</td><td>No real cross-task memory study</td></tr>
+<tr><td>X-05 learned policy</td><td>Stdlib stump, executed-action/valid-next-evaluation labels, task/design-family group split, future-feature rejection; fixture artifacts refused by native</td><td>Real-data training incomplete: insufficient independent families/outcomes</td></tr>
+<tr><td>X-06 questions</td><td>Pinned registry/snapshot, dev-only proposals, order/wording/negation/missing/duplicate perturbation metrics; no runtime self-modification</td><td>No calibrated dev/held-out semantic accuracy study</td></tr>
+</tbody></table></div>
+<p>All extensions default off and are excluded from B/C. Raw VCD numeric analysis is unsupported; diagnostics inspect only already-emitted permitted log/trace text and reject raw waveform input.</p>
+<h2>Blocking limits and rerun</h2>
+<ul>
+<li>Original A cannot use the prepared non-NVIDIA role model without changing its old backend. Preserve that blocker rather than call a modified program the exact original. A compatible environment/model, or a separately labelled adapted baseline, is required for a complete controlled A→B estimate.</li>
+<li>Provider Score contract failures are intermittent. Invalid responses are retained as failures/fallback, not fixed by integerization or invented probabilities.</li>
+<li>Primary monetary pricing and generic SystemOne receipt currency are not established. Report tokens and conservative exposure, not zero-price savings. Provider-side billing limits are needed for an unconditional financial cap.</li>
+<li>More tasks/repetitions, development labels and separate X ablations need a <strong>new explicit allocation</strong>; do not reset the spent campaign.</li>
+</ul>
+<p>Exact bounded rerun commands and budget/configuration examples: <a href="../runbook/index.html">`docs/jev_native_runbook.md`</a>. Static source audit and F01–F20 dispositions: <a href="../audit/index.html">`docs/jev_integration_audit.md`</a>. Final verification/remaining review findings are recorded in the completion summary.</p></main><footer>Evidence first · only valid actual CVDP results establish PASS. <a href="https://github.com/wontaeJeong/ace-rtl-jev">Source repository</a></footer></body></html>
