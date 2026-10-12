@@ -1,0 +1,29 @@
+{
+  "schema": "public-report-site-1",
+  "sources": {
+    "reports/jev-native-plan/final-report.md": "b819955d62b3e5c8711e69db2a5fca0a135bb6436da941e01bc8cd85998955c0",
+    "docs/jev_completion_status.md": "01429979df0e77f0ff1338c99970e423e9ab7099c41241d1efaa7fadf87425c5",
+    "docs/jev_native_runbook.md": "04ef11a20f8195ec72922885ee2cb1c384b69cbae63311dbbd2dfab0bf9d7434",
+    "docs/jev_integration_audit.md": "149584f9157b1e3a3aa7c41237cfc64c22526fe553a9bd4caba0f41abe36d3f9",
+    "reports/jev-native-plan/budget-snapshot.json": "6c9670f5ce937b7835996cb092541be3ad5ea526e1074e5ff39c9a8a0234c633",
+    "reports/jev-native-plan/verified-claims.json": "90c1c84da592305a89f7360313f96eda44c53c4740d304553d3470e95e30ad7d",
+    "reports/clean-baseline/comparison.html": "4d4af4e06bd1040a2bc16cd0c922e2893b637d8ffe9944145f9a9ac19f3baac7",
+    "reports/jev-final/final-report.html": "620fa09ca76fdef09ebc819d3a183ee96d09f153c6b90a61c5a950dcc0230e44",
+    "reports/jev-comparison/comparison.html": "cc914596fd5c614f5d3306d1b76a7935d23cc97a75f7f526d880d7773e96cebf"
+  },
+  "files": [
+    ".nojekyll",
+    "assets/site.css",
+    "audit/index.html",
+    "completion/index.html",
+    "data/budget-snapshot.json",
+    "data/verified-claims.json",
+    "historical/baseline.html",
+    "historical/comparison.html",
+    "historical/jev.html",
+    "index.html",
+    "native/index.html",
+    "publication.json",
+    "runbook/index.html"
+  ]
+}
