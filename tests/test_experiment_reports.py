@@ -69,7 +69,7 @@ def test_different_case_sets_or_budgets_are_not_fair_comparison():
 
 def test_missing_improved_mode_is_unavailable_not_zero():
     text=report().render_markdown(batch('baseline',150,30), None)
-    assert 'Not run' in text
+    assert '미실행' in text
     assert '33.3%' not in text
 
 
@@ -84,7 +84,7 @@ def test_real_service_timeout_is_not_hidden_as_functional_failure():
     data=batch('baseline',150,30)
     data['results'][1]['result']={'passed':False,'attempts':[{'history':[{'primary_failure':{'stage':'CANDIDATE_FUNCTIONAL'},'result':{'tests':[{'result':124,'error_msg':'native harness timeout after 300s'}]}}]}]}
     assert report().batch_metrics(data)['status_counts']=={'success':1,'timeout':1}
-    assert '| `b` | timeout |' in report().render_markdown(data,None)
+    assert '| `b` | 시간 초과 |' in report().render_markdown(data,None)
 
 
 def test_generated_csv_uses_portable_lf_line_endings(tmp_path,monkeypatch):

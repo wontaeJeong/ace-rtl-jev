@@ -1,33 +1,33 @@
-# Completed clean baseline — not a JEV optimization result
+# 완료된 정리 기준 실행 — JEV 최적화 결과가 아님
 
-Batch: `baseline-20261011T103810Z-97717`.
+배치: `baseline-20261011T103810Z-97717`.
 
-| Measurement | Observed value |
+| 측정 항목 | 관측값 |
 |---|---:|
-| Evaluated eligible CVDP cases | 292 / 292 |
-| Success | 239 |
-| Candidate failure | 52 |
-| Native service timeout | 1 |
-| Success rate | 81.8493% |
-| Batch wall time, excluding warmup | 4,367.250 s (72 min 47 s) |
-| Mean individual case runtime | 109.631 s |
-| Sum of individual case runtimes | 32,012.218 s |
-| Primary API calls, including retries/errors | 1,311 |
-| Reported prompt tokens | 14,235,838 |
-| Reported completion tokens | 2,302,443 |
-| Known reported token subtotal | 16,538,281 |
-| Calls with unavailable token usage | 33 |
-| Mean API call latency, including failed calls | 17.161 s |
-| Cases with missing whole-case runtime | 0 |
-| Watcher orphan-cleanup events | 0 |
-| JEV evaluation calls | 0 |
+| 평가한 적격 CVDP 케이스 | 292 / 292 |
+| 성공 | 239 |
+| 후보 실패 | 52 |
+| 네이티브 서비스 시간 초과 | 1 |
+| 성공률 | 81.8493% |
+| 준비 실행을 제외한 배치 경과 시간 | 4,367.250 s (72 분 47 s) |
+| 개별 케이스 평균 실행 시간 | 109.631 s |
+| 개별 케이스 실행 시간 합계 | 32,012.218 s |
+| 재시도·오류를 포함한 주력 API 호출 | 1,311 |
+| 보고된 입력 토큰 | 14,235,838 |
+| 보고된 출력 토큰 | 2,302,443 |
+| 확인된 보고 토큰 소계 | 16,538,281 |
+| 토큰 사용량이 없는 호출 | 33 |
+| 실패 호출을 포함한 평균 API 지연 | 17.161 s |
+| 전체 실행 시간이 누락된 케이스 | 0 |
+| 감시자의 고아 프로세스 정리 사건 | 0 |
+| JEV 평가 호출 | 0 |
 
-The known token subtotal is **not** the complete billed total: 33 failed requests have no provider usage. No zero-cost assumption or token/time-saving claim is made. Primary currency cost is unavailable without verified provider prices/billing. Warmup is stored separately and still costs tokens; exclusion from evaluation is not exclusion from financial accounting.
+확인된 토큰 소계는 전체 청구 토큰이 **아니다**. 실패 요청 33개에는 제공자 사용량이 없다. 비용이 없다고 가정하거나 토큰·시간 절감을 주장하지 않는다. 제공자의 가격·청구를 검증하지 못했으므로 주력 모델의 통화 비용은 자료가 없다. 준비 실행은 별도로 저장하며 토큰 비용이 발생한다. 평가에서 제외하는 것은 비용 집계에서 제외하는 뜻이 아니다.
 
-Case runtimes overlap with eight concurrent workers; their sum is not batch wall time. Conditions: one attempt, up to five iterations; request timeout 60 s, LLM subprocess 90 s, evaluator service 300 s, whole case 1,800 s. Actual native evaluator pass is the only success criterion. All 292 case records and before/after timers are preserved.
+작업자 여덟 개가 동시에 실행하므로 케이스 실행 시간이 겹치며 그 합계는 배치 경과 시간이 아니다. 조건은 시도 한 번, 반복 최대 다섯 번이다. 시간 제한은 요청 60 s, LLM 하위 프로세스 90 s, 평가기 서비스 300 s, 전체 케이스 1,800 s다. 실제 네이티브 평가기 통과만 성공 기준으로 삼는다. 케이스 292개의 기록과 실행 전후 시간 계측을 모두 보존했다.
 
-The first original-flow cohort (four workers, before portable lifecycle fixes) is independently retained: 240 success / 46 failure / 6 timeout and 16,470,984 known tokens with 26 unavailable-usage calls. Its batch/one-case times are unavailable. The two baseline cohorts have different concurrency/lifecycle conditions and cannot demonstrate JEV gains. Their known token subtotals sum to 33,009,265, excluding separately stored warmups/smokes and unavailable usage; this is not a complete project bill.
+첫 원본 흐름 평가군(작업자 네 개, 이식 가능한 수명 주기 수정 전)은 별도로 보존했다. 성공 240개 / 실패 46개 / 시간 초과 6개, 확인된 토큰 16,470,984개, 사용량이 없는 호출 26개다. 배치·개별 케이스 시간은 자료가 없다. 두 기준 실행 평가군은 동시 실행·수명 주기 조건이 달라 JEV 개선을 입증할 수 없다. 확인된 토큰 소계 합계는 33,009,265개이며 별도로 저장한 준비·간이 점검 실행과 미확인 사용량은 제외했다. 이는 전체 프로젝트 청구액이 아니다.
 
-Files: `comparison.md` (baseline table; improved mode explicitly **Not run**), `metrics.json`, `cases.csv`. Raw evidence: `experiments/runs/baseline-20261011T103810Z-97717/`; durable driver logs: `experiments/driver-logs/`. Native working copies remain local/Git-ignored because they embed private benchmark harness source.
+파일: `comparison.md` (기준 실행 표; 개선 방식은 명시적으로 **미실행**), `metrics.json`, `cases.csv`. 원본 증거: `experiments/runs/baseline-20261011T103810Z-97717/`; 영구 실행 제어 로그: `experiments/driver-logs/`. 네이티브 작업 사본은 비공개 벤치마크 평가 장치 소스를 포함하므로 로컬에만 보관하며 Git 추적에서 제외한다.
 
-**Later cost-controlled checkpoint:** design, offline checks, budget admission and counted JEV fallback were subsequently implemented/reviewed. One frozen 48-judgment/one-case E2E campaign finished; see `reports/jev-final/`. The new case passed but total tokens increased 9.33%, so JEV is not recommended as default. No full292 JEV run or extra tuning is queued. Reports now include self-contained HTML as well as Markdown/JSON/CSV.
+**이후 비용 통제 점검:** 설계·오프라인 점검·예산 승인·계수되는 JEV 대체 호출을 이후 구현하고 검토했다. 고정된 판단 48개·실제 케이스 하나의 E2E(종단 간) 실험을 완료했다. `reports/jev-final/`을 참고한다. 새 케이스는 통과했지만 총 토큰이 9.33% 증가하여 JEV를 기본값으로 권장하지 않는다. 전체 292개 JEV 실행이나 추가 조정은 대기 중이 아니다. 보고서는 Markdown/JSON/CSV와 독립 실행형 HTML을 포함한다.

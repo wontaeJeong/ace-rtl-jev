@@ -21,7 +21,7 @@ def test_build_only_exports_allowlisted_public_reports(tmp_path):
     build_site(ROOT,output)
     files={p.relative_to(output).as_posix() for p in output.rglob('*') if p.is_file()}
     assert files==EXPECTED_FILES
-    assert 'JEV superiority' in (output/'native/index.html').read_text()
+    assert '성능 우위' in (output/'native/index.html').read_text()
     assert '286' in (output/'completion/index.html').read_text()
     assert not any('experiments/' in name or '.env' in name or 'outputs/' in name for name in files)
     assert (output/'.nojekyll').exists()
@@ -86,3 +86,39 @@ def test_source_symlinks_cannot_publish_private_in_repository_files(tmp_path,par
     with pytest.raises(ValueError,match='symlink'):
         build_site(root,tmp_path/'site')
     assert not (tmp_path/'site').exists()
+
+
+def test_material_layout_has_korean_navigation_and_document_outline(tmp_path):
+    from build_report_pages import build_site
+    output=tmp_path/'site';build_site(ROOT,output)
+    css=(output/'assets/site.css').read_text()
+    assert '--md-sys-color-primary:' in css and '--md-sys-color-surface-container:' in css
+    page=(output/'native/index.html').read_text()
+    assert '문서 목차' in page and '본문으로 건너뛰기' in page
+    assert 'class="app-bar"' in page and 'class="report-layout"' in page
+    assert 'Evidence first' not in page and 'Source repository' not in page
+
+
+def test_reports_have_measured_charts_and_accessible_flow_diagram(tmp_path):
+    from build_report_pages import build_site
+    output=tmp_path/'site';build_site(ROOT,output)
+    page=(output/'native/index.html').read_text()
+    assert page.count('<svg')>=3
+    assert 'role="img"' in page and '<desc' in page
+    assert '49,943' in page and '16,624' in page
+    assert '속도 우열' in page or '속도 개선' in page
+    assert '<svg' in (output/'historical/baseline.html').read_text()
+
+
+def test_material_headings_have_unique_stable_section_anchors():
+    from build_report_pages import render_markdown
+    page=render_markdown('# 제목\n\n## 요약\n내용\n\n## 요약\n후속\n',source=Path('reports/jev-native-plan/final-report.md'))
+    assert 'id="section-1"' in page and 'id="section-2"' in page
+
+
+def test_repeated_builds_produce_identical_public_html_in_one_process(tmp_path):
+    from build_report_pages import build_site
+    first=tmp_path/'first';second=tmp_path/'second'
+    build_site(ROOT,first);build_site(ROOT,second)
+    for page in first.rglob('*.html'):
+        assert page.read_bytes()==(second/page.relative_to(first)).read_bytes()

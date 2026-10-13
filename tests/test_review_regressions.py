@@ -68,7 +68,7 @@ def test_unexercised_hook_differences_are_not_claimed_as_jev_savings():
     improved['results'][0]['metrics']['jev']=dict(improved['results'][1]['metrics']['jev'])
     improved['manifest']['requires_hook_coverage']=True
     assert module.compare(baseline,improved)['token_savings_percent'] is None
-    assert 'not exercised' in module.render_markdown(baseline,improved).lower()
+    assert '회고 판단 연결부 미사용' in module.render_markdown(baseline,improved)
 
 
 def test_unexercised_legacy_manifest_without_flag_also_has_no_savings():

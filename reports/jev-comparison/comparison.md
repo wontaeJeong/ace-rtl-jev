@@ -1,28 +1,28 @@
-# ACE-RTL measured comparison
+# ACE-RTL 실측 비교
 
-Baseline state: `completed`; coverage 1/1.
-Improved state: `completed`.
+기준 실행 상태: `completed`; 평가 범위 1/1.
+개선 실행 상태: `completed`.
 
-| 지표 | Baseline | JEV-like | 변화 (JEV − baseline) |
+| 지표 | 기준 실행 | JEV-like | 변화 (JEV − 기준 실행) |
 |---|---:|---:|---:|
 | 평가 케이스 수 | 1 | 1 | 0 |
 | 성공 케이스 수 | 1 | 1 | 0 |
 | 성공률 (0–1) | 1.000 | 1.000 | 0.000 |
-| 총 토큰 (reported + disclosed estimates) | 45979 | 50269 | 4290 |
+| 총 토큰 (보고된 사용량 + 공개된 추정치) | 45979 | 50269 | 4290 |
 | 평균 토큰/케이스 | 45979.000 | 50269.000 | 4290.000 |
-| 총 실행 시간 (batch wall s) | Unavailable | 65.421 | Unavailable |
+| 총 실행 시간 (배치 경과 시간, 초) | 자료 없음 | 65.421 | 자료 없음 |
 | 평균 실행 시간/케이스 (s) | 43.794 | 65.415 | 21.621 |
 | 주력 LLM 호출 수 | 8 | 7 | -1 |
 | JEV-like 호출 수 | 0 | 2 | 2 |
 | 평균 호출 지연 시간 (s) | 5.182 | 6.922 | 1.740 |
 | 실패 및 오류 건수 | 0 | 0 | 0 |
 
-Retrospective hook coverage: 2 evaluation-phase JEV calls (warmup excluded).
+회고 판단 연결부 사용량: 2 평가 단계 JEV 호출 (준비 실행 제외).
 
-Measured token savings (%): -9.330.
-Measured batch wall-time savings (%): Unavailable.
+실측 토큰 절감률 (%): -9.330.
+실측 배치 경과 시간 절감률 (%): 자료 없음.
 
-## Conditions and measurement
+## 조건과 측정
 
 ```json
 {
@@ -35,24 +35,24 @@ Measured batch wall-time savings (%): Unavailable.
 }
 ```
 
-Warmup is actual inference, excluded from evaluation metrics. Total wall time is concurrent batch wall time; average case time includes subprocess/evaluator/repair overhead. Retry calls, JEV calls and primary fallback calls count toward totals.
-An inflight/error call with unavailable usage is not assigned fictional zero cost. Unknown billing suppresses token savings. Char/4 estimates are labeled and cannot establish measured token savings. Provider caches/load time may be opaque; no custom cache was added.
+준비 실행은 실제 추론이며 평가 지표에서 제외한다. 총 경과 시간은 동시 실행 배치의 실제 경과 시간이며, 평균 케이스 시간에는 하위 프로세스·평가기·수정 처리의 부가 시간이 포함된다. 재시도 호출, JEV 호출, 주력 모델 대체 호출을 모두 합산한다.
+사용량이 없는 진행 중·오류 호출에는 비용이 없다고 임의로 가정하지 않는다. 과금이 미확인이면 토큰 절감률을 제시하지 않는다. 문자 수/4 추정치는 별도로 표시하며 실측 토큰 절감을 입증하지 못한다. 제공자의 캐시·적재 시간은 불투명할 수 있으며 별도 캐시는 추가하지 않았다.
 
-## Provider accounting
+## 제공자 사용량 집계
 
-| Mode/provider | Calls | Reported input | Reported output | Reported total | Estimated total | Unknown usage calls | Fallback calls | Mean latency (s) |
+| 실행 방식/제공자 | 호출 수 | 보고된 입력 토큰 | 보고된 출력 토큰 | 보고된 총 토큰 | 추정 총 토큰 | 사용량 미확인 호출 | 대체 호출 | 평균 지연 (초) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| baseline/primary | 8 | 41746 | 4233 | 45979 | 0 | 0 | 0 | 5.182 |
-| baseline/jev | 0 | 0 | 0 | 0 | 0 | 0 | 0 | Unavailable |
-| jev/primary | 7 | 40219 | 5061 | 45280 | 0 | 0 | 1 | 8.774 |
-| jev/jev | 2 | 4871 | 118 | 4989 | 0 | 0 | 1 | 0.439 |
+| 기준 실행/주력 모델 | 8 | 41746 | 4233 | 45979 | 0 | 0 | 0 | 5.182 |
+| 기준 실행/JEV | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 자료 없음 |
+| JEV 실행/주력 모델 | 7 | 40219 | 5061 | 45280 | 0 | 0 | 1 | 8.774 |
+| JEV 실행/JEV | 2 | 4871 | 118 | 4989 | 0 | 0 | 1 | 0.439 |
 
-## Case outcomes
+## 케이스별 결과
 
-| Case | Baseline | JEV-like | Baseline s | JEV s |
+| 케이스 | 기준 실행 | JEV-like | 기준 실행 시간 (초) | JEV 시간 (초) |
 |---|---|---|---:|---:|
-| `cvdp_copilot_bus_arbiter_0001` | success | success | 43.794 | 65.415 |
+| `cvdp_copilot_bus_arbiter_0001` | 성공 | 성공 | 43.794 | 65.415 |
 
-## Limitations
+## 한계
 
-One bounded non-agentic no-commercial native cohort, not all CVDP workflows or original default budgets. Commercial rows are explicitly excluded by actual tool requirements. API stochasticity and remote latency remain uncontrolled; single-run differences are descriptive, not statistically established effects. Repetitions/ablation must be reported only when actually executed. See environment and opportunities documents for provenance, integrity rules and remaining work.
+비에이전트 방식·비상용 도구의 제한된 네이티브 평가군 한 묶음으로, 모든 CVDP 작업 흐름이나 원래 기본 예산을 포괄하지 않는다. 실제 도구 요구에 따라 상용 도구가 필요한 항목을 명시적으로 제외했다. API의 확률적 변동과 원격 지연은 통제하지 못했으며, 단일 실행 차이는 관찰 결과일 뿐 통계적으로 입증된 효과가 아니다. 반복·요소 제거 실험은 실제 실행한 경우에만 보고해야 한다. 출처·무결성 규칙·남은 작업은 환경 및 개선 기회 문서를 참고한다.
