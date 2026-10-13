@@ -50,6 +50,16 @@ code{font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;background:#ed
 @media(max-width:850px){html{scroll-padding-top:152px}}
 @media(max-width:480px){body{font-size:15px}.page-container{padding:0 10px}.app-bar-inner{padding:12px 16px}.report-content{padding:20px 16px}.report-content h1{font-size:27px}.report-content h2{font-size:20px}.metric-card{padding:16px}.metric-card .metric-value{font-size:24px}.visual-card{padding:12px}.cards{grid-template-columns:1fr}.notice{padding:16px}th,td{padding:10px;font-size:12px}footer{padding:20px 16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card{transition:none}}
+.document-outline summary,.flow-details summary{cursor:pointer;min-height:44px;padding:10px;font-weight:650;color:var(--md-sys-color-primary)}
+.flow-details{border:1px solid #dfe2ec;border-radius:16px;margin:24px 0;padding:8px}
+.report-layout{display:block}.document-outline{position:static;max-height:none;margin-bottom:16px;padding:6px 12px}.document-outline a{display:inline-block;min-height:44px}
+.table-wrap table{min-width:720px}.visual-card .table-wrap table{min-width:440px}
+th,td,.visual-card table td,.visual-card table th{font-size:14px;line-height:1.65;padding:12px}
+.case-details summary{display:list-item;padding:10px;min-height:44px}
+.diagram-scroll{overflow-x:auto;max-width:100%;border-radius:12px}.diagram-scroll svg{min-width:420px;max-width:480px!important;margin:auto}
+.visual-card{padding:18px}.visual-card figcaption,.visual-legend{font-size:14px}
+.visual-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:850px){.visual-grid{grid-template-columns:1fr}.app-bar{position:static}.app-bar-inner{padding:8px 16px;min-height:0}.brand small{display:none}.brand-mark{width:32px;height:32px}.app-nav a{min-height:44px;padding:8px 10px}.page-container{margin-top:12px}html{scroll-padding-top:16px}.report-content h2{margin-top:24px}.diagram-scroll:after{content:'그래프는 좌우로 움직여 볼 수 있습니다.';display:block;font-size:12px;color:var(--md-sys-color-on-surface-variant);padding:8px 0}.metric-grid{grid-template-columns:1fr}.metric-card{padding:14px}.metric-card .metric-value{font-size:24px;margin:4px 0}}
 '''
 
 
@@ -127,14 +137,15 @@ def render_markdown(text,*,source):
 
 
 def _page(title,body,destination):
+    body=re.sub(r'(<svg\b.*?</svg>)',r'<div class="diagram-scroll" tabindex="0" role="region" aria-label="그래프 · 좁은 화면에서 좌우 스크롤">\1</div>',body,flags=re.S)
     parent=posixpath.dirname(destination) or '.'
     link=lambda path:posixpath.relpath(path,parent)
     nav=''.join('<a href="'+link(path)+'"'+(' aria-current="page"' if path==destination else '')+'>'+label+'</a>' for path,label in
                [('index.html','보고서 목록'),('native/index.html','최신 검증'),('completion/index.html','완료·제한'),('runbook/index.html','사용법')])
     headings=re.findall(r'<h([23]) id="([^"]+)">(.*?)</h[23]>',body)
-    outline='<aside class="document-outline"><h2>문서 목차</h2><nav aria-label="문서 목차">'+''.join(
+    outline='<details class="document-outline"><summary>문서 목차</summary><nav aria-label="문서 목차">'+''.join(
          '<a href="#'+identifier+'"'+(' class="subheading"' if level=='3' else '')+'>'+re.sub(r'<[^>]+>','',heading)+'</a>'
-         for level,identifier,heading in headings)+'</nav></aside>' if headings else ''
+         for level,identifier,heading in headings)+'</nav></details>' if headings else ''
     layout='report-layout' if headings else 'overview-layout'
     return '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#365e9d"><title>'+html.escape(title)+' | ACE-RTL × JEV</title><link rel="stylesheet" href="'+link('assets/site.css')+'"></head><body><a class="skip-link" href="#report-content">본문으로 건너뛰기</a><header class="app-bar"><div class="app-bar-inner"><a class="brand" href="'+link('index.html')+'"><span class="brand-mark" aria-hidden="true">RTL</span><span>ACE-RTL × JEV<small>측정과 근거 중심의 검증 보고서</small></span></a><nav class="app-nav" aria-label="주 메뉴">'+nav+'</nav></div></header><div class="page-container"><div class="'+layout+'">'+outline+'<main id="report-content" class="report-content"><div class="eyebrow">실제 측정 · 공개 근거</div>'+body+'</main></div></div><footer><span>유효한 실제 CVDP 평가 결과만 통과의 근거로 사용합니다.</span><a href="'+REPOSITORY+'">소스 저장소</a><a href="'+link('publication.json')+'">공개 자료 목록·원문 해시</a></footer></body></html>'
 
@@ -163,7 +174,7 @@ def _native_rows(markdown):
 def _visuals(destination,sources):
     metrics=lambda name:json.loads(sources[name].read_text())
     if destination=='native/index.html':
-        return '<section class="visual-grid" aria-label="측정 비교 그래프">'+native_figures(_native_rows(sources['reports/jev-native-plan/final-report.md'].read_text()))+'</section>'+flow_diagram()
+        return '<section class="visual-grid" aria-label="측정 비교 그래프">'+native_figures(_native_rows(sources['reports/jev-native-plan/final-report.md'].read_text()))+'</section><details class="flow-details"><summary>실제 평가 흐름도와 단계 설명</summary>'+flow_diagram()+'</details>'
     if destination=='historical/baseline.html':return baseline_figures(metrics(METRICS[0]))
     if destination=='historical/jev.html':
         data=metrics(METRICS[1]);comparison={'baseline':data['baseline_e2e'],'jev':data['jev_e2e']}
@@ -171,6 +182,18 @@ def _visuals(destination,sources):
     if destination=='historical/comparison.html':return historical_comparison_figures(metrics(METRICS[2]))
     if destination in ('audit/index.html','runbook/index.html'):return flow_diagram()
     return ''
+
+
+def _readable_tables(body):
+    """Keep every evidence row; disclose long tables in bounded groups."""
+    def table(match):
+        content=match.group(0)
+        rows=re.findall(r'<tr>.*?</tr>',content,re.S)
+        if len(rows)<=26:return content
+        start=content[:content.index('<tbody>')+len('<tbody>')]
+        end='</tbody></table></div>'
+        return ''.join('<details class="case-details"><summary>케이스 '+str(i+1)+'–'+str(min(i+25,len(rows)-1))+'</summary>'+start+''.join(rows[1:][i:i+25])+end+'</details>' for i in range(0,len(rows)-1,25))
+    return re.sub(r'<div class="table-wrap"[^>]*><table>.*?</table></div>',table,body,flags=re.S)
 
 
 def build_site(root,destination):
@@ -195,9 +218,13 @@ def build_site(root,destination):
         content=localize_report_markdown(sources[name].read_text());title=content.splitlines()[0].lstrip('# ')
         rendered=render_markdown(content,source=Path(name))
         figures=_visuals(target,sources)
+        sections=list(re.finditer(r'<h2\b',rendered))
         first=re.search(r'</h1>',rendered)
-        if first:rendered=rendered[:first.end()]+figures+rendered[first.end():]
+        if target=='native/index.html' and len(sections)>1:
+            position=sections[1].start();rendered=rendered[:position]+figures+rendered[position:]
+        elif first:rendered=rendered[:first.end()]+figures+rendered[first.end():]
         else:rendered=figures+rendered
+        rendered=_readable_tables(rendered)
         if target.startswith('historical/'):
             rendered='<p class="notice"><strong>과거 실험 자료</strong>최신 네이티브 A/B/C와 별도 실행입니다. 표본·조건·사용량 미확인 항목을 구분해 해석하십시오.</p>'+rendered
         page=destination/target;page.parent.mkdir(parents=True,exist_ok=True)
@@ -225,6 +252,12 @@ def build_site(root,destination):
          ('C · JEV 핵심 경로',outcome_labels[c['status']],'실제 CVDP 평가 결과 · 과제 1건'),
          ('C 전체 사용 토큰',fmt(total(c)),f'B {fmt(total(b))} 토큰 대비 '+(f'{difference:+.1f}%' if difference is not None else '차이 미확인'))])+'</div>'
     body='<h1>ACE-RTL × JEV<br>측정으로 확인하는 검증 결과</h1><p class="muted">최신 구현 검증과 과거 실험을 분리하여 보고합니다. 모든 수치와 그림은 기존 공개 측정 자료를 사용합니다.</p>'+metrics+'<div class="notice"><strong>JEV 성능 개선은 입증되지 않았습니다.</strong>최신 비교에서 B는 실제 통과했지만 C는 실패했고 전체 사용 토큰도 증가했습니다. 짧은 실패 종료 시간을 속도 향상으로 보지 않습니다. 미확인과 미실행을 0 또는 성공으로 집계하지 않습니다.</div><h2 id="overview-visuals">최신 실험 한눈에 보기</h2>'+native_figures(rows)+'<h2 id="report-library">보고서와 근거 탐색</h2><div class="cards">'+cards+'</div><h2 id="evidence-links">공개 검증 자료</h2><ul><li><a href="audit/index.html">네이티브 호출 경로 및 F01–F20 점검</a></li><li><a href="data/budget-snapshot.json">실험 예산 원장 요약</a></li><li><a href="data/verified-claims.json">검증된 CVDP 통과 주장 해시</a></li></ul><div class="source-note">비공개 데이터셋·검사기·참조 구현, 원시 실행 로그, 프롬프트와 .env 파일은 배포 대상이 아닙니다. 추가 모델 호출 없이 기존 공개 보고서만 표시합니다. 코드 식별자·API 경로·해시는 원문을 보존합니다.</div>'
+    visual_start=body.index('<h2 id="overview-visuals">')
+    library_start=body.index('<h2 id="report-library">')
+    evidence_start=body.index('<h2 id="evidence-links">')
+    visuals=body[visual_start:library_start]
+    visuals=visuals.replace('</h2>','</h2><section class="visual-grid">',1)+'</section>'
+    body=body[:visual_start]+body[library_start:evidence_start]+visuals+body[evidence_start:]
     (destination/'index.html').write_text(_page('보고서 목록',body,'index.html'))
     (destination/'publication.json').write_text(json.dumps({'schema':'public-report-site-1','sources':{
        name:hashlib.sha256(path.read_bytes()).hexdigest() for name,path in sources.items()},'files':sorted(EXPECTED_FILES)},indent=2))

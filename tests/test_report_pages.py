@@ -122,3 +122,17 @@ def test_repeated_builds_produce_identical_public_html_in_one_process(tmp_path):
     build_site(ROOT,first);build_site(ROOT,second)
     for page in first.rglob('*.html'):
         assert page.read_bytes()==(second/page.relative_to(first)).read_bytes()
+
+
+def test_reading_order_and_progressive_disclosure(tmp_path):
+    from build_report_pages import build_site
+    output=tmp_path/'site';build_site(ROOT,output)
+    native=(output/'native/index.html').read_text()
+    assert native.index('성능 우위') < native.index('<svg')
+    assert '<details class="document-outline"' in native
+    assert '<details class="flow-details"' in native
+    baseline=(output/'historical/baseline.html').read_text()
+    assert '<details class="case-details"' in baseline
+    assert '케이스 1–25' in baseline and '케이스 276–292' in baseline
+    home=(output/'index.html').read_text()
+    assert home.index('<div class="cards">') < home.index('<svg')
