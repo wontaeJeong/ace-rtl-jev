@@ -1,15 +1,18 @@
 {
   "schema": "public-report-site-1",
   "sources": {
-    "reports/jev-native-plan/final-report.md": "b819955d62b3e5c8711e69db2a5fca0a135bb6436da941e01bc8cd85998955c0",
-    "docs/jev_completion_status.md": "01429979df0e77f0ff1338c99970e423e9ab7099c41241d1efaa7fadf87425c5",
-    "docs/jev_native_runbook.md": "04ef11a20f8195ec72922885ee2cb1c384b69cbae63311dbbd2dfab0bf9d7434",
-    "docs/jev_integration_audit.md": "149584f9157b1e3a3aa7c41237cfc64c22526fe553a9bd4caba0f41abe36d3f9",
+    "reports/jev-native-plan/final-report.md": "e30fda59e28b1c87365f1141bf8de3a32c91463ced3fa8e82de566757d82ad27",
+    "docs/jev_completion_status.md": "32694e9f2d3232924368444aac2e088086b2fbd0cd54688ab3bce7c8297006b3",
+    "docs/jev_native_runbook.md": "5c08b91d2bea1caa9bcfeca90ae45987fcb51a2ee6dca269265602dbf6d239ef",
+    "docs/jev_integration_audit.md": "dc0b4def08e73e691bdb4f6cb04595f38313189190c2afd96ed11270f3fd0b70",
+    "reports/clean-baseline/comparison.md": "e9f3295eaaa7b772cdf238d5aa3da6821e3a73bfc26955fa35f5b827da649468",
+    "reports/jev-final/final-report.md": "b5f8a5b8cd52f1dad50dff6abc43a326e5241327b1d79152c40b0612f497c07a",
+    "reports/jev-comparison/comparison.md": "1c97835c56efbf3703a1ca5d099d3dce4fd43c7669d3d5fb1c49464715e445db",
     "reports/jev-native-plan/budget-snapshot.json": "6c9670f5ce937b7835996cb092541be3ad5ea526e1074e5ff39c9a8a0234c633",
     "reports/jev-native-plan/verified-claims.json": "90c1c84da592305a89f7360313f96eda44c53c4740d304553d3470e95e30ad7d",
-    "reports/clean-baseline/comparison.html": "4d4af4e06bd1040a2bc16cd0c922e2893b637d8ffe9944145f9a9ac19f3baac7",
-    "reports/jev-final/final-report.html": "620fa09ca76fdef09ebc819d3a183ee96d09f153c6b90a61c5a950dcc0230e44",
-    "reports/jev-comparison/comparison.html": "cc914596fd5c614f5d3306d1b76a7935d23cc97a75f7f526d880d7773e96cebf"
+    "reports/clean-baseline/metrics.json": "203515cde0e214f432a63f5002f41f04e55375295fe7a5569e12eb56740ec07c",
+    "reports/jev-final/metrics.json": "4352a67cf11cde77f4a21861bf2516ed611cf28c848bd629e177f82244ca3986",
+    "reports/jev-comparison/metrics.json": "0fb3e4c0d07a3cda04740e826e0609a6d86ead056481273e1bb6802a91e3822c"
   },
   "files": [
     ".nojekyll",
