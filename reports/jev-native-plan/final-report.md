@@ -1,66 +1,66 @@
-# Native JEV implementation — measured validation
+# 네이티브 JEV 구현 — 실측 검증
 
-## Outcome
+## 결과 요약
 
-Typed native D/J integration and opt-in X algorithms are implemented and covered by local contracts/integration fixtures. Default remains **`baseline_fixed`**. Real verification establishes evaluator-based PASS; this small campaign does **not** establish JEV superiority.
+타입이 명시된 네이티브 D/J 통합과 선택적으로 활성화하는 X 알고리즘을 구현하고, 로컬 계약 검사와 통합 검증용 표본으로 확인했다. 기본 모드는 **`baseline_fixed`**다. 실제 검증은 평가기에 따른 통과(`PASS`)를 확인했지만, 이 소규모 실험으로 JEV의 성능 우위를 입증하지는 못한다.
 
-PR: https://github.com/wontaeJeong/ace-rtl-jev/pull/4. Final local verification: **286 tests passed**, compile/diff checks clean; nine Important review reproductions and active integration omissions fixed in a single test-covered pass. No automatic merge or second fresh-review approval is claimed.
+구현 PR: https://github.com/wontaeJeong/ace-rtl-jev/pull/4. 보고서 작성 당시 최종 로컬 검증은 **286개 테스트 통과**였으며, 컴파일 검사와 변경 사항 공백 검사는 이상이 없었다. 중요도 높은 검토 지적 9개의 재현 사례와 활성 통합 경로의 누락을 회귀 테스트를 갖춘 한 차례 수정으로 해결했다. 당시 자동 병합이나 두 번째 신규 검토 승인을 받았다는 주장은 하지 않는다. 이후 PR 4와 PR 5는 병합되었다. 최초 Pages 게시 시점의 검증 모음은 293개였으며, 이는 당시 실측 보고서의 286개 테스트와 구분한다. 이후 한국어·Material 시각화 개선의 검증은 별도 게시 기록으로 남긴다.
 
-## Fixed A/B/C task: bus-arbiter
+## 고정 A/B/C 과제: 버스 중재기
 
-One task, one attempt, two iterations, one worker; same prepared primary model/adapter, dataset and CVDP/tool environment. X off. Warmup excluded. Requested model aliases are fixed; sampling seed and concrete resolved weight revisions are not guaranteed.
+과제 1개, 시도 1회, 반복 2회, 작업자 1명으로 진행했다. 준비된 동일한 주 모델·어댑터, 데이터셋, CVDP·도구 환경을 사용했다. X 확장은 껐으며 준비 호출은 비교에서 제외했다. 요청 모델 별칭은 고정했지만, 샘플링 시드와 실제 해석된 모델 가중치 버전은 보장하지 않는다.
 
-Comparison runtime source: `ab609ce`; signed-adder smoke source: `b16f512`. Later review fixes revalidated existing evaluator/claim artifacts rather than relabelling those as newly measured simulator runs.
+비교 실행 소스: `ab609ce`; 부호 있는 덧셈기 간이 검증 소스: `b16f512`. 이후 검토 수정에서는 기존 평가기·통과 주장 산출물을 재검증했으며, 이를 새로 측정한 시뮬레이터 실행으로 표시하지 않았다.
 
-| Arm | Outcome | Wall seconds | Primary HTTP calls | Primary tokens | JEV HTTP calls | JEV tokens |
+| 비교군 | 결과 | 경과 시간(초) | 주 모델 HTTP 호출 | 주 모델 토큰 | JEV HTTP 호출 | JEV 토큰 |
 |---|---|---:|---:|---:|---:|---:|
-| A: original `94754d7` | Infrastructure blocked; custom model backend unsupported | 1.08 | 0 | 0 | 0 | 0 |
-| B: fixed baseline | **Verified actual PASS**, iteration 2 | 37.23 | 4 | 16,624 | 0 | 0 |
-| C: core | Actual task failure after iteration 2 | 29.68 | 3 | 16,962 | 3 | 32,981 |
+| A: 원본 `94754d7` | 기반 환경 차단; 사용자 지정 모델 백엔드 미지원 | 1.08 | 0 | 0 | 0 | 0 |
+| B: 수정된 기준 실행 | **실제 통과(`PASS`) 검증**, 반복 2회차 | 37.23 | 4 | 16,624 | 0 | 0 |
+| C: 핵심 경로 | 반복 2회차 이후 실제 과제 실패 | 29.68 | 3 | 16,962 | 3 | 32,981 |
 
-C used **49,943 total tokens**, versus B's 16,624 (+200.4%). Its shorter wall time is not a speedup claim because the outcomes differ. Core executed a real `gather_evidence` transition; subsequent strict Score schema failures invoked primary analysis fallback. No model judgment was counted as benchmark success.
+C의 **전체 토큰은 49,943개**로, B의 16,624개 대비 +200.4%였다. 결과가 서로 다르므로 짧은 경과 시간을 속도 향상으로 해석하지 않는다. 핵심 경로는 실제 `gather_evidence` 전이를 실행했고, 이후 엄격한 `Score` 스키마 검사 실패로 기존 주 모델 분석 대체 경로를 호출했다. 모델의 판단을 벤치마크 성공으로 집계하지 않았다.
 
-A is excluded from the valid-evaluation denominator, but remains an end-to-end infrastructure failure. B: end-to-end/valid-evaluation-only success 1/1. C: 0/1. These single stochastic samples are insufficient for noninferiority or causal conclusions.
+A는 유효 평가 분모에서 제외하지만, 종단간 기반 환경 실패로 남긴다. B의 종단간·유효 평가만을 기준으로 한 성공률은 1/1, C는 0/1이다. 이처럼 각각 한 번의 확률적 표본으로는 비열등성이나 인과관계에 관한 결론을 내릴 수 없다.
 
-## Additional actual verification
+## 추가 실제 검증
 
-- Mixed `/v1/systemone` Choice/Noul/Score contract: valid with reported usage.
-- Frozen 25-question contract replay: valid; contract diagnostic only, not E2E improvement.
-- Intermittent actual Score responses were rejected for expected-score consistency. Additional scalar evidence instrumentation preserves supplied score versus distribution expectation; no invalid answer is approved.
-- Signed-adder `jev_core`: **verified PASS** on required service `01-new-tb`, first iteration; total wall 20.33s, worker time to verified pass 19.50s. An initial PASS does not exercise or prove a successful JEV repair branch.
-- Initial B/C run had a real multiprocessing serialization failure after evaluations. This was fixed by a RED→GREEN pickle regression; all its paid calls and results remain in the campaign ledger. It is not silently included as a successful run.
+- `/v1/systemone`의 혼합 `Choice`/`Noul`/`Score` 판단 계약: 유효했고 사용량이 보고되었다.
+- 고정된 25개 질문의 계약 재실행: 유효했다. 계약 진단일 뿐 종단간 성능 개선의 증거는 아니다.
+- 간헐적으로 실제 `Score` 응답이 기대 점수 일관성 검사에서 거부되었다. 추가 스칼라 증거 계측은 제공된 점수와 분포의 기댓값을 구분하여 보존하며, 유효하지 않은 답변을 승인하지 않는다.
+- 부호 있는 덧셈기의 `jev_core`: 필수 서비스 `01-new-tb`에서 첫 반복에 **통과(`PASS`) 검증**. 전체 경과 시간 20.33s, 작업자 시작부터 검증된 통과까지 19.50s였다. 초기 통과는 JEV 수정 분기를 실행하거나 그 성공을 입증하지 않는다.
+- 초기 B/C 실행은 평가 이후 실제 다중 프로세스 직렬화 오류를 겪었다. 실패→통과(RED→GREEN) `pickle` 회귀 테스트로 수정했으며, 유료 호출과 결과는 모두 실험 원장에 남겼다. 이 실행을 성공 실행에 암묵적으로 포함하지 않았다.
 
-## Evidence locations
+## 증거 위치
 
-Local artifacts, deliberately Git-ignored because working copies include benchmark-private harness source:
+작업 사본에 비공개 벤치마크 실행 기반 소스가 포함되어 있으므로, 다음 로컬 산출물은 의도적으로 Git 추적에서 제외했다.
 
 - `outputs/jev-full-validation/contract-smoke.json`
 - `outputs/jev-full-validation/primary-contract.json`
-- `outputs/jev-full-validation/abc/` — initial failed collection, preserved
+- `outputs/jev-full-validation/abc/` — 초기 수집 실패를 보존
 - `outputs/jev-full-validation/abc-recheck/summary.json`, `report.md`
-- `outputs/jev-full-validation/signed-adder-core/` — actual evaluator/claim/provenance
-- `outputs/jev-full-validation/campaign.sqlite` — immutable shared admission/settlement
+- `outputs/jev-full-validation/signed-adder-core/` — 실제 평가기·통과 주장·출처 이력
+- `outputs/jev-full-validation/campaign.sqlite` — 변경 불가능한 공유 호출 승인·정산 기록
 
-Published summaries contain statuses, hashes, counters and measurements—not private checker/reference source, credentials or prompt snapshots. The signed-adder verified claim binds tested hash `70c7b4f050288dda3dd6a62d35491773585aba1e701e368680d5ef583e6b3569` and evaluator hash `b37a010b2bc7ea64ffef3fe83c9b8c42e161e06fe43a8292c6e3659817cd256f`.
+공개 요약에는 상태, 해시, 계수와 측정치만 포함하며, 비공개 검사기·참조 소스, 자격 증명, 프롬프트 스냅샷은 포함하지 않는다. 부호 있는 덧셈기의 검증된 통과 주장은 검사 대상 해시 `70c7b4f050288dda3dd6a62d35491773585aba1e701e368680d5ef583e6b3569`와 평가기 해시 `b37a010b2bc7ea64ffef3fe83c9b8c42e161e06fe43a8292c6e3659817cd256f`에 결합되어 있다.
 
-## Extension/data status
+## 확장 및 데이터 상태
 
-| Extension | Implementation/verification | Actual performance experiment |
+| 확장 | 구현·검증 | 실제 성능 실험 |
 |---|---|---|
-| X-01 beam | Own-fit/risk gated alternatives, frozen-parent independent files/actions, bounded generation checkpoints, discarded outcomes; native fixture | Not funded/run; no benefit claimed |
-| X-02 scheduling | Minimum exploration/fair next-iteration checkpoint admission; no paid-call refund or process pause/resume | Not run |
-| X-03 routing | User alias allowlist, maximum individual risk, output allowance and evaluator requirement | Not run |
-| X-04 lessons | Frozen snapshot retrieval; bounded evidence-linked candidate curation; no online benchmark memory update | No real cross-task memory study |
-| X-05 learned policy | Stdlib stump, executed-action/valid-next-evaluation labels, task/design-family group split, future-feature rejection; fixture artifacts refused by native | Real-data training incomplete: insufficient independent families/outcomes |
-| X-06 questions | Pinned registry/snapshot, dev-only proposals, order/wording/negation/missing/duplicate perturbation metrics; no runtime self-modification | No calibrated dev/held-out semantic accuracy study |
+| X-01 빔 탐색 | 각 대안 자체의 적합도·위험도 검사, 고정된 부모 상태에서 독립 파일·동작 생성, 제한 예산 생성 점검 지점, 폐기 결과 보존; 네이티브 검증용 표본 | 예산 미배정·미실행; 이득을 주장하지 않음 |
+| X-02 작업 배정 | 최소 탐색과 공정한 다음 반복 점검 지점 승인; 유료 호출 환불이나 프로세스 일시 중지·재개 없음 | 미실행 |
+| X-03 모델 선택 | 사용자 별칭 허용 목록, 개별 위험도의 최댓값, 출력 허용량과 평가기 요건 | 미실행 |
+| X-04 교훈 기억 | 고정된 스냅샷 검색; 제한 예산 내 증거 연결 후보 선별; 실행 중 벤치마크 기억 갱신 없음 | 실제 과제 간 기억 연구 없음 |
+| X-05 학습 정책 | 표준 라이브러리 단일 분기 결정 트리, 실행 동작·유효 후속 평가 레이블, 과제·설계 계열별 그룹 분할, 미래 특성 거부; 네이티브 실행에서 검증용 표본 산출물 거부 | 실제 데이터 학습 미완료: 독립적인 계열·결과 부족 |
+| X-06 질문 | 고정된 등록부·스냅샷, 개발용 제안만 허용, 순서·표현·부정·누락·중복 교란 지표; 실행 중 자체 수정 없음 | 보정된 개발·별도 평가용 데이터의 의미 정확도 연구 없음 |
 
-All extensions default off and are excluded from B/C. Raw VCD numeric analysis is unsupported; diagnostics inspect only already-emitted permitted log/trace text and reject raw waveform input.
+모든 확장은 기본적으로 비활성화되어 있으며 B/C에서 제외했다. 원시 VCD 파형의 수치 분석은 지원하지 않는다. 진단은 이미 출력된 허용 로그·추적 텍스트만 검사하고 원시 파형 입력은 거부한다.
 
-## Blocking limits and rerun
+## 차단 요인과 재실행 제한
 
-- Original A cannot use the prepared non-NVIDIA role model without changing its old backend. Preserve that blocker rather than call a modified program the exact original. A compatible environment/model, or a separately labelled adapted baseline, is required for a complete controlled A→B estimate.
-- Provider Score contract failures are intermittent. Invalid responses are retained as failures/fallback, not fixed by integerization or invented probabilities.
-- Primary monetary pricing and generic SystemOne receipt currency are not established. Report tokens and conservative exposure, not zero-price savings. Provider-side billing limits are needed for an unconditional financial cap.
-- More tasks/repetitions, development labels and separate X ablations need a **new explicit allocation**; do not reset the spent campaign.
+- 원본 A는 기존 백엔드를 바꾸지 않으면 준비된 비 NVIDIA 역할 모델을 사용할 수 없다. 수정된 프로그램을 정확한 원본이라고 부르지 않고 이 차단 요인을 보존한다. 완전한 통제 A→B 추정에는 호환 환경·모델 또는 별도로 표시한 조정 기준 실행이 필요하다.
+- 공급자의 `Score` 계약 실패는 간헐적이다. 유효하지 않은 응답은 실패·기존 모델 대체 경로로 남기며, 정수화나 가공의 확률로 고치지 않는다.
+- 주 모델의 금액 단가와 일반 `SystemOne` 영수증의 통화는 확인되지 않았다. 토큰과 보수적인 비용 노출을 보고하며, 비용이 0인 절감으로 표시하지 않는다. 무조건적인 금액 상한에는 공급자 측 과금 제한이 필요하다.
+- 추가 과제·반복, 개발 레이블과 개별 X 확장 제거 비교 실험에는 **새로운 명시적 예산 배정**이 필요하다. 소진한 실험 예산을 초기화하지 않는다.
 
-Exact bounded rerun commands and budget/configuration examples: [`docs/jev_native_runbook.md`](../../docs/jev_native_runbook.md). Static source audit and F01–F20 dispositions: [`docs/jev_integration_audit.md`](../../docs/jev_integration_audit.md). Final verification/remaining review findings are recorded in the completion summary.
+정확한 제한 예산 재실행 명령과 예산·설정 예시: [`docs/jev_native_runbook.md`](../../docs/jev_native_runbook.md). 정적 소스 감사와 F01–F20 처리 결과: [`docs/jev_integration_audit.md`](../../docs/jev_integration_audit.md). 최종 검증과 남은 검토 사항은 완료 요약에 기록했다.

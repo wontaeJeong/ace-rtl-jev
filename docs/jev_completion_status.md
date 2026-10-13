@@ -1,74 +1,74 @@
-# Completion and review evidence
+# 완료 현황과 검토 증거
 
-Implementation scope is the supplied `ACE_RTL_JEV_OPENCODE_IMPLEMENTATION_PLAN.md`; evidence is not a claim of statistical performance superiority.
+구현 범위는 제공된 `ACE_RTL_JEV_OPENCODE_IMPLEMENTATION_PLAN.md`다. 아래 증거는 통계적 성능 우위에 대한 주장이 아니다.
 
-## Phase gates
+## 단계별 통과 요건
 
-| Phase | Implemented / active path | Verification |
+| 단계 | 구현·활성 실행 경로 | 검증 |
 |---|---|---|
-| D-01 | Canonical contract, metadata/negation detection, same roles/targets | task and native fixtures |
-| D-02 | Authoritative service/check validity, status/exit consistency, timeout/incomplete, diagnostic separation, comparable nullable metrics | observation/review regressions; real CVDP claims |
-| D-03 | Manifest-only paths, all mutable files, initial/public context distinction, raw/normalized/actual prepared bytes | bundle/context/binding tests |
-| D-04 | Baseline and deterministic effects before optional inference, action/observation links | native baseline/terminal/rollback tests |
-| D-05 | PASS/fatal/cancel/deadline/last iteration gates, retry re-enters full gate | native terminal and fatal-retry fixtures |
-| D-06 | Durable locked verified winner, recoverable invalid claims, typed cancellation | process concurrency/crash tests |
-| D-07 | Process-local durable ledger, actual HTTP receipts, unknown reservations, retained loser artifacts | runtime/admission tests, campaign snapshot |
-| D-08 | HTTP/subprocess retries under common deadline; run/task/attempt wall and atomic scoped admission | runtime and parent deadline/crash fixtures |
-| D-09 | Structured reflection and public delivery views, no nested complete prompt, estimated packing | reflection/context/privacy fixtures |
-| D-10 | Episode isolation, objective comparison against archive, functional-first optimization, new rollback state/repair action and current budget | best/rollback/active cancellation fixtures |
-| D-11 | Evaluation gate requires verified determinism/seed/config/tool/harness; pinned answer cache, unknown-alias fallback | cache/no-op tests; actual runs keep evaluation cache off |
-| J-01 | Actual separate SystemOne transport and all primitive distributions, strict finite/schema/provider validation | offline contracts and actual mixed/replayed endpoint calls |
-| J-02 | Typed effect judgments consumed as semantic proposals; deterministic resolution/masked/not-executed facts cannot be overridden | semantic-effect and history fixtures |
-| J-03 | Observed symptom/target IDs, bounded hypotheses explicitly unverified, own-fit supported hypothesis | policy and diagnostic candidate tests |
-| J-04 | Closed eligible actions, stale/no-op/version/budget checks, explicit termination | policy plus actual native action fixtures |
-| J-05 | Selected action's own fit, individual risks, preserved raw distributions, experimental thresholds | own-fit/severe-risk tests |
-| J-06 | Narrow recipes instruct generator; deep/focused fallback retains real evaluator | recipe/deep/native tests |
-| J-07 | Canonical tasks bypass classifier; ambiguous public contract can receive one typed proposal | registry/task fixtures; real smoke tasks canonical |
-| J-08 | Rule Noul/Score, public bounded context and typed native history; contradictory/passing evidence mandatory | rule/context/history fixtures |
-| J-09 | Bounded novel view of existing emitted artifact, no repeated source/no-op diagnostics | diagnostic tests; real C gather/fallback path |
-| X-01 | Actual native precommitted frozen-parent branches and per-branch files/provenance/outcomes | native two-branch fixture; real extension ablation not run |
-| X-02 | Parent-owned fair checkpoint admission with crashed-slot recovery; no pause/resume or fee refund | scheduling/dead-worker fixtures; actual ablation not run |
-| X-03 | User aliases, maximum risk, actual current reflector/generator model/output allowance | routing/review fixtures; actual ablation not run |
-| X-04 | Frozen retrieval and evidence-bound candidate curation; no online evaluation-memory update | lesson fixtures; cross-task study not run |
-| X-05 | Explainable optional offline pipeline, executed-action links, comparable improvement labels, group splitting and fixture refusal | offline/CLI/review fixtures; real-data training incomplete |
-| X-06 | Dev-only proposals and pinned question/threshold/model snapshots, robustness perturbations | offline fixtures; calibration/held-out model accuracy not established |
+| D-01 | 표준 계약, 메타데이터·부정 감지, 역할 간 동일 계약·대상 | 과제·네이티브 검증용 표본 |
+| D-02 | 권위 있는 서비스·검사 유효성, 상태·종료 코드 일관성, 시간 초과·미완료 처리, 진단 분리, 비교 가능한 결측 허용 지표 | 관측·검토 회귀 테스트; 실제 CVDP 통과 주장 |
+| D-03 | 명세에 선언된 경로만 사용, 모든 변경 가능 파일, 초기·공개 맥락 구분, 원시·정규화·실제 준비 바이트 | 묶음·맥락·결합 테스트 |
+| D-04 | 선택적 추론 전에 기준 실행·결정적 효과 기록, 동작·관측 연결 | 네이티브 기준 실행·종료·되돌리기 테스트 |
+| D-05 | 통과(`PASS`)·치명적 오류·취소·기한·마지막 반복 검사, 재시도 시 전체 검사 재진입 | 네이티브 종료·치명적 오류 재시도 검증용 표본 |
+| D-06 | 잠금과 영속성을 갖춘 검증 승자, 잘못된 통과 주장 복구, 타입이 명시된 취소 | 프로세스 동시성·비정상 종료 테스트 |
+| D-07 | 프로세스별 영속 원장, 실제 HTTP 영수증, 미확인 사용량 예약, 패자 산출물 보존 | 실행·호출 승인 테스트, 실험 스냅샷 |
+| D-08 | 공통 기한 내 HTTP·하위 프로세스 재시도; 실행·과제·시도 경과 시간과 범위별 원자적 승인 | 실행·부모 기한·비정상 종료 검증용 표본 |
+| D-09 | 구조화된 회고와 공개 전달 화면, 전체 프롬프트 중첩 없음, 예상 크기 기반 구성 | 회고·맥락·개인정보 보호 검증용 표본 |
+| D-10 | 에피소드 격리, 보관 기록과 목적 지표 비교, 기능 우선 최적화, 새 되돌리기 상태·수정 동작·현재 예산 | 최선 상태·되돌리기·활성 취소 검증용 표본 |
+| D-11 | 평가 재사용에 검증된 결정성·시드·설정·도구·실행 기반 요구; 고정 답변 캐시, 미확인 별칭은 기존 경로로 대체 | 캐시·무동작 테스트; 실제 실행은 평가 캐시 비활성화 |
+| J-01 | 실제 분리된 `SystemOne` 전송과 모든 판단 기본 요소의 분포, 엄격한 유한값·스키마·공급자 검증 | 오프라인 계약과 실제 혼합·재실행 엔드포인트 호출 |
+| J-02 | 타입이 명시된 효과 판단을 의미적 제안으로 사용; 결정적 해결·마스킹·미실행 사실을 덮어쓰지 못함 | 의미적 효과·이력 검증용 표본 |
+| J-03 | 관측 증상·대상 식별자, 명시적으로 미검증인 제한된 가설, 자체 적합도 근거가 있는 가설 | 정책·진단 후보 테스트 |
+| J-04 | 닫힌 적격 동작 집합, 오래된 상태·무동작·버전·예산 검사, 명시적 종료 | 정책·실제 네이티브 동작 검증용 표본 |
+| J-05 | 선택 동작 자체의 적합도, 개별 위험도, 원시 분포 보존, 실험적 임계값 | 자체 적합도·심각 위험 테스트 |
+| J-06 | 좁은 수정 절차로 생성기 지시; 심층·집중 분석의 기존 모델 대체 경로에서도 실제 평가기 유지 | 수정 절차·심층·네이티브 테스트 |
+| J-07 | 표준 과제는 분류기 우회; 모호한 공개 계약에는 타입이 명시된 제안 1회 허용 | 등록부·과제 검증용 표본; 실제 간이 검증 과제는 표준 과제 |
+| J-08 | 규칙 `Noul`/`Score` 판단, 공개된 제한 맥락과 타입이 명시된 네이티브 이력; 모순·통과 증거 필수 | 규칙·맥락·이력 검증용 표본 |
+| J-09 | 기존 출력 산출물에 대한 제한된 새 관점, 반복 소스·무동작 진단 없음 | 진단 테스트; 실제 C의 증거 수집·기존 모델 대체 경로 |
+| X-01 | 실제 네이티브 사전 확정·고정 부모 분기와 분기별 파일·출처 이력·결과 | 네이티브 2분기 검증용 표본; 실제 확장 제거 비교 실험 미실행 |
+| X-02 | 부모 소유의 공정한 점검 지점 승인과 비정상 종료 슬롯 복구; 일시 중지·재개·요금 환불 없음 | 작업 배정·종료 작업자 검증용 표본; 실제 제거 비교 실험 미실행 |
+| X-03 | 사용자 별칭, 최대 위험도, 실제 현재 회고기·생성기 모델·출력 허용량 | 모델 선택·검토 검증용 표본; 실제 제거 비교 실험 미실행 |
+| X-04 | 고정 검색과 증거 결합 후보 선별; 실행 중 평가 기억 갱신 없음 | 교훈 검증용 표본; 과제 간 연구 미실행 |
+| X-05 | 설명 가능한 선택적 오프라인 처리, 실행 동작 연결, 비교 가능한 개선 레이블, 그룹 분할과 검증용 표본 거부 | 오프라인·CLI·검토 검증용 표본; 실제 데이터 학습 미완료 |
+| X-06 | 개발용 제안만 허용, 고정 질문·임계값·모델 스냅샷, 견고성 교란 | 오프라인 검증용 표본; 보정·별도 평가용 데이터의 모델 정확도 미확인 |
 
-No raw VCD numeric parser is claimed; this diagnostic implementation rejects raw waveform content and inspects permitted emitted text only. Default mode remains `baseline_fixed`, and every X flag is false.
+원시 VCD 수치 파서를 구현했다고 주장하지 않는다. 이 진단 구현은 원시 파형 내용을 거부하고 허용된 출력 텍스트만 검사한다. 기본 모드는 `baseline_fixed`이며, 모든 X 플래그는 거짓이다.
 
-## Whole-branch review and fix pass
+## 전체 브랜치 검토와 수정
 
-Fresh read-only reviewer inspected `880b7c9..b16f512`; assessment was “not ready” with nine Important findings. Each reproduced failure was fixed with RED→GREEN regression evidence, followed by the full suite. No second fresh review is claimed.
+새로운 읽기 전용 검토자가 `880b7c9..b16f512`를 검사했고, 중요 지적 9개와 함께 “준비되지 않음”으로 평가했다. 재현된 각 실패는 실패→통과(RED→GREEN) 회귀 증거로 수정한 뒤 전체 테스트를 실행했다. 두 번째 신규 검토를 받았다는 주장은 하지 않는다.
 
-| Finding | Fix / regression |
+| 지적 사항 | 수정·회귀 검증 |
 |---|---|
-| Contradictory service status could pass | rejects status/exit contradiction |
-| Auxiliary timeout words invalidated authoritative PASS | valid authoritative completion takes precedence |
-| Raw service error source could reach models | allowlisted public observation for current/before/best/lesson views; raw result retained only as artifact |
-| Retry could continue after fatal/cancel/deadline | complete terminal re-gate after retried evaluation |
-| Best compared against predecessor, not best | archived objective comparison; functional-first/Pareto optimization |
-| Rollback action/focus/evidence/budget mismatch | explicit reused activated state, current budget, restored evidence/focus and newly bound repair action |
-| Cancel versions collided with activated versions | durable latest active-state checkpoint consumed by parent |
-| Crashed scheduler slot leaked | dead-process recovery releases slot/admission |
-| Improvement labels always false | comparable measured objective deltas, unavailable labels rejected |
+| 모순된 서비스 상태가 통과할 수 있음 | 상태·종료 코드 모순 거부 |
+| 보조 로그의 시간 초과 표현이 권위 있는 통과를 무효화 | 유효한 권위 있는 완료 결과 우선 |
+| 원시 서비스 오류 소스가 모델에 전달될 수 있음 | 현재·이전·최선·교훈 화면에 허용 목록 기반 공개 관측만 전달; 원시 결과는 산출물로만 보존 |
+| 치명적 오류·취소·기한 이후에도 재시도 진행 가능 | 재시도 평가 이후 전체 종료 요건 재검사 |
+| 최선이 아니라 직전 상태와 비교 | 보관된 목적 지표 비교; 기능 우선·파레토 최적화 |
+| 되돌리기의 동작·초점·증거·예산 불일치 | 재사용 활성 상태 명시, 현재 예산, 복원된 증거·초점과 새로 결합한 수정 동작 |
+| 취소 버전과 활성화 버전 충돌 | 부모가 최신 활성 상태의 영속 점검 기록 사용 |
+| 비정상 종료된 작업 배정 슬롯 누수 | 종료 프로세스 복구로 슬롯·승인 해제 |
+| 개선 레이블이 항상 거짓 | 비교 가능한 실측 목적 지표 차이 사용, 사용할 수 없는 레이블 거부 |
 
-The four initially Minor functional omissions were regraded because the user requested active integration: typed native history now reaches SystemOne; semantic effect proposals are consumed conservatively; reflector routing updates `LLMClient.model` at the current action and applies output allowance; absent/malformed diagnostic duration is nullable rather than fabricated zero.
+초기에 낮은 중요도로 분류한 기능 누락 4개는 사용자가 활성 통합을 요청함에 따라 다시 평가했다. 타입이 명시된 네이티브 이력이 이제 `SystemOne`에 전달되고, 의미적 효과 제안은 보수적으로 사용된다. 회고기 모델 선택은 현재 동작에서 `LLMClient.model`을 갱신하고 출력 허용량을 적용한다. 진단 시간이 없거나 잘못된 경우에는 가공의 0이 아니라 결측값을 사용한다.
 
-## Rulings and limitations retained
+## 유지한 판단과 제한
 
-- Supplied detailed design was executed without another planning approval pause, as explicitly requested; independent owners were parallelized while native integration remained one owner.
-- Worktree was created from fetched `origin/main`, then fast-forwarded to the original user HEAD to retain eleven prepared commits. Main and existing worktree/settings were not reset or overwritten.
-- Original A is kept unmodified and infrastructure-blocked with the prepared custom model. A separate adapted baseline would be a different experiment, not a silently patched original.
-- Provider Score contract failures stay rejected. No normalization, integerization or fabricated probability distribution was used to buy a valid decision.
-- A single failed episode lesson stays a candidate; benchmark memory is frozen. Fixture learned artifacts cannot become native production policy.
-- Provider alias resolution, primary money pricing, actual invoices/upstream cancellation billing, statistical noninferiority/causal superiority, unexecuted outcomes, real-data learning quality, Ubuntu/commercial EDA/full legacy-agent E2E, exhaustive nondeterministic races are not established by these tests. They require separate evidence/allocation, not guessed results.
-- No hidden checker/reference/mutation source or `.env` values were used to expand model inputs. The review boundary reproduction was hypothetical, not evidence of leakage in the recorded trials.
+- 명시적 요청에 따라 제공된 상세 설계를 추가 계획 승인 대기 없이 실행했다. 독립 담당자는 병렬로 작업했고 네이티브 통합은 한 담당자가 맡았다.
+- 갱신한 `origin/main`에서 워크트리를 만든 뒤, 준비된 커밋 11개를 보존하도록 원래 사용자 `HEAD`로 빨리 감기했다. 기본 저장소와 기존 워크트리·설정은 초기화하거나 덮어쓰지 않았다.
+- 원본 A는 수정하지 않았으며, 준비된 사용자 지정 모델로는 기반 환경이 차단된다. 별도 조정 기준 실행은 다른 실험이며 원본을 암묵적으로 수정한 것이 아니다.
+- 공급자의 `Score` 계약 실패는 계속 거부한다. 유효한 결정을 만들기 위해 정규화·정수화·가공의 확률 분포를 사용하지 않았다.
+- 단일 실패 에피소드의 교훈은 후보로 남고 벤치마크 기억은 고정된다. 검증용 표본의 학습 산출물은 네이티브 운영 정책이 될 수 없다.
+- 공급자 별칭의 실제 모델 해석, 주 모델 금액 단가, 실제 청구서·상위 서비스 취소 과금, 통계적 비열등성·인과적 우위, 미실행 결과, 실제 데이터 학습 품질, Ubuntu·상용 EDA·전체 기존 에이전트 종단간 실행, 비결정적 경쟁 상태의 완전한 검증은 이 테스트로 확인되지 않았다. 추정 결과가 아니라 별도 증거·예산 배정이 필요하다.
+- 모델 입력을 확장하는 데 숨겨진 검사기·참조·변이 소스나 `.env` 값을 사용하지 않았다. 검토 경계 재현은 가정적 사례이며, 기록된 실험에서 정보가 유출되었다는 증거가 아니다.
 
-## Final evidence
+## 최종 증거
 
-- Full local suite: **286 passed**; compile checks and `git diff --check` clean.
-- Final validators revalidated both existing actual CVDP winner claims: bus-arbiter (`direct`) and signed-adder (`01-new-tb`). Their tests were run before the review fix commit; this revalidation is not labelled a new simulator measurement.
-- Actual aggregate campaign includes failed trials, warmups and contract diagnostics: **16 primary HTTP attempts / 68,174 reported tokens**, **8 JEV attempts / 79,973 reported tokens** at the published snapshot. No unknown-token reservations then remained. JEV conservative exposure $0.016 is not an established invoice; primary currency cost unknown.
-- Measured A/B/C outcomes and limitations: [`reports/jev-native-plan/final-report.md`](../reports/jev-native-plan/final-report.md).
-- Usage and exact rerun commands: [`docs/jev_native_runbook.md`](jev_native_runbook.md).
+- 당시 전체 로컬 테스트: **286개 통과**; 컴파일 검사와 `git diff --check` 이상 없음. 최초 Pages 게시 시점의 검증 모음 293개와 구분하며, 이후 한국어·시각화 게시 검증 역시 새로운 벤치마크 측정이 아니다.
+- 최종 검증기는 기존 실제 CVDP 승자 주장 2개, 버스 중재기(`direct`)와 부호 있는 덧셈기(`01-new-tb`)를 재검증했다. 해당 테스트는 검토 수정 커밋 전에 실행되었으며, 이번 재검증을 새로운 시뮬레이터 측정으로 표시하지 않는다.
+- 실제 전체 실험에는 실패 시도·준비 호출·계약 진단이 포함된다. 공개 스냅샷 기준 **주 모델 HTTP 시도 16회 / 보고된 토큰 68,174개**, **JEV 시도 8회 / 보고된 토큰 79,973개**다. 당시 미확인 토큰 예약은 남아 있지 않았다. JEV의 보수적인 비용 노출 $0.016은 확정된 청구서가 아니며, 주 모델의 통화 기준 비용은 미확인이다.
+- 실측 A/B/C 결과와 제한: [`reports/jev-native-plan/final-report.md`](../reports/jev-native-plan/final-report.md).
+- 사용법과 정확한 재실행 명령: [`docs/jev_native_runbook.md`](jev_native_runbook.md).
 
-Remaining experiment/data work is listed explicitly above. The local isolated worktree and complete ignored artifacts are preserved for review/reproduction; no automatic merge or cleanup is performed.
+남은 실험·데이터 작업은 위에 명시했다. 로컬 격리 워크트리와 추적 제외된 전체 산출물을 검토·재현용으로 보존했다. 원래 완료 보고 시점에는 자동 병합이나 정리를 수행하지 않았다. 이후 PR 4와 PR 5는 병합되었으며, 이 사실이 당시 측정·검토 범위를 바꾸지는 않는다.

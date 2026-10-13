@@ -1,177 +1,94 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACE-RTL JEV budgeted evaluation</title><style>body{font:15px system-ui;background:#f3f6fb;color:#17243c;margin:0}main{max-width:1200px;margin:auto;padding:32px}section,.card{background:white;padding:20px;border:1px solid #dfe6f1;border-radius:12px;margin:16px 0}.notice{background:#fff4d6;padding:18px;border-left:4px solid #b78500}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:9px;border-bottom:1px solid #e5eaf2}pre{white-space:pre-wrap;overflow-wrap:anywhere}.cards{display:flex;gap:12px;flex-wrap:wrap}.card b{display:block;font-size:23px}.scroll{overflow:auto}</style></head><body><main><h1>JEV-like 제한 예산 검증</h1><p class="notice"><strong>Baseline 기본 유지 · JEV는 실험적 opt-in</strong><br>실측 case 토큰 45979 → 50269 (+9.33%), 평균 case 시간 43.794 → 65.415 s. 실제 primary fallback 1회.</p><p class="notice">판단 지점 48개 + 실제 CVDP 1개. 전체 292-case JEV, 반복, ablation은 NOT RUN. 부분집합 토큰 절감을 전체 효과로 일반화하지 않으며 미확인 비용은 0으로 처리하지 않는다.</p><section><h2>판단 지점 실측</h2><table><tr><th>complete</th><td>True</td></tr><tr><th>selected_count</th><td>48</td></tr><tr><th>executed_count</th><td>48</td></tr><tr><th>valid_decisions</th><td>45</td></tr><tr><th>decision_errors</th><td>3</td></tr><tr><th>accepted_decisions</th><td>13</td></tr><tr><th>would_fallback_count</th><td>35</td></tr><tr><th>actual_primary_fallback_calls</th><td>0</td></tr><tr><th>accepted_already_all_pass_count</th><td>11</td></tr><tr><th>historical_primary_tokens</th><td>622384</td></tr><tr><th>actual_jev_tokens</th><td>159308</td></tr><tr><th>unknown_jev_usage_calls</th><td>0</td></tr><tr><th>actual_jev_usd_known</th><td>0.006569219999999998</td></tr><tr><th>accepted_historical_primary_tokens</th><td>152539</td></tr><tr><th>accepted_actual_jev_tokens</th><td>37083</td></tr><tr><th>accepted_point_token_reduction_percent</th><td>75.68949580107383</td></tr><tr><th>hypothetical_tokens_with_historical_fallback</th><td>629153</td></tr><tr><th>primary_proxy_labeled_count</th><td>19</td></tr><tr><th>primary_proxy_agree_count</th><td>1</td></tr><tr><th>primary_proxy_agreement_rate</th><td>0.05263157894736842</td></tr><tr><th>all_pass_oracle_count</th><td>12</td></tr><tr><th>all_pass_resolved_count</th><td>12</td></tr><tr><th>all_pass_resolved_rate</th><td>1.0</td></tr></table></section>
-<div class="tag">REAL EVALUATOR EVIDENCE · NO INFERRED SUCCESSES</div><h1>ACE-RTL 측정 리포트</h1><div class="cards"><div class="card">Baseline cases<b>1</b></div><div class="card">Baseline passed<b>1</b></div><div class="card">Known tokens<b>45,979</b></div><div class="card">Batch wall seconds<b>Unavailable</b></div></div><div class="notice">Matched measured case data only. Small-cohort stochastic outcomes do not establish general improvements. Historical subset projection: original concurrent batch time is not reused; no controlled batch-wall speedup claim. Token estimates, unknown billing and primary currency prices are not treated as zero. Warmup is separate in performance statistics but included in spending controls.</div><section><h2>Baseline / JEV-like</h2><table><thead><tr><th>Metric</th><th>Baseline</th><th>JEV-like</th></tr></thead><tbody><tr><th>Cases</th><td>1</td><td>1</td></tr><tr><th>Passed</th><td>1</td><td>1</td></tr><tr><th>Success rate</th><td>1.000</td><td>1.000</td></tr><tr><th>Known reported tokens</th><td>45,979</td><td>50,269</td></tr><tr><th>Complete total tokens</th><td>45,979</td><td>50,269</td></tr><tr><th>Batch wall seconds</th><td>Unavailable</td><td>65.421</td></tr><tr><th>Mean case seconds</th><td>43.794</td><td>65.415</td></tr><tr><th>Mean API latency seconds</th><td>5.182</td><td>6.922</td></tr><tr><th>Failed/error cases</th><td>0</td><td>0</td></tr></tbody></table></section><section><h2>Case outcomes</h2><div class="scroll"><table><thead><tr><th>Case</th><th>Baseline</th><th>JEV-like</th><th>Baseline s</th><th>JEV s</th></tr></thead><tbody><tr><td>cvdp_copilot_bus_arbiter_0001</td><td>success</td><td>success</td><td>43.794</td><td>65.415</td></tr></tbody></table></div></section><details><summary>Full methodology, provider accounting and limitations</summary><pre># ACE-RTL measured comparison
-
-Baseline state: `completed`; coverage 1/1.
-Improved state: `completed`.
-
-| 지표 | Baseline | JEV-like | 변화 (JEV − baseline) |
-|---|---:|---:|---:|
-| 평가 케이스 수 | 1 | 1 | 0 |
-| 성공 케이스 수 | 1 | 1 | 0 |
-| 성공률 (0–1) | 1.000 | 1.000 | 0.000 |
-| 총 토큰 (reported + disclosed estimates) | 45979 | 50269 | 4290 |
-| 평균 토큰/케이스 | 45979.000 | 50269.000 | 4290.000 |
-| 총 실행 시간 (batch wall s) | Unavailable | 65.421 | Unavailable |
-| 평균 실행 시간/케이스 (s) | 43.794 | 65.415 | 21.621 |
-| 주력 LLM 호출 수 | 8 | 7 | -1 |
-| JEV-like 호출 수 | 0 | 2 | 2 |
-| 평균 호출 지연 시간 (s) | 5.182 | 6.922 | 1.740 |
-| 실패 및 오류 건수 | 0 | 0 | 0 |
-
-Retrospective hook coverage: 2 evaluation-phase JEV calls (warmup excluded).
-
-Measured token savings (%): -9.330.
-Measured batch wall-time savings (%): Unavailable.
-
-## Conditions and measurement
-
-```json
-{
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#365e9d"><title>ACE-RTL JEV-like 최종 제한 예산 검증 보고서 | ACE-RTL × JEV</title><style>
+:root{color-scheme:light;--md-sys-color-primary:#365e9d;--md-sys-color-on-primary:#fff;--md-sys-color-primary-container:#d8e2ff;--md-sys-color-on-primary-container:#071c38;--md-sys-color-surface:#faf9ff;--md-sys-color-surface-container:#eeedf4;--md-sys-color-surface-container-low:#f4f3fa;--md-sys-color-on-surface:#1b1b1f;--md-sys-color-on-surface-variant:#44474f;--md-sys-color-outline-variant:#c4c6d0;--md-sys-color-error:#ba1a1a;--md-sys-color-tertiary:#006a64;--md-sys-elevation-1:0 1px 3px #1b1b1f1f,0 1px 2px #1b1b1f14;--md-sys-elevation-2:0 3px 9px #1b1b1f16;--md-sys-shape-large:28px;--md-sys-shape-medium:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--md-sys-color-surface);color:var(--md-sys-color-on-surface);font:16px/1.85 "Roboto","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--md-sys-color-primary);text-underline-offset:4px}a:focus-visible,summary:focus-visible{outline:3px solid var(--md-sys-color-tertiary);outline-offset:4px;border-radius:8px}.skip-link{position:absolute;left:16px;top:-100px;z-index:20;background:var(--md-sys-color-primary);color:white;padding:12px}.skip-link:focus{top:8px}
+.app-bar{position:sticky;top:0;z-index:10;background:#faf9fff2;backdrop-filter:blur(14px);border-bottom:1px solid #c4c6d05c;box-shadow:var(--md-sys-elevation-1)}.app-bar-inner{max-width:1460px;margin:auto;min-height:76px;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;gap:12px;align-items:center;text-decoration:none;font-weight:750;color:var(--md-sys-color-on-surface)}.brand-mark{width:44px;height:44px;background:var(--md-sys-color-primary-container);color:var(--md-sys-color-on-primary-container);display:grid;place-items:center;border-radius:14px;font-size:14px;letter-spacing:1px}.brand small{display:block;color:var(--md-sys-color-on-surface-variant);font-size:12px;font-weight:450}
+.app-nav{display:flex;gap:8px;flex-wrap:wrap}.app-nav a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:9px 16px;border-radius:24px;text-decoration:none;color:var(--md-sys-color-on-surface-variant);font-size:14px;font-weight:600}.app-nav a:hover{background:var(--md-sys-color-surface-container)}.app-nav a[aria-current=page]{background:var(--md-sys-color-primary-container);color:var(--md-sys-color-on-primary-container)}
+.page-container{max-width:1460px;margin:32px auto;padding:0 28px}.report-layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:28px;align-items:start}.document-outline{position:sticky;top:108px;background:var(--md-sys-color-surface-container-low);border-radius:var(--md-sys-shape-medium);padding:20px;font-size:13px;max-height:calc(100vh - 136px);overflow:auto}.document-outline h2{font-size:15px;margin:0 0 12px;letter-spacing:.01em}.document-outline a{display:block;padding:8px 10px;text-decoration:none;color:var(--md-sys-color-on-surface-variant);border-left:2px solid transparent}.document-outline a:hover{background:var(--md-sys-color-primary-container);border-left-color:var(--md-sys-color-primary);border-radius:4px}.document-outline .subheading{padding-left:22px;font-size:12px}
+.report-content{min-width:0;background:white;border-radius:var(--md-sys-shape-large);padding:36px 42px;box-shadow:var(--md-sys-elevation-1)}.report-content h1{font-size:clamp(27px,3.4vw,42px);font-weight:650;letter-spacing:-.04em;line-height:1.4;margin:4px 0 26px}.report-content h2{font-size:23px;line-height:1.6;letter-spacing:-.03em;margin:44px 0 18px;padding-bottom:10px;border-bottom:1px solid #e1e2e9}.report-content h3{font-size:18px;margin-top:30px}.report-content p{max-width:82ch;margin:16px 0}.report-content li{margin:9px 0}.report-content ul{padding-left:24px}.eyebrow{font-size:12px;color:var(--md-sys-color-primary);font-weight:750;letter-spacing:.1em;margin:0 0 8px}
+.notice{display:block;border:1px solid #e6c584;background:#fff7e6;border-radius:var(--md-sys-shape-medium);padding:20px 24px;margin:22px 0;color:#5c4100}.notice strong{display:block;font-size:18px;margin-bottom:8px}.muted,footer{color:var(--md-sys-color-on-surface-variant);font-size:13px}.cards,.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:24px 0}.card,.metric-card{background:var(--md-sys-color-surface-container-low);border:1px solid #e1e2e9;border-radius:24px;padding:22px;min-width:0}.card{transition:box-shadow .2s,background .2s}.card:hover{background:var(--md-sys-color-primary-container);box-shadow:var(--md-sys-elevation-2)}.card h2{font-size:18px;border:0;padding:0;margin:8px 0 10px}.card a{text-decoration:none}.card p{font-size:14px;line-height:1.8;margin:0}.metric-card .metric-label{font-size:13px;color:var(--md-sys-color-on-surface-variant)}.metric-card .metric-value{display:block;font-size:30px;font-weight:700;line-height:1.4;font-variant-numeric:tabular-nums;margin:10px 0}.metric-card .metric-detail{font-size:12px;color:var(--md-sys-color-on-surface-variant)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:8px;font-size:12px;font-weight:650;line-height:1.6;white-space:nowrap}.chip-pass{background:#d8f3e7;color:#075438}.chip-fail{background:#ffdad6;color:#8f130b}.chip-unknown{background:#ffedc3;color:#624600}.chip-neutral{background:#e4e7ef;color:#404650}
+.visual-card{margin:22px 0;padding:24px;border-radius:24px;background:var(--md-sys-color-surface-container-low);border:1px solid #dfe2ec;min-width:0}.visual-card svg{display:block;width:100%;height:auto;max-width:100%;font-family:inherit}.visual-card figcaption{font-size:13px;color:var(--md-sys-color-on-surface-variant);margin-top:16px;line-height:1.9}.visual-card h2,.visual-card h3{margin:0 0 14px;border:0;padding:0}.visual-card .legend{display:flex;gap:16px;flex-wrap:wrap}.visual-card table{margin-top:14px;font-size:12px}.legend-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.visual-card svg{max-width:680px;margin:0 auto}.visual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0}.visual-grid .visual-card{margin:0;padding:20px 16px}.visual-legend{display:flex;gap:16px;flex-wrap:wrap;list-style:none;padding:0!important;font-size:12px}.visual-legend li{margin:6px 0}.visual-card caption{text-align:left;padding:10px 0;font-weight:600;font-size:12px}.visual-card table td,.visual-card table th{padding:9px;font-size:11px}
+.table-wrap{overflow:auto;border:1px solid #dfe2ec;border-radius:16px;margin:18px 0;max-width:100%;scrollbar-color:#b4bfd7 transparent}.table-wrap:focus-visible{outline:3px solid var(--md-sys-color-primary)}table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.8;font-variant-numeric:tabular-nums}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e1e2e9;padding:14px 15px}th{background:#ebeff9;color:#2d4166;font-weight:700;position:sticky;top:0}tbody tr:nth-child(even){background:#fafbfe}tbody tr:hover{background:#f1f5ff}td code{font-size:11px;word-break:break-all}td.num{text-align:right;white-space:nowrap}tr:last-child td{border-bottom:0}
+code{font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;background:#edf0f8;color:#24416e;padding:2px 5px;border-radius:5px;overflow-wrap:anywhere}pre{background:#182238;color:#edf2ff;padding:22px;overflow:auto;border-radius:16px;max-width:100%;font-size:12px}pre code{background:none;color:inherit;padding:0;overflow-wrap:normal}.case-details{margin:24px 0;border:1px solid #dfe2ec;border-radius:16px;padding:14px 18px}.case-details summary{cursor:pointer;font-weight:650;color:var(--md-sys-color-primary);min-height:44px;display:flex;align-items:center}.source-note{margin-top:40px;padding:18px;border-radius:12px;background:var(--md-sys-color-surface-container);font-size:12px;color:var(--md-sys-color-on-surface-variant)}footer{max-width:1460px;margin:0 auto;padding:24px 28px 40px;display:flex;gap:18px;flex-wrap:wrap}
+@media(max-width:1100px){.report-layout{grid-template-columns:180px minmax(0,1fr);gap:18px}.report-content{padding:28px}.app-nav a{padding:8px 12px}}
+@media(max-width:850px){.report-layout{display:block}.document-outline{position:static;max-height:none;margin-bottom:18px;padding:14px 18px}.document-outline a{display:inline-block;border:0;font-size:12px}.document-outline h2{margin-bottom:4px}.app-bar-inner{align-items:flex-start;flex-direction:column;gap:8px}.app-nav{width:100%;overflow:auto;flex-wrap:nowrap}.app-nav a{white-space:nowrap;min-height:40px}.page-container{margin:18px auto;padding:0 16px}.report-content{padding:24px;border-radius:24px}.visual-card{padding:18px}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1080px){.visual-grid{grid-template-columns:1fr}}
+@media(max-width:850px){html{scroll-padding-top:152px}}
+@media(max-width:480px){body{font-size:15px}.page-container{padding:0 10px}.app-bar-inner{padding:12px 16px}.report-content{padding:20px 16px}.report-content h1{font-size:27px}.report-content h2{font-size:20px}.metric-card{padding:16px}.metric-card .metric-value{font-size:24px}.visual-card{padding:12px}.cards{grid-template-columns:1fr}.notice{padding:16px}th,td{padding:10px;font-size:12px}footer{padding:20px 16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card{transition:none}}
+</style></head><body><a class="skip-link" href="#report-content">본문으로 건너뛰기</a><header class="app-bar"><div class="app-bar-inner"><a class="brand" href="https://wontaejeong.github.io/ace-rtl-jev/index.html"><span class="brand-mark" aria-hidden="true">RTL</span><span>ACE-RTL × JEV<small>측정과 근거 중심의 검증 보고서</small></span></a><nav class="app-nav" aria-label="주 메뉴"><a href="https://wontaejeong.github.io/ace-rtl-jev/index.html">보고서 목록</a><a href="https://wontaejeong.github.io/ace-rtl-jev/native/index.html">최신 검증</a><a href="https://wontaejeong.github.io/ace-rtl-jev/completion/index.html">완료·제한</a><a href="https://wontaejeong.github.io/ace-rtl-jev/runbook/index.html">사용법</a></nav></div></header><div class="page-container"><div class="report-layout"><aside class="document-outline"><h2>문서 목차</h2><nav aria-label="문서 목차"><a href="#section-1">1. 판단 지점 실측</a><a href="#section-2">2. 실제 CVDP E2E</a><a href="#section-3">조건과 측정</a><a href="#section-4">제공자 사용량 집계</a><a href="#section-5">케이스별 결과</a><a href="#section-6">한계</a><a href="#section-7">3. 비용 제어와 원본 보존</a><a href="#section-8">4. 해석·한계·후속 방향</a><a href="#section-9">5. 재현 경로</a></nav></aside><main id="report-content" class="report-content"><div class="eyebrow">실제 측정 · 공개 근거</div><p class="notice"><strong>과거 실험 자료</strong>최신 네이티브 A/B/C와 별도 실행입니다. 표본·조건·사용량 미확인 항목을 구분해 해석하십시오.</p><h1>ACE-RTL JEV-like 최종 제한 예산 검증 보고서</h1><figure class="visual-card"><h3>판단 감사 · 실행 → 계약 검사 → 승인</h3><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="report-visual-7-title report-visual-7-desc" width="100%" viewBox="0 0 480 334" style="display:block;max-width:100%;height:auto" font-family="sans-serif"><title id="report-visual-7-title">판단 감사 · 실행 → 계약 검사 → 승인</title><desc id="report-visual-7-desc">승인은 판단 계약의 승인이지 벤치마크 성공률이 아닙니다. 대체 필요 수에는 계약 오류가 포함되며, 실제 대체 호출과 다릅니다. 과거 대리 지표와의 일치는 의미 정확도가 아닙니다.</desc><text x="16" y="32" font-size="23" fill="#2457c5" font-weight="700" text-anchor="start">실행 48건</text><rect x="16.000" y="48" width="448.000" height="24" fill="#2457c5"/><text x="240" y="101" font-size="18" fill="#192b42" font-weight="400" text-anchor="middle">↓ 계약 검사</text><text x="16" y="134" font-size="19" fill="#192b42" font-weight="600" text-anchor="start">스키마 유효 45 / 오류 3</text><rect x="16.000" y="151" width="420.000" height="24" fill="#00796b"/><rect x="436.000" y="151" width="28.000" height="24" fill="#b3261e"/><text x="240" y="203" font-size="18" fill="#192b42" font-weight="400" text-anchor="middle">↓ 전체 실행의 승인 여부</text><text x="16" y="235" font-size="19" fill="#192b42" font-weight="600" text-anchor="start">승인 13 / 대체 필요 35</text><rect x="16.000" y="252" width="121.333" height="24" fill="#00796b"/><rect x="137.333" y="252" width="326.667" height="24" fill="#925c00"/><text x="16" y="310" font-size="18" fill="#192b42" font-weight="400" text-anchor="start">과거 대리 지표 일치: 1 / 19</text></svg><figcaption>승인은 판단 계약의 승인이지 벤치마크 성공률이 아닙니다. 대체 필요 수에는 계약 오류가 포함되며, 실제 대체 호출과 다릅니다. 과거 대리 지표와의 일치는 의미 정확도가 아닙니다.</figcaption><ul class="visual-legend"><li><span aria-hidden="true" style="color:#2457c5">■</span> 실행 · 파랑</li><li><span aria-hidden="true" style="color:#00796b">■</span> 유효 또는 승인 · 청록</li><li><span aria-hidden="true" style="color:#b3261e">■</span> 오류 · 빨강</li><li><span aria-hidden="true" style="color:#925c00">■</span> 대체 필요 · 황갈색</li></ul><div class="table-wrap"><table><caption>그림의 정확한 값</caption><thead><tr><th scope="col">항목</th><th scope="col">정확한 값(건)</th></tr></thead><tbody><tr><th scope="row">실행</th><td>48</td></tr><tr><th scope="row">스키마 유효</th><td>45</td></tr><tr><th scope="row">판단 오류</th><td>3</td></tr><tr><th scope="row">승인</th><td>13</td></tr><tr><th scope="row">대체 필요</th><td>35</td></tr><tr><th scope="row">실제 주 모델 대체 호출</th><td>0</td></tr><tr><th scope="row">과거 대리 지표 레이블</th><td>19</td></tr><tr><th scope="row">과거 대리 지표 일치</th><td>1</td></tr></tbody></table></div></figure><figure class="visual-card"><h3>과거 단일 과제 · 실제 토큰 비교</h3><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="report-visual-8-title report-visual-8-desc" width="100%" viewBox="0 0 480 318" style="display:block;max-width:100%;height:auto" font-family="sans-serif"><title id="report-visual-8-title">과거 단일 과제 · 실제 토큰 비교</title><desc id="report-visual-8-desc">과거 과제 1개 비교이며 최신 A/B/C와 다른 실험입니다. 관측된 토큰 변화는 일반화 가능한 효과나 JEV의 우위를 입증하지 않습니다. 단위: 토큰.</desc><text x="16" y="32" font-size="19" fill="#192b42" font-weight="600" text-anchor="start">기준 실행 · 과제 1개</text><rect x="16.000" y="48" width="409.767" height="24" fill="#2457c5" data-arm="기준"/><text x="16" y="97" font-size="17" fill="#192b42" font-weight="400" text-anchor="start">주 모델 45,979 / JEV 0</text><text x="16" y="122" font-size="18" fill="#192b42" font-weight="600" text-anchor="start">보고된 합계 45,979 토큰</text><text x="16" y="150" font-size="19" fill="#192b42" font-weight="600" text-anchor="start">JEV 적용 · 과제 1개</text><rect x="16.000" y="166" width="403.538" height="24" fill="#2457c5" data-arm="JEV"/><rect x="419.538" y="166" width="44.462" height="24" fill="#00796b" data-arm="JEV"/><text x="16" y="215" font-size="17" fill="#192b42" font-weight="400" text-anchor="start">주 모델 45,280 / JEV 4,989</text><text x="16" y="240" font-size="18" fill="#192b42" font-weight="600" text-anchor="start">보고된 합계 50,269 토큰</text><text x="16" y="291" font-size="21" fill="#925c00" font-weight="600" text-anchor="start">보고된 토큰 변화: +9.33%</text></svg><figcaption>과거 과제 1개 비교이며 최신 A/B/C와 다른 실험입니다. 관측된 토큰 변화는 일반화 가능한 효과나 JEV의 우위를 입증하지 않습니다. 단위: 토큰.</figcaption><ul class="visual-legend"><li><span aria-hidden="true" style="color:#2457c5">■</span> 주 모델 토큰 · 파랑</li><li><span aria-hidden="true" style="color:#00796b">■</span> JEV 토큰 · 청록</li></ul><div class="table-wrap"><table><caption>그림의 정확한 값</caption><thead><tr><th scope="col">실행</th><th scope="col">과제 수</th><th scope="col">주 모델 토큰</th><th scope="col">JEV 토큰</th><th scope="col">보고된 합계 토큰</th></tr></thead><tbody><tr><th scope="row">기준 실행</th><td>1</td><td>45,979</td><td>0</td><td>45,979</td></tr><tr><th scope="row">JEV 적용</th><td>1</td><td>45,280</td><td>4,989</td><td>50,269</td></tr></tbody></table></div></figure>
+<p><strong>범위:</strong> 기존 292-케이스 기준 실행 재사용, 판단 지점 48개 + 실제 CVDP 1개 E2E. 전체 292개 개선 버전 평가는 실행하지 않았다. <strong>결과를 구분한다:</strong> 판단 API 비용 실험은 전체 RTL 성공률 실험이 아니다. 1-케이스 결과는 일반화·통계적 우위를 입증하지 않는다.</p>
+<p><strong>핵심 결론:</strong> 소규모 실측은 전체 JEV 기본 적용의 개선을 입증하지 않는다. 실측 케이스 토큰 45979 → 50269 (+9.33%), 평균 케이스 시간 43.794 → 65.415 s. 실제 주력 모델 대체 호출 1회. 원래 배치 동시 실행 조건이 달라 시간 차이를 통제된 속도 차이로 해석하지 않는다. 판단 감사는 48회 중 45개 스키마 유효 /3개 판단 오류, 수용 13개 /대체 호출 필요 35개였다. 옛 주력 모델 문장 휴리스틱과 19개 중 1개 일치(정답 기준 아님), 공식 전체 통과 12개 중 12개 해결로 판단했다. 수용 부분집합 토큰 감소만으로 전체 최적화를 주장하지 않는다. 수용 판단 13개 중 11개는 이미 공식 평가기가 전체 통과인 상태였다. 따라서 단순히 성공을 확인하는 데 모델을 쓰지 않는 결정적 종료 상태 처리부터 오프라인 검토할 가치가 있다. 해당 개선은 이번에 구현/추가 실험하지 않았으며 절감을 실제 성과로 계산하지 않는다. 따라서 기준 실행을 기본으로 유지하고 JEV 경로를 실험적으로 선택 활성화하는 경로로 둔다. 남은 예산을 이유로 재시도·추가 평가군을 실행하지 않았다.</p>
+<h2 id="section-1">1. 판단 지점 실측</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="보고서 수치 표"><table><thead><tr><th scope="col">항목</th><th scope="col">결과</th></tr></thead><tbody>
+<tr><td>선택 판단 수</td><td class="num">48</td></tr>
+<tr><td>실행 판단 수</td><td class="num">48</td></tr>
+<tr><td>유효 판단 수</td><td class="num">45</td></tr>
+<tr><td>판단 오류 수</td><td class="num">3</td></tr>
+<tr><td>수용 판단 수</td><td class="num">13</td></tr>
+<tr><td>대체 호출 필요 판단 수</td><td class="num">35</td></tr>
+<tr><td>과거 주력 모델 토큰</td><td class="num">622384</td></tr>
+<tr><td>실제 JEV 토큰</td><td class="num">159308</td></tr>
+<tr><td>확인된 실제 JEV 비용 (USD)</td><td class="num">0.006569219999999998</td></tr>
+<tr><td>JEV 사용량 미확인 호출</td><td class="num">0</td></tr>
+<tr><td>수용 판단 부분집합 토큰 감소율 (%)</td><td class="num">75.68949580107383</td></tr>
+<tr><td>주력 모델 대리 지표 판정 수</td><td class="num">19</td></tr>
+<tr><td>주력 모델 대리 지표 일치 수</td><td class="num">1</td></tr>
+<tr><td>공식 전체 통과 기준 판정 수</td><td class="num">12</td></tr>
+<tr><td>공식 전체 통과 중 해결 판단 수</td><td class="num">12</td></tr>
+</tbody></table></div>
+<p>각 시점 기록의 원래 주력 LLM 요청을 생성 후보·실제 출력된 보고서·역할 메타데이터로 재구성하고 원본 API 사건 기록 SHA256의 정확한 일치를 요구했다. 원본 판단 토큰은 과거 실제 측정이며 새 주력 호출로 재측정하지 않았다. JEV는 제한된 상태와 유한한 선택지 출력만 사용한다. 기존 주력 LLM의 풍부한 변경 분석/설명과 정보량이 같지 않으므로 토큰 감소에는 정확도·정보 손실 상충 관계가 있다. 수용 판단 부분집합 토큰 감소율 (%)는 <strong>확신 기준을 통과한 판단 부분집합만의</strong> 원본 기록 대비 실제 JEV 토큰 감소이며 전체 에이전트 절감률이 아니다. 실패·불확실 판단의 실제 JEV 비용은 모두 포함했다. 주력 모델 대리 지표 일치는 추출한 옛 주력 모델 문장과의 휴리스틱 일치이며 정답 기준이 아니다. 전체 통과 부분집합에서는 공식 평가기가 통과한 경우 해결 판단인지 제한적으로 확인했다. 감사 단계에서는 추가 주력 대체 호출을 구매하지 않았다. 대체 호출 필요 판단과 실제 대체 호출을 혼동하지 않는다. 다음 값은 실제 지출이 아닌 <strong>원본 대체 호출 토큰을 재사용한 시나리오 추정</strong>이다: <code>hypothetical_tokens_with_historical_fallback = 629153</code>.</p>
+<h2 id="section-2">2. 실제 CVDP E2E</h2>
+<h1>ACE-RTL 실측 비교</h1>
+<p>기준 실행 상태: <code>completed</code>; 평가 범위 1/1. 개선 실행 상태: <code>completed</code>.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="보고서 수치 표"><table><thead><tr><th scope="col">지표</th><th scope="col">기준 실행</th><th scope="col">JEV-like</th><th scope="col">변화 (JEV − 기준 실행)</th></tr></thead><tbody>
+<tr><td>평가 케이스 수</td><td class="num">1</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>성공 케이스 수</td><td class="num">1</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td>성공률 (0–1)</td><td class="num">1.000</td><td class="num">1.000</td><td class="num">0.000</td></tr>
+<tr><td>총 토큰 (보고된 사용량 + 공개된 추정치)</td><td class="num">45979</td><td class="num">50269</td><td class="num">4290</td></tr>
+<tr><td>평균 토큰/케이스</td><td class="num">45979.000</td><td class="num">50269.000</td><td class="num">4290.000</td></tr>
+<tr><td>총 실행 시간 (배치 경과 시간, 초)</td><td><span class="chip chip-unknown">자료 없음</span></td><td class="num">65.421</td><td><span class="chip chip-unknown">자료 없음</span></td></tr>
+<tr><td>평균 실행 시간/케이스 (s)</td><td class="num">43.794</td><td class="num">65.415</td><td class="num">21.621</td></tr>
+<tr><td>주력 LLM 호출 수</td><td class="num">8</td><td class="num">7</td><td class="num">-1</td></tr>
+<tr><td>JEV-like 호출 수</td><td class="num">0</td><td class="num">2</td><td class="num">2</td></tr>
+<tr><td>평균 호출 지연 시간 (s)</td><td class="num">5.182</td><td class="num">6.922</td><td class="num">1.740</td></tr>
+<tr><td>실패 및 오류 건수</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+</tbody></table></div>
+<p>회고 판단 연결부 사용량: 2 평가 단계 JEV 호출 (준비 실행 제외).</p>
+<p>실측 토큰 절감률 (%): -9.330. 실측 배치 경과 시간 절감률 (%): 자료 없음.</p>
+<h2 id="section-3">조건과 측정</h2>
+<pre><code>{
   &quot;attempts&quot;: 1,
   &quot;iterations&quot;: 5,
   &quot;workers&quot;: 8,
   &quot;llm_timeout&quot;: 90,
   &quot;evaluator_timeout&quot;: 300,
   &quot;case_timeout&quot;: 1800
-}
-```
-
-Warmup is actual inference, excluded from evaluation metrics. Total wall time is concurrent batch wall time; average case time includes subprocess/evaluator/repair overhead. Retry calls, JEV calls and primary fallback calls count toward totals.
-An inflight/error call with unavailable usage is not assigned fictional zero cost. Unknown billing suppresses token savings. Char/4 estimates are labeled and cannot establish measured token savings. Provider caches/load time may be opaque; no custom cache was added.
-
-## Provider accounting
-
-| Mode/provider | Calls | Reported input | Reported output | Reported total | Estimated total | Unknown usage calls | Fallback calls | Mean latency (s) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| baseline/primary | 8 | 41746 | 4233 | 45979 | 0 | 0 | 0 | 5.182 |
-| baseline/jev | 0 | 0 | 0 | 0 | 0 | 0 | 0 | Unavailable |
-| jev/primary | 7 | 40219 | 5061 | 45280 | 0 | 0 | 1 | 8.774 |
-| jev/jev | 2 | 4871 | 118 | 4989 | 0 | 0 | 1 | 0.439 |
-
-## Case outcomes
-
-| Case | Baseline | JEV-like | Baseline s | JEV s |
-|---|---|---|---:|---:|
-| `cvdp_copilot_bus_arbiter_0001` | success | success | 43.794 | 65.415 |
-
-## Limitations
-
-One bounded non-agentic no-commercial native cohort, not all CVDP workflows or original default budgets. Commercial rows are explicitly excluded by actual tool requirements. API stochasticity and remote latency remain uncontrolled; single-run differences are descriptive, not statistically established effects. Repetitions/ablation must be reported only when actually executed. See environment and opportunities documents for provenance, integrity rules and remaining work.
-</pre></details><footer>Self-contained HTML; no external assets or model inference used to render this report.</footer><details><summary>전체 보고서 / 방법 / 한계</summary><pre># ACE-RTL JEV-like 최종 제한 예산 검증 보고서
-
-**범위:** 기존 292-case Baseline 재사용, 판단 지점 48개 + 실제 CVDP 1개 E2E. 전체 292개 개선 버전 평가는 실행하지 않았다.
-**결과를 구분한다:** 판단 API 비용 실험은 전체 RTL 성공률 실험이 아니다. 1-case 결과는 일반화·통계적 우위를 입증하지 않는다.
-
-**핵심 결론:** 소규모 실측은 전체 JEV 기본 적용의 개선을 입증하지 않는다. 실측 case 토큰 45979 → 50269 (+9.33%), 평균 case 시간 43.794 → 65.415 s. 실제 primary fallback 1회. 원래 batch 동시 실행 조건이 달라 시간 차이를 통제된 속도 차이로 해석하지 않는다.
-판단 감사는 48회 중 45개 schema-valid /3개 decision error, 수용 13개 /would-fallback 35개였다. 옛 primary 문장 휴리스틱과 19개 중 1개 일치(ground truth 아님), 공식 all-pass 12개 중 12개 resolved였다. 수용 부분집합 토큰 감소만으로 전체 최적화를 주장하지 않는다.
-수용 판단 13개 중 11개는 이미 공식 evaluator가 all-pass인 상태였다. 따라서 단순히 성공을 확인하는 데 모델을 쓰지 않는 결정적 terminal 처리부터 오프라인 검토할 가치가 있다. 해당 개선은 이번에 구현/추가 실험하지 않았으며 절감을 실제 성과로 계산하지 않는다.
-따라서 baseline을 기본으로 유지하고 JEV 경로를 실험적 opt-in으로 둔다. 남은 예산을 이유로 재시도·추가 cohort를 실행하지 않았다.
-
-## 1. 판단 지점 실측
-
-| 항목 | 결과 |
-|---|---:|
-| selected_count | 48 |
-| executed_count | 48 |
-| valid_decisions | 45 |
-| decision_errors | 3 |
-| accepted_decisions | 13 |
-| would_fallback_count | 35 |
-| historical_primary_tokens | 622384 |
-| actual_jev_tokens | 159308 |
-| actual_jev_usd_known | 0.006569219999999998 |
-| unknown_jev_usage_calls | 0 |
-| accepted_point_token_reduction_percent | 75.68949580107383 |
-| primary_proxy_labeled_count | 19 |
-| primary_proxy_agree_count | 1 |
-| all_pass_oracle_count | 12 |
-| all_pass_resolved_count | 12 |
-
-각 snapshot의 원래 주력 LLM 요청을 생성 후보·실제 emitted 보고서·role metadata로 재구성하고 원본 API event SHA256의 정확한 일치를 요구했다. 원본 판단 토큰은 과거 실제 측정이며 새 주력 호출로 재측정하지 않았다.
-JEV는 bounded state와 finite-label 출력만 사용한다. 기존 주력 LLM의 풍부한 변경 분석/설명과 정보량이 같지 않으므로 토큰 감소에는 정확도·정보 손실 trade-off가 있다.
-accepted_point_token_reduction_percent는 **확신 기준을 통과한 판단 부분집합만의** 원본 기록 대비 실제 JEV 토큰 감소이며 전체 agent 절감률이 아니다. 실패·불확실 판단의 실제 JEV 비용은 모두 포함했다.
-primary_proxy_agreement는 추출한 옛 primary 문장과의 휴리스틱 일치이며 ground truth가 아니다. all-pass subset에서는 공식 evaluator가 통과한 경우 resolved인지 제한적으로 확인했다.
-감사 단계에서는 추가 주력 fallback을 구매하지 않았다. would-fallback과 actual fallback을 혼동하지 않는다. 다음 값은 실제 지출이 아닌 **원본 fallback 토큰을 재사용한 시나리오 추정**이다:
-`hypothetical_tokens_with_historical_fallback = 629153`.
-
-## 2. 실제 CVDP E2E
-
-# ACE-RTL measured comparison
-
-Baseline state: `completed`; coverage 1/1.
-Improved state: `completed`.
-
-| 지표 | Baseline | JEV-like | 변화 (JEV − baseline) |
-|---|---:|---:|---:|
-| 평가 케이스 수 | 1 | 1 | 0 |
-| 성공 케이스 수 | 1 | 1 | 0 |
-| 성공률 (0–1) | 1.000 | 1.000 | 0.000 |
-| 총 토큰 (reported + disclosed estimates) | 45979 | 50269 | 4290 |
-| 평균 토큰/케이스 | 45979.000 | 50269.000 | 4290.000 |
-| 총 실행 시간 (batch wall s) | Unavailable | 65.421 | Unavailable |
-| 평균 실행 시간/케이스 (s) | 43.794 | 65.415 | 21.621 |
-| 주력 LLM 호출 수 | 8 | 7 | -1 |
-| JEV-like 호출 수 | 0 | 2 | 2 |
-| 평균 호출 지연 시간 (s) | 5.182 | 6.922 | 1.740 |
-| 실패 및 오류 건수 | 0 | 0 | 0 |
-
-Retrospective hook coverage: 2 evaluation-phase JEV calls (warmup excluded).
-
-Measured token savings (%): -9.330.
-Measured batch wall-time savings (%): Unavailable.
-
-## Conditions and measurement
-
-```json
-{
-  &quot;attempts&quot;: 1,
-  &quot;iterations&quot;: 5,
-  &quot;workers&quot;: 8,
-  &quot;llm_timeout&quot;: 90,
-  &quot;evaluator_timeout&quot;: 300,
-  &quot;case_timeout&quot;: 1800
-}
-```
-
-Warmup is actual inference, excluded from evaluation metrics. Total wall time is concurrent batch wall time; average case time includes subprocess/evaluator/repair overhead. Retry calls, JEV calls and primary fallback calls count toward totals.
-An inflight/error call with unavailable usage is not assigned fictional zero cost. Unknown billing suppresses token savings. Char/4 estimates are labeled and cannot establish measured token savings. Provider caches/load time may be opaque; no custom cache was added.
-
-## Provider accounting
-
-| Mode/provider | Calls | Reported input | Reported output | Reported total | Estimated total | Unknown usage calls | Fallback calls | Mean latency (s) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| baseline/primary | 8 | 41746 | 4233 | 45979 | 0 | 0 | 0 | 5.182 |
-| baseline/jev | 0 | 0 | 0 | 0 | 0 | 0 | 0 | Unavailable |
-| jev/primary | 7 | 40219 | 5061 | 45280 | 0 | 0 | 1 | 8.774 |
-| jev/jev | 2 | 4871 | 118 | 4989 | 0 | 0 | 1 | 0.439 |
-
-## Case outcomes
-
-| Case | Baseline | JEV-like | Baseline s | JEV s |
-|---|---|---|---:|---:|
-| `cvdp_copilot_bus_arbiter_0001` | success | success | 43.794 | 65.415 |
-
-## Limitations
-
-One bounded non-agentic no-commercial native cohort, not all CVDP workflows or original default budgets. Commercial rows are explicitly excluded by actual tool requirements. API stochasticity and remote latency remain uncontrolled; single-run differences are descriptive, not statistically established effects. Repetitions/ablation must be reported only when actually executed. See environment and opportunities documents for provenance, integrity rules and remaining work.
-
-
-## 3. 비용 제어와 원본 보존
-
-주력 API 12회/예약 300,000 tokens, JEV 64회/예약 1,000,000 tokens/USD 0.10 노출 한도. 공유 SQLite가 warmup·재시도·실제 fallback까지 포함한다. redirect 재전송을 차단하고, token 정보 없는 실패도 예약을 유지하며, 답변이 잘못돼도 유효한 USD 영수증은 정산한다.
-입력 UTF-8 bytes + wrapper/output allowance 예약은 opaque provider의 절대 요금 보증이 아니다. 주력 가격 API는 model ID만 제공하여 정확한 주력 USD와 전체 비용을 만들지 않았다. JEV receipt USD는 OpenRouter 공식 문서로 확인했다. 서버측 credit cap이 필요하면 운영자가 설정해야 한다.
-Baseline은 다시 실행하지 않았다. 292-case clean baseline은 239 success / 52 failure / 1 timeout, 4,367.250 s, 알려진 16,538,281 tokens +33 usage-unknown calls로 보존돼 있다.
-
-## 4. 해석·한계·후속 방향
-
-1-case E2E에서 토큰이 늘거나 지연이 증가하면 그대로 보고한다. 원래 292-case batch와 달리 새로운 한 케이스만 실행했으므로 historical per-case 시간 차이를 통제된 batch speedup으로 주장하지 않는다.
-판단 실패/낮은 confidence/낮은 proxy agreement가 많으면 원래 주력 경로를 유지하는 것이 합리적이다. 코드 생성과 깊은 수정 추론은 대체하지 않았다. 비용이 남았다는 이유로 추가 실험을 임의로 확대하지 않는다.
-추가 설계: 목표 오류 식별과 report compaction 품질을 먼저 오프라인 보완하고, 더 큰 paired cohort/반복/ablation은 별도 예산을 정한 뒤 수행한다. 현재 그런 실험은 NOT RUN이다.
-
-## 5. 재현 경로
-
-- Study: `experiments/studies/jev-budgeted-20261011-reviewed`
-- Actual E2E: `/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520`
-- CLI / 설정: `docs/experiments/jev-guide.md`
-- 원본 JSON/CSV/API events와 budget JSON snapshots는 저장소에, private harness/입력과 SQLite binary는 로컬 ignored 영역에 유지한다.
-</pre></details></main></body></html>
+}</code></pre>
+<p>준비 실행은 실제 추론이며 평가 지표에서 제외한다. 총 경과 시간은 동시 실행 배치의 실제 경과 시간이며, 평균 케이스 시간에는 하위 프로세스·평가기·수정 처리의 부가 시간이 포함된다. 재시도 호출, JEV 호출, 주력 모델 대체 호출을 모두 합산한다. 사용량이 없는 진행 중·오류 호출에는 비용이 없다고 임의로 가정하지 않는다. 과금이 미확인이면 토큰 절감률을 제시하지 않는다. 문자 수/4 추정치는 별도로 표시하며 실측 토큰 절감을 입증하지 못한다. 제공자의 캐시·적재 시간은 불투명할 수 있으며 별도 캐시는 추가하지 않았다.</p>
+<h2 id="section-4">제공자 사용량 집계</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="보고서 수치 표"><table><thead><tr><th scope="col">실행 방식/제공자</th><th scope="col">호출 수</th><th scope="col">보고된 입력 토큰</th><th scope="col">보고된 출력 토큰</th><th scope="col">보고된 총 토큰</th><th scope="col">추정 총 토큰</th><th scope="col">사용량 미확인 호출</th><th scope="col">대체 호출</th><th scope="col">평균 지연 (초)</th></tr></thead><tbody>
+<tr><td>기준 실행/주력 모델</td><td class="num">8</td><td class="num">41746</td><td class="num">4233</td><td class="num">45979</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">5.182</td></tr>
+<tr><td>기준 실행/JEV</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td><span class="chip chip-unknown">자료 없음</span></td></tr>
+<tr><td>JEV 실행/주력 모델</td><td class="num">7</td><td class="num">40219</td><td class="num">5061</td><td class="num">45280</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">8.774</td></tr>
+<tr><td>JEV 실행/JEV</td><td class="num">2</td><td class="num">4871</td><td class="num">118</td><td class="num">4989</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">0.439</td></tr>
+</tbody></table></div>
+<h2 id="section-5">케이스별 결과</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="보고서 수치 표"><table><thead><tr><th scope="col">케이스</th><th scope="col">기준 실행</th><th scope="col">JEV-like</th><th scope="col">기준 실행 시간 (초)</th><th scope="col">JEV 시간 (초)</th></tr></thead><tbody>
+<tr><td><code>cvdp_copilot_bus_arbiter_0001</code></td><td><span class="chip chip-pass">성공</span></td><td><span class="chip chip-pass">성공</span></td><td class="num">43.794</td><td class="num">65.415</td></tr>
+</tbody></table></div>
+<h2 id="section-6">한계</h2>
+<p>비에이전트 방식·비상용 도구의 제한된 네이티브 평가군 한 묶음으로, 모든 CVDP 작업 흐름이나 원래 기본 예산을 포괄하지 않는다. 실제 도구 요구에 따라 상용 도구가 필요한 항목을 명시적으로 제외했다. API의 확률적 변동과 원격 지연은 통제하지 못했으며, 단일 실행 차이는 관찰 결과일 뿐 통계적으로 입증된 효과가 아니다. 반복·요소 제거 실험은 실제 실행한 경우에만 보고해야 한다. 출처·무결성 규칙·남은 작업은 환경 및 개선 기회 문서를 참고한다.</p>
+<h2 id="section-7">3. 비용 제어와 원본 보존</h2>
+<p>주력 API 12회/예약 300,000 토큰, JEV 64회/예약 1,000,000 토큰/USD 0.10 노출 한도. 공유 SQLite가 준비 실행·재시도·실제 대체 호출까지 포함한다. 리디렉션 재전송을 차단하고, 토큰 정보 없는 실패도 예약을 유지하며, 답변이 잘못돼도 유효한 USD 영수증은 정산한다. 입력 UTF-8 바이트 + 래퍼·출력 여유분 예약은 불투명한 제공자의 절대 요금 보증이 아니다. 주력 가격 API는 모델 식별자만 제공하여 정확한 주력 USD와 전체 비용을 만들지 않았다. JEV USD 영수증은 OpenRouter 공식 문서로 확인했다. 서버측 사용 한도가 필요하면 운영자가 설정해야 한다. 기준 실행은 다시 실행하지 않았다. 292-케이스 정리된 기준 실행은 239 성공 / 52 실패 / 1 시간 초과, 4,367.250 s, 알려진 16,538,281 토큰 +33 사용량 미확인 호출로 보존돼 있다.</p>
+<h2 id="section-8">4. 해석·한계·후속 방향</h2>
+<p>1-케이스 E2E에서 토큰이 늘거나 지연이 증가하면 그대로 보고한다. 원래 292-케이스 배치와 달리 새로운 한 케이스만 실행했으므로 과거 케이스별 시간 차이를 통제된 배치 속도 개선으로 주장하지 않는다. 판단 실패/낮은 확신도/낮은 대리 지표 일치가 많으면 원래 주력 경로를 유지하는 것이 합리적이다. 코드 생성과 깊은 수정 추론은 대체하지 않았다. 비용이 남았다는 이유로 추가 실험을 임의로 확대하지 않는다. 추가 설계: 목표 오류 식별과 보고서 압축 품질을 먼저 오프라인 보완하고, 더 큰 짝지은 평가군/반복/요소 제거 실험은 별도 예산을 정한 뒤 수행한다. 현재 그런 실험은 미실행이다.</p>
+<h2 id="section-9">5. 재현 경로</h2>
+<ul>
+<li>연구: <code>experiments/studies/jev-budgeted-20261011-reviewed</code></li>
+<li>실제 E2E 실행: <code>/Users/wt.jeong/workspace/ACE-RTL/.worktrees/ace-rtl-e2e/experiments/runs/jev-20261011T140333Z-87520</code></li>
+<li>CLI / 설정: <code>docs/experiments/jev-guide.md</code></li>
+<li>원본 JSON/CSV/API 사건 기록과 예산 JSON 시점 기록은 저장소에, 비공개 평가 장치/입력과 SQLite 바이너리는 로컬 Git 추적 제외 영역에 유지한다.</li>
+</ul></main></div></div><footer><span>유효한 실제 CVDP 평가 결과만 통과의 근거로 사용합니다.</span><a href="https://github.com/wontaeJeong/ace-rtl-jev">소스 저장소</a><a href="https://wontaejeong.github.io/ace-rtl-jev/publication.json">공개 자료 목록·원문 해시</a></footer></body></html>

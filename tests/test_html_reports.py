@@ -15,7 +15,7 @@ def test_html_report_is_self_contained_and_escapes_case_text():
     assert '<!doctype html>' in html.lower()
     assert '<script>alert(1)</script>' not in html
     assert '&lt;script&gt;' in html
-    assert 'Not run' in html
+    assert '미실행' in html
     assert 'src="http' not in html
 
 
